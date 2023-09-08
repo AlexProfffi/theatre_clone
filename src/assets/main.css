@@ -1,0 +1,130 @@
+.d_flex_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.d_flex_row_reverse {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.d_flex_column {
+    display: flex;
+    flex-direction: column;
+}
+
+.j_content_center {
+    justify-content: center;
+}
+
+.j_content_end {
+    justify-content: end;
+}
+
+.j_content_space_between {
+    justify-content: space-between;
+}
+
+.j_content_space_around {
+    justify-content: space-around;
+}
+
+.j_content_space_evently {
+    justify-content: space-evenly;
+}
+
+.flex_wrap {
+    flex-wrap: wrap;
+}
+
+
+/* width */
+
+.w_max_content {
+    width: max-content;
+}
+
+.w_100 {
+    width: 100%;
+}
+
+
+/* height */
+
+.h_100 {
+    height: 100%;
+}
+
+
+/* margin */
+
+.m_0 {
+    margin: 0;
+}
+
+
+/* padding */
+
+.ptb_40 {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.p_1_px {
+    padding: 1px 40px 1px 40px;
+}
+
+.p_lr_1 {
+    padding: 0 3.5em 0 3.5em;
+}
+
+.pad_both_7 {
+    padding: 0 7px 0 7px;
+}
+
+.p_l_2 {
+    padding-left: 2em;
+}
+
+
+/* font */
+
+.font_1 {
+    font-size: 14px;
+}
+
+.c_pointer {
+    cursor: pointer;
+}
+
+.open_sans {
+    font-family: "Open Sans", sans-serif;
+}
+
+.f_family_sans {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 600;
+}
+
+.upper_case {
+    text-transform: uppercase;
+}
+
+.none_text_decor {
+    text-decoration: none;
+}
+
+
+/* backgroung */
+
+.bg_grey_custom {
+    background-color: #f3f3f3;
+}
+
+
+/* ul */
+
+.none_decor_ul {
+    list-style: none;
+    padding: 0 16.5em 0 16.5em;
+}

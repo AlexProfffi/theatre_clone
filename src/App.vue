@@ -1,11 +1,11 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+ <div class="wrapper-main">
+  <router-view></router-view>
+ </div>
 </template>
+<script>
 
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 1em;
 }
 
 nav {
@@ -27,4 +28,9 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+.wrapper-main {
+  width: 100%;
+  height: 100%;
+}
+@import "assets/main.css"
 </style>
