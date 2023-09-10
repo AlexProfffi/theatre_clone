@@ -7,7 +7,10 @@
     >
       <div class="w_20_percent">
         <div>
-          <h4 class="f_oswald f_weight_300 m_0 p_l_2" :id="getMeDay(play.date_play).idEl">
+          <h4
+            class="f_oswald f_weight_300 m_0 p_l_2"
+            :id="getMeDay(play.date_play).idEl"
+          >
             {{ getMeDay(play.date_play).shortText }}
           </h4>
         </div>
@@ -32,18 +35,51 @@
           class="img_on_list"
         />
       </div>
-      <div class="w_20_percent">
-        <p>
+      <div class="d_flex_column w_20_percent">
+        <div class="d_flex_row">
+          <h3 class="f_oswald f_weight_400 current_play">
             {{ play.name }}
-        </p>
-        <p>
-            {{ play.staff }}
-        </p>
-        <p>
-            {{ play.dramaturg }}
-        </p>
+          </h3>
+        </div>
+        <div class="d_flex_row f_source_sans f_size_0_9">
+          <span>Драматург</span>
+          <span class="f_weight_bold p_l_0_5">
+            {{ play.dramaturg[0].first_name }}
+          </span>
+          <span class="f_weight_bold p_l_0_3">
+            {{ play.dramaturg[0].last_name }}
+          </span>
+        </div>
+        <div class="d_flex_row f_source_sans f_size_0_9">
+          <span>Режисер</span>
+          <span class="f_weight_bold p_l_0_5">{{ play.staff[0].name }}</span>
+          <span class="f_weight_bold p_l_0_3">{{ play.staff[0].surname }}</span>
+        </div>
+        <div class="d_flex_row f_oswald">
+          <h4
+            v-for="duration in setDurationPlay(
+              play.date_play,
+              play.duration_minutes
+            )"
+            :key="duration.value"
+            class="f_weight_300"
+          >
+            {{ duration.text }}
+          </h4>
+        </div>
       </div>
-      <div class="upper_case w_20_percent">купити квиток</div>
+      <div class="upper_case w_20_percent d_flex_column j_content_center">
+        <div class="open_sans f_size_32 c_pointer">
+          <router-link :to="{
+            name: 'play',
+            params: {id: play.id}
+          }" class="nav_link_color">
+            купити квиток
+          </router-link>
+          
+        </div>
+        <div></div>
+      </div>
       <div class="horizontal_line"></div>
     </div>
   </div>
@@ -60,8 +96,13 @@ export default {
   },
   created() {
     this.getPlays();
+    this.correctRange(14, 81);
+    this.lickPay();
   },
   methods: {
+    lickPay() {
+      
+    },
     async getPlays() {
       this.playList = await fetch(
         `${this.$store.getters.getServerUrl}/plays_all/`
@@ -128,13 +169,48 @@ export default {
       }
       return daysAllData[date.getDay()];
     },
+
+    correctRange(hours, minutes) {
+      // Коригує час тривалості
+      let range = [hours, minutes];
+      if (minutes > 60) {
+        range[0] = Math.floor(minutes / 60) + hours;
+        range[1] = minutes % 60;
+      }
+      return range;
+    },
+
+    setDurationPlay(time, duration) {
+      // Діапазон тривалості вистав
+      // від-до
+      let onlytime = String(time).split("T")[1];
+      onlytime = onlytime.split("+")[0].split(":").slice(0, 2);
+      let dur;
+      let minutes = duration;
+      let hour = 0;
+      let rangeLoc = this.correctRange(hour, minutes);
+      dur = this.correctRange(
+        rangeLoc[0] + Number(onlytime[0]),
+        rangeLoc[1] + Number(onlytime[1])
+      );
+      let dataDuration = [
+        { value: 0, text: onlytime.join(".") },
+        { value: 1, text: " - " },
+        { value: 2, text: dur.join(".") },
+      ];
+      return dataDuration;
+    },
   },
 };
 </script>
 <style scoped>
 @media screen and (max-width: 1550px) {
-  #short_day_4, #short_day_1 {
+  #short_day_4,
+  #short_day_1 {
     padding-left: 0.6em;
+  }
+  .current_play {
+    font-size: 1.2em !important;
   }
 }
 .img_on_list {
@@ -155,8 +231,8 @@ export default {
   width: 25%;
 }
 
-.f_oswald {
-  font-family: "Oswald", sans-serif;
+.f_size_0_9 {
+  font-size: 0.9em;
 }
 
 .f_size_25 {
@@ -167,7 +243,17 @@ export default {
   font-weight: 300;
   font-size: 1.5em;
 }
-.p_both_px {
-  padding: 0.1em 4em 0.1em 3em;
+
+.f_weight_400 {
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+.f_weight_bold {
+  font-weight: 600;
+}
+
+.v_align_center {
+  vertical-align: middle;
 }
 </style>

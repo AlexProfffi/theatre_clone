@@ -10,7 +10,7 @@
 <script>
 import DesktopRightCornerComponent from "@/components/header/DesktopRightCornerComponent.vue";
 import DesktopNameSiteComponent from "@/components/header/DesktopNameSiteComponent.vue";
-import DesktopNavigatorComponent from "./header/DesktopNavigatorComponent.vue";
+import DesktopNavigatorComponent from "@/components/header/DesktopNavigatorComponent.vue";
 
 export default {
   name: "HeaderComponent",

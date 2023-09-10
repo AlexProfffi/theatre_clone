@@ -81,12 +81,6 @@ export default {
 </script>
 <style scoped>
 
-.nav_link_color {
-  color: #3d3d3d;
-}
 
-.nav_link_color:hover {
-  color: black;
-}
 
 </style>

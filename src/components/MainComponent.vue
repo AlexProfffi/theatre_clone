@@ -12,8 +12,8 @@
   </div>
 </template>
   <script>
-import DesktopMonthNaviComponent from "./main/DesktopMonthNaviComponent.vue";
-import DesktopPosterComponent from "./main/DesktopPosterComponent.vue";
+import DesktopMonthNaviComponent from "@/components/main/DesktopMonthNaviComponent.vue";
+import DesktopPosterComponent from "@/components/main/DesktopPosterComponent.vue";
 
 export default {
   name: "MainComponent",
