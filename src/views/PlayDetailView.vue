@@ -1,25 +1,49 @@
 <template>
-  <div v-if="!isMobile" class="home_play">
+  <div id="detail" v-if="!isMobile" class="home_play">
     <div>
       <HeaderComponent />
     </div>
-    <h3 v-for="pl in playList" :key="pl.id">
-      {{ pl.name }}
-    </h3>
-    <h3 v-for="link in linkBuyTicketList" :key="link.id_link">
-      <a  :href="link.link">Оплата</a>
-    </h3>
+    <div>
+      <div v-for="pl in playList" :key="pl.id">
+        <PhotoPlayComponent
+          :photo="pl.photo"
+          :photo_2="pl.photo_2"
+          :photo_3="pl.photo_3"
+          :photo_4="pl.photo_4"
+          :photo_5="pl.photo_5"
+          :photo_6="pl.photo_6"
+          :photo_7="pl.photo_7"
+          :photo_8="pl.photo_8"
+          :photo_9="pl.photo_9"
+          :photo_10="pl.photo_10"
+        />
+        <h3>
+          {{ pl.name }}
+        </h3>
+      </div>
+
+      <h3 v-for="link in linkBuyTicketList" :key="link.id_link">
+        <a :href="link.link">Оплата</a>
+      </h3>
+    </div>
+    <div>
+      <FooterComponent />
+    </div>
   </div>
 </template>
     
     <script>
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
 
 export default {
   name: "PlayDetailView",
   components: {
     HeaderComponent,
+    FooterComponent,
+    PhotoPlayComponent,
   },
   props: {
     id: String,

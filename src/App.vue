@@ -1,11 +1,18 @@
 <template>
  <div class="wrapper-main">
   <router-view></router-view>
+  <AnchorComponent />
  </div>
 </template>
 <script>
-
+import AnchorComponent from './components/helpers/AnchorComponent.vue';
+export default {
+  components: {
+    AnchorComponent,
+  }
+}
 </script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

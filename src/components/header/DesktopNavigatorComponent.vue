@@ -9,7 +9,7 @@
         :id="nav.idEl"
         class=""
       >
-        <a href="#" class="upper_case none_text_decor nav_link_color">
+        <a :href="nav.linkTo" class="upper_case none_text_decor nav_link_color">
           {{ nav.txt }}
         </a>
       </li>
@@ -38,12 +38,22 @@ export default {
         "партнери",
         "контакти",
       ];
+      let listNaviLinks = [
+        "/main",
+        "/",
+        "/news",
+        "/about",
+        "/archive",
+        "/partners",
+        "/contacts",
+      ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {
         dataListNavi.push({
           value: x,
           txt: listNavi[x],
           idEl: "naviLink" + String(x),
+          linkTo: listNaviLinks[x],
         });
       }
       return dataListNavi;

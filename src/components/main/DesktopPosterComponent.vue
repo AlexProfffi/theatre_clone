@@ -8,7 +8,7 @@
       <div class="w_20_percent">
         <div>
           <h4
-            class="f_oswald f_weight_300 m_0 p_l_2"
+            class="f_oswald f_weight_300 m_0 p_l_2 short_day"
             :id="getMeDay(play.date_play).idEl"
           >
             {{ getMeDay(play.date_play).shortText }}
@@ -70,13 +70,15 @@
       </div>
       <div class="upper_case w_20_percent d_flex_column j_content_center">
         <div class="open_sans f_size_32 c_pointer">
-          <router-link :to="{
-            name: 'play',
-            params: {id: play.id}
-          }" class="nav_link_color">
+          <router-link
+            :to="{
+              name: 'play',
+              params: { id: play.id },
+            }"
+            class="nav_link_color"
+          >
             купити квиток
           </router-link>
-          
         </div>
         <div></div>
       </div>
@@ -100,9 +102,7 @@ export default {
     this.lickPay();
   },
   methods: {
-    lickPay() {
-      
-    },
+    lickPay() {},
     async getPlays() {
       this.playList = await fetch(
         `${this.$store.getters.getServerUrl}/plays_all/`
@@ -173,7 +173,7 @@ export default {
     correctRange(hours, minutes) {
       // Коригує час тривалості
       let range = [hours, minutes];
-      if (minutes > 60) {
+      if (minutes > 59) {
         range[0] = Math.floor(minutes / 60) + hours;
         range[1] = minutes % 60;
       }
@@ -193,6 +193,10 @@ export default {
         rangeLoc[0] + Number(onlytime[0]),
         rangeLoc[1] + Number(onlytime[1])
       );
+      if (dur[1] < 10) {
+        dur[1] = `0${dur[1]}`;
+      }
+
       let dataDuration = [
         { value: 0, text: onlytime.join(".") },
         { value: 1, text: " - " },
@@ -205,8 +209,7 @@ export default {
 </script>
 <style scoped>
 @media screen and (max-width: 1550px) {
-  #short_day_4,
-  #short_day_1 {
+  .short_day {
     padding-left: 0.6em;
   }
   .current_play {
@@ -223,9 +226,6 @@ export default {
   padding: 40px;
 }
 
-.horizontal_line {
-  border-bottom: 2px solid gray;
-}
 
 .w_20_percent {
   width: 25%;
@@ -242,18 +242,5 @@ export default {
 .f_weight_300 {
   font-weight: 300;
   font-size: 1.5em;
-}
-
-.f_weight_400 {
-  font-weight: 400;
-  font-size: 1.5em;
-}
-
-.f_weight_bold {
-  font-weight: 600;
-}
-
-.v_align_center {
-  vertical-align: middle;
 }
 </style>

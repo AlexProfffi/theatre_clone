@@ -6,6 +6,10 @@
     <div>
       <MainComponent />
     </div>
+    <div>
+      <FooterComponent />
+    </div>
+    <!-- <AnchorComponentVue /> -->
   </div>
 </template>
   
@@ -13,12 +17,16 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import MainComponent from "@/components/MainComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+// import AnchorComponentVue from "@/components/helpers/AnchorComponent.vue";
 
 export default {
   name: "PlaysListView",
   components: {
     HeaderComponent,
     MainComponent,
+    FooterComponent,
+    // AnchorComponentVue,
   },
   data() {
     return {
