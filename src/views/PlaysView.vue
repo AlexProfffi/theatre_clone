@@ -1,5 +1,6 @@
 <template>
   <div v-if="!isMobile" class="home_play">
+    
     <div>
       <HeaderComponent />
     </div>
@@ -9,7 +10,6 @@
     <div>
       <FooterComponent />
     </div>
-    <!-- <AnchorComponentVue /> -->
   </div>
 </template>
   
@@ -18,7 +18,6 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import MainComponent from "@/components/MainComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-// import AnchorComponentVue from "@/components/helpers/AnchorComponent.vue";
 
 export default {
   name: "PlaysListView",
@@ -26,7 +25,6 @@ export default {
     HeaderComponent,
     MainComponent,
     FooterComponent,
-    // AnchorComponentVue,
   },
   data() {
     return {

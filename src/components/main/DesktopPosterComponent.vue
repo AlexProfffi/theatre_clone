@@ -1,5 +1,13 @@
 <template>
   <div v-if="!isMobile" class="posters d_flex_column j_content_center ptb_40">
+    <div v-if="showSpiner">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <div
       v-for="play in playList"
       :key="play.id"
@@ -35,27 +43,27 @@
           class="img_on_list"
         />
       </div>
-      <div class="d_flex_column w_20_percent">
+      <div class="d_flex_column j_content_center w_20_percent ">
         <div class="d_flex_row">
           <h3 class="f_oswald f_weight_400 current_play">
             {{ play.name }}
           </h3>
         </div>
-        <div class="d_flex_row f_source_sans f_size_0_9">
+        <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.dramaturg[0]">
           <span>Драматург</span>
-          <span class="f_weight_bold p_l_0_5">
+          <span class="f_weight_bold p_l_0_5" >
             {{ play.dramaturg[0].first_name }}
           </span>
           <span class="f_weight_bold p_l_0_3">
             {{ play.dramaturg[0].last_name }}
           </span>
         </div>
-        <div class="d_flex_row f_source_sans f_size_0_9">
+        <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
           <span>Режисер</span>
           <span class="f_weight_bold p_l_0_5">{{ play.staff[0].name }}</span>
           <span class="f_weight_bold p_l_0_3">{{ play.staff[0].surname }}</span>
         </div>
-        <div class="d_flex_row f_oswald">
+        <div class="d_flex_row f_oswald pad_top">
           <h4
             v-for="duration in setDurationPlay(
               play.date_play,
@@ -94,10 +102,11 @@ export default {
     return {
       isMobile: false,
       playList: null,
+      showSpiner: true,
     };
   },
   created() {
-    this.getPlays();
+    this.getPlays().then(() => {this.showSpiner = false});
     this.correctRange(14, 81);
     this.lickPay();
   },
@@ -108,7 +117,7 @@ export default {
         `${this.$store.getters.getServerUrl}/plays_all/`
       )
         .then((response) => response.json())
-
+        
         .catch((error) => {
           console.log(error);
         });
@@ -116,9 +125,9 @@ export default {
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "http://mysite.com:8000" + str.replace(changeble, "");
+        return "http://45.94.158.125" + str.replace(changeble, "");
       }
-      return "http://mysite.com:8000" + str;
+      return "http://45.94.158.125" + str;
     },
     datePlayVisibility(dt) {
       let newFormat = dt.split("T");
@@ -242,5 +251,13 @@ export default {
 .f_weight_300 {
   font-weight: 300;
   font-size: 1.5em;
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    padding-top: 0;
 }
 </style>

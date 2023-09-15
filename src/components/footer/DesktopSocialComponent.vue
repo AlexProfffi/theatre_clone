@@ -1,8 +1,8 @@
 <template>
   <div v-if="!isMobile" class="d_flex_row_reverse ">
-    <a class="f_oswald c_main_white f_size_24 lower_case" :href="socLink">
+    <span class="f_oswald c_main_white f_size_24 lower_case c_pointer" @click="socialLink(socLink)">
         {{ socName }}
-    </a>
+    </span>
   </div>
 </template>
       <script>
@@ -19,7 +19,12 @@ export default {
     };
   },
   created() {},
-  methods: {},
+  methods: {
+    socialLink(lnk) {
+      // Anchor to top
+      window.open(lnk, "_blank").focus();
+    },
+  },
 };
 </script>
 <style scoped>

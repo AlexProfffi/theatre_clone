@@ -120,7 +120,7 @@
     </div>
     <div id="naviRect" class="d_flex_row j_content_center relative_position">
       <div v-for="rect in toRange()" :key="rect.value" class="">
-        <RectangleComponent />
+        <RectangleComponent :isBlack="rect.isBlack" />
       </div>
     </div>
   </div>
@@ -164,7 +164,7 @@ export default {
         for (let y = 0; y < ph[x].classList.length; y++) {
           if (ph[x].classList[y] == "active") {
             id_ph = x + 1; // Тому що на даному етапі x має значення поперднього фото
-            if (x === 3) {
+            if (x === ph.length) {
               id_ph = 0;
             }
           }
@@ -172,17 +172,21 @@ export default {
       }
       // Змінює колір квадратика під фотографіями
       // В залежності від поточної фотографії
-      rectangles.childNodes[id_ph + 1].firstElementChild.classList.add(
-        "rectangle_black"
-      );
-      if (id_ph === 0) {
-        rectangles.childNodes[4].firstElementChild.classList.remove(
-          "rectangle_black"
-        );
-      } else {
-        rectangles.childNodes[id_ph].firstElementChild.classList.remove(
-          "rectangle_black"
-        );
+      if (rectangles.childNodes.length > 1 + 2) {
+        if (id_ph === rectangles.childNodes.length - 2) {
+          rectangles.childNodes[1].firstChild.classList.add("rectangle_black");
+          rectangles.childNodes[
+            rectangles.childNodes.length - 2
+          ].firstChild.classList.remove("rectangle_black");
+        } else {
+          rectangles.childNodes[id_ph + 1].firstChild.classList.add(
+            "rectangle_black"
+          );
+          rectangles.childNodes[id_ph].firstChild.classList.remove(
+            "rectangle_black"
+          );
+          rectangles.childNodes[id_ph].firstChild.classList.add("rectangle");
+        }
       }
     },
     renderNaigationPhotoLeft() {
@@ -194,32 +198,39 @@ export default {
         for (let y = 0; y < ph[x].classList.length; y++) {
           if (ph[x].classList[y] == "active") {
             if (x === 0) {
-              id_ph = 4;
+              id_ph = rectangles.childNodes.length - 2;
             } else {
               id_ph = x;
             }
           }
         }
       }
+
       // Змінює колір квадратика під фотографіями
       // В залежності від поточної фотографії
-      rectangles.childNodes[id_ph].firstElementChild.classList.add(
-        "rectangle_black"
-      );
-      if (id_ph === 4) {
-        rectangles.childNodes[1].firstElementChild.classList.remove(
-          "rectangle_black"
-        );
-      } else {
-        rectangles.childNodes[id_ph+1].firstElementChild.classList.remove(
-          "rectangle_black"
-        );
+      if (rectangles.childNodes.length > 1 + 2) {
+        if (id_ph === rectangles.childNodes.length - 2) {
+          rectangles.childNodes[
+            rectangles.childNodes.length - 2
+          ].firstChild.classList.add("rectangle_black");
+          rectangles.childNodes[1].firstChild.classList.remove(
+            "rectangle_black"
+          );
+          rectangles.childNodes[1].firstChild.classList.add("rectangle");
+        } else {
+          rectangles.childNodes[id_ph].firstChild.classList.add(
+            "rectangle_black"
+          );
+          rectangles.childNodes[id_ph + 1].firstChild.classList.remove(
+            "rectangle_black"
+          );
+        }
       }
     },
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "http://mysite.com:8000" + str.replace(changeble, "");
+        return "http://45.94.158.125" + str.replace(changeble, "");
       }
       return str;
     },
@@ -249,7 +260,7 @@ export default {
       let range = this.getPhotoListCount();
       let newRange = [];
       for (let x = 0; x < range; x++) {
-        newRange.push({ value: x });
+        newRange.push({ value: x, isBlack: x == 0 ? true : false });
       }
 
       return newRange;

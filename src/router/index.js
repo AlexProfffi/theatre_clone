@@ -25,6 +25,15 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ "../views/PlayDetailView.vue"),
         props: true,
     },
+    {
+        path: "/success",
+        name: "Success",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import ( /* webpackChunkName: "about" */ "../views/SuccessPayView.vue"),
+    },
 ];
 
 const router = createRouter({
