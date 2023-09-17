@@ -11,9 +11,10 @@
     <div
       v-for="play in playList"
       :key="play.id"
-      class="d_flex_row p_bottom bg_grey_custom horizontal_line"
+      
+      class="d_flex_row p_bottom bg_grey_custom horizontal_line plays_for_sale"
     >
-      <div class="w_20_percent">
+      <div class="w_20_percent plays_sl_component">
         <div>
           <h4
             class="f_oswald f_weight_300 m_0 p_l_2 short_day"
@@ -36,14 +37,14 @@
           </div>
         </div>
       </div>
-      <div class="d_flex_row w_20_percent">
+      <div class="d_flex_row w_20_percent plays_sl_component">
         <img
           :src="repalcer(play.photo, '')"
           :alt="play.photo"
           class="img_on_list"
         />
       </div>
-      <div class="d_flex_column j_content_center w_20_percent">
+      <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
         <div class="d_flex_row">
           <h3 class="f_oswald f_weight_400 current_play">
             {{ play.name }}
@@ -66,7 +67,7 @@
           <span class="f_weight_bold p_l_0_5">{{ play.staff[0].name }}</span>
           <span class="f_weight_bold p_l_0_3">{{ play.staff[0].surname }}</span>
         </div>
-        <div class="d_flex_row f_oswald pad_top">
+        <div class="d_flex_row f_oswald pad_top play_sl_duration">
           <h4
             v-for="duration in setDurationPlay(
               play.date_play,
@@ -79,7 +80,7 @@
           </h4>
         </div>
       </div>
-      <div class="upper_case w_20_percent d_flex_column j_content_center">
+      <div class="upper_case w_20_percent d_flex_column j_content_center plays_sl_component">
         <div class="open_sans f_size_32 c_pointer">
           <router-link
             :to="{
@@ -306,6 +307,20 @@ export default {
 };
 </script>
 <style scoped>
+@media screen and (max-width: 1000px) {
+  .plays_for_sale {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .plays_sl_component {
+    margin: auto;
+    width: max-content !important;
+  }
+  .play_sl_duration {
+    justify-content: center;
+  }
+}
 @media screen and (max-width: 1550px) {
   .short_day {
     padding-left: 0.6em;

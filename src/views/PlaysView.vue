@@ -43,6 +43,8 @@ export default {
 };
 </script>
   <style scoped>
+
+
 .home_play {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="!isMobile"
+    id="wrap_footer"
     class="footer_desktop d_flex_row j_content_space_evently footer_bg height_443"
   >
     <div
@@ -68,6 +69,12 @@ export default {
 };
 </script>
 <style scoped>
+
+@media screen and (max-width: 1000px) {
+  #wrap_footer {
+    flex-direction: column;
+  }
+}
 .footer_bg {
   background-color: #212121;
 }

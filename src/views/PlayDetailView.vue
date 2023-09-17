@@ -52,10 +52,11 @@
               class="input_field"
               type="email"
               id="email"
-              placeholder="Email..."
+              placeholder="Email... (Обов'язкове поле)"
               v-model="callBackData.email"
             />
             <button
+              v-if="callBackData.email"
               type="submit"
               class="payment_button f_source_sans nav_link_color f_size_32"
               @click="pay(link.link)"
@@ -63,7 +64,24 @@
               Купити квиток
             </button>
           </form>
+          
         </div>
+       <div class="d_flex_row j_content_center font_1">
+        <div>
+          Купуючи квиток Ви погоджуєтесь з договором
+        </div>
+        <div class="p_l_0_3">
+          <router-link
+          
+            :to="{
+              name: 'Offer',
+            }"
+            class="nav_link_color"
+          >
+            «Офертою»
+          </router-link>
+        </div>
+       </div>
       </div>
       <div>
         <FooterComponent />

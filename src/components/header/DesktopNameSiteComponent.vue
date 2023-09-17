@@ -25,6 +25,11 @@ export default {
     font-size: 6em;
   }
 }
+@media screen and (max-width: 1000px) {
+  #name_site {
+    font-size: 2em;
+  }
+}
 
 .big_font_site_name {
   font-size: 8em;

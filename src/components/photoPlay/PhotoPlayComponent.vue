@@ -269,6 +269,12 @@ export default {
 };
 </script>
 <style scoped>
+
+@media screen and (max-width: 1550px) {
+  #naviRect {
+    top: 67rem;
+  }
+}
 .img_size {
   height: 750px;
   width: 100%;
@@ -280,7 +286,7 @@ export default {
 .relative_position {
   position: absolute;
   left: 50%;
-  top: 117%;
+  top: 70rem;
   z-index: 99;
 }
 </style>
