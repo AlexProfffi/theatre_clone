@@ -130,9 +130,9 @@ export default {
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "http://theatreofplaywrightsapi.space:8080" + str.replace(changeble, "");
+        return "https://theatreofplaywrightsapi.space:8443" + str.replace(changeble, "");
       }
-      return "http://theatreofplaywrightsapi.space:8080" + str;
+      return "https://theatreofplaywrightsapi.space:8443" + str;
     },
     datePlayVisibility(dt) {
       let newFormat = dt.split("T");
