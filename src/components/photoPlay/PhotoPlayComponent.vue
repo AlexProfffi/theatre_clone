@@ -230,7 +230,7 @@ export default {
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "http://45.94.158.125" + str.replace(changeble, "");
+        return "http://45.94.158.125:8080" + str.replace(changeble, "");
       }
       return str;
     },
