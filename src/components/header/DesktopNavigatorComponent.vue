@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isMobile" class="d_flex_row j_content_center">
     <ul
-      class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
+      class="none_decor_ul d_flex_row flex_wrap j_content_center f_family_sans w_100"
     >
       <li
         v-for="nav in navigationData"
@@ -9,7 +9,7 @@
         :id="nav.idEl"
         class=""
       >
-        <a :href="nav.linkTo" class="upper_case none_text_decor nav_link_color">
+        <a :href="nav.linkTo" class="upper_case none_text_decor nav_link_color" v-if="nav.txt == 'афіша'">
           {{ nav.txt }}
         </a>
       </li>

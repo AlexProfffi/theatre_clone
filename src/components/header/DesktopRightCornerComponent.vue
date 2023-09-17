@@ -16,7 +16,7 @@
         </span>
       </div>
     </div>
-    <div class="d_flex_row j_content_end p_1_px">
+    <div class="d_flex_row j_content_end p_1_px" style="display: none;">
       <div
         v-for="auth in authLinksData"
         :key="auth.value"

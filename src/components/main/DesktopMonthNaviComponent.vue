@@ -27,7 +27,7 @@ export default {
     };
   },
   created() {
-    this.monthes();
+    this.monthes(2);
   },
   methods: {
     monthData() {
@@ -52,14 +52,14 @@ export default {
       }
       return dataMonth;
     },
-    monthes() {
+    monthes(countMonth) {
       // Повертає поточний місяць і + 2 наступних
       let date = new Date();
       let numMonth = date.getUTCMonth() + 1;
       let monthList = this.monthData();
       for (let x = 0; x < monthList.length; x++) {
         if (monthList[x].value === numMonth) {
-          for (let y = 0; y < 3; y++) {
+          for (let y = 0; y < countMonth; y++) {
             let new_x = x;
             let new_y = y;
             if (new_x + new_y + 1 > 12) {

@@ -1,6 +1,5 @@
 <template>
   <div v-if="!isMobile" class="home_play">
-    
     <div>
       <HeaderComponent />
     </div>
@@ -31,8 +30,16 @@ export default {
       isMobile: false,
     };
   },
-  created() {},
-  methods: {},
+  created() {
+    this.setTitle();
+  },
+  methods: {
+    setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = "Афіша";
+    },
+    
+  },
 };
 </script>
   <style scoped>

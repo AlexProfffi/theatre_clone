@@ -43,15 +43,18 @@
           class="img_on_list"
         />
       </div>
-      <div class="d_flex_column j_content_center w_20_percent ">
+      <div class="d_flex_column j_content_center w_20_percent">
         <div class="d_flex_row">
           <h3 class="f_oswald f_weight_400 current_play">
             {{ play.name }}
           </h3>
         </div>
-        <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.dramaturg[0]">
+        <div
+          class="d_flex_row f_source_sans f_size_0_9"
+          v-if="play.dramaturg[0]"
+        >
           <span>Драматург</span>
-          <span class="f_weight_bold p_l_0_5" >
+          <span class="f_weight_bold p_l_0_5">
             {{ play.dramaturg[0].first_name }}
           </span>
           <span class="f_weight_bold p_l_0_3">
@@ -81,7 +84,7 @@
           <router-link
             :to="{
               name: 'play',
-              params: { id: play.id },
+              params: { id: play.id, name: transcription(play.name) },
             }"
             class="nav_link_color"
           >
@@ -106,7 +109,9 @@ export default {
     };
   },
   created() {
-    this.getPlays().then(() => {this.showSpiner = false});
+    this.getPlays().then(() => {
+      this.showSpiner = false;
+    });
     this.correctRange(14, 81);
     this.lickPay();
   },
@@ -117,7 +122,7 @@ export default {
         `${this.$store.getters.getServerUrl}/plays_all/`
       )
         .then((response) => response.json())
-        
+
         .catch((error) => {
           console.log(error);
         });
@@ -213,6 +218,90 @@ export default {
       ];
       return dataDuration;
     },
+    transcription(word) {
+      // Транскрипція з кирилиці на латиницю
+      let transcription_alpha = [
+        { value: ["а", "a"] },
+        { value: ["б", "b"] },
+        { value: ["в", "v"] },
+        { value: ["г", "g"] },
+        { value: ["ґ", "g"] },
+        { value: ["д", "d"] },
+        { value: ["е", "e"] },
+        { value: ["є", "ye"] },
+        { value: ["ж", "zh"] },
+        { value: ["з", "z"] },
+        { value: ["и", "y"] },
+        { value: ["і", "i"] },
+        { value: ["ї", "i"] },
+        { value: ["й", "y"] },
+        { value: ["к", "k"] },
+        { value: ["л", "l"] },
+        { value: ["м", "m"] },
+        { value: ["н", "n"] },
+        { value: ["о", "o"] },
+        { value: ["п", "p"] },
+        { value: ["р", "r"] },
+        { value: ["с", "s"] },
+        { value: ["т", "t"] },
+        { value: ["у", "u"] },
+        { value: ["ф", "f"] },
+        { value: ["х", "kh"] },
+        { value: ["ц", "ts"] },
+        { value: ["ч", "ch"] },
+        { value: ["ш", "sh"] },
+        { value: ["щ", "shch"] },
+        { value: ["ь", ""] },
+        { value: ["ю", "yu"] },
+        { value: ["я", "ya"] },
+        { value: ["0", "0"] },
+        { value: ["1", "1"] },
+        { value: ["2", "2"] },
+        { value: ["3", "3"] },
+        { value: ["4", "4"] },
+        { value: ["5", "5"] },
+        { value: ["6", "6"] },
+        { value: ["7", "7"] },
+        { value: ["8", "8"] },
+        { value: ["9", "9"] },
+        { value: [" ", "_"] },
+        { value: ["a", "a"] },
+        { value: ["b", "b"] },
+        { value: ["c", "c"] },
+        { value: ["d", "d"] },
+        { value: ["e", "e"] },
+        { value: ["f", "f"] },
+        { value: ["g", "g"] },
+        { value: ["h", "h"] },
+        { value: ["i", "i"] },
+        { value: ["j", "j"] },
+        { value: ["k", "k"] },
+        { value: ["l", "l"] },
+        { value: ["m", "m"] },
+        { value: ["n", "n"] },
+        { value: ["o", "o"] },
+        { value: ["p", "p"] },
+        { value: ["q", "q"] },
+        { value: ["r", "r"] },
+        { value: ["s", "s"] },
+        { value: ["t", "t"] },
+        { value: ["u", "u"] },
+        { value: ["v", "v"] },
+        { value: ["w", "w"] },
+        { value: ["x", "x"] },
+        { value: ["y", "y"] },
+        { value: ["z", "z"] },
+      ];
+      let list_new_word = [];
+      for (let x = 0; x < word.length; x++) {
+        for (let y = 0; y < transcription_alpha.length; y++) {
+          if (transcription_alpha[y].value[0] == word[x].toLowerCase()) {
+            list_new_word.push(transcription_alpha[y].value[1]);
+          }
+        }
+      }
+      return list_new_word.join("");
+    },
   },
 };
 </script>
@@ -235,7 +324,6 @@ export default {
   padding: 40px;
 }
 
-
 .w_20_percent {
   width: 25%;
 }
@@ -254,10 +342,10 @@ export default {
 }
 
 .lds-ring {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-    padding-top: 0;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  padding-top: 0;
 }
 </style>

@@ -9,7 +9,8 @@ import AnchorComponent from './components/helpers/AnchorComponent.vue';
 export default {
   components: {
     AnchorComponent,
-  }
+  },
+
 }
 </script>
 

@@ -114,7 +114,7 @@ export default {
   created() {
     this.getPlay()
       .then(() => this.playList.push(this.play))
-      .then(() => this.linkBuyTicketList.push(this.linkBuyTicket));
+      .then(() => this.linkBuyTicketList.push(this.linkBuyTicket)).then(() => this.setTitle());
     this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
   },
   methods: {
@@ -251,6 +251,10 @@ export default {
         { value: 2, text: dur.join(".") },
       ];
       return dataDuration;
+    },
+    async setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = this.playList[0].name;
     },
   },
 };
