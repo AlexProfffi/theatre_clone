@@ -1,6 +1,7 @@
 <template>
   <div v-if="!isMobile" class="monthes d_flex_row j_content_center">
     <ul
+    id="month_filter"
       class="none_decor_ul d_flex_row flex_wrap j_content_center f_family_sans w_100"
     >
       <li
@@ -80,6 +81,11 @@ export default {
 };
 </script>
 <style scoped>
+@media screen and (max-width: 1000px) {
+  #month_filter{
+    padding: 0;
+  }
+}
 
 
 

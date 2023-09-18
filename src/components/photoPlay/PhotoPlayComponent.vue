@@ -6,70 +6,70 @@
           <img
             :src="repalcer(photo, '')"
             :alt="photo"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_2 != null">
           <img
             :src="repalcer(photo_2, '')"
             :alt="photo_2"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_3 != null">
           <img
             :src="repalcer(photo_3, '')"
             :alt="photo_3"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_4 != null">
           <img
             :src="repalcer(photo_4, '')"
             :alt="photo_4"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_5 != null">
           <img
             :src="repalcer(photo_5, '')"
             :alt="photo_5"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_6 != null">
           <img
             :src="repalcer(photo_6, '')"
             :alt="photo_6"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_7 != null">
           <img
             :src="repalcer(photo_7, '')"
             :alt="photo_7"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_8 != null">
           <img
             :src="repalcer(photo_8, '')"
             :alt="photo_8"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_9 != null">
           <img
             :src="repalcer(photo_9, '')"
             :alt="photo_9"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div class="carousel-item" v-if="photo_10 != null">
           <img
             :src="repalcer(photo_10, '')"
             :alt="photo_10"
-            class="d-block img_size img_contain"
+            class="d-block img_size img_contain image_on_carusel"
           />
         </div>
       </div>
@@ -273,6 +273,23 @@ export default {
 @media screen and (max-width: 1550px) {
   #naviRect {
     top: 67rem;
+  }
+}
+
+@media  screen and (max-width: 1000px) {
+  #naviRect {
+    top: 31rem;
+  }
+
+  .bi-arrow-right-circle {
+    padding-left: 2px;
+  }
+  .bi-arrow-left-circle {
+    padding-right: 2px;
+  }
+  
+  .image_on_carusel {
+    height: 225px !important;
   }
 }
 .img_size {

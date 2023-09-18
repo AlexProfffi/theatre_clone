@@ -1,13 +1,13 @@
 <template>
   <div v-if="!isMobile">
-    <div v-if="showSpiner">
+    <div v-if="showSpiner" id="spinner_is">
       <div class="lds-ring">
         <div></div>
         <div></div>
         <div></div>
         <div></div>
       </div>
-      <h3 class="pad_top">
+      <h3 class="pad_top" id="label_spiner">
         Виконайте оплату...
       </h3>
     </div>
@@ -29,7 +29,7 @@
             :photo_9="pl.photo_9"
             :photo_10="pl.photo_10"
           />
-          <h3>
+          <h3 class="play_hame_h3">
             {{ pl.name }}
           </h3>
         </div>
@@ -39,13 +39,14 @@
           class="d_flex_row j_content_center"
         >
           <form
+          id="form_pay"
             method="POST"
             @submit="purchasedTickets"
             class="d_flex_column w_30"
           >
             <div class="d_flex_row">
               <label for="email" class="font_1"
-                >Введіть електронну пошту:</label
+                >Введіть електронну пошту для купівлі квитка:</label
               >
             </div>
             <input
@@ -56,7 +57,8 @@
               v-model="callBackData.email"
             />
             <button
-              v-if="callBackData.email"
+              v-if="checkCorrectEmail(callBackData.email)"
+              id="pay_b"
               type="submit"
               class="payment_button f_source_sans nav_link_color f_size_32"
               @click="pay(link.link)"
@@ -66,7 +68,7 @@
           </form>
           
         </div>
-       <div class="d_flex_row j_content_center font_1">
+       <div class="d_flex_row j_content_center font_1" v-if="checkCorrectEmail(callBackData.email)">
         <div>
           Купуючи квиток Ви погоджуєтесь з договором
         </div>
@@ -136,6 +138,31 @@ export default {
     this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
   },
   methods: {
+    checkCorrectEmail(mail) {
+      // Первіряє поле на наявність пошти
+      let check_a = false;
+      let check_dot
+
+      if (mail != null) {
+        for (let x = 0; x < mail.length; x++) {
+        if (mail[x] == "@" && x != 0 && x != mail.length-1 ) {
+          check_a = true;
+        }
+        if (mail[x] == "." && x != 0 && x != mail.length-1 ) {
+          check_dot = true;
+        }
+      }
+      }
+      
+      if (check_a && check_dot) {
+        return true;
+      }
+      else {
+        return false;
+      }
+      
+    },
+
     onlyDate(date) {
       // Відсікає чесовий пояс від дати
       let newDate = String(date).split("+");
@@ -278,6 +305,29 @@ export default {
 };
 </script>
     <style scoped>
+@media screen and (max-width: 1550px) {
+  #form_pay {
+    width: 90vw;
+    padding: 20px 0 20px 0;
+  }
+  #pay_b {
+    margin: 10px 0 0 0;
+  }
+  .play_hame_h3 {
+    padding-top: 5px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #spinner_is {
+    margin-top: 10em;
+  }
+  #label_spiner {
+    padding-top: 4em;
+  }
+}
+
+
 .home_play {
   display: flex;
   flex-direction: column;
