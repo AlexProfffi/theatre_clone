@@ -66,10 +66,11 @@
           </form>
         </div>
         <div
+        id="offerContract"
           class="d_flex_row j_content_center font_1"
           v-if="checkCorrectEmail(callBackData.email)"
         >
-          <div>Купуючи квиток Ви погоджуєтесь з договором</div>
+          <div>Купуючи квиток Ви погоджуєтесь з </div>
           <div v-for="offs in offert" :key="offs.id">
             <div class="p_l_0_3">
               <span @click="pay(offs.file_offer)" class="nav_link_color c_pointer offerts">
@@ -341,6 +342,9 @@ export default {
   #form_pay {
     width: 80vw;
     padding: 20px 0 20px 0;
+  }
+  #offerContract {
+    flex-direction: column;
   }
 }
 
