@@ -312,6 +312,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: 0 !important;
   }
   .plays_sl_component {
     margin: auto;

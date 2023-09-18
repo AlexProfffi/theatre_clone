@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" class="main_desktop">
+  <div v-if="!isMobile" class="main_desktop" id="all_poster">
     <div class="d_flex_column">
       <div class="upper_case open_sans name_dep">афіша</div>
       <div>
@@ -31,6 +31,13 @@ export default {
 };
 </script>
   <style scoped>
+@media screen and (max-width: 1000px) {
+  #all_poster {
+    padding: 0;
+  }
+}
+
+
 .main_desktop {
   padding: 40px;
 }
