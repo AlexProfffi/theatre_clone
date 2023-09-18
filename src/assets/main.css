@@ -120,6 +120,10 @@ html {
     padding-top: 7%;
 }
 
+.pad_b1em {
+    padding-bottom: 1em;
+}
+
 .p_tb_5 {
     padding: 5px 0 5px 0;
 }

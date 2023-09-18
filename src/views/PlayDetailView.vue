@@ -7,9 +7,7 @@
         <div></div>
         <div></div>
       </div>
-      <h3 class="pad_top" id="label_spiner">
-        Виконайте оплату...
-      </h3>
+      <h3 class="pad_top" id="label_spiner">Виконайте оплату...</h3>
     </div>
     <div id="detail" class="home_play" v-else>
       <div>
@@ -36,10 +34,10 @@
         <div
           v-for="link in linkBuyTicketList"
           :key="link.id_link"
-          class="d_flex_row j_content_center"
+          class="d_flex_row j_content_center pad_b1em"
         >
           <form
-          id="form_pay"
+            id="form_pay"
             method="POST"
             @submit="purchasedTickets"
             class="d_flex_column w_30"
@@ -66,24 +64,24 @@
               Купити квиток
             </button>
           </form>
-          
         </div>
-       <div class="d_flex_row j_content_center font_1" v-if="checkCorrectEmail(callBackData.email)">
-        <div>
-          Купуючи квиток Ви погоджуєтесь з договором
+        <div
+          class="d_flex_row j_content_center font_1"
+          v-if="checkCorrectEmail(callBackData.email)"
+        >
+          <div>Купуючи квиток Ви погоджуєтесь з договором</div>
+          <div v-for="offs in offert" :key="offs.id">
+            <div class="p_l_0_3">
+              <router-link :to="offs.file_offer" class="nav_link_color">
+                «Офертою»
+              </router-link>
+              та
+              <router-link :to="offs.file_contract" class="nav_link_color">
+                «Договором»
+              </router-link>
+            </div>
+          </div>
         </div>
-        <div class="p_l_0_3">
-          <router-link
-          
-            :to="{
-              name: 'Offer',
-            }"
-            class="nav_link_color"
-          >
-            «Офертою»
-          </router-link>
-        </div>
-       </div>
       </div>
       <div>
         <FooterComponent />
@@ -129,38 +127,49 @@ export default {
       statusPayList: [],
       interval: null,
       counterToErrorStatus: 0,
+      offert: null,
     };
   },
   created() {
     this.getPlay()
+      .then(() => this.getOffert())
       .then(() => this.playList.push(this.play))
-      .then(() => this.linkBuyTicketList.push(this.linkBuyTicket)).then(() => this.setTitle());
+      .then(() => this.linkBuyTicketList.push(this.linkBuyTicket))
+      .then(() => this.setTitle());
     this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
   },
   methods: {
     checkCorrectEmail(mail) {
       // Первіряє поле на наявність пошти
       let check_a = false;
-      let check_dot
+      let check_dot;
 
       if (mail != null) {
         for (let x = 0; x < mail.length; x++) {
-        if (mail[x] == "@" && x != 0 && x != mail.length-1 ) {
-          check_a = true;
-        }
-        if (mail[x] == "." && x != 0 && x != mail.length-1 ) {
-          check_dot = true;
+          if (mail[x] == "@" && x != 0 && x != mail.length - 1) {
+            check_a = true;
+          }
+          if (mail[x] == "." && x != 0 && x != mail.length - 1) {
+            check_dot = true;
+          }
         }
       }
-      }
-      
+
       if (check_a && check_dot) {
         return true;
-      }
-      else {
+      } else {
         return false;
       }
-      
+    },
+
+    async getOffert() {
+      // Фільтр по місяцям
+      this.offert = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
+        .then((response) => response.json())
+
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     onlyDate(date) {
@@ -307,7 +316,7 @@ export default {
     <style scoped>
 @media screen and (max-width: 1550px) {
   #form_pay {
-    width: 90vw;
+    width: 35vw;
     padding: 20px 0 20px 0;
   }
   #pay_b {
@@ -325,8 +334,11 @@ export default {
   #label_spiner {
     padding-top: 4em;
   }
+  #form_pay {
+    width: 80vw;
+    padding: 20px 0 20px 0;
+  }
 }
-
 
 .home_play {
   display: flex;
@@ -346,7 +358,5 @@ a:hover {
   padding: 5px;
   border-radius: 5px;
 }
-
-
 </style>
     

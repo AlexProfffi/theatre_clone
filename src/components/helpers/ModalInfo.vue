@@ -2,12 +2,8 @@
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
       <div class="modal-container">
-        <div class="d_flex_row j_content_center f_source_sans f_size_32">
-          <slot name="header">
-            Драматурги:
-          </slot>
+        <div class="d_flex_row j_content_center f_source_sans f_size_32">      
         </div>
-
         <div class="modal-body">
           <slot name="body">
             <div v-for="pd in dramaturgs" :key="pd.id" class="f_source_sans">

@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isMobile" class="d_flex_column ptb_40">
-    <div class="d_flex_row j_content_end p_1_px">
+    <div class="d_flex_row j_content_end p_1_px" style="display: none;">
       <div
         v-for="lang in languagesData"
         :key="lang.value"

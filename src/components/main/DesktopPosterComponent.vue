@@ -46,7 +46,7 @@
         />
       </div>
       <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
-        <div class="d_flex_row">
+        <div class="d_flex_row name_play_sale">
           <h3 class="f_oswald f_weight_400 current_play">
             {{ play.name }}
           </h3>
@@ -55,7 +55,12 @@
           class="d_flex_row f_source_sans f_size_0_9"
           v-if="play.dramaturg[0]"
         >
-          <span>Драматург(и)</span>
+          <span v-if="play.dramaturg.length < 2">
+            {{ play.dramaturg[0].role[0] }}
+          </span>
+          <span v-else>
+            Драматурги/ні
+          </span>
           <div v-if="play.dramaturg.length < 2">
             <div v-for="pd in play.dramaturg" :key="pd.id">
               <span class="f_weight_bold p_l_0_5">
@@ -129,6 +134,7 @@ export default {
       showSpiner: true,
       modal: false,
       yearMonth: JSON.parse(localStorage.getItem("dataYM")),
+      genderP: null,
     };
   },
   created() {
@@ -148,6 +154,30 @@ export default {
         });
       }
     },
+
+    genderParty(gender) {
+        // Політкоректність
+        let male = false;
+        let female = false;
+        for (let x = 0; x<gender.lekngth; x++) {
+          console.log(gender[x].role[0])
+          if (gender[x].role[0] == "Драматург") {
+            male = true;
+          } 
+          if (gender[x].role[0] == "Драматургиня") {
+            female = true
+          }
+        }
+        if (male && female) {
+          this.genderP =  "Драматурги/ні:"
+        }
+        if (!male && female) {
+          this.genderP =  "Драматургині:"
+        }
+        if (male && !female) {
+          this.genderP =  "Драматурги:"
+        }
+      },
 
     async getFilteredPlays(dataYearMonth) {
       // Фільтр по місяцям
@@ -376,6 +406,9 @@ export default {
   .img_on_list__low_1000 {
     width: 350px !important;
     height: 225px;
+  }
+  .name_play_sale {
+    justify-content: center;
   }
 }
 @media screen and (max-width: 1550px) {
