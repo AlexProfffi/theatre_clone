@@ -8,11 +8,10 @@
         <div></div>
       </div>
     </div>
-     
+
     <div
       v-for="play in playList"
       :key="play.id"
-      
       class="d_flex_row p_bottom bg_grey_custom horizontal_line plays_for_sale"
     >
       <div class="w_20_percent plays_sl_component">
@@ -45,12 +44,11 @@
           class="img_on_list img_on_list__low_1000"
         />
       </div>
-      <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
+      <div
+        class="d_flex_column j_content_center w_20_percent plays_sl_component"
+      >
         <div v-if="play.is_premiere" class="d_flex_row">
-          <h4 class="upper_case horizontal_line">
-            прем'єра
-          </h4>
-          
+          <h4 class="upper_case horizontal_line">прем'єра</h4>
         </div>
         <div class="d_flex_row name_play_sale">
           <h3 class="f_oswald f_weight_400 current_play">
@@ -64,34 +62,56 @@
           <span v-if="play.dramaturg.length < 2">
             {{ play.dramaturg[0].role[0] }}
           </span>
-          <span v-else>
-            Драматурги/ні
-          </span>
+          <span v-else> Драматурги/ні </span>
           <div v-if="play.dramaturg.length < 2">
             <div v-for="pd in play.dramaturg" :key="pd.id">
               <span class="f_weight_bold p_l_0_5">
                 {{ pd.first_name }}
               </span>
               <span class="f_weight_bold p_l_0_3">
-                {{ pd.last_name }} 
+                {{ pd.last_name }}
               </span>
             </div>
           </div>
           <div v-else>
             <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
-              Показати всіх 
+              Показати всіх
             </span>
-            <ModalInfo 
-             :dramaturgs="play.dramaturg" 
-             :show="modal"
-             @close="modal = false" 
+            <ModalInfo
+              :dramaturgs="play.dramaturg"
+              :show="modal"
+              @close="modal = false"
             />
           </div>
         </div>
         <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
-          <span>Режисер</span>
-          <span class="f_weight_bold p_l_0_5">{{ play.staff[0].name }}</span>
-          <span class="f_weight_bold p_l_0_3">{{ play.staff[0].surname }}</span>
+          <span v-if="play.staff.length < 2">
+            {{ play.staff[0].role[0] }}
+          </span>
+          <span v-else> Режисери </span>
+          <div v-if="play.staff.length < 2">
+            <div v-for="pd in play.staff" :key="pd.id">
+              <span class="f_weight_bold p_l_0_5">
+                {{ pd.name }}
+              </span>
+              <span class="f_weight_bold p_l_0_3">
+                {{ pd.surname }}
+              </span>
+            </div>
+          </div>
+          <div v-else>
+            <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
+              Показати всіх
+            </span>
+            <ModalInfo
+              :dramaturgs="play.staff"
+              :show="modal"
+              @close="modal = false"
+            />
+          </div>
+          
+          <!-- <span class="f_weight_bold p_l_0_5">{{ play.staff[0].name }}</span>
+          <span class="f_weight_bold p_l_0_3">{{ play.staff[0].surname }}</span> -->
         </div>
         <div class="d_flex_row f_oswald pad_top play_sl_duration">
           <h4
@@ -106,7 +126,9 @@
           </h4>
         </div>
       </div>
-      <div class="upper_case w_20_percent d_flex_column j_content_center plays_sl_component">
+      <div
+        class="upper_case w_20_percent d_flex_column j_content_center plays_sl_component"
+      >
         <div class="open_sans f_size_32 c_pointer">
           <router-link
             :to="{
@@ -125,8 +147,7 @@
   </div>
 </template>
   <script>
-import ModalInfo from '../helpers/ModalInfo.vue';
-
+import ModalInfo from "../helpers/ModalInfo.vue";
 
 export default {
   name: "DesktopPosterComponent",
@@ -152,38 +173,38 @@ export default {
     run() {
       if (!this.yearMonth) {
         this.getPlays().then(() => {
-        this.showSpiner = false;
+          this.showSpiner = false;
         });
       } else {
         this.getFilteredPlays(this.yearMonth).then(() => {
-        this.showSpiner = false;
+          this.showSpiner = false;
         });
       }
     },
 
     genderParty(gender) {
-        // Політкоректність
-        let male = false;
-        let female = false;
-        for (let x = 0; x<gender.lekngth; x++) {
-          console.log(gender[x].role[0])
-          if (gender[x].role[0] == "Драматург") {
-            male = true;
-          } 
-          if (gender[x].role[0] == "Драматургиня") {
-            female = true
-          }
+      // Політкоректність
+      let male = false;
+      let female = false;
+      for (let x = 0; x < gender.lekngth; x++) {
+        console.log(gender[x].role[0]);
+        if (gender[x].role[0] == "Драматург") {
+          male = true;
         }
-        if (male && female) {
-          this.genderP =  "Драматурги/ні:"
+        if (gender[x].role[0] == "Драматургиня") {
+          female = true;
         }
-        if (!male && female) {
-          this.genderP =  "Драматургині:"
-        }
-        if (male && !female) {
-          this.genderP =  "Драматурги:"
-        }
-      },
+      }
+      if (male && female) {
+        this.genderP = "Драматурги/ні:";
+      }
+      if (!male && female) {
+        this.genderP = "Драматургині:";
+      }
+      if (male && !female) {
+        this.genderP = "Драматурги:";
+      }
+    },
 
     async getFilteredPlays(dataYearMonth) {
       // Фільтр по місяцям
@@ -196,7 +217,6 @@ export default {
           console.log(error);
         });
     },
-
 
     showModal() {
       // Діалогове вікно з драматургами
@@ -216,7 +236,10 @@ export default {
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "https://theatreofplaywrightsapi.space:8443" + str.replace(changeble, "");
+        return (
+          "https://theatreofplaywrightsapi.space:8443" +
+          str.replace(changeble, "")
+        );
       }
       return "https://theatreofplaywrightsapi.space:8443" + str;
     },
