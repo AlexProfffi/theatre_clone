@@ -9,7 +9,12 @@
         :id="nav.idEl"
         class=""
       >
-        <a :href="nav.linkTo" class="upper_case none_text_decor nav_link_color" v-if="nav.txt == 'афіша'">
+        <a 
+          :href="nav.linkTo" 
+          @click="deleteDataFromFilter()" 
+          class="upper_case none_text_decor nav_link_color" 
+          v-if="nav.txt == 'афіша'"
+        >
           {{ nav.txt }}
         </a>
       </li>
@@ -28,6 +33,12 @@ export default {
   },
   created() {},
   methods: {
+    deleteDataFromFilter() {
+      // Видаляє зі сховища дату для фільтрів
+      // Скидує фільтри по місяцям
+      localStorage.removeItem("dataYM")
+    },
+
     naviPanel() {
       let listNavi = [
         "головна",

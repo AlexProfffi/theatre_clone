@@ -8,6 +8,7 @@
         <div></div>
       </div>
     </div>
+     
     <div
       v-for="play in playList"
       :key="play.id"
@@ -127,16 +128,40 @@ export default {
       playList: null,
       showSpiner: true,
       modal: false,
+      yearMonth: JSON.parse(localStorage.getItem("dataYM")),
     };
   },
   created() {
-    this.getPlays().then(() => {
-      this.showSpiner = false;
-    });
+    this.run();
     this.correctRange(14, 81);
     this.lickPay();
   },
   methods: {
+    run() {
+      if (!this.yearMonth) {
+        this.getPlays().then(() => {
+        this.showSpiner = false;
+        });
+      } else {
+        this.getFilteredPlays(this.yearMonth).then(() => {
+        this.showSpiner = false;
+        });
+      }
+    },
+
+    async getFilteredPlays(dataYearMonth) {
+      // Фільтр по місяцям
+      this.playList = await fetch(
+        `${this.$store.getters.getServerUrl}/plays_all/dates/${dataYearMonth.year}-${dataYearMonth.chooseMonth}/`
+      )
+        .then((response) => response.json())
+
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+
     showModal() {
       // Діалогове вікно з драматургами
       this.modal = true;

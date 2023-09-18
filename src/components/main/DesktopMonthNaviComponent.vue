@@ -10,7 +10,7 @@
         :id="navMonth.idEl"
         class="pad_both_7"
       >
-        <a href="#" class="upper_case none_text_decor nav_link_color">
+        <a href="/" @click="filterToMonth(navMonth)"  class="upper_case none_text_decor nav_link_color c_pointer">
           {{ navMonth.text }}
         </a>
       </li>
@@ -25,12 +25,19 @@ export default {
     return {
       isMobile: false,
       threeMontes: [],
+      yearMonth: null,
     };
   },
   created() {
-    this.monthes(2);
+    this.monthes(3);
   },
   methods: {
+    filterToMonth(month) {
+      // Фільтрація по місяцям
+      let year = new Date
+      let dataFilter = {year: year.getFullYear(), chooseMonth: month.value}
+      localStorage.setItem("dataYM", JSON.stringify(dataFilter))
+    },
     monthData() {
       // Створює дані число: місяць
       let monthList = [
@@ -54,7 +61,7 @@ export default {
       return dataMonth;
     },
     monthes(countMonth) {
-      // Повертає поточний місяць і + 2 наступних
+      // Повертає поточний місяць і + countMonth наступних
       let date = new Date();
       let numMonth = date.getUTCMonth() + 1;
       let monthList = this.monthData();
