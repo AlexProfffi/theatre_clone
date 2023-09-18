@@ -277,3 +277,10 @@ html {
         transform: rotate(360deg);
     }
 }
+
+
+/* BORDER */
+
+.b_radius_10 {
+    border-radius: 10px;
+}

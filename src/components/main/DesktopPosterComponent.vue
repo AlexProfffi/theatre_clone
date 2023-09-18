@@ -54,13 +54,27 @@
           class="d_flex_row f_source_sans f_size_0_9"
           v-if="play.dramaturg[0]"
         >
-          <span>Драматург</span>
-          <span class="f_weight_bold p_l_0_5">
-            {{ play.dramaturg[0].first_name }}
-          </span>
-          <span class="f_weight_bold p_l_0_3">
-            {{ play.dramaturg[0].last_name }}
-          </span>
+          <span>Драматург(и)</span>
+          <div v-if="play.dramaturg.length < 2">
+            <div v-for="pd in play.dramaturg" :key="pd.id">
+              <span class="f_weight_bold p_l_0_5">
+                {{ pd.first_name }}
+              </span>
+              <span class="f_weight_bold p_l_0_3">
+                {{ pd.last_name }} 
+              </span>
+            </div>
+          </div>
+          <div v-else>
+            <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
+              Показати всіх 
+            </span>
+            <ModalInfo 
+             :dramaturgs="play.dramaturg" 
+             :show="modal"
+             @close="modal = false" 
+            />
+          </div>
         </div>
         <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
           <span>Режисер</span>
@@ -99,14 +113,20 @@
   </div>
 </template>
   <script>
+import ModalInfo from '../helpers/ModalInfo.vue';
+
+
 export default {
   name: "DesktopPosterComponent",
-  components: {},
+  components: {
+    ModalInfo,
+  },
   data() {
     return {
       isMobile: false,
       playList: null,
       showSpiner: true,
+      modal: false,
     };
   },
   created() {
@@ -117,6 +137,10 @@ export default {
     this.lickPay();
   },
   methods: {
+    showModal() {
+      // Діалогове вікно з драматургами
+      this.modal = true;
+    },
     lickPay() {},
     async getPlays() {
       this.playList = await fetch(
