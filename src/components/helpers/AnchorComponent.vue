@@ -1,5 +1,5 @@
 <template>
-  <div class="position_sticky c_pointer" @click="scrollToTop()">
+  <div id="anch" class="position_sticky c_pointer" @click="scrollToTop()">
     <div href="#">
       <svg
         id="bi-bi"
@@ -42,6 +42,11 @@ export default {
 };
 </script>
 <style scoped>
+@media screen and (max-width: 1000px) {
+  #anch {
+    left: 85%;
+  }
+}
 #bi-bi {
   animation-duration: 1s;
   animation-name: slidein;

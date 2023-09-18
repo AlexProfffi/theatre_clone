@@ -17,7 +17,7 @@
       <div class="w_20_percent plays_sl_component">
         <div>
           <h4
-            class="f_oswald f_weight_300 m_0 p_l_2 short_day"
+            class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
             :id="getMeDay(play.date_play).idEl"
           >
             {{ getMeDay(play.date_play).shortText }}
@@ -41,7 +41,7 @@
         <img
           :src="repalcer(play.photo, '')"
           :alt="play.photo"
-          class="img_on_list"
+          class="img_on_list img_on_list__low_1000"
         />
       </div>
       <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
@@ -319,6 +319,13 @@ export default {
   }
   .play_sl_duration {
     justify-content: center;
+  }
+  .short_day_low_1000 {
+    padding: 0 !important;
+  }
+  .img_on_list__low_1000 {
+    width: 350px !important;
+    height: 225px;
   }
 }
 @media screen and (max-width: 1550px) {

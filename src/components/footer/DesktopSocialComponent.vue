@@ -28,6 +28,8 @@ export default {
 };
 </script>
 <style scoped>
+
+
 .c_main_white {
   color: #f9f9f9;
 }

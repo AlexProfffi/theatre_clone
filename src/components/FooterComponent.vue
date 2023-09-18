@@ -7,12 +7,12 @@
     <div
       v-for="contact in contacts"
       :key="contact.id"
-      class="d_flex_row j_content_space_around flex_grow_2 font_footer_color"
+      class="d_flex_row j_content_space_around flex_grow_2 font_footer_color wrap_contact_block"
     >
       <div class="flex_grow_1 d_flex_row j_content_space_around">
         <DesktopPictureWriters :picture="contact.photo_our_playwriters" />
       </div>
-      <div class="flex_grow_2 d_flex_row">
+      <div class="flex_grow_2 d_flex_row contact_address">
         <DesktopAddrComponent
           :addr="contact.address"
           :phone="contact.phone"
@@ -20,7 +20,7 @@
         />
       </div>
     </div>
-    <div class="d_flex_column j_content_center flex_grow_1">
+    <div class="d_flex_column j_content_center flex_grow_1" id="socials">
       <div v-for="soc in social" :key="soc.id" class="w_50">
         <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" />
       </div>
@@ -73,6 +73,14 @@ export default {
 @media screen and (max-width: 1000px) {
   #wrap_footer {
     flex-direction: column;
+  }
+ 
+  .wrap_contact_block {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact_address {
+    justify-content: center;
   }
 }
 .footer_bg {
