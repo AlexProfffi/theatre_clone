@@ -77,7 +77,7 @@
                 «Офертою»
               </span>
               та
-              <span @click="pay(offs.file_contract)"  class="nav_link_color c_pointer offerts">
+              <span v-if="offs.file_contract" @click="pay(offs.file_contract)"  class="nav_link_color c_pointer offerts">
                 «Договором»
               </span>
             </div>

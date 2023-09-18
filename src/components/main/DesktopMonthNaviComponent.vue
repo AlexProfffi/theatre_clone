@@ -29,7 +29,7 @@ export default {
     };
   },
   created() {
-    this.monthes(3);
+    this.monthes(2);
   },
   methods: {
     filterToMonth(month) {

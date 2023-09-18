@@ -46,6 +46,12 @@
         />
       </div>
       <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
+        <div v-if="play.is_premiere" class="d_flex_row">
+          <h4 class="upper_case horizontal_line">
+            прем'єра
+          </h4>
+          
+        </div>
         <div class="d_flex_row name_play_sale">
           <h3 class="f_oswald f_weight_400 current_play">
             {{ play.name }}
