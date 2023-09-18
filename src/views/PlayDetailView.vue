@@ -72,13 +72,13 @@
           <div>Купуючи квиток Ви погоджуєтесь з договором</div>
           <div v-for="offs in offert" :key="offs.id">
             <div class="p_l_0_3">
-              <router-link :to="offs.file_offer" class="nav_link_color">
+              <span @click="pay(offs.file_offer)" class="nav_link_color c_pointer offerts">
                 «Офертою»
-              </router-link>
+              </span>
               та
-              <router-link :to="offs.file_contract" class="nav_link_color">
+              <span @click="pay(offs.file_contract)"  class="nav_link_color c_pointer offerts">
                 «Договором»
-              </router-link>
+              </span>
             </div>
           </div>
         </div>
@@ -128,6 +128,7 @@ export default {
       interval: null,
       counterToErrorStatus: 0,
       offert: null,
+      linkOffert: null,
     };
   },
   created() {
@@ -137,8 +138,11 @@ export default {
       .then(() => this.linkBuyTicketList.push(this.linkBuyTicket))
       .then(() => this.setTitle());
     this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
+
+   
   },
   methods: {
+    
     checkCorrectEmail(mail) {
       // Первіряє поле на наявність пошти
       let check_a = false;
@@ -344,7 +348,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-a:hover {
+.offerts:hover {
   color: green;
 }
 .payment_button {
