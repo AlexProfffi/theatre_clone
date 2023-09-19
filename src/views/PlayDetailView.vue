@@ -70,7 +70,6 @@
         <div
           id="offerContract"
           class="d_flex_row j_content_center font_1"
-          v-if="checkCorrectEmail(callBackData.email)"
         >
           <div>Купуючи квиток Ви погоджуєтесь з</div>
           <div v-for="offs in offert" :key="offs.id">
@@ -81,7 +80,7 @@
               >
                 «Офертою»
               </span>
-              та
+              <span v-if="offs.file_contract">та</span>
               <span
                 v-if="offs.file_contract"
                 @click="pay(offs.file_contract)"
@@ -147,7 +146,7 @@ export default {
       .then(() => this.playList.push(this.play))
       .then(() => this.linkBuyTicketList.push(this.linkBuyTicket))
       .then(() => this.setTitle());
-    // this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
+    this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
   },
   methods: {
     checkCorrectEmail(mail) {
@@ -249,7 +248,7 @@ export default {
       this.getStatusPay()
         .then(() => {
           if (this.statusPay !== null) {
-            console.log(this.statusPay.status, "  ststst");
+            console.log(this.statusPay.status,);
             this.counterToErrorStatus++;
             console.log(this.counterToErrorStatus);
             if (this.counterToErrorStatus === 45) {
@@ -274,11 +273,11 @@ export default {
         `${this.$store.getters.getServerUrl}/playss_all/${this.id}/`
       )
         .then((response) => response.json())
-        // .then(
-        //   (this.linkBuyTicket = await fetch(
-        //     `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
-        //   ).then((response) => response.json()))
-        // )
+        .then(
+          (this.linkBuyTicket = await fetch(
+            `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
+          ).then((response) => response.json()))
+        )
         .catch((error) => {
           console.log(error);
         });
