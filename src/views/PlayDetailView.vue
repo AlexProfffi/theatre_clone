@@ -31,53 +31,62 @@
             {{ pl.name }}
           </h3>
         </div>
-        <div
-          v-for="link in linkBuyTicketList"
-          :key="link.id_link"
-          class="d_flex_row j_content_center pad_b1em"
-        >
-          <form
-            id="form_pay"
-            method="POST"
-            @submit="purchasedTickets"
-            class="d_flex_column w_30"
+        <div v-if="linkBuyTicketList[0]">
+          <div
+            v-for="link in linkBuyTicketList"
+            :key="link.id_link"
+            class="d_flex_row j_content_center pad_b1em"
           >
-            <div class="d_flex_row">
-              <label for="email" class="font_1"
-                >Введіть електронну пошту для купівлі квитка:</label
-              >
-            </div>
-            <input
-              class="input_field"
-              type="email"
-              id="email"
-              placeholder="Email... (Обов'язкове поле)"
-              v-model="callBackData.email"
-            />
-            <button
-              v-if="checkCorrectEmail(callBackData.email)"
-              id="pay_b"
-              type="submit"
-              class="payment_button f_source_sans nav_link_color f_size_32"
-              @click="pay(link.link)"
+            <form
+              id="form_pay"
+              method="POST"
+              @submit="purchasedTickets"
+              class="d_flex_column w_30"
             >
-              Купити квиток
-            </button>
-          </form>
+              <div class="d_flex_row">
+                <label for="email" class="font_1"
+                  >Введіть електронну пошту для купівлі квитка:
+                </label>
+              </div>
+              <input
+                class="input_field"
+                type="email"
+                id="email"
+                placeholder="Email... (Обов'язкове поле)"
+                v-model="callBackData.email"
+              />
+              <button
+                v-if="checkCorrectEmail(callBackData.email)"
+                id="pay_b"
+                type="submit"
+                class="payment_button f_source_sans nav_link_color f_size_32"
+                @click="pay(link.link)"
+              >
+                Купити квиток
+              </button>
+            </form>
+          </div>
         </div>
         <div
-        id="offerContract"
+          id="offerContract"
           class="d_flex_row j_content_center font_1"
           v-if="checkCorrectEmail(callBackData.email)"
         >
-          <div>Купуючи квиток Ви погоджуєтесь з </div>
+          <div>Купуючи квиток Ви погоджуєтесь з</div>
           <div v-for="offs in offert" :key="offs.id">
             <div class="p_l_0_3">
-              <span @click="pay(offs.file_offer)" class="nav_link_color c_pointer offerts">
+              <span
+                @click="pay(offs.file_offer)"
+                class="nav_link_color c_pointer offerts"
+              >
                 «Офертою»
               </span>
               та
-              <span v-if="offs.file_contract" @click="pay(offs.file_contract)"  class="nav_link_color c_pointer offerts">
+              <span
+                v-if="offs.file_contract"
+                @click="pay(offs.file_contract)"
+                class="nav_link_color c_pointer offerts"
+              >
                 «Договором»
               </span>
             </div>
@@ -138,12 +147,9 @@ export default {
       .then(() => this.playList.push(this.play))
       .then(() => this.linkBuyTicketList.push(this.linkBuyTicket))
       .then(() => this.setTitle());
-    this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
-
-   
+    // this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
   },
   methods: {
-    
     checkCorrectEmail(mail) {
       // Первіряє поле на наявність пошти
       let check_a = false;
@@ -268,11 +274,11 @@ export default {
         `${this.$store.getters.getServerUrl}/playss_all/${this.id}/`
       )
         .then((response) => response.json())
-        .then(
-          (this.linkBuyTicket = await fetch(
-            `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
-          ).then((response) => response.json()))
-        )
+        // .then(
+        //   (this.linkBuyTicket = await fetch(
+        //     `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
+        //   ).then((response) => response.json()))
+        // )
         .catch((error) => {
           console.log(error);
         });
