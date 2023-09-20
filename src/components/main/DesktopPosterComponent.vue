@@ -1,12 +1,8 @@
 <template>
   <div v-if="!isMobile" class="posters d_flex_column j_content_center ptb_40">
     <div v-if="showSpiner">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      <SpinerComponent />
+      
     </div>
 
     <div
@@ -148,11 +144,14 @@
 </template>
   <script>
 import ModalInfo from "../helpers/ModalInfo.vue";
+import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
+
 
 export default {
   name: "DesktopPosterComponent",
   components: {
     ModalInfo,
+    SpinerComponent,
   },
   data() {
     return {

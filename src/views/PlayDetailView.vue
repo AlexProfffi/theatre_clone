@@ -1,13 +1,7 @@
 <template>
   <div v-if="!isMobile">
     <div v-if="showSpiner" id="spinner_is">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <h3 class="pad_top" id="label_spiner">Виконайте оплату...</h3>
+      <SpinerComponent />
     </div>
     <div id="detail" class="home_play" v-else>
       <div>
@@ -31,18 +25,13 @@
             {{ pl.name }}
           </h3>
         </div>
-        <div v-if="linkBuyTicketList[0]">
+        <div v-if="linkPayList[0]">
           <div
-            v-for="link in linkBuyTicketList"
+            v-for="link in linkPayList"
             :key="link.id_link"
             class="d_flex_row j_content_center pad_b1em"
           >
-            <form
-              id="form_pay"
-              method="POST"
-              @submit="purchasedTickets"
-              class="d_flex_column w_30"
-            >
+            <div id="form_pay" class="d_flex_column w_30">
               <div class="d_flex_row">
                 <label for="email" class="font_1"
                   >Введіть електронну пошту для купівлі квитка:
@@ -60,17 +49,14 @@
                 id="pay_b"
                 type="submit"
                 class="payment_button f_source_sans nav_link_color f_size_32"
-                @click="pay(link.link)"
+                @click="pay(link.link, true)"
               >
                 Купити квиток
               </button>
-            </form>
+            </div>
           </div>
         </div>
-        <div
-          id="offerContract"
-          class="d_flex_row j_content_center font_1"
-        >
+        <div id="offerContract" class="d_flex_row j_content_center font_1">
           <div>Купуючи квиток Ви погоджуєтесь з</div>
           <div v-for="offs in offert" :key="offs.id">
             <div class="p_l_0_3">
@@ -105,6 +91,7 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
+import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
 export default {
   name: "PlayDetailView",
@@ -112,66 +99,44 @@ export default {
     HeaderComponent,
     FooterComponent,
     PhotoPlayComponent,
+    SpinerComponent,
   },
   props: {
     id: String,
   },
   data() {
     return {
+      showSpiner: true,
       isMobile: false,
-      showSpiner: false,
-      play: null,
+      play: {},
       playList: [],
-      linkBuyTicket: null,
-      linkBuyTicketList: [],
+      linkPay: {},
+      linkPayList: [],
       idPlay: this.id,
       callBackData: {
-        u_ser: null,
-        for_play: null,
-        order_id: null,
         email: null,
-        date_time_play: null,
       },
-      statusPay: null,
+      statusPay: {},
       statusPayList: [],
       interval: null,
       counterToErrorStatus: 0,
       offert: null,
       linkOffert: null,
+      textRing: false,
     };
   },
   created() {
     this.getPlay()
       .then(() => this.getOffert())
       .then(() => this.playList.push(this.play))
-      .then(() => this.linkBuyTicketList.push(this.linkBuyTicket))
-      .then(() => this.setTitle());
-    this.getStatusPay().then(() => this.statusPayList.push(this.statusPay));
+      .then(() => this.getLinkPay())
+      .then(() => this.linkPayList.push(this.linkPay))
+      .then(() => this.setTitle())
+      .then(() => {
+        this.showSpiner = false;
+      });
   },
   methods: {
-    checkCorrectEmail(mail) {
-      // Первіряє поле на наявність пошти
-      let check_a = false;
-      let check_dot;
-
-      if (mail != null) {
-        for (let x = 0; x < mail.length; x++) {
-          if (mail[x] == "@" && x != 0 && x != mail.length - 1) {
-            check_a = true;
-          }
-          if (mail[x] == "." && x != 0 && x != mail.length - 1) {
-            check_dot = true;
-          }
-        }
-      }
-
-      if (check_a && check_dot) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-
     async getOffert() {
       // Фільтр по місяцям
       this.offert = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
@@ -182,106 +147,39 @@ export default {
         });
     },
 
-    onlyDate(date) {
-      // Відсікає чесовий пояс від дати
-      let newDate = String(date).split("+");
-      newDate = newDate[0].split("T").join("|");
-      return newDate;
-    },
-    async purchasedTickets(e) {
-      // Відправка даних на сервер
-      e.preventDefault();
-      this.callBackData.for_play = this.id;
-      this.callBackData.order_id = this.linkBuyTicketList[0].order_id;
-      this.callBackData.date_time_play = this.onlyDate(
-        this.playList[0].date_play
-      );
-      await fetch(`${this.$store.getters.getServerUrl}/pay-callback/`, {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.callBackData),
-      })
-        .then(() => {
-          this.showSpiner = true;
-        })
-        .then(() => this.setIntervGetStatusPay());
-    },
-
-    async callStatus() {
-      // Post запит до сервера на збереження в квитка в БД та відпраки на пошту
-      await fetch(`${this.$store.getters.getServerUrl}/pay-callback_2/`, {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.callBackData),
-      });
-    },
-
-    async setIntervGetStatusPay() {
-      // Інтервал між запитами на статус оплати
-      this.interval = setInterval(this.wrapperDecor, 2000);
-      if (this.statusPay !== null) {
-        console.log("if  ", this.statusPay.status);
-        if (this.statusPayList[0].status == "succes") {
-          clearInterval(this.interval);
-        }
-      }
-    },
-
-    async getStatusPay() {
-      // статус оплати
-      let url = `${this.$store.getters.getServerUrl}/show_call_data/${this.id}/${this.callBackData.order_id}/${this.callBackData.date_time_play}/${this.callBackData.email}/`;
-      this.statusPay = await fetch(url)
-        .then((response) => response.json())
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-
-    async wrapperDecor() {
-      // Обгортка до функції запиту на статус оплати та інтервалу
-      this.getStatusPay()
-        .then(() => {
-          if (this.statusPay !== null) {
-            console.log(this.statusPay.status,);
-            this.counterToErrorStatus++;
-            console.log(this.counterToErrorStatus);
-            if (this.counterToErrorStatus === 45) {
-              clearInterval(this.interval);
-              location.reload();
-            }
-            if (this.statusPay.status == "success") {
-              clearInterval(this.interval);
-              this.showSpiner = false;
-            }
-          }
-        })
-        .then(() => this.callStatus());
-    },
-
-    pay(lnk) {
-      // Anchor to top
-      window.open(lnk, "_blank").focus();
-    },
     async getPlay() {
       this.play = await fetch(
         `${this.$store.getters.getServerUrl}/playss_all/${this.id}/`
       )
         .then((response) => response.json())
-        .then(
-          (this.linkBuyTicket = await fetch(
-            `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
-          ).then((response) => response.json()))
-        )
         .catch((error) => {
           console.log(error);
         });
     },
+    async getLinkPay() {
+      // Посилання на оплату
+      this.linkPay = await fetch(
+        `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
+      )
+        .then((response) => response.json())
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    setOrderInToStorage() {
+      // Заносить order_id в локальне сховище
+      localStorage.setItem(
+        "infoForTicket",
+        JSON.stringify({
+          order_id: this.linkPay.order_id,
+          email: this.callBackData.email,
+          time_play: this.onlyDate(this.play.date_play),
+          play_name: this.play.name,
+        })
+      );
+    },
+
     correctRange(hours, minutes) {
       // Коригує час тривалості
       let range = [hours, minutes];
@@ -319,6 +217,47 @@ export default {
     async setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = this.playList[0].name;
+    },
+    pay(lnk, runSpiner = false) {
+      //  Перехід на іншу сторінку з фокусом на ній
+      if (runSpiner) {
+        window.open(lnk, "_blank").focus();
+        this.setOrderInToStorage();
+        document.querySelector("#email").disabled = true
+        this.callBackData.email = "";
+      } else {
+        window.open(lnk, "_blank").focus();
+      }
+    },
+
+    checkCorrectEmail(mail) {
+      // Первіряє поле на наявність пошти
+      let check_a = false;
+      let check_dot;
+
+      if (mail != null) {
+        for (let x = 0; x < mail.length; x++) {
+          if (mail[x] == "@" && x != 0 && x != mail.length - 1) {
+            check_a = true;
+          }
+          if (mail[x] == "." && x != 0 && x != mail.length - 1) {
+            check_dot = true;
+          }
+        }
+      }
+
+      if (check_a && check_dot) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    onlyDate(date) {
+      // Відсікає чесовий пояс від дати
+      let newDate = String(date).split("+");
+      newDate = newDate[0].split("T").join("|");
+      return newDate;
     },
   },
 };
