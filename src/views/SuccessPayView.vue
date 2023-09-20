@@ -3,7 +3,6 @@
     <div>
       <HeaderComponent />
     </div>
-    {{ currentOrderId }}
     <div v-if="showSpiner" id="spinner_is">
       <SpinerComponent />
       <h3 class="pad_top" id="label_spiner">Виконується оплата...</h3>
