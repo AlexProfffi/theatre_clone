@@ -44,6 +44,10 @@ html {
     justify-content: end;
 }
 
+.j_content_start {
+    justify-content: start;
+}
+
 .j_content_space_between {
     justify-content: space-between;
 }
@@ -83,6 +87,10 @@ html {
     width: 100%;
 }
 
+.w_75 {
+    width: 85%;
+}
+
 .w_50 {
     width: 50%;
 }
@@ -96,6 +104,10 @@ html {
 
 .h_100 {
     height: 100%;
+}
+
+.h_20_px {
+    height: 20px;
 }
 
 
@@ -113,6 +125,10 @@ html {
     margin: 1px;
 }
 
+.margin_both_2 {
+    margin: 0 2em 0 2em;
+}
+
 
 /* padding */
 
@@ -122,6 +138,10 @@ html {
 
 .pad_b1em {
     padding-bottom: 1em;
+}
+
+.padding_b {
+    padding-bottom: 3px;
 }
 
 .p_tb_5 {
@@ -168,6 +188,10 @@ html {
     font-size: 14px;
 }
 
+.small_font {
+    font-size: 0.6em;
+}
+
 .c_pointer {
     cursor: pointer;
 }
@@ -191,6 +215,10 @@ html {
 
 .f_size_32 {
     font-size: 1.4em;
+}
+
+.f_size_42 {
+    font-size: 3.8em;
 }
 
 .f_weight_400 {

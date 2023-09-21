@@ -26,6 +26,7 @@ export default {
   border-radius: 2px;
   width: 10px;
   height: 10px;
+  background-color: whitesmoke;
 }
 .rectangle_black {
   border: 1px solid black;

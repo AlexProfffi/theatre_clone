@@ -279,6 +279,7 @@ export default {
 @media  screen and (max-width: 1000px) {
   #naviRect {
     top: 31rem;
+    left: 45%;
   }
 
   .bi-arrow-right-circle {

@@ -3,6 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
+    {{ currentOrderId }}
     <div v-if="showSpiner" id="spinner_is">
       <SpinerComponent />
       <h3 class="pad_top" id="label_spiner">Виконується оплата...</h3>
@@ -69,7 +70,9 @@ export default {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(this.currentOrderId),
-      }).catch((error) => {
+      })
+      .then(() => {localStorage.removeItem("infoForTicket")})
+      .catch((error) => {
         console.log(error);
       });
     },

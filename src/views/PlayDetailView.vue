@@ -7,56 +7,31 @@
       <div>
         <HeaderComponent />
       </div>
-      <div>
+      <div class="d_flex_column">
         <div v-for="pl in playList" :key="pl.id">
           <PhotoPlayComponent
             :photo="pl.photo"
             :photo_2="pl.photo_2"
             :photo_3="pl.photo_3"
             :photo_4="pl.photo_4"
-            :photo_5="pl.photo_5"
+            :photo_5="pl.photo_5" 
             :photo_6="pl.photo_6"
             :photo_7="pl.photo_7"
             :photo_8="pl.photo_8"
             :photo_9="pl.photo_9"
             :photo_10="pl.photo_10"
           />
-          <h3 class="play_hame_h3">
+        <div class="d_flex_row j_content_center">
+          <h3 id="pl_name" class="play_hame_h3 upper_case pad_top pad_b1em f_size_42 open_sans ">
             {{ pl.name }}
           </h3>
         </div>
-        <div v-if="linkPayList[0]">
-          <div
-            v-for="link in linkPayList"
-            :key="link.id_link"
-            class="d_flex_row j_content_center pad_b1em"
-          >
-            <div id="form_pay" class="d_flex_column w_30">
-              <div class="d_flex_row">
-                <label for="email" class="font_1"
-                  >Введіть електронну пошту для купівлі квитка:
-                </label>
-              </div>
-              <input
-                class="input_field"
-                type="email"
-                id="email"
-                placeholder="Email... (Обов'язкове поле)"
-                v-model="callBackData.email"
-              />
-              <button
-                v-if="checkCorrectEmail(callBackData.email)"
-                id="pay_b"
-                type="submit"
-                class="payment_button f_source_sans nav_link_color f_size_32"
-                @click="pay(link.link, true)"
-              >
-                Купити квиток
-              </button>
-            </div>
-          </div>
         </div>
-        <div id="offerContract" class="d_flex_row j_content_center font_1">
+        <div class="margin_both_2">
+          <AboutPlayShortComponentVue :play="play" :withPhoto="false" :linkPay="linkPay"/>
+        </div>
+        <div class="h_20_px"></div>
+        <div id="offerContract" class="d_flex_row j_content_start small_font">
           <div>Купуючи квиток Ви погоджуєтесь з</div>
           <div v-for="offs in offert" :key="offs.id">
             <div class="p_l_0_3">
@@ -78,6 +53,7 @@
           </div>
         </div>
       </div>
+      
       <div>
         <FooterComponent />
       </div>
@@ -92,6 +68,8 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
+import AboutPlayShortComponentVue from '@/components/main/AboutPlay/AboutPlayShortComponent.vue';
+
 
 export default {
   name: "PlayDetailView",
@@ -100,6 +78,7 @@ export default {
     FooterComponent,
     PhotoPlayComponent,
     SpinerComponent,
+    AboutPlayShortComponentVue
   },
   props: {
     id: String,
@@ -110,12 +89,9 @@ export default {
       isMobile: false,
       play: {},
       playList: [],
-      linkPay: {},
-      linkPayList: [],
       idPlay: this.id,
-      callBackData: {
-        email: null,
-      },
+      linkPayList:[],
+      linkPay: {},
       statusPay: {},
       statusPayList: [],
       interval: null,
@@ -127,10 +103,11 @@ export default {
   },
   created() {
     this.getPlay()
+    .then(() => this.getLinkPay())
       .then(() => this.getOffert())
       .then(() => this.playList.push(this.play))
-      .then(() => this.getLinkPay())
       .then(() => this.linkPayList.push(this.linkPay))
+      
       .then(() => this.setTitle())
       .then(() => {
         this.showSpiner = false;
@@ -156,28 +133,16 @@ export default {
           console.log(error);
         });
     },
+
     async getLinkPay() {
       // Посилання на оплату
       this.linkPay = await fetch(
         `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
       )
-        .then((response) => response.json())
-        .catch((error) => {
+      .then((response) => response.json())
+        .catch(function (error) {
           console.log(error);
         });
-    },
-
-    setOrderInToStorage() {
-      // Заносить order_id в локальне сховище
-      localStorage.setItem(
-        "infoForTicket",
-        JSON.stringify({
-          order_id: this.linkPay.order_id,
-          email: this.callBackData.email,
-          time_play: this.onlyDate(this.play.date_play),
-          play_name: this.play.name,
-        })
-      );
     },
 
     correctRange(hours, minutes) {
@@ -228,37 +193,7 @@ export default {
       } else {
         window.open(lnk, "_blank").focus();
       }
-    },
-
-    checkCorrectEmail(mail) {
-      // Первіряє поле на наявність пошти
-      let check_a = false;
-      let check_dot;
-
-      if (mail != null) {
-        for (let x = 0; x < mail.length; x++) {
-          if (mail[x] == "@" && x != 0 && x != mail.length - 1) {
-            check_a = true;
-          }
-          if (mail[x] == "." && x != 0 && x != mail.length - 1) {
-            check_dot = true;
-          }
-        }
-      }
-
-      if (check_a && check_dot) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-
-    onlyDate(date) {
-      // Відсікає чесовий пояс від дати
-      let newDate = String(date).split("+");
-      newDate = newDate[0].split("T").join("|");
-      return newDate;
-    },
+    }, 
   },
 };
 </script>
@@ -273,6 +208,7 @@ export default {
   }
   .play_hame_h3 {
     padding-top: 5px;
+    font-size: 2.5em;
   }
 }
 
@@ -283,12 +219,13 @@ export default {
   #label_spiner {
     padding-top: 4em;
   }
-  #form_pay {
-    width: 80vw;
-    padding: 20px 0 20px 0;
-  }
+ 
   #offerContract {
     flex-direction: column;
+  }
+  .play_hame_h3 {
+    padding-top: 5px;
+    font-size: 1.5em;
   }
 }
 
@@ -299,16 +236,8 @@ export default {
 .offerts:hover {
   color: green;
 }
-.payment_button {
-  border-color: gray;
-  border-radius: 5px;
-  background: transparent;
-  margin: 5px 0 5px 0;
-}
 
-.input_field {
-  padding: 5px;
-  border-radius: 5px;
-}
+
+
 </style>
     
