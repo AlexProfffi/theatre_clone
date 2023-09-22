@@ -432,7 +432,6 @@ export default {
     },
 
     setDurationPlay(time, duration) {
-      console.log(time, " ", duration)
       // Діапазон тривалості вистав
       // від-до
       let onlytime = String(time).split("T")[1];
