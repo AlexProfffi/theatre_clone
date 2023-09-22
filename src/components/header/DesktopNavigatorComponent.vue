@@ -9,13 +9,13 @@
         :id="nav.idEl"
         class=""
       >
-        <router-link 
-          :to="{name: nav.linkTo}" 
+        <a 
+          :href="nav.linkTo" 
           @click="deleteDataFromFilter()" 
           class="upper_case none_text_decor nav_link_color" 
         >
           {{ nav.txt }}
-        </router-link>
+        </a>
       </li>
     </ul>
   </div>
@@ -50,7 +50,7 @@ export default {
       ];
       let listNaviLinks = [
         // "/main",
-        "plays",
+        "/",
         // "/news",
         // "about",
         // "/archive",
