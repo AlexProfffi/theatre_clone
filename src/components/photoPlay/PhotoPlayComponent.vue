@@ -230,7 +230,7 @@ export default {
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "https://theatreofplaywrightsapi.space:8443" + str.replace(changeble, "");
+        return "https://theatreofplaywrightsapi.space:8443/image_theatre/" + str.replace(changeble, "");
       }
       return str;
     },

@@ -3,6 +3,7 @@
   class="d_flex_row p_bottom bg_grey_custom   plays_for_sale"
   :class="{'j_content_space_around': !withPhoto, 'horizontal_line': withPhoto}"
   >
+  {{ play.is_show }}
     <div class="w_20_percent plays_sl_component">
       <div>
         <h4
@@ -408,11 +409,11 @@ export default {
       // Замінює підстроку
       if (changeble) {
         return (
-          "https://theatreofplaywrightsapi.space:8443" +
+          "https://theatreofplaywrightsapi.space:8443/image_theatre/" +
           str.replace(changeble, "")
         );
       }
-      return "https://theatreofplaywrightsapi.space:8443" + str;
+      return "https://theatreofplaywrightsapi.space:8443/image_theatre/" + str;
     },
 
     showModal() {

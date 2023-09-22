@@ -9,7 +9,7 @@
       v-for="play in playList"
       :key="play.id"
     >
-      <AboutPlayShortComponentVue :play="play" :withPhoto="true"/>
+      <AboutPlayShortComponentVue  :play="play" :withPhoto="true"/>
     </div>
   </div>
 </template>
