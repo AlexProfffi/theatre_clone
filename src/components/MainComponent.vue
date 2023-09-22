@@ -42,7 +42,5 @@ export default {
   padding: 40px;
 }
 
-.name_dep {
-  font-size: 4em;
-}
+
 </style>

@@ -1,9 +1,8 @@
 <template>
-  <div 
-  class="d_flex_row p_bottom bg_grey_custom   plays_for_sale"
-  :class="{'j_content_space_around': !withPhoto, 'horizontal_line': withPhoto}"
+  <div
+    class="d_flex_row p_bottom bg_grey_custom plays_for_sale"
+    :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
-  {{ play.is_show }}
     <div class="w_20_percent plays_sl_component">
       <div>
         <h4
@@ -70,38 +69,16 @@
         </div>
       </div>
       <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
-        <div v-if="play.staff.length < 2 && play.staff[0].role.length > 1">
-          
-          <div v-for="rl in rolesAll(play.staff[0].role)" :key="rl.value">
-            <span v-if="rl.txt == 'Режисер' || rl.txt == 'Режисерка'">
-              {{ rl.txt }}
+        <div>
+          <div>
+            <span>
+              {{ modernGenderDirector.rol }}
             </span>
-          </div>
-        </div>
-        <span v-else> Режисери </span>
-        <div v-if="play.staff.length < 2">
-          <div v-for="pd in play.staff" :key="pd.id">
             <span class="f_weight_bold p_l_0_5">
-              {{ pd.name }}
-            </span>
-            <span class="f_weight_bold p_l_0_3">
-              {{ pd.surname }}
+              {{ modernGenderDirector.fullName }}
             </span>
           </div>
         </div>
-        <div v-else>
-          <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
-            Показати всіх
-          </span>
-          <ModalInfo
-            :dramaturgs="play.staff"
-            :show="modal"
-            @close="modal = false"
-          />
-        </div>
-
-        <!-- <span class="f_weight_bold p_l_0_5">{{ play.staff[0].name }}</span>
-          <span class="f_weight_bold p_l_0_3">{{ play.staff[0].surname }}</span> -->
       </div>
       <div class="d_flex_row f_oswald pad_top play_sl_duration">
         <h4
@@ -117,8 +94,8 @@
       </div>
     </div>
     <div
-      class="upper_case w_20_percent d_flex_column  plays_sl_component"
-      :class="{'j_content_start': !withPhoto, 'j_content_center': withPhoto}"
+      class="upper_case w_20_percent d_flex_column plays_sl_component"
+      :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
     >
       <div class="open_sans f_size_32 c_pointer">
         <router-link
@@ -131,20 +108,18 @@
         >
           купити квиток
         </router-link>
-        <span
-          v-else
-          class="nav_link_color"
-          @click="showFormToPay()"
-        >
+        <span v-else class="nav_link_color" @click="showFormToPay()">
           купити квиток
         </span>
       </div>
       <div>
         <div v-if="theLinkPay">
-          <div
-            class="d_flex_row j_content_center"
-          >
-            <div v-if="showPaymentForm" id="form_pay" class="d_flex_column w_75">
+          <div class="d_flex_row j_content_center">
+            <div
+              v-if="showPaymentForm"
+              id="form_pay"
+              class="d_flex_column w_75"
+            >
               <div class="d_flex_row">
                 <label for="email" class="open_sans small_font padding_b"
                   >Введіть електронну пошту для купівлі квитка:
@@ -181,7 +156,7 @@ export default {
   name: "AboutPlayShortComponent",
   props: {
     play: Object,
-    linkPay:Object,
+    linkPay: Object,
     withPhoto: Boolean,
   },
   components: {
@@ -198,23 +173,21 @@ export default {
       },
       thePlay: this.play,
       showPaymentForm: false,
+      modernGenderDirector: {},
     };
   },
   created() {
+    this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
   },
   methods: {
-
     rolesAll(lst) {
       // Режисер/ка
       let dt = [];
-      for (let x = 0; x<lst.length; x++) {
-        dt.push(
-          {value: x, txt: lst[x]}
-        )
+      for (let x = 0; x < lst.length; x++) {
+        dt.push({ value: x, txt: lst[x] });
       }
       return dt;
     },
-    
 
     setOrderInToStorage() {
       // Заносить order_id в локальне сховище
@@ -231,11 +204,11 @@ export default {
 
     pay(lnk) {
       //  Перехід на іншу сторінку з фокусом на ній
-        window.open(lnk, "_blank").focus();
-        this.setOrderInToStorage();
-        document.querySelector("#email").disabled = true
-        this.callBackData.email = "";
-      
+      this.setOrderInToStorage();
+      window.open(lnk, "_blank").focus();
+
+      document.querySelector("#email").disabled = true;
+      this.callBackData.email = "";
     },
 
     checkCorrectEmail(mail) {
@@ -267,7 +240,6 @@ export default {
       newDate = newDate[0].split("T").join("|");
       return newDate;
     },
-
 
     transcription(word) {
       // Транскрипція з кирилиці на латиницю
@@ -457,29 +429,21 @@ export default {
     },
 
     showFormToPay() {
-        this.showPaymentForm = !this.showPaymentForm
+      this.showPaymentForm = !this.showPaymentForm;
     },
-    genderParty(gender) {
-      // Політкоректність
-      let male = false;
-      let female = false;
-      for (let x = 0; x < gender.length; x++) {
-        console.log(gender[x].role[0]);
-        if (gender[x].role[0] == "Драматург") {
-          male = true;
+
+    whoIsIt(allStaff = [], male, female) {
+      // Повертає режисера із списку персонала
+      for (let x = 0; x < allStaff.length; x++) {
+        if (
+          allStaff[x].role.indexOf(male) > -1 ||
+          allStaff[x].role.indexOf(female) > -1
+        ) {
+          this.modernGenderDirector.fullName = `${allStaff[x].name} ${allStaff[x].surname}`;
+          this.modernGenderDirector.rol =
+            allStaff[x].role.indexOf(male) > -1 ? male : female;
         }
-        if (gender[x].role[0] == "Драматургиня") {
-          female = true;
-        }
-      }
-      if (male && female) {
-        this.genderP = "Драматурги/ні:";
-      }
-      if (!male && female) {
-        this.genderP = "Драматургині:";
-      }
-      if (male && !female) {
-        this.genderP = "Драматурги:";
+        return this.modernGenderDirector;
       }
     },
   },
@@ -487,8 +451,7 @@ export default {
 </script>
   <style scoped>
 @media screen and (max-width: 1000px) {
-
-    #form_pay {
+  #form_pay {
     width: 100%;
     padding: 20px 0 20px 0;
   }
@@ -509,6 +472,7 @@ export default {
   .plays_sl_component {
     margin: auto;
     width: max-content !important;
+    padding-bottom: 5px;
   }
   .play_sl_duration {
     justify-content: center;

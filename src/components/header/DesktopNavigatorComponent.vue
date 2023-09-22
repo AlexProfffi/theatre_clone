@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isMobile" class="d_flex_row j_content_center">
     <ul
-      class="none_decor_ul d_flex_row flex_wrap j_content_center f_family_sans w_100"
+      class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
     >
       <li
         v-for="nav in navigationData"
@@ -9,14 +9,13 @@
         :id="nav.idEl"
         class=""
       >
-        <a 
-          :href="nav.linkTo" 
+        <router-link 
+          :to="{name: nav.linkTo}" 
           @click="deleteDataFromFilter()" 
           class="upper_case none_text_decor nav_link_color" 
-          v-if="nav.txt == 'афіша'"
         >
           {{ nav.txt }}
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -41,22 +40,22 @@ export default {
 
     naviPanel() {
       let listNavi = [
-        "головна",
+        // "головна",
         "афіша",
-        "новини",
-        "про театр",
-        "архів",
-        "партнери",
-        "контакти",
+        // "новини",
+        // "про театр",
+        // "архів",
+        // "партнери",
+        // "контакти",
       ];
       let listNaviLinks = [
-        "/main",
-        "/",
-        "/news",
-        "/about",
-        "/archive",
-        "/partners",
-        "/contacts",
+        // "/main",
+        "plays",
+        // "/news",
+        // "about",
+        // "/archive",
+        // "/partners",
+        // "/contacts",
       ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {
@@ -78,11 +77,5 @@ export default {
   padding: 0 16.5em 0 16.5em;
 }
 
-.nav_link_color {
-  color: #3d3d3d;
-}
 
-.nav_link_color:hover {
-  color: black;
-}
 </style>

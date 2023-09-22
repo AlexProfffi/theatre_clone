@@ -39,32 +39,42 @@
         </div>
         <div class="h_7em"></div>
         <div class="d_flex_column j_content_space_between">
-          <div class="d_flex_row margin_both_2">
-            <div class="d_flex_row upper_case navigate_ul open_sans f_size_15">
+          <div class="d_flex_row margin_both_2" id="navigate_desc">
+            <div class="d_flex_row upper_case navigate_ul open_sans f_size_15" name="current">
               <span
                 v-for="palyNav in dataNaviAboutPlay()"
                 :key="palyNav.value"
                 class="margin_1_em"
               >
-                {{ palyNav.txt }}
+                <span class="nav_link_color c_pointer">
+                  {{ palyNav.txt }}
+                </span>
               </span>
             </div>
           </div>
-          <div class="d_flex_row j_content_space_between margin_both_2 ptb_70">
-            <div class="d_flex_column w_50">
+          <div
+            id="about_play"
+            class="d_flex_row j_content_space_between margin_both_2 ptb_70"
+          >
+            <div class="d_flex_column w_50" id="descript" name="description_level">
               <div class="d_flex_row">
-                <h2 class="upper_case open_sans f_weight_bold">про виставу</h2>
+                <h2
+                  id="head_description"
+                  class="upper_case open_sans f_weight_bold"
+                >
+                  про виставу
+                </h2>
               </div>
-              <div class="d_flex_row w_50 t_left pad_top">
-                <p v-if="play.description" class="open_sans">
+              <div class="d_flex_row w_50 t_left pad_top" id="inner_descript">
+                <p v-if="play.description" class="open_sans text_descript">
                   {{ play.description }}
                 </p>
                 <p v-else>Інформація зя'виться незабаром</p>
               </div>
             </div>
-            <div class="d_flex_column w_50">
+            <div class="d_flex_column w_50" id="actors_list" name="actors_level">
               <div class="d_flex_row">
-                <h2 class="upper_case open_sans f_weight_bold">
+                <h2 id="head_actors" class="upper_case open_sans f_weight_bold">
                   акторський склад
                 </h2>
               </div>
@@ -252,8 +262,14 @@ export default {
       // Навігація в інфо про виставу
       let dt = [];
       let preparedData = ["про виставу", "команда", "кометарі", "деталі"];
+      let linksNav = [
+        "#description_level",
+        "#actors_level",
+        "#current",
+        "#current",
+      ];
       for (let x = 0; x < preparedData.length; x++) {
-        dt.push({ value: x, txt: preparedData[x] });
+        dt.push({ value: x, txt: preparedData[x], toNav: linksNav[x] });
       }
       return dt;
     },
@@ -262,10 +278,10 @@ export default {
       // Актор/ка
       let isActresses = lst.indexOf("Актор");
       let isActror = lst.indexOf("Акторка");
-      if (isActresses >  -1 || isActror > -1) {
+      if (isActresses > -1 || isActror > -1) {
         return true;
       }
-      console.log(isActresses, isActror)
+      console.log(isActresses, isActror);
     },
   },
 };
@@ -296,9 +312,35 @@ export default {
   #offerContract {
     flex-direction: column;
   }
+
+  #about_play {
+    flex-direction: column;
+  }
+
+  #actors_list,
+  #descript,
+  #inner_descript {
+    width: 100%;
+  }
+  #navigate_desc {
+    justify-content: space-around;
+    font-size: 0.7em;
+    margin: 0;
+  }
+
+  .text_descript {
+    font-size: 12px;
+    text-align: justify;
+  }
+
   .play_hame_h3 {
     padding-top: 5px;
     font-size: 1.5em;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 9%;
   }
 }
 

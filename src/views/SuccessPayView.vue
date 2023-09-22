@@ -3,7 +3,6 @@
     <div>
       <HeaderComponent />
     </div>
-    {{ currentOrderId }}
     <div v-if="showSpiner" id="spinner_is">
       <SpinerComponent />
       <h3 class="pad_top" id="label_spiner">Виконується оплата...</h3>
@@ -46,18 +45,28 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.getDataAndSign()
-      .then(() => {
+    if (JSON.parse(localStorage.getItem("infoForTicket")) != null) {
+      console.log("ORDER ID IF ", JSON.parse(localStorage.getItem("infoForTicket")).order_id);
+      this.getDataAndSign().then(() => {
         this.showSpiner = false;
-      })
-      .then(() => {
-        localStorage.removeItem("infoForTicket");
-      })
+      });
+    } else {
+      console.log("ORDER ID ELSE ", JSON.parse(localStorage.getItem("infoForTicket")).order_id);
+      setTimeout(
+        this.getDataAndSign().then(() => {
+          this.showSpiner = false;
+        }),
+        2500
+      ).then(() => {
+        this.showSpiner = false;
+      });
+      // .then(() => this.whichIsShowStatusAsync());
+    }
   },
   methods: {
     async getDataAndSign() {
       this.dataAndSign = await fetch(
-        `${this.$store.getters.getServerUrl}/show_status_pay/${this.currentOrderId.order_id}/`
+        `${this.$store.getters.getServerUrl}/show_status_pay/${JSON.parse(localStorage.getItem("infoForTicket")).order_id}/`
       )
         .then((response) => response.json())
         .catch((error) => {
@@ -73,18 +82,44 @@ export default {
         headers: {
           "Content-Type": "application/json;charset=utf-8",
         },
-        body: JSON.stringify(this.currentOrderId),
+        body: JSON.stringify(JSON.parse(localStorage.getItem("infoForTicket"))),
       }).catch((error) => {
         console.log(error);
       });
     },
 
+    async goToMainPage() {
+      window.location = "https://theatreofplaywrights.com/";
+    },
+
     whichIsShowStatus() {
       // Повертає true якщо success
       // Повертає false якщо error
+      console.log("ORDER ID  whichIsShowStatus ", JSON.parse(localStorage.getItem("infoForTicket")).order_id);
+      if (this.dataAndSign.status == "success") {
+        this.postDataTicket()
+          // .then(() => {
+          //   localStorage.removeItem("infoForTicket");
+          // })
+          .then(() => setTimeout(this.goToMainPage, 3000));
+        return true;
+      } else if (this.dataAndSign.status == "error") {
+        return false;
+      } else {
+        return false;
+      }
+    },
+
+    async whichIsShowStatusAsync() {
+      // Повертає true якщо success
+      // Повертає false якщо error
+      // Асинхронна
+      // Викликається якщо був повторний запит
 
       if (this.dataAndSign.status == "success") {
-        this.postDataTicket();
+        this.postDataTicket().then(() => {
+          localStorage.removeItem("infoForTicket");
+        });
         return true;
       } else if (this.dataAndSign.status == "error") {
         return false;

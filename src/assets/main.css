@@ -267,6 +267,14 @@ html {
     text-align: left;
 }
 
+.name_dep {
+    font-size: 4em;
+}
+
+.t_justify {
+    text-align: justify;
+}
+
 
 /* backgroung */
 
@@ -336,4 +344,12 @@ html {
 
 .b_radius_10 {
     border-radius: 10px;
+}
+
+.nav_link_color {
+    color: #3d3d3d;
+}
+
+.nav_link_color:hover {
+    color: black;
 }
