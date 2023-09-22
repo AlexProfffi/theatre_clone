@@ -69,9 +69,14 @@
         </div>
       </div>
       <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
-        <span v-if="play.staff.length < 2">
-          {{ play.staff[0].role[0] }}
-        </span>
+        <div v-if="play.staff.length < 2 && play.staff[0].role.length > 1">
+          
+          <div v-for="rl in rolesAll(play.staff[0].role)" :key="rl.value">
+            <span v-if="rl.txt == 'Режисер' || rl.txt == 'Режисерка'">
+              {{ rl.txt }}
+            </span>
+          </div>
+        </div>
         <span v-else> Режисери </span>
         <div v-if="play.staff.length < 2">
           <div v-for="pd in play.staff" :key="pd.id">
@@ -119,7 +124,7 @@
           v-if="withPhoto"
           :to="{
             name: 'play',
-            params: { id: play.id, name: transcription(play.name) },
+            params: { id: play.id_play, name: transcription(play.name) },
           }"
           class="nav_link_color"
         >
@@ -198,6 +203,16 @@ export default {
   },
   methods: {
 
+    rolesAll(lst) {
+      // Режисер/ка
+      let dt = [];
+      for (let x = 0; x<lst.length; x++) {
+        dt.push(
+          {value: x, txt: lst[x]}
+        )
+      }
+      return dt;
+    },
     
 
     setOrderInToStorage() {
@@ -416,6 +431,7 @@ export default {
     },
 
     setDurationPlay(time, duration) {
+      console.log(time, " ", duration)
       // Діапазон тривалості вистав
       // від-до
       let onlytime = String(time).split("T")[1];
@@ -447,7 +463,7 @@ export default {
       // Політкоректність
       let male = false;
       let female = false;
-      for (let x = 0; x < gender.lekngth; x++) {
+      for (let x = 0; x < gender.length; x++) {
         console.log(gender[x].role[0]);
         if (gender[x].role[0] == "Драматург") {
           male = true;

@@ -46,9 +46,13 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.getDataAndSign().then(() => {
-      this.showSpiner = false;
-    });
+    this.getDataAndSign()
+      .then(() => {
+        this.showSpiner = false;
+      })
+      .then(() => {
+        localStorage.removeItem("infoForTicket");
+      })
   },
   methods: {
     async getDataAndSign() {
@@ -70,9 +74,7 @@ export default {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(this.currentOrderId),
-      })
-      .then(() => {localStorage.removeItem("infoForTicket")})
-      .catch((error) => {
+      }).catch((error) => {
         console.log(error);
       });
     },
@@ -88,8 +90,6 @@ export default {
         return false;
       }
     },
-
-    
   },
 };
 </script>

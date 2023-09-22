@@ -14,23 +14,77 @@
             :photo_2="pl.photo_2"
             :photo_3="pl.photo_3"
             :photo_4="pl.photo_4"
-            :photo_5="pl.photo_5" 
+            :photo_5="pl.photo_5"
             :photo_6="pl.photo_6"
             :photo_7="pl.photo_7"
             :photo_8="pl.photo_8"
             :photo_9="pl.photo_9"
             :photo_10="pl.photo_10"
           />
-        <div class="d_flex_row j_content_center">
-          <h3 id="pl_name" class="play_hame_h3 upper_case pad_top pad_b1em f_size_42 open_sans ">
-            {{ pl.name }}
-          </h3>
-        </div>
+          <div class="d_flex_row j_content_center">
+            <h3
+              id="pl_name"
+              class="play_hame_h3 upper_case pad_top pad_b1em f_size_42 open_sans"
+            >
+              {{ pl.name }}
+            </h3>
+          </div>
         </div>
         <div class="margin_both_2">
-          <AboutPlayShortComponentVue :play="play" :withPhoto="false" :linkPay="linkPay"/>
+          <AboutPlayShortComponentVue
+            :play="play"
+            :withPhoto="false"
+            :linkPay="linkPay"
+          />
         </div>
-        <div class="h_20_px"></div>
+        <div class="h_7em"></div>
+        <div class="d_flex_column j_content_space_between">
+          <div class="d_flex_row margin_both_2">
+            <div class="d_flex_row upper_case navigate_ul open_sans f_size_15">
+              <span
+                v-for="palyNav in dataNaviAboutPlay()"
+                :key="palyNav.value"
+                class="margin_1_em"
+              >
+                {{ palyNav.txt }}
+              </span>
+            </div>
+          </div>
+          <div class="d_flex_row j_content_space_between margin_both_2 ptb_70">
+            <div class="d_flex_column w_50">
+              <div class="d_flex_row">
+                <h2 class="upper_case open_sans f_weight_bold">про виставу</h2>
+              </div>
+              <div class="d_flex_row w_50 t_left pad_top">
+                <p v-if="play.description" class="open_sans">
+                  {{ play.description }}
+                </p>
+                <p v-else>Інформація зя'виться незабаром</p>
+              </div>
+            </div>
+            <div class="d_flex_column w_50">
+              <div class="d_flex_row">
+                <h2 class="upper_case open_sans f_weight_bold">
+                  акторський склад
+                </h2>
+              </div>
+              <div class="d_flex_row pad_top">
+                <ul>
+                  <li
+                    v-for="act in play.staff.slice(1, play.staff.length)"
+                    :key="act.name + act.surname"
+                    class="open_sans t_left"
+                  >
+                    <span v-if="rolesAll(act.role)">
+                      {{ act.name }}&#x20;{{ act.surname }}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="d_flex_row"></div>
+        </div>
         <div id="offerContract" class="d_flex_row j_content_start small_font">
           <div>Купуючи квиток Ви погоджуєтесь з</div>
           <div v-for="offs in offert" :key="offs.id">
@@ -53,7 +107,7 @@
           </div>
         </div>
       </div>
-      
+
       <div>
         <FooterComponent />
       </div>
@@ -68,8 +122,7 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
-import AboutPlayShortComponentVue from '@/components/main/AboutPlay/AboutPlayShortComponent.vue';
-
+import AboutPlayShortComponentVue from "@/components/main/AboutPlay/AboutPlayShortComponent.vue";
 
 export default {
   name: "PlayDetailView",
@@ -78,7 +131,7 @@ export default {
     FooterComponent,
     PhotoPlayComponent,
     SpinerComponent,
-    AboutPlayShortComponentVue
+    AboutPlayShortComponentVue,
   },
   props: {
     id: String,
@@ -90,7 +143,7 @@ export default {
       play: {},
       playList: [],
       idPlay: this.id,
-      linkPayList:[],
+      linkPayList: [],
       linkPay: {},
       statusPay: {},
       statusPayList: [],
@@ -103,11 +156,11 @@ export default {
   },
   created() {
     this.getPlay()
-    .then(() => this.getLinkPay())
+      .then(() => this.getLinkPay())
       .then(() => this.getOffert())
       .then(() => this.playList.push(this.play))
       .then(() => this.linkPayList.push(this.linkPay))
-      
+
       .then(() => this.setTitle())
       .then(() => {
         this.showSpiner = false;
@@ -139,7 +192,7 @@ export default {
       this.linkPay = await fetch(
         `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
       )
-      .then((response) => response.json())
+        .then((response) => response.json())
         .catch(function (error) {
           console.log(error);
         });
@@ -188,12 +241,32 @@ export default {
       if (runSpiner) {
         window.open(lnk, "_blank").focus();
         this.setOrderInToStorage();
-        document.querySelector("#email").disabled = true
+        document.querySelector("#email").disabled = true;
         this.callBackData.email = "";
       } else {
         window.open(lnk, "_blank").focus();
       }
-    }, 
+    },
+
+    dataNaviAboutPlay() {
+      // Навігація в інфо про виставу
+      let dt = [];
+      let preparedData = ["про виставу", "команда", "кометарі", "деталі"];
+      for (let x = 0; x < preparedData.length; x++) {
+        dt.push({ value: x, txt: preparedData[x] });
+      }
+      return dt;
+    },
+
+    rolesAll(lst) {
+      // Актор/ка
+      let isActresses = lst.indexOf("Актор");
+      let isActror = lst.indexOf("Акторка");
+      if (isActresses >  -1 || isActror > -1) {
+        return true;
+      }
+      console.log(isActresses, isActror)
+    },
   },
 };
 </script>
@@ -219,7 +292,7 @@ export default {
   #label_spiner {
     padding-top: 4em;
   }
- 
+
   #offerContract {
     flex-direction: column;
   }
@@ -237,7 +310,8 @@ export default {
   color: green;
 }
 
-
-
+.navigate_ul {
+  list-style: none;
+}
 </style>
     

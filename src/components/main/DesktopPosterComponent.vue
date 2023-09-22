@@ -56,7 +56,7 @@ export default {
     async getFilteredPlays(dataYearMonth) {
       // Фільтр по місяцям
       this.playList = await fetch(
-        `${this.$store.getters.getServerUrl}/plays_all/dates/${dataYearMonth.year}-${dataYearMonth.chooseMonth}/`
+        `${this.$store.getters.getServerUrl}/date_plays/${dataYearMonth.year}-${dataYearMonth.chooseMonth}/`
       )
         .then((response) => response.json())
 
@@ -68,7 +68,7 @@ export default {
 
     async getPlays() {
       this.playList = await fetch(
-        `${this.$store.getters.getServerUrl}/plays_all/`
+        `${this.$store.getters.getServerUrl}/date_plays/`
       )
         .then((response) => response.json())
 
