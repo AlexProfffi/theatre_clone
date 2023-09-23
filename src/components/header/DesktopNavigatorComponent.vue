@@ -38,7 +38,7 @@
       </div>
       <ul
         v-if="dropMenu"
-        class="none_decor_ul f_family_sans d_flex_column flex_wrap j_content_space_around dropdown-content"
+        class="none_decor_ul f_family_sans d_flex_column flex_wrap j_content_center dropdown-content"
         id="drop"
       >
         <li
@@ -122,6 +122,9 @@ export default {
   #drop {
     padding: 0;
   }
+  .dropdown {
+    display: inline-block !important;
+  }
 }
 
 .none_decor_ul {
@@ -138,13 +141,14 @@ export default {
 
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: none;
 }
 
 .dropdown-content {
   position: fixed;
   background-color: #ffffff;
   min-width: 100%;
+  height: 20vh;
   /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
   z-index: 11;
   left: 0;
