@@ -25,7 +25,7 @@
           <div class="d_flex_row j_content_center">
             <h3
               id="pl_name"
-              class="play_hame_h3 upper_case pad_top pad_b1em f_size_42 open_sans"
+              class="play_hame_h3 upper_case pad_top  f_size_42 open_sans"
             >
               {{ pl.name }}
             </h3>
@@ -335,7 +335,7 @@ export default {
   }
 
   .play_hame_h3 {
-    padding-top: 5px;
+    padding-top: 20px;
     font-size: 1.5em;
   }
 

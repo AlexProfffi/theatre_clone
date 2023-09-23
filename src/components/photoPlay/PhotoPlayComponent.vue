@@ -170,7 +170,7 @@
     </div>
     <div
       :id="'naviRect' + String(ident)"
-      class="d_flex_row j_content_center relative_position"
+      class="d_flex_row j_content_center relative_position navi_rect_cls"
     >
       <div v-for="rect in toRange()" :key="rect.value" class="">
         <RectangleComponent :isBlack="rect.isBlack" />
@@ -345,6 +345,9 @@ export default {
 @media screen and (max-width: 1000px) {
   #naviRect {
     left: 45%;
+  }
+  .navi_rect_cls {
+    left: 45% !important;
   }
 
   .bi-arrow-right-circle {
