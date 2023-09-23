@@ -36,7 +36,6 @@ export default {
     };
   },
   created() {
-    this.separatedString("вул. Петра Сагайдачного, 25Г, Київ, Україна, 04070");
   },
   methods: {
     separatedString(str) {

@@ -133,6 +133,10 @@ html {
     margin: 1em;
 }
 
+.mb_1rem {
+    margin-bottom: 1rem;
+}
+
 
 /* padding */
 
@@ -160,6 +164,11 @@ html {
 .ptb_70 {
     padding-top: 5em;
     padding-bottom: 20px;
+}
+
+.padding_tb_15_em {
+    padding-top: 15em;
+    padding-bottom: 15em;
 }
 
 .p_1_px {
@@ -192,6 +201,10 @@ html {
 
 .padding_1px {
     padding: 1px;
+}
+
+.padding_both_2em {
+    padding: 0 2em 0 2em;
 }
 
 

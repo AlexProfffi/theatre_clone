@@ -86,7 +86,7 @@ export default {
         "про театр",
         // "архів",
         // "партнери",
-        // "контакти",
+        "контакти",
       ];
       let listNaviLinks = [
         // "#/main",
@@ -95,7 +95,7 @@ export default {
         "#/about",
         // "#/archive",
         // "#/partners",
-        // "#/contacts",
+        "#/contacts",
       ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {

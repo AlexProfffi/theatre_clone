@@ -1,7 +1,11 @@
 <template>
-  <div v-if="!isMobile" class="d_flex_row_reverse ">
-    <span class="f_oswald c_main_white f_size_24 lower_case c_pointer" @click="socialLink(socLink)">
-        {{ socName }}
+  <div v-if="!isMobile" class="d_flex_row_reverse c_main_white">
+    <span
+      class="f_oswald f_size_24 lower_case c_pointer"
+      @click="socialLink(socLink)"
+      :class="{ nav_link_color: color }"
+    >
+      {{ socName }}
     </span>
   </div>
 </template>
@@ -11,6 +15,7 @@ export default {
   props: {
     socLink: String,
     socName: String,
+    color: Boolean,
   },
   components: {},
   data() {
@@ -28,8 +33,6 @@ export default {
 };
 </script>
 <style scoped>
-
-
 .c_main_white {
   color: #f9f9f9;
 }
