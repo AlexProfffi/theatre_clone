@@ -43,19 +43,19 @@ export default {
         // "головна",
         "афіша",
         // "новини",
-        // "про театр",
+        "про театр",
         // "архів",
         // "партнери",
         // "контакти",
       ];
       let listNaviLinks = [
-        // "/main",
+        // "#/main",
         "/",
         // "/news",
-        // "about",
-        // "/archive",
-        // "/partners",
-        // "/contacts",
+        "#/about",
+        // "#/archive",
+        // "#/partners",
+        // "#/contacts",
       ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {

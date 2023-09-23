@@ -20,6 +20,7 @@
             :photo_8="pl.photo_8"
             :photo_9="pl.photo_9"
             :photo_10="pl.photo_10"
+            :ident="''"
           />
           <div class="d_flex_row j_content_center">
             <h3

@@ -22,12 +22,13 @@
             :photo_8="null"
             :photo_9="null"
             :photo_10="null"
+            :ident="about.id"
           />
         </div>
-        <div class="d_flex_row j_content_center ptb_40">
-          <div v-html="about.description" class="w_75">
-
-          </div>
+        <div id="descript_about" class="d_flex_row j_content_space_around ptb_40">
+          <AboutUsDescriptionComponentVue :under_name="about.under_name_1" :description="about.description" />
+          <AboutUsDescriptionComponentVue :under_name="about.under_name_2" :description="about.description_2" />
+          <AboutUsDescriptionComponentVue :under_name="about.under_name_3" :description="about.description_3" />
         </div>
       </div>
     </div>
@@ -42,24 +43,23 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
+import AboutUsDescriptionComponentVue from '../components/photoPlay/aboutus/AboutUsDescriptionComponent.vue';
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
 export default {
-  name: "SuccessPayView",
+  name: "AboutView",
   components: {
     HeaderComponent,
     FooterComponent,
     PhotoPlayComponent,
+    AboutUsDescriptionComponentVue,
     // SpinerComponent,
   },
   data() {
     return {
       isMobile: false,
-      satatusData: {},
       showSpiner: true,
-      dataAndSign: {},
-      currentOrderId: JSON.parse(localStorage.getItem("infoForTicket")),
       aboutUs: [],
     };
   },
@@ -87,6 +87,9 @@ export default {
 @media screen and (max-width: 1000px) {
   p {
     font-size: 12px;
+  }
+  #descript_about {
+    flex-direction: column;
   }
 }
 p {

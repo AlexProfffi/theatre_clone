@@ -21,7 +21,7 @@ export default {
 };
 </script>
 <style scoped>
-.rectangle {
+.rectangle, .rectangle_black {
   border: 1px solid black;
   border-radius: 2px;
   width: 10px;
@@ -29,10 +29,6 @@ export default {
   background-color: whitesmoke;
 }
 .rectangle_black {
-  border: 1px solid black;
-  border-radius: 2px;
-  width: 10px;
-  height: 10px;
-  background-color: gray;
+  background-color: gray !important;
 }
 </style>

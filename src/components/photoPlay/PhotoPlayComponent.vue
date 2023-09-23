@@ -1,71 +1,111 @@
 <template>
   <div v-if="!isMobile">
-    <div id="carouselExample" class="carousel slide">
+    <div :id="'carouselExample' + String(ident)" class="carousel slide">
       <div class="carousel-inner">
-        <div class="carousel-item active" v-if="photo != null">
+        <div
+          class="carousel-item active"
+          v-if="photo != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo, '')"
             :alt="photo"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_2 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_2 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_2, '')"
             :alt="photo_2"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_3 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_3 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_3, '')"
             :alt="photo_3"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_4 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_4 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_4, '')"
             :alt="photo_4"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_5 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_5 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_5, '')"
             :alt="photo_5"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_6 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_6 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_6, '')"
             :alt="photo_6"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_7 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_7 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_7, '')"
             :alt="photo_7"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_8 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_8 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_8, '')"
             :alt="photo_8"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_9 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_9 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_9, '')"
             :alt="photo_9"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
-        <div class="carousel-item" v-if="photo_10 != null">
+        <div
+          class="carousel-item"
+          v-if="photo_10 != null"
+          :class="'item_for_r' + String(ident)"
+        >
           <img
             :src="repalcer(photo_10, '')"
             :alt="photo_10"
@@ -76,9 +116,14 @@
       <button
         class="carousel-control-prev"
         type="button"
-        data-bs-target="#carouselExample"
+        :data-bs-target="'#carouselExample' + String(ident)"
         data-bs-slide="prev"
-        @click="renderNaigationPhotoLeft()"
+        @click="
+          renderNaigationPhotoLeft(
+            '.item_for_r' + String(ident),
+            'naviRect' + String(ident)
+          )
+        "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -98,9 +143,14 @@
       <button
         class="carousel-control-next"
         type="button"
-        data-bs-target="#carouselExample"
+        :data-bs-target="'#carouselExample' + String(ident)"
         data-bs-slide="next"
-        @click="renderNaigationPhotoRight()"
+        @click="
+          renderNaigationPhotoRight(
+            '.item_for_r' + String(ident),
+            'naviRect' + String(ident)
+          )
+        "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +168,10 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-    <div id="naviRect" class="d_flex_row j_content_center relative_position">
+    <div
+      :id="'naviRect' + String(ident)"
+      class="d_flex_row j_content_center relative_position"
+    >
       <div v-for="rect in toRange()" :key="rect.value" class="">
         <RectangleComponent :isBlack="rect.isBlack" />
       </div>
@@ -142,6 +195,7 @@ export default {
     photo_8: String,
     photo_9: String,
     photo_10: String,
+    ident: Number,
   },
   components: {
     RectangleComponent,
@@ -153,16 +207,21 @@ export default {
       someData: null,
     };
   },
-  created() {},
+  created() {
+    // console.log(
+    //   document.querySelectorAll( '.item_for_r' + String(this.ident)),
+    // );
+  },
   methods: {
-    renderNaigationPhotoRight() {
+    renderNaigationPhotoRight(cls, idn) {
       // Знаходить ID поточної фотографії
-      let rectangles = document.querySelector("#naviRect");
-      let ph = document.querySelectorAll(".carousel-item");
+      let rectangles = document.getElementById(idn);
+      let ph = document.querySelectorAll(cls);
       let id_ph = 0;
       for (let x = 0; x < ph.length; x++) {
         for (let y = 0; y < ph[x].classList.length; y++) {
           if (ph[x].classList[y] == "active") {
+            
             id_ph = x + 1; // Тому що на даному етапі x має значення поперднього фото
             if (x === ph.length) {
               id_ph = 0;
@@ -170,29 +229,31 @@ export default {
           }
         }
       }
+      let lenRect = rectangles.childNodes.length - 2;
+      
       // Змінює колір квадратика під фотографіями
       // В залежності від поточної фотографії
-      if (rectangles.childNodes.length > 1 + 2) {
-        if (id_ph === rectangles.childNodes.length - 2) {
-          rectangles.childNodes[1].firstChild.classList.add("rectangle_black");
-          rectangles.childNodes[
-            rectangles.childNodes.length - 2
-          ].firstChild.classList.remove("rectangle_black");
-        } else {
-          rectangles.childNodes[id_ph + 1].firstChild.classList.add(
+
+      if (id_ph < lenRect) {
+        rectangles.childNodes[id_ph+1].firstChild.classList.add("rectangle_black");
+        rectangles.childNodes[id_ph].firstChild.classList.remove(
             "rectangle_black"
           );
-          rectangles.childNodes[id_ph].firstChild.classList.remove(
+          rectangles.childNodes[id_ph].firstChild.classList.add(
+            "rectangle"
+          );
+      } else if (id_ph == lenRect) {
+
+        rectangles.childNodes[1].firstChild.classList.add("rectangle_black");
+        rectangles.childNodes[lenRect].firstChild.classList.remove(
             "rectangle_black"
           );
-          rectangles.childNodes[id_ph].firstChild.classList.add("rectangle");
-        }
       }
     },
-    renderNaigationPhotoLeft() {
+    renderNaigationPhotoLeft(cls, idn) {
       // Знаходить ID поточної фотографії
-      let rectangles = document.querySelector("#naviRect");
-      let ph = document.querySelectorAll(".carousel-item");
+      let rectangles = document.getElementById(idn);
+      let ph = document.querySelectorAll(cls);
       let id_ph = 0;
       for (let x = 0; x < ph.length; x++) {
         for (let y = 0; y < ph[x].classList.length; y++) {
@@ -205,32 +266,38 @@ export default {
           }
         }
       }
+      let lenRect = rectangles.childNodes.length - 2;
 
       // Змінює колір квадратика під фотографіями
       // В залежності від поточної фотографії
-      if (rectangles.childNodes.length > 1 + 2) {
-        if (id_ph === rectangles.childNodes.length - 2) {
-          rectangles.childNodes[
-            rectangles.childNodes.length - 2
-          ].firstChild.classList.add("rectangle_black");
-          rectangles.childNodes[1].firstChild.classList.remove(
+
+      if (id_ph < lenRect) {
+        rectangles.childNodes[id_ph].firstChild.classList.add("rectangle_black");
+        rectangles.childNodes[id_ph+1].firstChild.classList.remove(
             "rectangle_black"
           );
-          rectangles.childNodes[1].firstChild.classList.add("rectangle");
-        } else {
-          rectangles.childNodes[id_ph].firstChild.classList.add(
+          rectangles.childNodes[id_ph+1].firstChild.classList.add(
+            "rectangle"
+          );
+      } else if (id_ph == lenRect) {
+
+        rectangles.childNodes[lenRect].firstChild.classList.add("rectangle_black");
+        rectangles.childNodes[1].firstChild.classList.remove(
             "rectangle_black"
           );
-          rectangles.childNodes[id_ph + 1].firstChild.classList.remove(
-            "rectangle_black"
+        rectangles.childNodes[1].firstChild.classList.add(
+            "rectangle"
           );
-        }
+        
       }
     },
     repalcer(str, changeble) {
       // Замінює підстроку
       if (changeble) {
-        return "https://theatreofplaywrightsapi.space:8443/image_theatre/" + str.replace(changeble, "");
+        return (
+          "https://theatreofplaywrightsapi.space:8443/image_theatre/" +
+          str.replace(changeble, "")
+        );
       }
       return str;
     },
@@ -269,16 +336,14 @@ export default {
 };
 </script>
 <style scoped>
-
 @media screen and (max-width: 1550px) {
-  #naviRect {
+  /* #naviRect {
     top: 67rem;
-  }
+  } */
 }
 
-@media  screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
   #naviRect {
-    top: 31rem;
     left: 45%;
   }
 
@@ -288,23 +353,23 @@ export default {
   .bi-arrow-left-circle {
     padding-right: 2px;
   }
-  
+
   .image_on_carusel {
     height: 225px !important;
   }
 }
 .img_size {
-  height: 750px;
+  height: 950px;
   width: 100%;
 }
 .img_contain {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .relative_position {
   position: absolute;
   left: 50%;
-  top: 70rem;
+  /* top: 70rem; */
   z-index: 99;
 }
 </style>
