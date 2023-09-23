@@ -121,7 +121,8 @@
               class="d_flex_column w_75"
             >
               <div class="d_flex_row">
-                <label for="email" class="open_sans small_font padding_b"
+                
+                <label for="email" class="open_sans small_font "
                   >Введіть електронну пошту для купівлі квитка:
                 </label>
               </div>
