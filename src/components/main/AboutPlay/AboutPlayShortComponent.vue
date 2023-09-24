@@ -135,7 +135,7 @@
               />
               <input
                 class="input_field"
-                type="text"
+                type="text mar_top_bot"
                 id="txt"
                 placeholder="Ім'я... (Обов'язкове поле)"
                 v-model="callBackData.userName"
