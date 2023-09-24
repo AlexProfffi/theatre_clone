@@ -133,6 +133,13 @@
                 placeholder="Email... (Обов'язкове поле)"
                 v-model="callBackData.email"
               />
+              <input
+                class="input_field"
+                type="text"
+                id="txt"
+                placeholder="Ім'я... (Обов'язкове поле)"
+                v-model="callBackData.userName"
+              />
               <button
                 v-if="checkCorrectEmail(callBackData.email)"
                 id="pay_b"
@@ -171,6 +178,7 @@ export default {
       theLinkPay: this.linkPay,
       callBackData: {
         email: null,
+        userName: null,
       },
       thePlay: this.play,
       showPaymentForm: false,
@@ -197,6 +205,7 @@ export default {
         JSON.stringify({
           order_id: this.theLinkPay.order_id,
           email: this.callBackData.email,
+          u_name: this.callBackData.userName,
           time_play: this.onlyDate(this.thePlay.date_play),
           play_name: this.thePlay.name,
         })
@@ -228,7 +237,7 @@ export default {
         }
       }
 
-      if (check_a && check_dot) {
+      if (check_a && check_dot && this.callBackData.userName) {
         return true;
       } else {
         return false;

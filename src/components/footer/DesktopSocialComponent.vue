@@ -1,5 +1,10 @@
 <template>
-  <div v-if="!isMobile" class="d_flex_row_reverse c_main_white">
+  <div 
+    v-if="!isMobile" 
+    class=" c_main_white"
+    :class="{'d_flex_row': left, 'd_flex_row_reverse': !left}"
+    
+    >
     <span
       class="f_oswald f_size_24 lower_case c_pointer"
       @click="socialLink(socLink)"
@@ -16,6 +21,7 @@ export default {
     socLink: String,
     socName: String,
     color: Boolean,
+    left: Boolean,
   },
   components: {},
   data() {

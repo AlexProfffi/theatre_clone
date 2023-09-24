@@ -70,7 +70,9 @@ export default {
       dropMenu: false,
     };
   },
-  created() {},
+  created() {
+    this.eventScrollClick();
+  },
   methods: {
     deleteDataFromFilter() {
       // Видаляє зі сховища дату для фільтрів
@@ -108,6 +110,17 @@ export default {
       }
       return dataListNavi;
     },
+
+    eventScrollClick() {
+      // Прибирає drop menu при прокрутці
+      document.addEventListener("scroll", () => {
+        if (this.dropMenu) {
+          this.dropMenu = false;
+        }
+      })
+    },
+      
+    
   },
 };
 </script>

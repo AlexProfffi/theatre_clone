@@ -3,10 +3,10 @@
     <div>
       <HeaderComponent />
     </div>
-    <div class="d_flex_row padding_tb_15_em">
-      <div id="map" class="mapps"></div>
-      <div class="d_flex_column">
-        <div class="upper_case open_sans name_dep t_left p_1_px pad_b1em">контакти</div>
+    <div id="map_and_contact" class="d_flex_row padding_tb_15_em">
+      <div id="map" class="mapps margin_both_auto"></div>
+      <div id="contact_current" class="d_flex_column margin_both_auto">
+        <div id="word_cnt" class="upper_case open_sans name_dep t_left p_1_px pad_b1em">контакти</div>
         <div
           v-for="cnt in contact"
           :key="cnt.id"
@@ -21,9 +21,9 @@
           </div>
           
         </div>
-        <div class="d_flex_column j_content_center">
+        <div class="d_flex_column j_content_center p_1_px">
           <div v-for="soc in social" :key="soc.id" class="w_50">
-            <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="true" />
+            <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="true" :left="true" />
           </div>
         </div>
       </div>
@@ -78,8 +78,8 @@ export default {
         maxZoom: 18,
         minZoom: 6,
         scrollWheelZoom: false,
-      }).setView(this.coords, 16);
-      L.marker(this.coords).addTo(map);
+      }).setView([this.contact[0].longitude, this.contact[0].latitude], 16);
+      L.marker([this.contact[0].longitude, this.contact[0].latitude]).addTo(map);
     },
 
     async getContact() {
@@ -111,11 +111,19 @@ export default {
 </script>
   <style scoped>
 @media screen and (max-width: 1000px) {
+  #map_and_contact {
+    flex-direction: column;
+  }
+  #word_cnt {
+    display: none;
+  }
+  #map {
+    width: 90%;
+  }
 }
 .mapps {
   height: 500px;
-  width: 600px;
-  margin: 0 2em 0 2em;
+  width: 800px;
 }
 
 .contacts_font {

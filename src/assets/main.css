@@ -125,6 +125,10 @@ html {
     margin: 1px;
 }
 
+.margin_both_auto {
+    margin: 0 auto 0 auto;
+}
+
 .margin_both_2 {
     margin: 0 2em 0 2em;
 }
@@ -135,6 +139,11 @@ html {
 
 .mb_1rem {
     margin-bottom: 1rem;
+}
+
+.mar_top_bot {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 
@@ -167,7 +176,7 @@ html {
 }
 
 .padding_tb_15_em {
-    padding-top: 15em;
+    padding-top: 10em;
     padding-bottom: 15em;
 }
 

@@ -22,7 +22,7 @@
     </div>
     <div class="d_flex_column j_content_center flex_grow_1" id="socials">
       <div v-for="soc in social" :key="soc.id" class="w_50">
-        <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="false" />
+        <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="false" :left="false" />
       </div>
     </div>
   </div>
