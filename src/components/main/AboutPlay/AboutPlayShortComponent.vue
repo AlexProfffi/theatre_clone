@@ -133,6 +133,9 @@
                 placeholder="Email... (Обов'язкове поле)"
                 v-model="callBackData.email"
               />
+              <label for="email" class="open_sans small_font "
+                  >Введіть Ваше ім'я:
+                </label>
               <input
                 class="input_field"
                 type="text mar_top_bot"
