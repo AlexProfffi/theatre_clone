@@ -92,9 +92,10 @@
             </div>
           </form>
         </div>
+        
         <div class="d_flex_row j_content_space_around pad_top">
           <div class="d_flex_row j_content_end w_50">
-            <a :href="gLinkAuth.link">
+            <a href="">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
@@ -198,6 +199,7 @@ export default {
     },
 
     async loginGoogle() {
+      // Url login google
       let url = `${this.$store.getters.getServerUrl}/google_login/`;
       this.gLinkAuth = await fetch(url)
         .then((response) => response.json())
@@ -205,6 +207,7 @@ export default {
           console.log(error);
         });
     },
+
   },
 };
 </script>
