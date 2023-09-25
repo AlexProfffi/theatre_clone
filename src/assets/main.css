@@ -91,6 +91,10 @@ html {
     width: 85%;
 }
 
+.w_70 {
+    width: 75%;
+}
+
 .w_50 {
     width: 50%;
 }
@@ -108,6 +112,10 @@ html {
 
 .h_7em {
     height: 7em;
+}
+
+.h_2em {
+    height: 3.5em;
 }
 
 
@@ -146,11 +154,26 @@ html {
     margin-bottom: 5px;
 }
 
+.mar_top_bot_1 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
 
 /* padding */
 
+.pad_4_path {
+    padding: 1em 4em;
+}
+
 .pad_top {
     padding-top: 7%;
+}
+
+.pad_top_b_2rem {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    padding-left: 1rem;
 }
 
 .pad_b1em {
@@ -378,4 +401,13 @@ html {
 
 .nav_link_color:hover {
     color: black;
+}
+
+.check_element {
+    height: 22px;
+    width: 22px;
+}
+
+.border_gray {
+    border: 2px solid #e0e0e0;
 }

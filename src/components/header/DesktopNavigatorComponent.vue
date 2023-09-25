@@ -89,6 +89,7 @@ export default {
         // "архів",
         // "партнери",
         "контакти",
+        "профіль",
       ];
       let listNaviLinks = [
         // "#/main",
@@ -98,6 +99,7 @@ export default {
         // "#/archive",
         // "#/partners",
         "#/contacts",
+        "#/my_profile"
       ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {
