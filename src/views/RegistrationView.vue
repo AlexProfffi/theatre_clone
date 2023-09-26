@@ -97,7 +97,7 @@
           </form>
         </div>
         
-        <!-- <div class="d_flex_row j_content_space_around pad_top">
+        <div class="d_flex_row j_content_space_around pad_top" v-if="isShowSocial">
           <div class="d_flex_row j_content_end w_50">
             <a :href="gLinkAuth.link">
               <svg
@@ -128,7 +128,7 @@
               />
             </svg>
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="pad_top font_1">
         Вже є аккаунт? <router-link to="/auth">Авторизація</router-link>
@@ -153,6 +153,7 @@ export default {
   },
   data() {
     return {
+      isShowSocial: false,
       isMobile: false,
       isShowPassword: false,
       gLinkAuth: {},

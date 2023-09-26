@@ -121,8 +121,7 @@
               class="d_flex_column w_75"
             >
               <div class="d_flex_row">
-                
-                <label for="email" class="open_sans small_font "
+                <label for="email" class="open_sans small_font"
                   >Введіть електронну пошту для купівлі квитка:
                 </label>
               </div>
@@ -134,8 +133,8 @@
                 v-model="callBackData.email"
               />
               <label for="email" class="open_sans small_font t_left"
-                  >Введіть Ваше ім'я:
-                </label>
+                >Введіть Ваше ім'я:
+              </label>
               <input
                 class="input_field"
                 type="text mar_top_bot"
@@ -190,6 +189,7 @@ export default {
   },
   created() {
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
+    this.isUserAuth();
   },
   methods: {
     rolesAll(lst) {
@@ -457,6 +457,18 @@ export default {
             allStaff[x].role.indexOf(male) > -1 ? male : female;
         }
         return this.modernGenderDirector;
+      }
+    },
+
+    isUserAuth() {
+      // Токен користувача
+      let locS = localStorage.getItem("userInfo");
+      if (locS) {
+        this.callBackData.email = JSON.parse(locS).email;
+        this.callBackData.userName = JSON.parse(locS).username;
+      } else {
+        this.callBackData.email = null;
+        this.callBackData.userName = null;
       }
     },
   },

@@ -12,7 +12,11 @@
           </div>
           <div class="d_flex_row j_content_start">
             <ul>
-              <li class="col_red buyed_tct" v-for="ub in user.buyuser" :key="ub.id">
+              <li
+                class="col_red buyed_tct"
+                v-for="ub in user.buyuser"
+                :key="ub.id"
+              >
                 {{ ub.for_play }} / {{ ub.date_time_play }} / {{ ub.order_id }};
               </li>
             </ul>
@@ -46,9 +50,20 @@ export default {
   },
   created() {
     this.setTitle();
-    this.getDataUser();
+    this.getDataUser().then(() => {
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify({ username: this.user.username, email: this.user.email })
+      );
+    });
+    // this.getUserLocation();
   },
   methods: {
+    getUserLocation() {
+      let L = window.L;
+      console.log(L.locate());
+    },
+
     getHeaders(method, token, body = null) {
       // Return headers with token for fetch
       if (body) {
@@ -87,6 +102,7 @@ export default {
           this.getHeaders("get", this.token.replace(/"/gi, ""))
         )
           .then((response) => response.json())
+
           .catch(function (error) {
             console.log(error);
           });
@@ -104,7 +120,7 @@ export default {
     justify-content: center;
   }
   .buyed_tct {
-    font-size: .8em;
+    font-size: 0.8em;
   }
 }
 .home_play {
