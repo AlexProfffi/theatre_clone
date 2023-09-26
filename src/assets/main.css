@@ -180,6 +180,10 @@ html {
     padding-bottom: 1em;
 }
 
+.little_pad {
+    padding: 0.25em 1.5em;
+}
+
 .padding_b {
     padding-bottom: 3px;
 }

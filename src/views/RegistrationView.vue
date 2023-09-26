@@ -1,7 +1,11 @@
 <template>
   <div class="registaration">
+    
     <div class="bg_gradient"></div>
     <div class="reg_wrapper d_flex_column j_content_start">
+      <div class="pad_top font_1">
+       <router-link to="/">До вистав</router-link>
+      </div>
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_row j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">реєстрація</h3>
@@ -62,7 +66,7 @@
               />
             </div>
             <div class="d_flex_row j_content_space_between pad_b1em">
-              <input class="check_element" type="checkbox" />
+              <input class="check_element c_pointer" type="checkbox" />
               <span class="small_font" for="flexCheckChecked">
                 Я приймаю умови використання сервісів сайту та погоджуюсь з
                 умовами обробки персональних даних
@@ -93,9 +97,9 @@
           </form>
         </div>
         
-        <div class="d_flex_row j_content_space_around pad_top">
+        <!-- <div class="d_flex_row j_content_space_around pad_top">
           <div class="d_flex_row j_content_end w_50">
-            <a href="">
+            <a :href="gLinkAuth.link">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
@@ -124,7 +128,10 @@
               />
             </svg>
           </div>
-        </div>
+        </div> -->
+      </div>
+      <div class="pad_top font_1">
+        Вже є аккаунт? <router-link to="/auth">Авторизація</router-link>
       </div>
     </div>
   </div>
@@ -141,6 +148,7 @@
 export default {
   name: "RegistrationView",
   components: {
+    // HeaderComponent
     // SpinerComponent,
   },
   data() {
@@ -195,7 +203,7 @@ export default {
         body: JSON.stringify(this.formRegistrateData),
       }).catch((error) => {
         console.log(error);
-      });
+      })
     },
 
     async loginGoogle() {
@@ -234,7 +242,7 @@ export default {
   height: 145vh;
   width: 110vw;
   transform: rotate(170deg);
-  z-index: 11;
+  /* z-index: 1; */
 }
 
 .reg_wrapper {

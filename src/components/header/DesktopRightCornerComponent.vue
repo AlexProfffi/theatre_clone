@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isMobile" class="d_flex_column ptb_40">
-    <div class="d_flex_row j_content_end p_1_px">
+    <div class="d_flex_row j_content_end p_1_px" v-if="showLanguage">
       <div
         v-for="lang in languagesData"
         :key="lang.value"
@@ -10,15 +10,13 @@
           class="hover_black pad_1"
           :class="{ c_pointer: lang.txt !== '|', c_black: lang.value == 0 }"
           :id="lang.idEl"
-          @click="selectLanguage(lang.idEl,)"
+          @click="selectLanguage(lang.idEl)"
         >
-          
-            {{ lang.txt }}
-         
+          {{ lang.txt }}
         </span>
       </div>
     </div>
-    <div class="d_flex_row j_content_end p_1_px">
+    <div class="d_flex_row j_content_end p_1_px" v-if="!token">
       <div
         v-for="auth in authLinksData"
         :key="auth.value"
@@ -33,6 +31,25 @@
         </span>
       </div>
     </div>
+    <div v-else class="d_flex_column">
+      
+      <div class="d_flex_row j_content_end p_1_px">
+        <div class="font_corner_right">
+          <span> Вітаємо, </span>
+          <span
+            class="hover_black pad_1 c_pointer upper_case"
+            @click="goToEnter('/my_profile')"
+          >
+            {{ user.username }}
+          </span>
+        </div>
+      </div>
+      <div class="d_flex_row j_content_end p_1_px">
+        <button @click="removeToken()" class="upper_case exit_b little_pad">
+          exit
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -41,12 +58,17 @@ export default {
   components: {},
   data() {
     return {
+      showLanguage: false,
       isMobile: false,
       languagesData: this.languages(),
       authLinksData: this.authLinks(),
+      token: localStorage.getItem("token"),
+      user: {},
     };
   },
-  created() {},
+  created() {
+    this.getDataUser();
+  },
   methods: {
     languages() {
       // Мови на сайті
@@ -76,20 +98,67 @@ export default {
       }
       return false;
     },
-    selectLanguage(idElem,) {
+    selectLanguage(idElem) {
       // Відстеження кліка по мові
       let el = document.querySelector("#" + idElem);
       if (el.innerHTML !== "|") {
         let prevEl = document.querySelector(".c_black");
         prevEl.classList.remove("c_black");
         el.classList.add("c_black");
-        
       }
     },
     goToEnter(lnk) {
       // Перехід на сторінку авторизації чи реєстрації
-      this.$router.push({path: lnk})
-    }
+      this.$router.push({ path: lnk });
+    },
+
+    getHeaders(method, token, body = null) {
+      // Return headers with token for fetch
+      if (body) {
+        let headers = {
+          method: method,
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Token " + token,
+          },
+          body: body,
+        };
+        return headers;
+      } else {
+        let headers = {
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Token " + token,
+          },
+        };
+        return headers;
+      }
+    },
+
+    async getDataUser() {
+      //  Get data for current user
+      if (localStorage.getItem("token")) {
+        this.user = await fetch(
+          `${this.$store.getters.getServerUrl}/user_profile/`,
+          this.getHeaders("get", this.token.replace(/"/gi, ""))
+        )
+          .then((response) => response.json())
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        // this.$router.push({ name: "Auth" });
+        return
+      }
+    },
+
+    removeToken() {
+      // Вихід
+      localStorage.removeItem("token");
+      this.$router.push({ name: "Auth" })
+    },
   },
 };
 </script>
@@ -109,5 +178,11 @@ export default {
 }
 .pad_1 {
   padding: 0.1em;
+}
+
+.exit_b {
+  background-color: #212121;
+  color: #ffffff;
+  border: 2px solid #212121;
 }
 </style>

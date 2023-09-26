@@ -33,6 +33,7 @@ export default {
   color: #2c3e50;
   margin: 1em;
   overflow: hidden;
+  
 }
 
 nav {
