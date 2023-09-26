@@ -7,12 +7,12 @@
       <h2>Мій профіль</h2>
       <div class="d_flex_column">
         <div class="d_flex_column">
-          <div class="d_flex_row j_content_start">
+          <div class="d_flex_row j_content_start" id="my_tct">
             <h4>Мої квитки:</h4>
           </div>
           <div class="d_flex_row j_content_start">
             <ul>
-              <li class="col_red" v-for="ub in user.buyuser" :key="ub.id">
+              <li class="col_red buyed_tct" v-for="ub in user.buyuser" :key="ub.id">
                 {{ ub.for_play }} / {{ ub.date_time_play }} / {{ ub.order_id }};
               </li>
             </ul>
@@ -95,12 +95,18 @@ export default {
         // return
       }
     },
-
-    
   },
 };
 </script>
     <style scoped>
+@media screen and (max-width: 1000px) {
+  #my_tct {
+    justify-content: center;
+  }
+  .buyed_tct {
+    font-size: .8em;
+  }
+}
 .home_play {
   display: flex;
   flex-direction: column;
