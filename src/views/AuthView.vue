@@ -6,7 +6,7 @@
     <div class="bg_gradient"></div>
     <div class="reg_wrapper d_flex_column j_content_start">
       <div class="pad_top font_1">
-       <router-link to="/">До вистав</router-link>
+        <router-link to="/">До вистав</router-link>
       </div>
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_row j_content_center pad_b1em">
@@ -69,8 +69,11 @@
             </div>
           </form>
         </div>
-
-        <div class="d_flex_row j_content_space_around pad_top" v-if="isShowSocial">
+        <GLoginComponentVue />
+        <div
+          class="d_flex_row j_content_space_around pad_top"
+          v-if="isShowSocial"
+        >
           <div class="d_flex_row j_content_end w_50">
             <a :href="gLinkAuth.link">
               <svg
@@ -101,7 +104,7 @@
               />
             </svg>
           </div>
-        </div> 
+        </div>
       </div>
       <div class="pad_top font_1">
         Хочете аккаунт? <router-link to="/registration">Реєстрація</router-link>
@@ -117,10 +120,13 @@
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
+import GLoginComponentVue from "@/components/google/GLoginComponent.vue";
+
 export default {
   name: "AuthView",
   components: {
     // SpinerComponent,
+    GLoginComponentVue,
   },
   data() {
     return {
