@@ -114,6 +114,13 @@
               >
                 «Договором»
               </span>
+              <span
+                v-if="offs.file_lawyer"
+                @click="pay(offs.file_lawyer)"
+                class="nav_link_color c_pointer offerts"
+              >
+                «Умовою повернення коштів»
+              </span>
             </div>
           </div>
         </div>
