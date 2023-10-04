@@ -372,6 +372,7 @@ html {
     width: 80px;
     height: 80px;
     padding-top: 30%;
+    padding-bottom: 30%;
 }
 
 .lds-ring div {

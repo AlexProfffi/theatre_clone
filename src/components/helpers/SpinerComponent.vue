@@ -1,10 +1,10 @@
 <template>
 
     <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div class="c_gr"></div>
+        <div class="c_gr"></div>
+        <div class="c_gr"></div>
+        <div class="c_gr"></div>
       </div>
       
 
@@ -33,4 +33,6 @@ export default {
     margin-top: 10em;
   }
 }
+
+
 </style>

@@ -1,31 +1,37 @@
 <template>
   <div v-if="!isMobile" class="home_play">
     <div>
-      <HeaderComponent />
-    </div>
-    <div class="d_flex_column">
-      <h2>Мій профіль</h2>
-      <div class="d_flex_column">
+      <div>
+        <HeaderComponent />
+      </div>
+      
+      <div v-if="spiner">
+        <SpinerComponent />
+      </div>
+      <div v-else class="d_flex_column">
+        <h2>Мій профіль</h2>
         <div class="d_flex_column">
-          <div class="d_flex_row j_content_start" id="my_tct">
-            <h4>Мої квитки:</h4>
-          </div>
-          <div class="d_flex_row j_content_start">
-            <ul>
-              <li
-                class="col_red buyed_tct"
-                v-for="ub in user.buyuser"
-                :key="ub.id"
-              >
-                {{ ub.for_play }} / {{ ub.date_time_play }} / {{ ub.order_id }};
-              </li>
-            </ul>
+          <div class="d_flex_column">
+            <div class="d_flex_row j_content_start" id="my_tct">
+              <h4>Відвідані вистави:</h4>
+            </div>
+            <div class="d_flex_row j_content_start">
+              <ul>
+                <li
+                  class="col_red buyed_tct"
+                  v-for="ub in user.buyuser"
+                  :key="ub.id"
+                >
+                  {{ ub.for_play }} / {{ ub.date_time_play }};
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div>
-      <FooterComponent />
+      <div>
+        <FooterComponent />
+      </div>
     </div>
   </div>
 </template>
@@ -34,34 +40,64 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
 export default {
   name: "OfferView",
   components: {
     HeaderComponent,
     FooterComponent,
+    SpinerComponent,
   },
   data() {
     return {
       isMobile: false,
       user: {},
       token: localStorage.getItem("token"),
+      longitude: null,
+      latitude: null,
+      spiner: true,
     };
   },
   created() {
     this.setTitle();
-    this.getDataUser().then(() => {
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({ username: this.user.username, email: this.user.email })
-      );
-    });
-    // this.getUserLocation();
+    this.getDataUser()
+      .then(() => {
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            username: this.user.username,
+            email: this.user.email,
+          })
+        );
+      })
+      .then(() => {
+        this.getLocationGoogle().then(() => {
+          setTimeout(this.setUserActivity, 7000);
+        });
+      });
+  },
+  mounted() {
+    // Получене карты
+    // Получение координат пользователя
   },
   methods: {
     getUserLocation() {
       let L = window.L;
       console.log(L.locate());
+    },
+
+    async getLocationGoogle() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          this.latitude = pos.lat;
+          this.longitude = pos.lng;
+        });
+      }
     },
 
     getHeaders(method, token, body = null) {
@@ -94,6 +130,23 @@ export default {
       document.querySelector("title").innerHTML = "Кабінет";
     },
 
+    async setUserActivity() {
+      // Створює запис при вході користувача
+      await fetch(`${this.$store.getters.getServerUrl}/user_activity_record/`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.user.email,
+          longitude: this.longitude,
+          latitude: this.latitude,
+        }),
+      }).then(() => {
+        this.spiner = false;
+      });
+    },
     async getDataUser() {
       //  Get data for current user
       if (localStorage.getItem("token")) {
