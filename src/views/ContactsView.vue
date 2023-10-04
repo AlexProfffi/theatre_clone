@@ -21,7 +21,7 @@
           </div>
           
         </div>
-        <div class="d_flex_column j_content_center p_1_px">
+        <div id="social_lnk" class="d_flex_column j_content_center p_1_px">
           <div v-for="soc in social" :key="soc.id" class="w_50">
             <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="true" :left="true" />
           </div>
@@ -121,6 +121,7 @@ export default {
   #map {
     width: 90%;
   }
+  
 }
 .mapps {
   height: 500px;

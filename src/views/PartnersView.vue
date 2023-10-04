@@ -29,7 +29,7 @@
           роблячи його доступним для широкої аудиторії.
         </p>
       </div>
-      <div class="d_flex_row j_content_space_around padding_tb_15_em fl_grid">
+      <div id="not_special" class="d_flex_row j_content_space_around padding_tb_15_em fl_grid">
         <div v-for="prtn in notSpecialPartners" :key="prtn.id">
           <a class="" :href="prtn.link">
             <img :src="prtn.logo" :alt="prtn.name" class="img_max_w margin_1_em" />
@@ -102,6 +102,10 @@ export default {
   #txt1,
   #txt2 {
     width: 75%;
+  }
+  #not_special {
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   .img_max_w {
     width: 6em !important;
