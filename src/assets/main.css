@@ -129,6 +129,10 @@ html {
     margin: auto;
 }
 
+.m_auto_both {
+    margin: 4rem auto 4rem auto;
+}
+
 .margin_1px {
     margin: 1px;
 }
@@ -147,6 +151,10 @@ html {
 
 .mb_1rem {
     margin-bottom: 1rem;
+}
+
+.m_bottom_5em {
+    margin-bottom: 5em;
 }
 
 .mar_top_bot {
@@ -195,6 +203,10 @@ html {
 .ptb_40 {
     padding-top: 40px;
     padding-bottom: 20px;
+}
+
+.p_40px {
+    padding: 40px;
 }
 
 .ptb_70 {
@@ -326,6 +338,10 @@ html {
 
 .v_align_start {
     vertical-align: top;
+}
+
+.underline_txt {
+    text-decoration: underline;
 }
 
 

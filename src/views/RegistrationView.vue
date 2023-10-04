@@ -1,11 +1,11 @@
 <template>
   <div class="registaration">
-    
-    <div class="bg_gradient"></div>
-    <div class="reg_wrapper d_flex_column j_content_start">
-      <div class="pad_top font_1">
-       <router-link to="/">До вистав</router-link>
-      </div>
+    <div>
+      <HeaderComponent />
+    </div>
+
+    <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
+      
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_row j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">реєстрація</h3>
@@ -131,16 +131,18 @@
         </div>
       </div>
       <div class="pad_top font_1">
-        Вже є аккаунт? <router-link to="/auth">Авторизація</router-link>
+       Маєш аккаунт? <router-link class="nav_link_color f_weight_bold underline_txt" to="/auth">Увійти</router-link>
       </div>
     </div>
+    <FooterComponent />
   </div>
 </template>
   
   <script>
 // @ is an alias to /src
-// import HeaderComponent from "@/components/HeaderComponent.vue";
-// import FooterComponent from "@/components/FooterComponent.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 // import axios from "axios";
@@ -148,7 +150,8 @@
 export default {
   name: "RegistrationView",
   components: {
-    // HeaderComponent
+    HeaderComponent,
+    FooterComponent,
     // SpinerComponent,
   },
   data() {
@@ -167,9 +170,14 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.loginGoogle();
+    // this.loginGoogle();
+    this.setTitle();
   },
   methods: {
+    setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = "Реєстрація";
+    },
     dataFormInfo() {
       // Форма
       let plHolder = [
@@ -247,11 +255,6 @@ export default {
 }
 
 .reg_wrapper {
-  position: absolute;
-  z-index: 15;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   height: 600px;
   width: 550px;
   background-color: #ffffff;

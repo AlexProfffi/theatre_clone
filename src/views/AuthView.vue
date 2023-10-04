@@ -3,11 +3,8 @@
     <div>
       <HeaderComponent />
     </div>
-    <div class="bg_gradient"></div>
-    <div class="reg_wrapper d_flex_column j_content_start">
-      <div class="pad_top font_1">
-        <router-link to="/">До вистав</router-link>
-      </div>
+    <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
+      
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_row j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">авторизація</h3>
@@ -69,7 +66,7 @@
             </div>
           </form>
         </div>
-        <GLoginComponentVue />
+        <!-- <GLoginComponentVue /> -->
         <div
           class="d_flex_row j_content_space_around pad_top"
           v-if="isShowSocial"
@@ -107,26 +104,29 @@
         </div>
       </div>
       <div class="pad_top font_1">
-        Хочете аккаунт? <router-link to="/registration">Реєстрація</router-link>
+        Хочеш аккаунт? <router-link class="nav_link_color f_weight_bold underline_txt" to="/registration">Реєстрація</router-link>
       </div>
     </div>
+    <FooterComponent />
   </div>
 </template>
     
     <script>
 // @ is an alias to /src
-// import HeaderComponent from "@/components/HeaderComponent.vue";
-// import FooterComponent from "@/components/FooterComponent.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
-import GLoginComponentVue from "@/components/google/GLoginComponent.vue";
+// import GLoginComponentVue from "@/components/google/GLoginComponent.vue";
 
 export default {
   name: "AuthView",
   components: {
     // SpinerComponent,
-    GLoginComponentVue,
+    // GLoginComponentVue,
+    HeaderComponent,
+    FooterComponent,
   },
   data() {
     return {
@@ -141,7 +141,8 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.loginGoogle();
+    // this.loginGoogle();
+    this.setTitle();
   },
   methods: {
     dataFormInfo() {
@@ -200,6 +201,10 @@ export default {
           console.log(error);
         });
     },
+    setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = "Авторизація";
+    },
   },
 };
 </script>
@@ -230,11 +235,6 @@ export default {
 }
 
 .reg_wrapper {
-  position: absolute;
-  z-index: 15;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   height: 600px;
   width: 550px;
   background-color: #ffffff;

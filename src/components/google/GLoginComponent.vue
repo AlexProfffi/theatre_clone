@@ -35,8 +35,8 @@ export default {
         response_type: "code",
         client_id:
           "348604724151-q09kbikv82vmlfhkail67lgv233ht0m8.apps.googleusercontent.com",
-        // redirect_uri: "http://127.0.0.1:8000/api/v1/google_login/",
-        redirect_uri: `${this.$store.getters.getServerUrl}/google_login/`,
+        redirect_uri: "http://127.0.0.1:8000/api/v1/google_login/",
+        // redirect_uri: `${this.$store.getters.getServerUrl}/google_login/`,
         prompt: "select_account",
         access_type: "offline",
         scope,

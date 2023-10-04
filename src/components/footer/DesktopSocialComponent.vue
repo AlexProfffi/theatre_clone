@@ -1,10 +1,9 @@
 <template>
-  <div 
-    v-if="!isMobile" 
-    class=" c_main_white"
-    :class="{'d_flex_row': left, 'd_flex_row_reverse': !left}"
-    
-    >
+  <div
+    v-if="!isMobile"
+    class="c_main_white cancel_reverse"
+    :class="{ d_flex_row: left, d_flex_row_reverse: !left }"
+  >
     <span
       class="f_oswald f_size_24 lower_case c_pointer"
       @click="socialLink(socLink)"
@@ -39,6 +38,13 @@ export default {
 };
 </script>
 <style scoped>
+@media screen and (max-width: 1000px) {
+  .cancel_reverse {
+    flex-direction: row !important;
+    padding-left: 4.5em;
+  }
+}
+
 .c_main_white {
   color: #f9f9f9;
 }

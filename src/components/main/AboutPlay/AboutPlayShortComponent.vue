@@ -484,12 +484,15 @@ export default {
     padding: 20px 0 20px 0;
   }
   #premier {
-    justify-content: center;
+    justify-content: start;
     padding: 5px 0 0 0;
   }
 
   #email {
     width: 100%;
+  }
+  .p_both_px {
+    padding: 0 !important;
   }
   .plays_for_sale {
     display: flex;
@@ -498,22 +501,23 @@ export default {
     padding: 0 !important;
   }
   .plays_sl_component {
-    margin: auto;
+    margin: 1.75em;
     width: max-content !important;
     padding-bottom: 5px;
+    justify-content: center;
   }
   .play_sl_duration {
-    justify-content: center;
+    justify-content: start;
   }
   .short_day_low_1000 {
     padding: 0 !important;
   }
   .img_on_list__low_1000 {
-    width: 350px !important;
+    width: 320px !important;
     height: 225px;
   }
   .name_play_sale {
-    justify-content: center;
+    justify-content: start;
   }
 }
 @media screen and (max-width: 1550px) {
@@ -523,6 +527,8 @@ export default {
   .current_play {
     font-size: 1.2em !important;
   }
+
+  
 }
 .img_on_list {
   width: 226px;

@@ -113,6 +113,7 @@ export default {
 @media screen and (max-width: 1000px) {
   #map_and_contact {
     flex-direction: column;
+    padding-top: 20px;
   }
   #word_cnt {
     display: none;

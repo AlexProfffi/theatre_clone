@@ -21,20 +21,11 @@
     </ul>
     <div class="dropdown">
       <div class="dropbtn nav_link_color">
-        <svg
-          @click="dropMenu = !dropMenu"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="black"
-          class="bi bi-list"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-          />
-        </svg>
+        
+          <div class="open_sans f_weight_bold upper_case" @click="dropMenu = !dropMenu">
+            Меню
+          </div>
+          
       </div>
       <ul
         v-if="dropMenu"
@@ -89,6 +80,7 @@ export default {
         // "архів",
         // "партнери",
         "контакти",
+        "партнери",
         "профіль",
       ];
       let listNaviLinks = [
@@ -99,6 +91,7 @@ export default {
         // "#/archive",
         // "#/partners",
         "#/contacts",
+        "#/our_partners",
         "#/my_profile"
       ];
       let dataListNavi = [];
@@ -148,7 +141,7 @@ export default {
 }
 
 .dropbtn {
-  color: white;
+  color: rgb(43, 43, 43);
   padding: 16px;
   font-size: 16px;
   cursor: pointer;
@@ -160,10 +153,10 @@ export default {
 }
 
 .dropdown-content {
-  position: fixed;
+  position: sticky;
   background-color: #ffffff;
   min-width: 100%;
-  height: 20vh;
+  height: max-content;
   /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
   z-index: 11;
   left: 0;
