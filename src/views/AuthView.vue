@@ -66,7 +66,7 @@
             </div>
           </form>
         </div>
-        <!-- <GLoginComponentVue /> -->
+        <GLoginComponentVue />
         <div
           class="d_flex_row j_content_space_around pad_top"
           v-if="isShowSocial"
@@ -118,13 +118,13 @@ import FooterComponent from "@/components/FooterComponent.vue";
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
-// import GLoginComponentVue from "@/components/google/GLoginComponent.vue";
+import GLoginComponentVue from "@/components/google/GLoginComponent.vue";
 
 export default {
   name: "AuthView",
   components: {
     // SpinerComponent,
-    // GLoginComponentVue,
+    GLoginComponentVue,
     HeaderComponent,
     FooterComponent,
   },

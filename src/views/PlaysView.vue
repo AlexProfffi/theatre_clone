@@ -37,14 +37,12 @@ export default {
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Афіша";
+      
     },
-    
   },
 };
 </script>
   <style scoped>
-
-
 .home_play {
   display: flex;
   flex-direction: column;

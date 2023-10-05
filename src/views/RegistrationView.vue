@@ -210,7 +210,11 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.formRegistrateData),
-      }).catch((error) => {
+      })
+      .then(() => {
+              this.$router.push({ name: "Auth" });
+            })
+      .catch((error) => {
         console.log(error);
       })
     },
