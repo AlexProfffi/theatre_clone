@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderComponent />
-    <div>
+    <div class="opacity_05 main_content">
       <div class="d_flex_column ptb_40">
         <div>
           <p class="upper_case open_sans f_size_42">партнери</p>
@@ -18,7 +18,11 @@
       <div class="d_flex_column p_40px bg_grey_custom m_bottom_5em">
         <div v-for="prtn in specialPartners" :key="prtn.id" class="pad_top">
           <a :href="prtn.link">
-            <img :src="prtn.logo" :alt="prtn.name" class="img_max_w margin_1_em" />
+            <img
+              :src="prtn.logo"
+              :alt="prtn.name"
+              class="img_max_w margin_1_em"
+            />
           </a>
         </div>
       </div>
@@ -29,10 +33,17 @@
           роблячи його доступним для широкої аудиторії.
         </p>
       </div>
-      <div id="not_special" class="d_flex_row j_content_space_around padding_tb_15_em fl_grid">
+      <div
+        id="not_special"
+        class="d_flex_row j_content_space_around padding_tb_15_em fl_grid"
+      >
         <div v-for="prtn in notSpecialPartners" :key="prtn.id">
           <a class="" :href="prtn.link">
-            <img :src="prtn.logo" :alt="prtn.name" class="img_max_w margin_1_em" />
+            <img
+              :src="prtn.logo"
+              :alt="prtn.name"
+              class="img_max_w margin_1_em"
+            />
           </a>
         </div>
       </div>
@@ -62,7 +73,9 @@ export default {
   },
   created() {
     this.setTitle();
-    this.getParners();
+    this.getParners().then(() => {
+      this.showContent();
+    });
 
     // this.getUserLocation();
   },
@@ -70,6 +83,20 @@ export default {
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Партнери";
+    },
+
+    async showContent() {
+      // Показує контент методом підвищення opacity
+      let cnt = 0;
+
+      this.intrval = setInterval(() => {
+        document.querySelector(".main_content").style.opacity = String(cnt);
+        if (cnt >= 1) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 0.1;
+      }, 50);
     },
 
     async getParners() {

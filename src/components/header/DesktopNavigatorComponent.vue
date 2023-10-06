@@ -13,19 +13,25 @@
         <a
           :href="nav.linkTo"
           @click="deleteDataFromFilter()"
-          class="upper_case none_text_decor nav_link_color"
+          @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+          @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+          class="upper_case none_text_decor nav_link_color navigation_sites"
+          style="display: block"
+          :class="{ 'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt) }"
         >
           {{ nav.txt }}
+          <div class="horizontal_line_hover"></div>
         </a>
       </li>
     </ul>
     <div class="dropdown">
       <div class="dropbtn nav_link_color">
-        
-          <div class="open_sans f_weight_bold upper_case" @click="dropMenu = !dropMenu">
-            Меню
-          </div>
-          
+        <div
+          class="open_sans f_weight_bold upper_case"
+          @click="dropMenu = !dropMenu"
+        >
+          Меню
+        </div>
       </div>
       <ul
         v-if="dropMenu"
@@ -42,8 +48,8 @@
             :href="nav.linkTo"
             @click="deleteDataFromFilter()"
             class="upper_case none_text_decor nav_link_color"
+            v-html="nav.txt"
           >
-            {{ nav.txt }}
           </a>
         </li>
       </ul>
@@ -59,16 +65,47 @@ export default {
       isMobile: false,
       navigationData: this.naviPanel(),
       dropMenu: false,
+      intrval: null,
     };
   },
   created() {
     this.eventScrollClick();
   },
   methods: {
+    drawHorizontalLine(index, classEl) {
+      // Підкреслення по наведенню на елемент
+      let navEl = document.querySelectorAll(classEl);
+      let widthElem = navEl[index].offsetWidth
+      let cnt = 1;
+      this.intrval = setInterval(() => {
+        navEl[index].firstElementChild.style.width = String(cnt) + "px";
+        if (cnt >= Number(widthElem)) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 3;
+      }, 5);
+    },
+    clearHorizontalLine(index, classEl) {
+      // Скасування по прибиранню курсора миші на елемент
+      let navEl = document.querySelectorAll(classEl);
+      clearInterval(this.intrval);
+      navEl[index].firstElementChild.style.width = 0;
+    },
+
     deleteDataFromFilter() {
       // Видаляє зі сховища дату для фільтрів
       // Скидує фільтри по місяцям
       localStorage.removeItem("dataYM");
+    },
+
+    whatTitleIsit(nameNav) {
+      // Перевіряряє назву сторінки і поле навігації
+      let namePage = document.querySelector("title").innerHTML;
+      return String(nameNav).toLocaleLowerCase() ===
+        String(namePage).toLocaleLowerCase()
+        ? true
+        : false;
     },
 
     naviPanel() {
@@ -78,21 +115,19 @@ export default {
         // "новини",
         "про театр",
         // "архів",
-        // "партнери",
         "контакти",
         "партнери",
         "профіль",
       ];
       let listNaviLinks = [
-        // "#/main",
+        // "/main",
         "/",
         // "/news",
-        "#/about",
+        "/about",
         // "#/archive",
-        // "#/partners",
-        "#/contacts",
-        "#/our_partners",
-        "#/my_profile"
+        "/contacts",
+        "/our_partners",
+        "/my_profile",
       ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {
@@ -112,10 +147,8 @@ export default {
         if (this.dropMenu) {
           this.dropMenu = false;
         }
-      })
+      });
     },
-      
-    
   },
 };
 </script>
@@ -161,7 +194,6 @@ export default {
   z-index: 11;
   left: 0;
 }
-
 
 .dropdown-content li {
   color: black;

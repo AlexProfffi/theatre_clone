@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d_flex_row p_bottom bg_grey_custom plays_for_sale"
+    class="d_flex_row p_bottom  plays_for_sale"
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
     <div class="w_20_percent plays_sl_component">
@@ -26,12 +26,20 @@
         </div>
       </div>
     </div>
-    <div v-if="withPhoto" class="d_flex_row w_20_percent plays_sl_component">
-      <img
-        :src="repalcer(play.photo, '')"
-        :alt="play.photo"
-        class="img_on_list img_on_list__low_1000"
-      />
+    <div v-if="withPhoto" class="d_flex_row w_20_percent plays_sl_component pic_sl_component">
+      <router-link
+        v-if="withPhoto"
+        :to="{
+          name: 'play',
+          params: { id: play.id_play, name: transcription(play.name) },
+        }"
+      >
+        <img
+          :src="repalcer(play.photo, '')"
+          :alt="play.photo"
+          class="img_on_list img_on_list__low_1000"
+        />
+      </router-link>
     </div>
     <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
       <div v-if="play.is_premiere" class="d_flex_row" id="premier">
@@ -100,20 +108,24 @@
       class="upper_case w_20_percent d_flex_column plays_sl_component"
       :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
     >
-      <div class="open_sans f_size_32 c_pointer">
+      <div class="d_flex_row j_content_center open_sans f_size_32 c_pointer">
         <router-link
           v-if="withPhoto"
+          :id="'link_play_'+ play.id"
           :to="{
             name: 'play',
             params: { id: play.id_play, name: transcription(play.name) },
           }"
-          class="nav_link_color"
+          class=" go_to_buy"
         >
           купити квиток
+          <div class="horizontal_line_hover"></div>
         </router-link>
+        
         <span v-else class="nav_link_color" @click="showFormToPay()">
           купити квиток
         </span>
+        
       </div>
       <div>
         <div v-if="theLinkPay">
@@ -154,6 +166,7 @@
               >
                 Купити квиток
               </button>
+              
             </div>
           </div>
         </div>
@@ -195,6 +208,28 @@ export default {
     this.isUserAuth();
   },
   methods: {
+    drawHorizontalLine(classEl, index=0) {
+      // Підкреслення по наведенню на елемент
+      
+      let navEl = document.querySelectorAll(classEl);
+      let widthElem = navEl[index].offsetWidth;
+      let cnt = 1;
+      this.intrval = setInterval(() => {
+        navEl[index].firstElementChild.style.width = String(cnt) + "px";
+        if (cnt >= Number(widthElem)) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 3;
+      }, 5);
+    },
+    clearHorizontalLine(classEl, index=0) {
+      // Скасування по прибиранню курсора миші на елемент
+      let navEl = document.querySelectorAll(classEl);
+      clearInterval(this.intrval);
+      navEl[index].firstElementChild.style.width = 0;
+    },
+
     rolesAll(lst) {
       // Режисер/ка
       let dt = [];
@@ -506,6 +541,10 @@ export default {
     padding-bottom: 5px;
     justify-content: center;
   }
+
+  .pic_sl_component {
+    width: 100%;
+  }
   .play_sl_duration {
     justify-content: start;
   }
@@ -513,6 +552,7 @@ export default {
     padding: 0 !important;
   }
   .img_on_list__low_1000 {
+    margin: auto;
     width: 320px !important;
     height: 225px;
   }
@@ -527,14 +567,14 @@ export default {
   .current_play {
     font-size: 1.2em !important;
   }
-
-  
 }
 .img_on_list {
   width: 226px;
   height: 223px;
   object-fit: cover;
 }
+
+
 
 .p_bottom {
   padding: 40px;
@@ -575,5 +615,14 @@ export default {
   border-radius: 5px;
   background: transparent;
   margin: 8px 0 5px 0;
+}
+
+.go_to_buy{
+  color: #3d3d3d;
+  transition: .3s all ease;
+}
+.go_to_buy:hover{
+  font-weight: 600;
+  /* transition: .7s all ease; */
 }
 </style>

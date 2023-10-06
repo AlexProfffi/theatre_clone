@@ -7,7 +7,7 @@
     <div
       v-for="contact in contacts"
       :key="contact.id"
-      class="d_flex_row j_content_space_around flex_grow_2 font_footer_color wrap_contact_block"
+      class="d_flex_row j_content_space_around flex_grow_2 font_footer_color wrap_contact_block pad_top"
     >
       <div class="flex_grow_1 d_flex_row j_content_space_around">
         <DesktopPictureWriters :picture="contact.photo_our_playwriters" />

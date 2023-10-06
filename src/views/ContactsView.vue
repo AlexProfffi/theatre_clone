@@ -3,10 +3,18 @@
     <div>
       <HeaderComponent />
     </div>
-    <div id="map_and_contact" class="d_flex_row padding_tb_15_em">
+    <div
+      id="map_and_contact"
+      class="d_flex_row padding_tb_15_em opacity_05 main_content"
+    >
       <div id="map" class="mapps margin_both_auto"></div>
       <div id="contact_current" class="d_flex_column margin_both_auto">
-        <div id="word_cnt" class="upper_case open_sans name_dep t_left p_1_px pad_b1em">контакти</div>
+        <div
+          id="word_cnt"
+          class="upper_case open_sans name_dep t_left p_1_px pad_b1em"
+        >
+          контакти
+        </div>
         <div
           v-for="cnt in contact"
           :key="cnt.id"
@@ -19,11 +27,15 @@
               :email="cnt.e_mail"
             />
           </div>
-          
         </div>
         <div id="social_lnk" class="d_flex_column j_content_center p_1_px">
           <div v-for="soc in social" :key="soc.id" class="w_50">
-            <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="true" :left="true" />
+            <DesktopSocialComponent
+              :socLink="soc.link"
+              :socName="soc.name"
+              :color="true"
+              :left="true"
+            />
           </div>
         </div>
       </div>
@@ -63,7 +75,12 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.getContact().then(() => this.setMapPoint());
+    this.getContact()
+      .then(() => this.setMapPoint())
+      .then(() => {
+        this.showContent();
+      });
+    this.setTitle();
   },
   methods: {
     async setMapPoint() {
@@ -79,7 +96,23 @@ export default {
         minZoom: 6,
         scrollWheelZoom: false,
       }).setView([this.contact[0].longitude, this.contact[0].latitude], 16);
-      L.marker([this.contact[0].longitude, this.contact[0].latitude]).addTo(map);
+      L.marker([this.contact[0].longitude, this.contact[0].latitude]).addTo(
+        map
+      );
+    },
+
+    async showContent() {
+      // Показує контент методом підвищення opacity
+      let cnt = 0;
+
+      this.intrval = setInterval(() => {
+        document.querySelector(".main_content").style.opacity = String(cnt);
+        if (cnt >= 1) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 0.1;
+      }, 50);
     },
 
     async getContact() {
@@ -106,6 +139,10 @@ export default {
       newStrList.push({ value: 1, text: list_2.join(" ") });
       return newStrList;
     },
+    setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = "Контакти";
+    },
   },
 };
 </script>
@@ -121,7 +158,6 @@ export default {
   #map {
     width: 90%;
   }
-  
 }
 .mapps {
   height: 500px;

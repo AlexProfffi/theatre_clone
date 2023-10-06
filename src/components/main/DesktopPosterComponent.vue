@@ -2,22 +2,18 @@
   <div v-if="!isMobile" class="posters d_flex_column j_content_center ptb_40">
     <div v-if="showSpiner">
       <SpinerComponent />
-      
     </div>
-
-    <div
-      v-for="play in playList"
-      :key="play.id"
-    >
-      <AboutPlayShortComponentVue  :play="play" :withPhoto="true"/>
+    <div class="d_flex_column j_content_center opacity_05 main_content">
+      <div v-for="play in playList" :key="play.id" class="bg_grey_custom for_mobile_center">
+        <AboutPlayShortComponentVue :play="play" :withPhoto="true" />
+      </div>
     </div>
   </div>
 </template>
   <script>
 // import ModalInfo from "../helpers/ModalInfo.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
-import AboutPlayShortComponentVue from './AboutPlay/AboutPlayShortComponent.vue';
-
+import AboutPlayShortComponentVue from "./AboutPlay/AboutPlayShortComponent.vue";
 
 export default {
   name: "DesktopPosterComponent",
@@ -32,7 +28,7 @@ export default {
       playList: null,
       showSpiner: true,
       yearMonth: JSON.parse(localStorage.getItem("dataYM")),
-      
+      intrval: null,
     };
   },
   created() {
@@ -41,9 +37,13 @@ export default {
   methods: {
     run() {
       if (!this.yearMonth) {
-        this.getPlays().then(() => {
-          this.showSpiner = false;
-        });
+        this.getPlays()
+          .then(() => {
+            this.showSpiner = false;
+          })
+          .then(() => {
+            this.showContent();
+          });
       } else {
         this.getFilteredPlays(this.yearMonth).then(() => {
           this.showSpiner = false;
@@ -51,7 +51,19 @@ export default {
       }
     },
 
-    
+    async showContent() {
+      // Показує контент методом підвищення opacity
+      let cnt = 0;
+
+      this.intrval = setInterval(() => {
+        document.querySelector(".main_content").style.opacity = String(cnt);
+        if (cnt >= 1) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 0.1;
+      }, 50);
+    },
 
     async getFilteredPlays(dataYearMonth) {
       // Фільтр по місяцям
@@ -64,7 +76,6 @@ export default {
           console.log(error);
         });
     },
-
 
     async getPlays() {
       this.playList = await fetch(
@@ -81,6 +92,12 @@ export default {
 </script>
 <style scoped>
 @media screen and (max-width: 1000px) {
+
+  .for_mobile_center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
   .plays_for_sale {
     display: flex;
     flex-direction: column;

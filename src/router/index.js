@@ -1,10 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import PlaysView from "../views/PlaysView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [{
         path: "/",
         name: "plays",
-        component: PlaysView,
+        component: () =>
+            import ( /* webpackChunkName: "about" */ "../views/PlaysView.vue"),
     },
     {
         path: "/about",
@@ -91,7 +91,7 @@ const routes = [{
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes,
 });
 

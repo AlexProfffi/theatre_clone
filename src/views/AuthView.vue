@@ -4,7 +4,6 @@
       <HeaderComponent />
     </div>
     <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
-      
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_row j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">авторизація</h3>
@@ -66,7 +65,9 @@
             </div>
           </form>
         </div>
-        <GLoginComponentVue />
+        <div v-if="gComponent">
+          <GLoginComponentVue />
+        </div>
         <div
           class="d_flex_row j_content_space_around pad_top"
           v-if="isShowSocial"
@@ -104,7 +105,12 @@
         </div>
       </div>
       <div class="pad_top font_1">
-        Хочеш аккаунт? <router-link class="nav_link_color f_weight_bold underline_txt" to="/registration">Реєстрація</router-link>
+        Хочеш аккаунт?
+        <router-link
+          class="nav_link_color f_weight_bold underline_txt"
+          to="/registration"
+          >Реєстрація</router-link
+        >
       </div>
     </div>
     <FooterComponent />
@@ -130,6 +136,7 @@ export default {
   },
   data() {
     return {
+      gComponent: false,
       isMobile: false,
       isShowPassword: false,
       gLinkAuth: {},
@@ -141,7 +148,6 @@ export default {
   },
   beforeCreate() {},
   created() {
-    // this.loginGoogle();
     this.setTitle();
   },
   methods: {
@@ -192,15 +198,6 @@ export default {
         });
     },
 
-    async loginGoogle() {
-      // Url login google
-      let url = `${this.$store.getters.getServerUrl}/google_login/`;
-      this.gLinkAuth = await fetch(url)
-        .then((response) => response.json())
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Авторизація";

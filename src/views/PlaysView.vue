@@ -37,8 +37,8 @@ export default {
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Афіша";
-      
     },
+    
   },
 };
 </script>

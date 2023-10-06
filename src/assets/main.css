@@ -21,6 +21,10 @@ html {
     color: black;
 }
 
+.color_black {
+    color: black;
+}
+
 .d_flex_row {
     display: flex;
     flex-direction: row;
@@ -308,6 +312,10 @@ html {
     font-weight: 600;
 }
 
+.f_weight_bold_700 {
+    font-weight: 700;
+}
+
 .p_both_px {
     padding: 0.1em 4em 0.1em 3em;
 }
@@ -361,6 +369,18 @@ html {
 
 .horizontal_line {
     border-bottom: 2px solid gray;
+}
+
+.horizontal_line_hover {
+    /* position: absolute;
+    border-bottom: 2px solid gray;
+    width: 0;
+    transition: width .7s ease-in-out;
+    &:hover {
+        width: 75px;
+    } */
+    border-bottom: 2px solid rgb(15, 15, 15);
+    width: 0;
 }
 
 
@@ -431,4 +451,8 @@ html {
 
 .border_gray {
     border: 2px solid #e0e0e0;
+}
+
+.opacity_05 {
+    opacity: 0;
 }
