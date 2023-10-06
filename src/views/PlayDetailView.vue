@@ -22,7 +22,7 @@
             :photo_10="pl.photo_10"
             :ident="''"
           />
-          <div class="d_flex_row j_content_center">
+          <div class="d_flex_row j_content_center pad_b3em">
             <h3
               id="pl_name"
               class="play_hame_h3 upper_case pad_top  f_size_42 open_sans"
@@ -31,7 +31,7 @@
             </h3>
           </div>
         </div>
-        <div class="margin_both_2">
+        <div class="margin_both_2 bg_grey_custom padding_tb_2em">
           <AboutPlayShortComponentVue
             :play="play"
             :withPhoto="false"
@@ -70,7 +70,7 @@
                 <p v-if="play.description" class="open_sans text_descript">
                   {{ play.description }}
                 </p>
-                <p v-else>Інформація зя'виться незабаром</p>
+                <p v-else>Інформація з`явиться незабаром</p>
               </div>
             </div>
             <div class="d_flex_column w_50" id="actors_list" name="actors_level">
@@ -80,7 +80,7 @@
                 </h2>
               </div>
               <div class="d_flex_row pad_top">
-                <ul>
+                <ul v-if="play.staff.length > 1">
                   <li
                     v-for="act in play.staff.slice(1, play.staff.length)"
                     :key="act.name + act.surname"
@@ -91,6 +91,7 @@
                     </span>
                   </li>
                 </ul>
+                <p v-else>Інформація з`явиться незабаром</p>
               </div>
             </div>
           </div>

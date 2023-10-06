@@ -112,7 +112,7 @@ export default {
       let listNavi = [
         // "головна",
         "афіша",
-        // "новини",
+        "новини",
         "про театр",
         // "архів",
         "контакти",
@@ -122,7 +122,7 @@ export default {
       let listNaviLinks = [
         // "/main",
         "/",
-        // "/news",
+        "#/news",
         "#/about",
         // "#/archive",
         "#/contacts",

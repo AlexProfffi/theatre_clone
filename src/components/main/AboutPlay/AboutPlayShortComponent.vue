@@ -568,11 +568,7 @@ export default {
     font-size: 1.2em !important;
   }
 }
-.img_on_list {
-  width: 226px;
-  height: 223px;
-  object-fit: cover;
-}
+
 
 
 

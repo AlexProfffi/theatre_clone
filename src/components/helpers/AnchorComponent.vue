@@ -6,7 +6,7 @@
         xmlns="http://www.w3.org/2000/svg"
         width="36"
         height="36"
-        fill="#f9f9f9"
+        fill="#979797"
         class="bi bi-arrow-up-circle"
         viewBox="0 0 16 16"
       >
@@ -62,9 +62,9 @@ export default {
   left: 91%;
 }
 .bi-arrow-up-circle {
-  color: #f9f9f9;
+  color: #868686;
 }
 .bi-arrow-up-circle:hover {
-  color: #e0e0e0;
+  color: #979797;
 }
 </style>
