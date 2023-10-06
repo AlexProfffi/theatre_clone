@@ -4,7 +4,11 @@
       <SpinerComponent />
     </div>
     <div class="d_flex_column j_content_center opacity_05 main_content">
-      <div v-for="play in playList" :key="play.id" class="bg_grey_custom for_mobile_center">
+      <div
+        v-for="play in playList"
+        :key="play.id"
+        class="bg_grey_custom for_mobile_center"
+      >
         <AboutPlayShortComponentVue :play="play" :withPhoto="true" />
       </div>
     </div>
@@ -45,9 +49,13 @@ export default {
             this.showContent();
           });
       } else {
-        this.getFilteredPlays(this.yearMonth).then(() => {
-          this.showSpiner = false;
-        });
+        this.getFilteredPlays(this.yearMonth)
+          .then(() => {
+            this.showSpiner = false;
+          })
+          .then(() => {
+            this.showContent();
+          });
       }
     },
 
@@ -92,8 +100,7 @@ export default {
 </script>
 <style scoped>
 @media screen and (max-width: 1000px) {
-
-  .for_mobile_center{
+  .for_mobile_center {
     display: flex;
     flex-direction: row;
     justify-content: center;
