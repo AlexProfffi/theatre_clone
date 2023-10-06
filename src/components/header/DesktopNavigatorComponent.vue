@@ -123,11 +123,11 @@ export default {
         // "/main",
         "/",
         // "/news",
-        "/about",
+        "#/about",
         // "#/archive",
-        "/contacts",
-        "/our_partners",
-        "/my_profile",
+        "#/contacts",
+        "#/our_partners",
+        "#/my_profile",
       ];
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {
