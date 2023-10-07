@@ -105,7 +105,7 @@
                 @click="pay(offs.file_offer)"
                 class="nav_link_color c_pointer offerts"
               >
-                «Офертою»
+                «Публічною офертою»
               </span>
               <span v-if="offs.file_contract">та</span>
               <span
