@@ -146,6 +146,10 @@ export default {
   #news_all {
     padding: 0;
   }
+
+  .bg_grey_custom {
+    background: linear-gradient(#ffffff, #f3f3f3) !important;
+  }
   .horizontal_line {
     border: none !important;
   }
@@ -166,7 +170,7 @@ export default {
 
   .img_on_list__low_1000 {
     width: 95% !important;
-    height: 375px !important;
+    height: 330px !important;
   }
 
   .position_content_low_1000 {
