@@ -4,30 +4,24 @@
       <div>
         <HeaderComponent />
       </div>
-      
+
       <div v-if="spiner">
         <SpinerComponent />
       </div>
-      <div v-else class="d_flex_column">
-        <h2>Мій профіль</h2>
-        <div class="d_flex_column">
-          <div class="d_flex_column">
-            <div class="d_flex_row j_content_start" id="my_tct">
-              <h4>Відвідані вистави:</h4>
-            </div>
-            <div class="d_flex_row j_content_start">
-              <ul>
-                <li
-                  class="col_red buyed_tct"
-                  v-for="ub in user.buyuser"
-                  :key="ub.id"
-                >
-                  {{ ub.for_play }} / {{ ub.date_time_play }};
-                </li>
-              </ul>
-            </div>
-          </div>
+      <div v-else class="d_flex_column p_40px">
+        <ProfileNavigatorComponent
+          :bools="boolsC"
+        />
+        <div v-if="boolsC[0]" class="d_flex_column">
+          <MyPlaysComponent :myTickets="user.buyuser" />
         </div>
+        <div v-else-if="boolsC[1]" class="d_flex_column">
+          <MyCommentsComponent :myComments="comments" />
+        </div>
+        <div v-else-if="boolsC[2]" class="d_flex_column">
+          <MyDataComponent :myData="user" />
+        </div>
+        
       </div>
       <div>
         <FooterComponent />
@@ -41,27 +35,40 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
+import ProfileNavigatorComponent from "@/components/profile/ProfileNavigatorComponent.vue";
+import MyPlaysComponent from "@/components/profile/MyPlaysComponent.vue";
+import MyDataComponent from "@/components/profile/MyDataComponent.vue";
+import MyCommentsComponent from "@/components/profile/MyCommentsComponent.vue";
 
 export default {
-  name: "OfferView",
+  name: "ProfileView",
   components: {
     HeaderComponent,
     FooterComponent,
     SpinerComponent,
+    ProfileNavigatorComponent,
+    MyPlaysComponent,
+    MyDataComponent,
+    MyCommentsComponent,
   },
   data() {
     return {
       isMobile: false,
       user: {},
+      comments: [],
       token: localStorage.getItem("token"),
       longitude: null,
       latitude: null,
       spiner: true,
+      boolsC: [false, true, false],
     };
   },
   created() {
     this.setTitle();
     this.getDataUser()
+      .then(() => {
+        this.getDataComments();
+      })
       .then(() => {
         localStorage.setItem(
           "userInfo",
@@ -164,6 +171,23 @@ export default {
         // return
       }
     },
+    async getDataComments() {
+      //  Get data for current comments
+      if (localStorage.getItem("token")) {
+        this.comments = await fetch(
+          `${this.$store.getters.getServerUrl}/current_users_comments/`,
+          this.getHeaders("get", this.token.replace(/"/gi, ""))
+        )
+          .then((response) => response.json())
+
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        this.$router.push({ name: "Auth" });
+        // return
+      }
+    },
   },
 };
 </script>
@@ -179,9 +203,6 @@ export default {
 .home_play {
   display: flex;
   flex-direction: column;
-}
-.col_red {
-  color: rgb(255, 96, 96);
 }
 </style>
     

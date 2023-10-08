@@ -401,6 +401,10 @@ html {
     padding: 0 16.5em 0 16.5em;
 }
 
+.none_decor_ul_no_pad {
+    list-style: none;
+}
+
 .horizontal_line {
     border-bottom: 2px solid gray;
 }

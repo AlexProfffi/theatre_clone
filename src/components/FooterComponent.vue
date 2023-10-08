@@ -73,6 +73,7 @@ export default {
 @media screen and (max-width: 1000px) {
   #wrap_footer {
     flex-direction: column;
+    height: 650px;
   }
  
   .wrap_contact_block {
