@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isMobile" class="d_flex_column j_content_center">
     <div class="d_flex_row p_tb_5 open_sans font_size_08">
-      <div>
+      <div @click="clickCallPhone(phone)">
         {{ phone }}
       </div>
     </div>
@@ -13,9 +13,13 @@
     </div>
 
     <div class="d_flex_column p_tb_5">
-      <div v-for="str in separatedString(addr)" :key="str.value" class="d_flex_row open_sans f_semi_bold_size_1 upper_case ">
+      <div
+        v-for="str in separatedString(addr)"
+        :key="str.value"
+        class="d_flex_row open_sans f_semi_bold_size_1 upper_case"
+      >
         <div>
-            {{ str.text }}
+          {{ str.text }}
         </div>
       </div>
     </div>
@@ -35,8 +39,7 @@ export default {
       isMobile: false,
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     separatedString(str) {
       // Перенос строки
@@ -44,9 +47,14 @@ export default {
       let list_1 = list.slice(0, list.length - 3);
       let list_2 = list.slice(list_1.length, list.length);
       let newStrList = [];
-      newStrList.push({value:0, text:list_1.join(" ")})
-      newStrList.push({value:1, text: list_2.join(" ")})
-      return newStrList
+      newStrList.push({ value: 0, text: list_1.join(" ") });
+      newStrList.push({ value: 1, text: list_2.join(" ") });
+      return newStrList;
+    },
+
+    clickCallPhone(phone) {
+      // Call phone
+      window.location.href = "tel://" + phone;
     },
     // phoneSeparator(phone) {
     //     // Розділювач номера телефону
@@ -61,6 +69,6 @@ export default {
   font-size: 1em;
 }
 .font_size_08 {
-    font-size: .8em;
+  font-size: 0.8em;
 }
 </style>
