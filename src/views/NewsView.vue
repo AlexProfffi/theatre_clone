@@ -16,19 +16,26 @@
         :key="new_one.id"
         class="d_flex_row j_content_space_around ptb_5em bg_grey_custom position_low_1000 horizontal_line"
       >
-        <div class="w_30 position_img_low_1000" @click="showModal()">
+        <div
+          class="w_30 position_img_low_1000"
+          @click="showModal(new_one.name, new_one.description, new_one.image)"
+        >
           <img
             :src="repalcer(new_one.image, '')"
             :alt="new_one.name"
             class="img_on_list_new img_on_list__low_1000 c_pointer"
           />
         </div>
-        <ModalShowPicture
-          :picture="new_one.image"
-          :show="modal"
-          @close="modal = false"
-        />
-        <div class="d_flex_row j_content_start w_50  margin_both_2 w_low_1000 ">
+        <div v-if="modal">
+          <ModalShowPicture
+            :picture="modalImage"
+            :name="modalName"
+            :description="null"
+            :show="modal"
+            @close="modal = false"
+          />
+        </div>
+        <div class="d_flex_row j_content_start w_50 margin_both_2 w_low_1000">
           <div
             class="d_flex_column j_content_space_between t_left w_75 position_content_low_1000"
           >
@@ -39,7 +46,11 @@
             </div>
             <div
               class="f_source_sans padding_tb_2em w_max"
-              v-html="new_one.description"
+              :class="{
+                c_pointer: new_one.description.length  > maxCountSymbols,
+              }"
+              @click="showLargeTextNews(new_one.description.length)"
+              v-html="sliceString(new_one.description, maxCountSymbols)"
             ></div>
             <div class="d_flex_row j_content_end">
               <div class="f_source_sans">
@@ -47,14 +58,11 @@
               </div>
             </div>
           </div>
-          
         </div>
         <hr class="margin_both_2 mar_top_bot" />
-        
       </div>
-      
     </div>
-    
+
     <div>
       <FooterComponent />
     </div>
@@ -70,7 +78,7 @@ import ModalShowPicture from "@/components/helpers/ModalShowPicture.vue";
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
 export default {
-  name: "ContactsView",
+  name: "NewsView",
   components: {
     HeaderComponent,
     FooterComponent,
@@ -83,6 +91,12 @@ export default {
       showSpiner: true,
       modal: false,
       news: [],
+      intrval: null,
+      modalName: null,
+      modalDescription: null,
+      modalImage: null,
+      maxCountSymbols: 550,
+      isShowLargeContent: false,
     };
   },
   created() {
@@ -134,9 +148,29 @@ export default {
       // Змінює '-' на '|'
       return String(dates).replace(/[-]/g, "|");
     },
-    showModal() {
+    sliceString(str, n_symbols) {
+      // Обрізає строку
+      return String(str).length > n_symbols
+        ? String(str).slice(0, Number(n_symbols)) + "..."
+        : str;
+    },
+
+    showModal(nm, dscr, imgs) {
       // Діалогове вікно з драматургами
+      this.modalName = nm;
+      this.modalDescription = dscr;
+      this.modalImage = imgs;
       this.modal = true;
+    },
+
+    showLargeTextNews(lengthDescription) {
+      // Показує весь текст
+      this.isShowLargeContent = !this.isShowLargeContent;
+      if (this.isShowLargeContent) {
+        this.maxCountSymbols = Number(lengthDescription) - 1;
+      } else {
+        this.maxCountSymbols = 550;
+      }
     },
   },
 };
@@ -163,10 +197,7 @@ export default {
   }
   .position_img_low_1000 {
     width: 100% !important;
-    
   }
-
-
 
   .img_on_list__low_1000 {
     width: 95% !important;

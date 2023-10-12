@@ -1,10 +1,34 @@
 <template>
   <Transition name="modal">
-    <div v-if="show" class="modal-mask">
+    <div class="modal-mask">
       <div class="modal-body d_flex_row j_content_center">
         <slot name="body ">
-          <div class="d_flex_row j_content_center w_70 p_40px p_0 img_modal_low_1000">
-            <img class="img_modal_low_1000" :src="repalcer(picture, '')" :alt="picture" />
+          <div class="d_flex_column j_content_center p_0 img_modal_low_1000">
+            <div class="d_flex_row j_content_center">
+              <div class="d_flex_row j_content_center div_v_html">
+                <div
+                  class="t_justify pad_both_7 bg_white_custom d_flex_row j_content_center div_v_html f_weight_bold f_size_32"
+                >
+                  {{ name }}
+                </div>
+              </div>
+            </div>
+
+            <div class="d_flex_row j_content_center">
+              <div class="d_flex_row j_content_center bg_white_custom w_100">
+                <img
+                  class="img_modal_low_1000 img_modal_w"
+                  :src="repalcer(picture, '')"
+                  :alt="picture"
+                />
+              </div>
+            </div>
+            <div class="d_flex_row j_content_center div_v_html">
+              <div
+                class="t_justify pad_both_7 bg_white_custom d_flex_column j_content_center f_size_15 scrolling"
+                v-html="description"
+              ></div>
+            </div>
           </div>
         </slot>
       </div>
@@ -35,6 +59,9 @@ export default {
   name: "ModalShowPicture",
   props: {
     picture: String,
+    name: String,
+    description: String,
+
     show: Boolean,
   },
   components: {},
@@ -55,14 +82,13 @@ export default {
       }
       return "https://theatreofplaywrightsapi.space:8443" + str;
     },
+
+    
   },
 };
 </script>
     <style scoped>
-
 @media screen and (max-width: 1000px) {
-
-  
   .img_modal_low_1000 {
     width: 95% !important;
     height: 80%;
@@ -71,7 +97,7 @@ export default {
   .modal-body {
     width: 100% !important;
   }
-  .p_0{
+  .p_0 {
     padding: 0 !important;
   }
 
@@ -108,7 +134,7 @@ export default {
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 0;
 }
 
 .modal-default-button {
@@ -141,4 +167,21 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.scrolling {
+  overflow: auto;
+  scrollbar-color: #f3f3f3 #3e3e3e;
+  scrollbar-width: thin;
+  max-height: 300px;
+}
+
+.div_v_html {
+  width: 100%;
+}
+
+.img_modal_w {
+  max-height: max-content;
+  max-width: max-content;
+}
+
 </style>

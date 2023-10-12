@@ -118,6 +118,10 @@ html {
 
 /* height */
 
+.h_max {
+    height: max-content;
+}
+
 .h_100 {
     height: 100%;
 }
@@ -128,6 +132,10 @@ html {
 
 .h_2em {
     height: 3.5em;
+}
+
+.h_24_px {
+    height: 30px;
 }
 
 
@@ -159,6 +167,10 @@ html {
 
 .margin_1_em {
     margin: 1em;
+}
+
+.mar_0_06_em {
+    margin: 0 .6em;
 }
 
 .mb_1rem {
@@ -289,6 +301,10 @@ html {
     padding: 2em 0 2em 0;
 }
 
+.pad_0 {
+    padding: 0;
+}
+
 
 /* font */
 
@@ -391,6 +407,10 @@ html {
 
 .bg_grey_custom {
     background-color: #f3f3f3;
+}
+
+.bg_white_custom {
+    background-color: #fff;
 }
 
 

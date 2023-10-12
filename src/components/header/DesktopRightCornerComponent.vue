@@ -16,6 +16,27 @@
         </span>
       </div>
     </div>
+    <div class="d_flex_row j_content_end p_1_px h_24_px mb_1rem">
+      <div class="d_flex_row_reverse">
+        <div class="c_pointer search" @click="showSearcField()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </div>
+        <div class="mar_0_06_em">
+          <input class="s_field open_sans" type="search" placeholder="Пошук по сайту..." />
+        </div>
+      </div>
+    </div>
     <div class="d_flex_row j_content_end p_1_px" v-if="!token">
       <div
         v-for="auth in authLinksData"
@@ -32,7 +53,6 @@
       </div>
     </div>
     <div v-else class="d_flex_column">
-      
       <div class="d_flex_row j_content_end p_1_px">
         <div class="font_corner_right">
           <span> Вітаємо, </span>
@@ -64,12 +84,43 @@ export default {
       authLinksData: this.authLinks(),
       token: localStorage.getItem("token"),
       user: {},
+      searchField: false,
+      intrval: null,
+      widthSearchField: 200,
     };
   },
   created() {
     this.getDataUser();
   },
   methods: {
+    showContent() {
+      // Показує поле пошуку
+      let cnt = 0;
+      document.querySelector(".s_field").style.display = "block";
+      this.intrval = setInterval(() => {
+        document.querySelector(".s_field").style.width = String(cnt) + "px";
+        if (cnt >= this.widthSearchField) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 10;
+      }, 30);
+    },
+    hideContent() {
+      // Ховає поле пошуку
+      let cnt = Number(document.querySelector(".s_field").offsetWidth);
+
+      this.intrval = setInterval(() => {
+        document.querySelector(".s_field").style.width = String(cnt) + "px";
+        if (cnt <= 0) {
+          clearInterval(this.intrval);
+          document.querySelector(".s_field").style.display = "none";
+          return;
+        }
+        cnt -= 10;
+      }, 30);
+    },
+
     languages() {
       // Мови на сайті
       let arrLangs = ["УКР", "|", "EN"];
@@ -150,14 +201,22 @@ export default {
           });
       } else {
         // this.$router.push({ name: "Auth" });
-        return
+        return;
       }
     },
 
     removeToken() {
       // Вихід
       localStorage.removeItem("token");
-      this.$router.push({ name: "Auth" })
+      this.$router.push({ name: "Auth" });
+    },
+    showSearcField() {
+      this.searchField = !this.searchField;
+      if (this.searchField) {
+        this.showContent();
+      } else {
+        this.hideContent();
+      }
     },
   },
 };
@@ -184,5 +243,13 @@ export default {
   background-color: #212121;
   color: #ffffff;
   border: 2px solid #212121;
+}
+.search:hover {
+  color: black;
+}
+input {
+  display: none;
+  font-size: 14px;
+  width: 0;
 }
 </style>
