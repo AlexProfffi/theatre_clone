@@ -1,9 +1,9 @@
 <template>
   <div
-    class="d_flex_row p_bottom  plays_for_sale"
+    class="d_flex_row p_bottom plays_for_sale"
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
-    <div class="w_20_percent plays_sl_component">
+    <div class="w_20_percent plays_sl_component" v-if="withPhoto">
       <div>
         <h4
           class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -12,7 +12,6 @@
           {{ getMeDay(play.date_play).shortText }}
         </h4>
       </div>
-
       <div class="p_both_px">
         <div class="d_flex_row_reverse">
           <h2
@@ -26,7 +25,70 @@
         </div>
       </div>
     </div>
-    <div v-if="withPhoto" class="d_flex_row w_20_percent plays_sl_component pic_sl_component">
+
+    <div class="w_20_percent plays_sl_component" v-else>
+      <div v-for="on_pl in play.on_play" :key="on_pl.id">
+        <div v-if="play.on_play.indexOf(on_pl) == 0">
+          <div>
+            <h4
+              class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+              :id="getMeDay(on_pl.date_pl).idEl"
+            >
+              {{ getMeDay(on_pl.date_pl).shortText }}
+            </h4>
+          </div>
+          <div class="p_both_px">
+            <div class="d_flex_row_reverse">
+              <h2
+                v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                :key="dt.value"
+                :id="dt.idEl"
+                class="f_oswald f_size_25 m_0"
+              >
+                {{ dt.text }}
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div
+            @click="otherDate = !otherDate"
+            class="f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
+            v-if="play.on_play.indexOf(on_pl) == 1"
+          >
+            Інші дати
+          </div>
+          <div v-if="otherDate">
+            <div>
+              <div
+                class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+                :id="getMeDay(on_pl.date_pl).idEl"
+              >
+                {{ getMeDay(on_pl.date_pl).shortText }}
+              </div>
+            </div>
+            <div class="p_both_px">
+              <div class="d_flex_row_reverse">
+                <div
+                  v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                  :key="dt.value"
+                  :id="dt.idEl"
+                  class="f_oswald f_size_25 m_0"
+                >
+                  {{ dt.text }}
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-if="withPhoto"
+      class="d_flex_row w_20_percent plays_sl_component pic_sl_component"
+    >
       <router-link
         v-if="withPhoto"
         :to="{
@@ -41,7 +103,7 @@
         />
       </router-link>
     </div>
-    <div class="d_flex_column j_content_center w_20_percent plays_sl_component">
+    <div class="d_flex_column j_content_start w_20_percent plays_sl_component">
       <div v-if="play.is_premiere" class="d_flex_row" id="premier">
         <h4 class="upper_case horizontal_line">прем'єра</h4>
       </div>
@@ -111,21 +173,21 @@
       <div class="d_flex_row j_content_center open_sans f_size_32 c_pointer">
         <router-link
           v-if="withPhoto"
-          :id="'link_play_'+ play.id"
+          :id="'link_play_' + play.id"
           :to="{
             name: 'play',
             params: { id: play.id_play, name: transcription(play.name) },
           }"
-          class=" go_to_buy"
+          class="go_to_buy"
         >
           купити квиток
+
           <div class="horizontal_line_hover"></div>
         </router-link>
-        
+
         <span v-else class="nav_link_color" @click="showFormToPay()">
           купити квиток
         </span>
-        
       </div>
       <div>
         <div v-if="theLinkPay">
@@ -166,7 +228,6 @@
               >
                 Купити квиток
               </button>
-              
             </div>
           </div>
         </div>
@@ -201,6 +262,7 @@ export default {
       thePlay: this.play,
       showPaymentForm: false,
       modernGenderDirector: {},
+      otherDate: false,
     };
   },
   created() {
@@ -208,9 +270,9 @@ export default {
     this.isUserAuth();
   },
   methods: {
-    drawHorizontalLine(classEl, index=0) {
+    drawHorizontalLine(classEl, index = 0) {
       // Підкреслення по наведенню на елемент
-      
+
       let navEl = document.querySelectorAll(classEl);
       let widthElem = navEl[index].offsetWidth;
       let cnt = 1;
@@ -223,7 +285,7 @@ export default {
         cnt += 3;
       }, 5);
     },
-    clearHorizontalLine(classEl, index=0) {
+    clearHorizontalLine(classEl, index = 0) {
       // Скасування по прибиранню курсора миші на елемент
       let navEl = document.querySelectorAll(classEl);
       clearInterval(this.intrval);
@@ -409,8 +471,9 @@ export default {
       return daysAllData[date.getDay()];
     },
 
-    datePlayVisibility(dt) {
-      let newFormat = dt.split("T");
+    datePlayVisibility(dts) {
+      console.log(dts);
+      let newFormat = dts.split("T");
       let monthAndDay = newFormat[0].split("-");
       monthAndDay = [
         monthAndDay[monthAndDay.length - 1],
@@ -442,6 +505,15 @@ export default {
     showModal() {
       // Діалогове вікно з драматургами
       this.modal = true;
+    },
+
+    isEqualDateToday(dateObj) {
+      // Порівнює дату вистави та сьогоднішю дату
+      let today = new Date();
+      if (today < Date(dateObj)) {
+        return true;
+      }
+      return false;
     },
 
     correctRange(hours, minutes) {
@@ -569,9 +641,6 @@ export default {
   }
 }
 
-
-
-
 .p_bottom {
   padding: 40px;
 }
@@ -613,11 +682,11 @@ export default {
   margin: 8px 0 5px 0;
 }
 
-.go_to_buy{
+.go_to_buy {
   color: #3d3d3d;
-  transition: .3s all ease;
+  transition: 0.3s all ease;
 }
-.go_to_buy:hover{
+.go_to_buy:hover {
   font-weight: 600;
   /* transition: .7s all ease; */
 }

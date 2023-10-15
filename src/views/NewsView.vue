@@ -212,10 +212,6 @@ export default {
   }
 }
 
-.img_on_list_new {
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
-}
+
 </style>
         

@@ -16,7 +16,7 @@
         </span>
       </div>
     </div>
-    <div class="d_flex_row j_content_end p_1_px h_24_px mb_1rem">
+    <div class="d_flex_row j_content_end p_1_px h_24_px mb_1rem pad_low_1000">
       <div class="d_flex_row_reverse">
         <div class="c_pointer search" @click="showSearcField()">
           <svg
@@ -32,8 +32,19 @@
             />
           </svg>
         </div>
-        <div class="mar_0_06_em">
-          <input class="s_field open_sans" type="search" placeholder="Пошук по сайту..." />
+        <div class="mar_0_06_em d_flex_row">
+          <input
+            v-model="dataInputSearch"
+            class="s_field open_sans xtx"
+            type="search"
+            placeholder="Пошук по сайту..."
+          />
+          <input
+            @click="clickSearchBtn()"
+            type="button"
+            value="Пошук"
+            class="btn_srch upper_case exit_b font_1 open_sans"
+          />
         </div>
       </div>
     </div>
@@ -87,6 +98,7 @@ export default {
       searchField: false,
       intrval: null,
       widthSearchField: 200,
+      dataInputSearch: null,
     };
   },
   created() {
@@ -97,6 +109,7 @@ export default {
       // Показує поле пошуку
       let cnt = 0;
       document.querySelector(".s_field").style.display = "block";
+      document.querySelector(".btn_srch").style.display = "block";
       this.intrval = setInterval(() => {
         document.querySelector(".s_field").style.width = String(cnt) + "px";
         if (cnt >= this.widthSearchField) {
@@ -115,6 +128,7 @@ export default {
         if (cnt <= 0) {
           clearInterval(this.intrval);
           document.querySelector(".s_field").style.display = "none";
+          document.querySelector(".btn_srch").style.display = "none";
           return;
         }
         cnt -= 10;
@@ -218,10 +232,27 @@ export default {
         this.hideContent();
       }
     },
+    clickSearchBtn() {
+      // Подія кліку по кнопці пошуку
+      localStorage.setItem("searchersDt", JSON.stringify(this.dataInputSearch));
+      if(this.$route.name == "Search") {
+        window.location.reload()
+      }
+      else {
+        this.$router.push({ name: "Search" });
+      }
+      
+    },
   },
 };
 </script>
 <style scoped>
+
+@media screen and (max-width: 1000px) {
+  .pad_low_1000 {
+    padding: 0 !important;
+  }
+}
 .font_corner_right {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -247,9 +278,12 @@ export default {
 .search:hover {
   color: black;
 }
-input {
+input.xtx {
   display: none;
   font-size: 14px;
   width: 0;
+}
+.btn_srch {
+  display: none;
 }
 </style>
