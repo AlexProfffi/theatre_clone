@@ -13,12 +13,12 @@
         </h4>
       </div>
       <div class="p_both_px">
-        <div class="d_flex_row_reverse">
+        <div class="d_flex_row_reverse f_size_25">
           <h2
             v-for="dt in datePlayVisibility(play.date_play)"
             :key="dt.value"
             :id="dt.idEl"
-            class="f_oswald f_size_25 m_0"
+            class="f_oswald m_0"
           >
             {{ dt.text }}
           </h2>
@@ -37,13 +37,16 @@
               {{ getMeDay(on_pl.date_pl).shortText }}
             </h4>
           </div>
-          <div class="p_both_px">
-            <div class="d_flex_row_reverse">
+          <div class="p_both_px d_flex_row j_content_end">
+            <div
+              class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+              @click="instanceNewCurrentDatePlay(on_pl, $event)"
+            >
               <h2
                 v-for="dt in datePlayVisibility(on_pl.date_pl)"
                 :key="dt.value"
                 :id="dt.idEl"
-                class="f_oswald f_size_25 m_0"
+                class="f_oswald m_0"
               >
                 {{ dt.text }}
               </h2>
@@ -56,9 +59,9 @@
             class="f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
             v-if="play.on_play.indexOf(on_pl) == 1"
           >
-            Інші дати
+            Вибрати іншу дату
           </div>
-          <div v-if="otherDate">
+          <div v-show="otherDate">
             <div>
               <div
                 class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -67,13 +70,16 @@
                 {{ getMeDay(on_pl.date_pl).shortText }}
               </div>
             </div>
-            <div class="p_both_px">
-              <div class="d_flex_row_reverse">
+            <div class="d_flex_row j_content_end p_both_px">
+              <div
+                class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+                @click="instanceNewCurrentDatePlay(on_pl, $event)"
+              >
                 <div
                   v-for="dt in datePlayVisibility(on_pl.date_pl)"
                   :key="dt.value"
                   :id="dt.idEl"
-                  class="f_oswald f_size_25 m_0"
+                  class="f_oswald m_0"
                 >
                   {{ dt.text }}
                 </div>
@@ -197,6 +203,24 @@
               id="form_pay"
               class="d_flex_column w_75"
             >
+              <div class="d_flex_row j_content_space_between p_tb_5">
+                <div>
+                  <span class="f_size_22"> Дата показу вистави: </span>
+                </div>
+
+                <div class="d_flex_row_reverse">
+                  <div
+                    v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
+                    :key="dt.value"
+                    :id="dt.idEl"
+                    class="f_oswald m_0 underline_txt"
+                  >
+                    <span>
+                      {{ dt.text }}
+                    </span>
+                  </div>
+                </div>
+              </div>
               <div class="d_flex_row">
                 <label for="email" class="open_sans small_font"
                   >Введіть електронну пошту для купівлі квитка:
@@ -263,6 +287,8 @@ export default {
       showPaymentForm: false,
       modernGenderDirector: {},
       otherDate: false,
+      currentDatePlay: this.play.on_play[0],
+      parentListEl: [],
     };
   },
   created() {
@@ -309,7 +335,7 @@ export default {
           order_id: this.theLinkPay.order_id,
           email: this.callBackData.email,
           u_name: this.callBackData.userName,
-          time_play: this.onlyDate(this.thePlay.date_play),
+          time_play: this.onlyDate(this.currentDatePlay.date_pl),
           play_name: this.thePlay.name,
         })
       );
@@ -472,7 +498,6 @@ export default {
     },
 
     datePlayVisibility(dts) {
-      console.log(dts);
       let newFormat = dts.split("T");
       let monthAndDay = newFormat[0].split("-");
       monthAndDay = [
@@ -570,6 +595,26 @@ export default {
       }
     },
 
+    instanceNewCurrentDatePlay(date, event) {
+      // Нова дата вистави для купівлі квитка
+      this.parentListEl.push(event.target.parentElement);
+      this.currentDatePlay = date;
+      for (let x = 0; x < this.parentListEl.length; x++) {
+        if (event.target.parentElement == this.parentListEl[x]) {
+          undefined;
+        } else {
+          this.parentListEl[x].style.color = "";
+          this.parentListEl.splice(
+            this.parentListEl.indexOf(this.parentListEl[x]),
+            1
+          );
+        }
+        if (this.parentListEl.length) {
+          this.parentListEl[0].style.color = "black";
+        }
+      }
+    },
+
     isUserAuth() {
       // Токен користувача
       let locS = localStorage.getItem("userInfo");
@@ -654,9 +699,13 @@ export default {
 }
 
 .f_size_25 {
-  font-size: 2.5em;
+  font-size: 32px !important;
+  color: rgb(104, 104, 104);
+}
+.f_size_25:hover {
   color: black;
 }
+
 .f_weight_300 {
   font-weight: 300;
   font-size: 1.5em;

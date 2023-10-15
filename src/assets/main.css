@@ -357,6 +357,10 @@ html {
     font-size: 3.8em;
 }
 
+.f_size_22 {
+    font-size: 1em;
+}
+
 .f_weight_400 {
     font-weight: 400;
     font-size: 1.5em;
@@ -536,4 +540,12 @@ html {
     width: 400px;
     height: 400px;
     object-fit: cover;
+}
+
+.date_color {
+    color: gray;
+}
+
+.date_color:hover {
+    color: black;
 }
