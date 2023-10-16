@@ -32,13 +32,27 @@
             />
           </svg>
         </div>
-        <div class="mar_0_06_em d_flex_row">
+        <div class="margin_both_auto d_flex_row search_group">
           <input
             v-model="dataInputSearch"
             class="s_field open_sans xtx"
             type="search"
             placeholder="Пошук по сайту..."
           />
+          <!-- <button @click="clickSearchBtn()" class="btn_srch upper_case exit_b font_2 open_sans w_50_px">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+          </button> -->
           <input
             @click="clickSearchBtn()"
             type="button"
@@ -325,5 +339,9 @@ input.xtx {
 
 .icon_usr {
   display: none;
+}
+
+.search_group {
+  margin-top: 50px
 }
 </style>
