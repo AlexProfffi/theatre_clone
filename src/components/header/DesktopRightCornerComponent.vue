@@ -35,7 +35,7 @@
         <div class="margin_both_auto d_flex_row search_group">
           <input
             v-model="dataInputSearch"
-            class="s_field open_sans xtx"
+            class="s_field open_sans xtx "
             type="search"
             placeholder="Пошук по сайту..."
           />
@@ -57,7 +57,7 @@
             @click="clickSearchBtn()"
             type="button"
             value="Пошук"
-            class="btn_srch upper_case exit_b font_2 open_sans w_50_px"
+            class="btn_srch upper_case exit_b font_2 open_sans w_50_px pad_both_3"
           />
         </div>
       </div>

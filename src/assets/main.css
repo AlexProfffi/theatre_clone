@@ -285,6 +285,10 @@ html {
     padding: 0 7px 0 7px;
 }
 
+.pad_both_3 {
+    padding: 0 3px 0 3px;
+}
+
 .p_l_2 {
     padding-left: 2em;
 }
