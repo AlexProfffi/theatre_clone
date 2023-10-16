@@ -43,7 +43,7 @@
             @click="clickSearchBtn()"
             type="button"
             value="Пошук"
-            class="btn_srch upper_case exit_b font_1 open_sans"
+            class="btn_srch upper_case exit_b font_2 open_sans w_50_px"
           />
         </div>
       </div>
@@ -322,6 +322,7 @@ input.xtx {
 .btn_srch {
   display: none;
 }
+
 .icon_usr {
   display: none;
 }

@@ -216,7 +216,7 @@ export default {
   padding: 16px;
   font-size: 16px;
   cursor: pointer;
-  width: 50%;
+  width: max-content;
 }
 
 .dropdown {
