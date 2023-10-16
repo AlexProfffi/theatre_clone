@@ -199,7 +199,7 @@ export default {
   .dropdown {
     display: inline-block !important;
     position: absolute !important;
-    top: 7%;
+    top: 8%;
     left: 0%;
     background-color: #ffffffdb;
     z-index: 12;
