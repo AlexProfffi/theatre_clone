@@ -373,6 +373,6 @@ export default {
   position: absolute;
   left: 50%;
   /* top: 70rem; */
-  z-index: 99;
+  z-index: 9;
 }
 </style>

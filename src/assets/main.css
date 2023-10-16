@@ -502,6 +502,11 @@ html {
 
 /* BORDER */
 
+.b_wrap {
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
 .b_radius_10 {
     border-radius: 10px;
 }

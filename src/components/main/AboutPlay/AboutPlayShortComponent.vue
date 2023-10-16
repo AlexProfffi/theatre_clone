@@ -56,36 +56,71 @@
         <div v-else>
           <div
             @click="otherDate = !otherDate"
-            class="f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
+            class="d_flex_row j_content_center f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
             v-if="play.on_play.indexOf(on_pl) == 1"
           >
-            Вибрати іншу дату
-          </div>
-          <div v-show="otherDate">
+            <div>Вибрати іншу дату</div>
+            <div>&nbsp;</div>
             <div>
-              <div
-                class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
-                :id="getMeDay(on_pl.date_pl).idEl"
-              >
-                {{ getMeDay(on_pl.date_pl).shortText }}
-              </div>
-            </div>
-            <div class="d_flex_row j_content_end p_both_px">
-              <div
-                class="d_flex_row_reverse w_max_content c_pointer f_size_25"
-                @click="instanceNewCurrentDatePlay(on_pl, $event)"
-              >
-                <div
-                  v-for="dt in datePlayVisibility(on_pl.date_pl)"
-                  :key="dt.value"
-                  :id="dt.idEl"
-                  class="f_oswald m_0"
+              <span v-if="!otherDate">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16"
                 >
-                  {{ dt.text }}
+                  <path
+                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                  />
+                </svg>
+              </span>
+              <span v-else>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-caret-up-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <div class="drop_animate" v-show="otherDate">
+              
+              <div>
+                <div
+                  class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+                  :id="getMeDay(on_pl.date_pl).idEl"
+                >
+                  {{ getMeDay(on_pl.date_pl).shortText }}
                 </div>
               </div>
+              <div class="d_flex_row j_content_end p_both_px">
+                <div
+                  class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+                  @click="instanceNewCurrentDatePlay(on_pl, $event)"
+                >
+                  <div
+                    v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                    :key="dt.value"
+                    :id="dt.idEl"
+                    class="f_oswald m_0"
+                  >
+                    {{ dt.text }}
+                  </div>
+                </div>
+              </div>
+              <hr />
             </div>
-            <hr />
           </div>
         </div>
       </div>
@@ -203,12 +238,12 @@
               id="form_pay"
               class="d_flex_column w_75"
             >
-              <div class="d_flex_row j_content_space_between p_tb_5">
-                <div>
-                  <span class="f_size_22"> Дата показу вистави: </span>
+              <div class="d_flex_column j_content_space_around p_tb_5">
+                <div class="d_flex_row">
+                  <span class="open_sans small_font"> Дата показу вистави: </span>
                 </div>
 
-                <div class="d_flex_row_reverse">
+                <div class="d_flex_row_reverse j_content_center b_wrap p_tb_5">
                   <div
                     v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
                     :key="dt.value"
@@ -738,5 +773,8 @@ export default {
 .go_to_buy:hover {
   font-weight: 600;
   /* transition: .7s all ease; */
+}
+.drop_animate {
+  transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 </style>

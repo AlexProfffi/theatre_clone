@@ -25,12 +25,34 @@
       </li>
     </ul>
     <div class="dropdown">
-      <div class="dropbtn nav_link_color">
-        <div
-          class="open_sans f_weight_bold upper_case"
-          @click="dropMenu = !dropMenu"
-        >
-          Меню
+      <div class="dropbtn nav_link_color d_flex_row">
+        <div class="open_sans f_weight_bold upper_case" @click="setDarkLight()">
+          <svg
+            v-if="!dropMenu"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-list"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+          <svg v-else
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            class="bi bi-x-lg"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+            />
+          </svg>
         </div>
       </div>
       <ul
@@ -75,7 +97,7 @@ export default {
     drawHorizontalLine(index, classEl) {
       // Підкреслення по наведенню на елемент
       let navEl = document.querySelectorAll(classEl);
-      let widthElem = navEl[index].offsetWidth
+      let widthElem = navEl[index].offsetWidth;
       let cnt = 1;
       this.intrval = setInterval(() => {
         navEl[index].firstElementChild.style.width = String(cnt) + "px";
@@ -149,6 +171,16 @@ export default {
         }
       });
     },
+    setDarkLight() {
+      // Затемняє фон після випадання меню
+      this.dropMenu = !this.dropMenu;
+      if (this.dropMenu) {
+        document.querySelector(".dropdown").style.height = "100vh";
+        document.querySelector(".dropdown").style.width = "100%";
+      } else {
+        document.querySelector(".dropdown").style.height = "10px";
+      }
+    },
   },
 };
 </script>
@@ -162,9 +194,15 @@ export default {
   }
   #drop {
     padding: 0;
+    width: 90vw;
   }
   .dropdown {
     display: inline-block !important;
+    position: absolute !important;
+    top: 7%;
+    left: 0%;
+    background-color: #ffffffdb;
+    z-index: 12;
   }
 }
 
@@ -178,6 +216,7 @@ export default {
   padding: 16px;
   font-size: 16px;
   cursor: pointer;
+  width: 50%;
 }
 
 .dropdown {
@@ -187,7 +226,8 @@ export default {
 
 .dropdown-content {
   position: sticky;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background: linear-gradient(#ffffff, #ffffffdb);
   min-width: 100%;
   height: max-content;
   /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" class="d_flex_column ptb_40">
+  <div id="main_right_corner" v-if="!isMobile" class="d_flex_column ptb_40">
     <div class="d_flex_row j_content_end p_1_px" v-if="showLanguage">
       <div
         v-for="lang in languagesData"
@@ -48,19 +48,43 @@
         </div>
       </div>
     </div>
-    <div class="d_flex_row j_content_end p_1_px" v-if="!token">
+    <div
+      id="wrap_links_login"
+      class="d_flex_row j_content_end p_1_px"
+      v-if="!token"
+    >
       <div
-        v-for="auth in authLinksData"
-        :key="auth.value"
-        class="font_1 font_corner_right"
+        id="icon_login"
+        class="hover_black c_pointer icon_usr"
+        @click="goToEnter('/registration')"
       >
-        <span
-          class="hover_black pad_1"
-          :class="{ c_pointer: auth.txt !== '|' }"
-          @click="goToEnter(auth.link)"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          class="bi bi-person"
+          viewBox="0 0 16 16"
         >
-          {{ auth.txt }}
-        </span>
+          <path
+            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"
+          />
+        </svg>
+      </div>
+      <div id="links_auth_usr" class="d_flex_row j_content_end">
+        <div
+          v-for="auth in authLinksData"
+          :key="auth.value"
+          class="font_1 font_corner_right"
+        >
+          <span
+            class="hover_black pad_1"
+            :class="{ c_pointer: auth.txt !== '|' }"
+            @click="goToEnter(auth.link)"
+          >
+            {{ auth.txt }}
+          </span>
+        </div>
       </div>
     </div>
     <div v-else class="d_flex_column">
@@ -235,20 +259,32 @@ export default {
     clickSearchBtn() {
       // Подія кліку по кнопці пошуку
       localStorage.setItem("searchersDt", JSON.stringify(this.dataInputSearch));
-      if(this.$route.name == "Search") {
-        window.location.reload()
-      }
-      else {
+      if (this.$route.name == "Search") {
+        window.location.reload();
+      } else {
         this.$router.push({ name: "Search" });
       }
-      
     },
   },
 };
 </script>
 <style scoped>
-
 @media screen and (max-width: 1000px) {
+  #icon_login,
+  #wrap_links_login {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0 0 0 5px;
+  }
+  #main_right_corner {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  #links_auth_usr {
+    display: none;
+  }
   .pad_low_1000 {
     padding: 0 !important;
   }
@@ -284,6 +320,9 @@ input.xtx {
   width: 0;
 }
 .btn_srch {
+  display: none;
+}
+.icon_usr {
   display: none;
 }
 </style>
