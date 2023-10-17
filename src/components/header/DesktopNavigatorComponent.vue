@@ -168,6 +168,7 @@ export default {
       document.addEventListener("scroll", () => {
         if (this.dropMenu) {
           this.dropMenu = false;
+          document.querySelector(".dropdown").style.height = "10px";
         }
       });
     },
