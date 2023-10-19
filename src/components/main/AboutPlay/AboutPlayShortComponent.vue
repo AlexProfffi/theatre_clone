@@ -279,7 +279,7 @@
                 v-model="callBackData.userName"
               />
               <button
-                v-if="checkCorrectEmail(callBackData.email)"
+                :disabled="!checkCorrectEmail(callBackData.email)"
                 id="pay_b"
                 type="submit"
                 class="payment_button f_source_sans nav_link_color f_size_32"
