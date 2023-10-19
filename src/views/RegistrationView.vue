@@ -19,6 +19,7 @@
           >
             <div class="mar_top_bot_1">
               <input
+              required="true"
                 placeholder="Ваш логін..."
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
                 type="text"
@@ -27,6 +28,7 @@
             </div>
             <div class="mar_top_bot_1">
               <input
+              required="true"
                 placeholder="Електронна пошта"
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
                 type="email"
@@ -35,6 +37,7 @@
             </div>
             <div class="mar_top_bot_1">
               <input
+              required="true"
                 v-if="!isShowPassword"
                 placeholder="Пароль"
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
@@ -42,6 +45,7 @@
                 v-model="formRegistrateData.password"
               />
               <input
+              required="true"
                 v-else
                 placeholder="Пароль"
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
@@ -51,6 +55,7 @@
             </div>
             <div class="pad_b1em">
               <input
+              required="true"
                 v-if="!isShowPassword"
                 placeholder="Повторіть пароль"
                 class="w_100 h_2em border_gray open_sans font_1 pad_top_b_2rem"
@@ -58,6 +63,7 @@
                 v-model="formRegistrateData.re_password"
               />
               <input
+              required="true"
                 v-else
                 placeholder="Повторіть пароль"
                 class="w_100 h_2em border_gray open_sans font_1 pad_top_b_2rem"
@@ -66,8 +72,8 @@
               />
             </div>
             <div class="d_flex_row j_content_space_between pad_b1em">
-              <input class="check_element c_pointer" type="checkbox" />
-              <span class="small_font" for="flexCheckChecked">
+              <input class="check_element c_pointer" type="checkbox" v-model="isAgree"/>
+              <span class="small_font" for="flexCheckChecked" >
                 Я приймаю умови використання сервісів сайту та погоджуюсь з
                 умовами обробки персональних даних
               </span>
@@ -92,6 +98,7 @@
                 class="btn_black w_100 pad_4_path"
                 type="submit"
                 value="СТВОРИТИ АККАУНТ"
+                :disabled="!isAgree"
               />
             </div>
           </form>
@@ -156,6 +163,7 @@ export default {
   },
   data() {
     return {
+      isAgree: false,
       isShowSocial: false,
       isMobile: false,
       isShowPassword: false,
@@ -197,6 +205,11 @@ export default {
         });
       }
       return allData;
+    },
+
+    async checkingUserData(userData) {
+      // перевіряє пароль користувача
+      console.log(userData)
     },
 
     async createUser(e) {

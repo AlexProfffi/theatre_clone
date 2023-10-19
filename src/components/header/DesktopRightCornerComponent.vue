@@ -16,7 +16,7 @@
         </span>
       </div>
     </div>
-    <div id="search_id_group" class="d_flex_row j_content_end p_1_px  mb_1rem pad_low_1000">
+    <div id="search_id_group" class="d_flex_row j_content_end p_1_px  mb_1rem pad_low_1000 h_30_px">
       <div class="d_flex_row_reverse">
         <div class="c_pointer search" @click="showSearcField()">
           <svg
@@ -335,6 +335,6 @@ input.xtx {
 }
 
 .search_group {
-  margin-top: 50px
+  margin-top: 55px
 }
 </style>

@@ -10,6 +10,13 @@ html {
     scroll-behavior: smooth;
 }
 
+.p_abs {
+    position: absolute;
+    z-index: 15;
+    top: 0%;
+    left: 5%;
+}
+
 
 /* links */
 
@@ -148,6 +155,10 @@ html {
 
 .h_24_px {
     height: 80px;
+}
+
+.h_30_px {
+    height: 30px;
 }
 
 

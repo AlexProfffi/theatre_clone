@@ -25,7 +25,7 @@
       </li>
     </ul>
     <div class="dropdown">
-      <div class="dropbtn nav_link_color d_flex_row">
+      <div class="dropbtn nav_link_color d_flex_row p_abs">
         <div class="open_sans f_weight_bold upper_case" @click="setDarkLight()">
           <svg
             v-if="!dropMenu"
@@ -168,7 +168,7 @@ export default {
       document.addEventListener("scroll", () => {
         if (this.dropMenu) {
           this.dropMenu = false;
-          document.querySelector(".dropdown").style.height = "10px";
+          document.querySelector(".dropdown").style.height = "0";
         }
       });
     },
@@ -179,7 +179,7 @@ export default {
         document.querySelector(".dropdown").style.height = "100vh";
         document.querySelector(".dropdown").style.width = "100%";
       } else {
-        document.querySelector(".dropdown").style.height = "10px";
+        document.querySelector(".dropdown").style.height = "0";
       }
     },
   },
@@ -194,13 +194,13 @@ export default {
     flex-direction: column;
   }
   #drop {
-    padding: 0;
+    padding: 85px 0;
     width: 90vw;
   }
   .dropdown {
     display: inline-block !important;
     position: absolute !important;
-    top: 8%;
+    top: 7.5%;
     left: 0%;
     background-color: #ffffffdb;
     z-index: 12;
@@ -227,11 +227,9 @@ export default {
 
 .dropdown-content {
   position: sticky;
-  /* background-color: #ffffff; */
-  background: linear-gradient(#ffffff, #ffffffdb);
+  background: linear-gradient(#ffffffdb, #ffffffdb);
   min-width: 100%;
   height: max-content;
-  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
   z-index: 11;
   left: 0;
 }
@@ -248,8 +246,5 @@ export default {
   background-color: #ffffff;
 }
 
-/* Show the dropdown menu on hover */
-/* .dropdown:hover .dropdown-content {
-  display: block;
-} */
+
 </style>

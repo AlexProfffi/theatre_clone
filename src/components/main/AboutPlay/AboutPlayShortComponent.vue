@@ -243,12 +243,12 @@
                   <span class="open_sans small_font"> Дата показу вистави: </span>
                 </div>
 
-                <div class="d_flex_row_reverse j_content_center b_wrap p_tb_5">
+                <div class="d_flex_row_reverse j_content_center b_wrap ">
                   <div
                     v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
                     :key="dt.value"
                     :id="dt.idEl"
-                    class="f_oswald m_0 underline_txt"
+                    class="f_oswald m_0 underline_txt f_size_32"
                   >
                     <span>
                       {{ dt.text }}

@@ -7,7 +7,7 @@
       id="map_and_contact"
       class="d_flex_row padding_tb_15_em opacity_05 main_content"
     >
-      <div id="map" class="mapps margin_both_auto"></div>
+      <div id="map" class="mapps margin_both_auto" style="z-index: 10;"></div>
       <div id="contact_current" class="d_flex_column margin_both_auto">
         <div
           id="word_cnt"

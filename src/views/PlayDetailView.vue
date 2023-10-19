@@ -22,7 +22,7 @@
             :photo_10="pl.photo_10"
             :ident="''"
           />
-          <div class="d_flex_row j_content_center pad_b3em">
+          <div class="d_flex_row j_content_center pad_b3em pad_top">
             <h3
               id="pl_name"
               class="play_hame_h3 upper_case pad_top  f_size_42 open_sans"

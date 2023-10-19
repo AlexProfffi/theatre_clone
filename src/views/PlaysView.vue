@@ -3,7 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
-    <div>
+    <div class="pad_b6em">
       <MainComponent />
     </div>
     <div>
