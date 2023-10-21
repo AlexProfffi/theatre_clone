@@ -8,7 +8,7 @@
         <HeaderComponent />
       </div>
       <div class="d_flex_column">
-        <div v-for="pl in playList" :key="pl.id">
+        <div v-for="pl in playList" :key="pl.id_play">
           <PhotoPlayComponent
             :photo="pl.photo"
             :photo_2="pl.photo_2"
@@ -20,12 +20,13 @@
             :photo_8="pl.photo_8"
             :photo_9="pl.photo_9"
             :photo_10="pl.photo_10"
-            :ident="''"
+            :ident="0"
+            :domain="false"
           />
           <div class="d_flex_row j_content_center pad_b3em pad_top">
             <h3
               id="pl_name"
-              class="play_hame_h3 upper_case pad_top  f_size_42 open_sans"
+              class="play_hame_h3 upper_case pad_top f_size_42 open_sans"
             >
               {{ pl.name }}
             </h3>
@@ -33,7 +34,8 @@
         </div>
         <div class="margin_both_2 bg_grey_custom padding_tb_2em">
           <AboutPlayShortComponentVue
-            :play="play"
+            :play="playOneDate"
+            :idDatePlayOne="playOneDate.id"
             :withPhoto="false"
             :linkPay="linkPay"
           />
@@ -41,7 +43,10 @@
         <div class="h_7em"></div>
         <div class="d_flex_column j_content_space_between">
           <div class="d_flex_row margin_both_2" id="navigate_desc">
-            <div class="d_flex_row upper_case navigate_ul open_sans f_size_15" name="current">
+            <div
+              class="d_flex_row upper_case navigate_ul open_sans f_size_15"
+              name="current"
+            >
               <span
                 v-for="palyNav in dataNaviAboutPlay()"
                 :key="palyNav.value"
@@ -57,7 +62,11 @@
             id="about_play"
             class="d_flex_row j_content_space_between margin_both_2 ptb_70"
           >
-            <div class="d_flex_column w_50" id="descript" name="description_level">
+            <div
+              class="d_flex_column w_50"
+              id="descript"
+              name="description_level"
+            >
               <div class="d_flex_row">
                 <h2
                   id="head_description"
@@ -67,22 +76,26 @@
                 </h2>
               </div>
               <div class="d_flex_row w_50 t_left pad_top" id="inner_descript">
-                <p v-if="play.description" class="open_sans text_descript">
-                  {{ play.description }}
+                <p v-if="playOneDate.description" class="open_sans text_descript">
+                  {{ playOneDate.description }}
                 </p>
                 <p v-else>Інформація з`явиться незабаром</p>
               </div>
             </div>
-            <div class="d_flex_column w_50" id="actors_list" name="actors_level">
+            <div
+              class="d_flex_column w_50"
+              id="actors_list"
+              name="actors_level"
+            >
               <div class="d_flex_row">
                 <h2 id="head_actors" class="upper_case open_sans f_weight_bold">
                   акторський склад
                 </h2>
               </div>
               <div class="d_flex_row pad_top">
-                <ul v-if="play.staff.length > 1">
+                <ul v-if="playOneDate.staff.length > 1">
                   <li
-                    v-for="act in play.staff.slice(1, play.staff.length)"
+                    v-for="act in playOneDate.staff.slice(1, playOneDate.staff.length)"
                     :key="act.name + act.surname"
                     class="open_sans t_left"
                   >
@@ -154,6 +167,7 @@ export default {
   },
   props: {
     id: String,
+    date_id: String,
   },
   data() {
     return {
@@ -171,15 +185,16 @@ export default {
       offert: null,
       linkOffert: null,
       textRing: false,
+      playOneDate: {},
     };
   },
   created() {
-    this.getPlay()
+    this.getDatePlay()
       .then(() => this.getLinkPay())
       .then(() => this.getOffert())
-      .then(() => this.playList.push(this.play))
+      .then(() => this.playList.push(this.playOneDate))
       .then(() => this.linkPayList.push(this.linkPay))
-
+      // .then(() => this.getDatePlay())
       .then(() => this.setTitle())
       .then(() => {
         this.showSpiner = false;
@@ -199,6 +214,16 @@ export default {
     async getPlay() {
       this.play = await fetch(
         `${this.$store.getters.getServerUrl}/playss_all/${this.id}/`
+      )
+        .then((response) => response.json())
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    async getDatePlay() {
+      this.playOneDate = await fetch(
+        `${this.$store.getters.getServerUrl}/date_one_plays/${this.date_id}/`
       )
         .then((response) => response.json())
         .catch((error) => {

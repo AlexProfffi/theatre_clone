@@ -4,40 +4,55 @@
       <div class="carousel-inner">
         <div
           class="carousel-item active"
-          v-if="photo != null"
+          v-if="photo != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
-            :src="repalcer(photo, '')"
+            :src="
+              repalcer(
+                photo,
+                'https://theatreofplaywrightsapi.space:8443/image_theatre/'
+              )
+            "
             :alt="photo"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div
           class="carousel-item"
-          v-if="photo_2 != null"
+          v-if="photo_2 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
-            :src="repalcer(photo_2, '')"
+            :src="
+              repalcer(
+                photo_2,
+                'https://theatreofplaywrightsapi.space:8443/image_theatre/'
+              )
+            "
             :alt="photo_2"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div
           class="carousel-item"
-          v-if="photo_3 != null"
+          v-if="photo_3 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
-            :src="repalcer(photo_3, '')"
+            :src="
+              repalcer(
+                photo_3,
+                'https://theatreofplaywrightsapi.space:8443/image_theatre/'
+              )
+            "
             :alt="photo_3"
             class="d-block img_size img_contain image_on_carusel"
           />
         </div>
         <div
           class="carousel-item"
-          v-if="photo_4 != null"
+          v-if="photo_4 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -48,7 +63,7 @@
         </div>
         <div
           class="carousel-item"
-          v-if="photo_5 != null"
+          v-if="photo_5 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -59,7 +74,7 @@
         </div>
         <div
           class="carousel-item"
-          v-if="photo_6 != null"
+          v-if="photo_6 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -70,7 +85,7 @@
         </div>
         <div
           class="carousel-item"
-          v-if="photo_7 != null"
+          v-if="photo_7 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -81,7 +96,7 @@
         </div>
         <div
           class="carousel-item"
-          v-if="photo_8 != null"
+          v-if="photo_8 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -92,7 +107,7 @@
         </div>
         <div
           class="carousel-item"
-          v-if="photo_9 != null"
+          v-if="photo_9 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -103,7 +118,7 @@
         </div>
         <div
           class="carousel-item"
-          v-if="photo_10 != null"
+          v-if="photo_10 != ''"
           :class="'item_for_r' + String(ident)"
         >
           <img
@@ -196,6 +211,7 @@ export default {
     photo_9: String,
     photo_10: String,
     ident: Number,
+    domain: Boolean,
   },
   components: {
     RectangleComponent,
@@ -221,7 +237,6 @@ export default {
       for (let x = 0; x < ph.length; x++) {
         for (let y = 0; y < ph[x].classList.length; y++) {
           if (ph[x].classList[y] == "active") {
-            
             id_ph = x + 1; // Тому що на даному етапі x має значення поперднього фото
             if (x === ph.length) {
               id_ph = 0;
@@ -230,24 +245,23 @@ export default {
         }
       }
       let lenRect = rectangles.childNodes.length - 2;
-      
+
       // Змінює колір квадратика під фотографіями
       // В залежності від поточної фотографії
 
       if (id_ph < lenRect) {
-        rectangles.childNodes[id_ph+1].firstChild.classList.add("rectangle_black");
+        rectangles.childNodes[id_ph + 1].firstChild.classList.add(
+          "rectangle_black"
+        );
         rectangles.childNodes[id_ph].firstChild.classList.remove(
-            "rectangle_black"
-          );
-          rectangles.childNodes[id_ph].firstChild.classList.add(
-            "rectangle"
-          );
+          "rectangle_black"
+        );
+        rectangles.childNodes[id_ph].firstChild.classList.add("rectangle");
       } else if (id_ph == lenRect) {
-
         rectangles.childNodes[1].firstChild.classList.add("rectangle_black");
         rectangles.childNodes[lenRect].firstChild.classList.remove(
-            "rectangle_black"
-          );
+          "rectangle_black"
+        );
       }
     },
     renderNaigationPhotoLeft(cls, idn) {
@@ -272,23 +286,19 @@ export default {
       // В залежності від поточної фотографії
 
       if (id_ph < lenRect) {
-        rectangles.childNodes[id_ph].firstChild.classList.add("rectangle_black");
-        rectangles.childNodes[id_ph+1].firstChild.classList.remove(
-            "rectangle_black"
-          );
-          rectangles.childNodes[id_ph+1].firstChild.classList.add(
-            "rectangle"
-          );
+        rectangles.childNodes[id_ph].firstChild.classList.add(
+          "rectangle_black"
+        );
+        rectangles.childNodes[id_ph + 1].firstChild.classList.remove(
+          "rectangle_black"
+        );
+        rectangles.childNodes[id_ph + 1].firstChild.classList.add("rectangle");
       } else if (id_ph == lenRect) {
-
-        rectangles.childNodes[lenRect].firstChild.classList.add("rectangle_black");
-        rectangles.childNodes[1].firstChild.classList.remove(
-            "rectangle_black"
-          );
-        rectangles.childNodes[1].firstChild.classList.add(
-            "rectangle"
-          );
-        
+        rectangles.childNodes[lenRect].firstChild.classList.add(
+          "rectangle_black"
+        );
+        rectangles.childNodes[1].firstChild.classList.remove("rectangle_black");
+        rectangles.childNodes[1].firstChild.classList.add("rectangle");
       }
     },
     repalcer(str, changeble) {
@@ -299,7 +309,11 @@ export default {
           str.replace(changeble, "")
         );
       }
-      return str;
+
+      if (this.domain) {
+        return str;
+      }
+      return "https://theatreofplaywrightsapi.space:8443/image_theatre/" + str;
     },
     getPhotoListCount() {
       // Формує та повертає к-ть фото
@@ -315,9 +329,9 @@ export default {
         this.photo_9,
         this.photo_10,
       ];
-      let cnt = [];
+      let cnt = 0;
       for (let x = 0; x < this.photoList.length; x++) {
-        if (this.photoList[x] !== null) {
+        if (this.photoList[x] != "") {
           cnt++;
         }
       }

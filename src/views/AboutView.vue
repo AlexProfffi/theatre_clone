@@ -16,14 +16,15 @@
               :photo="about.photo"
               :photo_2="about.photo_2"
               :photo_3="about.photo_3"
-              :photo_4="null"
-              :photo_5="null"
-              :photo_6="null"
-              :photo_7="null"
-              :photo_8="null"
-              :photo_9="null"
-              :photo_10="null"
+              :photo_4="''"
+              :photo_5="''"
+              :photo_6="''"
+              :photo_7="''"
+              :photo_8="''"
+              :photo_9="''"
+              :photo_10="''"
               :ident="about.id"
+              :domain="true"
             />
           </div>
           <div

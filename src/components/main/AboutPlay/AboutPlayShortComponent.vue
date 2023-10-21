@@ -27,8 +27,8 @@
     </div>
 
     <div class="w_20_percent plays_sl_component" v-else>
-      <div v-for="on_pl in play.on_play" :key="on_pl.id">
-        <div v-if="play.on_play.indexOf(on_pl) == 0">
+      <div v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)" :key="on_pl.id">
+        <div v-if="newArrayDates(play.on_play, idDatePlayOne).indexOf(on_pl) == 0">
           <div>
             <h4
               class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -95,7 +95,6 @@
 
           <div>
             <div class="drop_animate" v-show="otherDate">
-              
               <div>
                 <div
                   class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -134,7 +133,11 @@
         v-if="withPhoto"
         :to="{
           name: 'play',
-          params: { id: play.id_play, name: transcription(play.name) },
+          params: {
+            id: play.id_play,
+            date_id: play.id,
+            name: transcription(play.name),
+          },
         }"
       >
         <img
@@ -217,7 +220,11 @@
           :id="'link_play_' + play.id"
           :to="{
             name: 'play',
-            params: { id: play.id_play, name: transcription(play.name) },
+            params: {
+              id: play.id_play,
+              date_id: play.id,
+              name: transcription(play.name),
+            },
           }"
           class="go_to_buy"
         >
@@ -240,10 +247,12 @@
             >
               <div class="d_flex_column j_content_space_around p_tb_5">
                 <div class="d_flex_row">
-                  <span class="open_sans small_font"> Дата показу вистави: </span>
+                  <span class="open_sans small_font">
+                    Дата показу вистави:
+                  </span>
                 </div>
 
-                <div class="d_flex_row_reverse j_content_center b_wrap ">
+                <div class="d_flex_row_reverse j_content_center b_wrap">
                   <div
                     v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
                     :key="dt.value"
@@ -282,10 +291,10 @@
                 :disabled="!checkCorrectEmail(callBackData.email)"
                 id="pay_b"
                 type="submit"
-                class="payment_button f_source_sans nav_link_color f_size_32"
+                class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
                 @click="pay(theLinkPay.link)"
               >
-                Купити квиток
+                оплатити
               </button>
             </div>
           </div>
@@ -304,6 +313,7 @@ export default {
     play: Object,
     linkPay: Object,
     withPhoto: Boolean,
+    idDatePlayOne: Number,
   },
   components: {
     ModalInfo,
@@ -322,7 +332,7 @@ export default {
       showPaymentForm: false,
       modernGenderDirector: {},
       otherDate: false,
-      currentDatePlay: this.play.on_play[0],
+      currentDatePlay: this.newArrayDates(this.play.on_play, this.idDatePlayOne)[0],
       parentListEl: [],
     };
   },
@@ -660,6 +670,19 @@ export default {
         this.callBackData.email = null;
         this.callBackData.userName = null;
       }
+    },
+
+    newArrayDates(list, idDate) {
+      // Поточну дату витстави ставить в перший елемент массиву та повертає його
+      let newEl;
+      for (let x = 0; x < list.length; x++) {
+        if (list[x].id == idDate) {
+          newEl = list[0];
+          list[0] = list[x];
+          list[x] = newEl;
+        }
+      }
+      return list;
     },
   },
 };

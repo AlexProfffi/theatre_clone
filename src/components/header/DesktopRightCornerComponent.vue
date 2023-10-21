@@ -325,6 +325,7 @@ input.xtx {
   display: none;
   font-size: 14px;
   width: 0;
+  padding: 5px;
 }
 .btn_srch {
   display: none;
@@ -335,6 +336,7 @@ input.xtx {
 }
 
 .search_group {
-  margin-top: 55px
+  margin-top: 55px;
+  height: max-content;
 }
 </style>
