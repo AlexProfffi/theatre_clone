@@ -58,6 +58,9 @@
             </div>
             <div class="p_tb_5">
               <input
+                :disabled="
+                  !formRegistrateData.password || !formRegistrateData.username
+                "
                 class="btn_black w_100 pad_4_path"
                 type="submit"
                 value="УВІЙТИ"
