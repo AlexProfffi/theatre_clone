@@ -5,9 +5,8 @@
     </div>
 
     <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
-      
       <div class="d_flex_column j_content_center pad_top">
-        <div class="d_flex_row j_content_center pad_b1em">
+        <div class="d_flex_column j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">реєстрація</h3>
         </div>
         <div class="d_flex_row j_content_center f_oswald">
@@ -19,7 +18,7 @@
           >
             <div class="mar_top_bot_1">
               <input
-              required="true"
+                required="true"
                 placeholder="Ваш логін..."
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
                 type="text"
@@ -28,7 +27,7 @@
             </div>
             <div class="mar_top_bot_1">
               <input
-              required="true"
+                required="true"
                 placeholder="Електронна пошта"
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
                 type="email"
@@ -37,7 +36,7 @@
             </div>
             <div class="mar_top_bot_1">
               <input
-              required="true"
+                required="true"
                 v-if="!isShowPassword"
                 placeholder="Пароль"
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
@@ -45,7 +44,7 @@
                 v-model="formRegistrateData.password"
               />
               <input
-              required="true"
+                required="true"
                 v-else
                 placeholder="Пароль"
                 class="w_100 h_2em border_gray t_justify open_sans font_1 pad_top_b_2rem"
@@ -54,8 +53,16 @@
               />
             </div>
             <div class="pad_b1em">
+              <label
+                class="small_font_07 t_left w_100 c_red"
+                v-if="
+                  formRegistrateData.password != formRegistrateData.re_password
+                "
+              >
+                Вказані паролі мають бути ідентичними
+              </label>
               <input
-              required="true"
+                required="true"
                 v-if="!isShowPassword"
                 placeholder="Повторіть пароль"
                 class="w_100 h_2em border_gray open_sans font_1 pad_top_b_2rem"
@@ -63,7 +70,7 @@
                 v-model="formRegistrateData.re_password"
               />
               <input
-              required="true"
+                required="true"
                 v-else
                 placeholder="Повторіть пароль"
                 class="w_100 h_2em border_gray open_sans font_1 pad_top_b_2rem"
@@ -72,8 +79,12 @@
               />
             </div>
             <div class="d_flex_row j_content_space_between pad_b1em">
-              <input class="check_element c_pointer" type="checkbox" v-model="isAgree"/>
-              <span class="small_font" for="flexCheckChecked" >
+              <input
+                class="check_element c_pointer"
+                type="checkbox"
+                v-model="isAgree"
+              />
+              <span class="small_font" for="flexCheckChecked">
                 Я приймаю умови використання сервісів сайту та погоджуюсь з
                 умовами обробки персональних даних
               </span>
@@ -93,18 +104,26 @@
                 </svg>
               </span>
             </div>
+            <ul v-if="showErrors" class="error_registrate small_font_07 t_left">
+              <li v-for="err in errorLog" :key="err.value">
+                {{ err.text }}
+              </li>
+            </ul>
             <div class="p_tb_5">
               <input
                 class="btn_black w_100 pad_4_path"
                 type="submit"
                 value="СТВОРИТИ АККАУНТ"
-                :disabled="!isAgree"
+                :disabled="!ifCorrectAllFields()"
               />
             </div>
           </form>
         </div>
-        
-        <div class="d_flex_row j_content_space_around pad_top" v-if="isShowSocial">
+
+        <div
+          class="d_flex_row j_content_space_around pad_top"
+          v-if="isShowSocial"
+        >
           <div class="d_flex_row j_content_end w_50">
             <a :href="gLinkAuth.link">
               <svg
@@ -138,7 +157,12 @@
         </div>
       </div>
       <div class="pad_top font_1">
-       Маєш аккаунт? <router-link class="nav_link_color f_weight_bold underline_txt" to="/auth">Увійти</router-link>
+        Маєш аккаунт?
+        <router-link
+          class="nav_link_color f_weight_bold underline_txt"
+          to="/auth"
+          >Увійти</router-link
+        >
       </div>
     </div>
     <FooterComponent />
@@ -149,7 +173,6 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 // import axios from "axios";
@@ -174,6 +197,8 @@ export default {
         password: "",
         re_password: "",
       },
+      showErrors: false,
+      errorLog: [],
     };
   },
   beforeCreate() {},
@@ -209,7 +234,7 @@ export default {
 
     async checkingUserData(userData) {
       // перевіряє пароль користувача
-      console.log(userData)
+      console.log(userData);
     },
 
     async createUser(e) {
@@ -224,12 +249,24 @@ export default {
         },
         body: JSON.stringify(this.formRegistrateData),
       })
-      .then(() => {
+        .then((response) => {
+          response.json().then((response) => {
+            if (response.password) {
+              this.errorLog = [];
+              for (let x = 0; x < response.password.length; x++) {
+                console.log();
+                this.errorLog.push({ value: x, text: response.password[x] });
+              }
+              this.showErrors = true;
+              console.log(this.errorLog);
+            } else {
               this.$router.push({ name: "Auth" });
-            })
-      .catch((error) => {
-        console.log(error);
-      })
+            }
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     async loginGoogle() {
@@ -242,6 +279,21 @@ export default {
         });
     },
 
+    ifCorrectAllFields() {
+      // Перевіряє коректність заповнення полів
+
+      if (
+        this.formRegistrateData.username &&
+        this.formRegistrateData.email &&
+        this.formRegistrateData.password &&
+        this.formRegistrateData.re_password &&
+        this.formRegistrateData.password == this.formRegistrateData.re_password &&
+        this.isAgree
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>

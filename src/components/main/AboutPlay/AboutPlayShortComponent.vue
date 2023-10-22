@@ -789,14 +789,7 @@ export default {
   margin: 8px 0 5px 0;
 }
 
-.go_to_buy {
-  color: #3d3d3d;
-  transition: 0.3s all ease;
-}
-.go_to_buy:hover {
-  font-weight: 600;
-  /* transition: .7s all ease; */
-}
+
 .drop_animate {
   transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
       <div class="d_flex_column j_content_center pad_top">
-        <div class="d_flex_row j_content_center pad_b1em">
+        <div class="d_flex_column j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">авторизація</h3>
         </div>
         <div class="d_flex_row j_content_center f_oswald">
@@ -55,6 +55,11 @@
                   />
                 </svg>
               </span>
+            </div>
+            <div class="error_registrate small_font_07 t_left">
+              <p class="error">
+                {{ errorLog }}
+              </p>
             </div>
             <div class="p_tb_5">
               <input
@@ -139,6 +144,7 @@ export default {
   },
   data() {
     return {
+      isShowSocial: false,
       gComponent: false,
       isMobile: false,
       isShowPassword: false,
@@ -147,6 +153,8 @@ export default {
         username: "",
         password: "",
       },
+      redirectAfterAuth: "",
+      errorLog: "Неможливо зайти з введеними даними.",
     };
   },
   beforeCreate() {},
@@ -186,13 +194,20 @@ export default {
           response
             .json()
             .then((response) => {
-              localStorage.setItem(
-                "token",
-                JSON.stringify(response.auth_token)
-              );
+              if (response.auth_token) {
+                localStorage.setItem(
+                  "token",
+                  JSON.stringify(response.auth_token)
+                );
+                this.redirectAfterAuth = "Profile";
+                document.querySelector(".error").style.display = "none";
+              } else if (response.non_field_errors) {
+                this.redirectAfterAuth = "Auth";
+                document.querySelector(".error").style.display = "block";
+              }
             })
             .then(() => {
-              this.$router.push({ name: "Profile" });
+              this.$router.push({ name: this.redirectAfterAuth });
             });
         })
 

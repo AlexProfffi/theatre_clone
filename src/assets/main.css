@@ -347,6 +347,10 @@ html {
     font-size: 0.6em;
 }
 
+.small_font_07 {
+    font-size: 0.7em;
+}
+
 .c_pointer {
     cursor: pointer;
 }
@@ -435,6 +439,20 @@ html {
 
 .underline_txt {
     text-decoration: underline;
+}
+
+.c_red {
+    color: rgb(255, 38, 38);
+}
+
+.error,
+.error_registrate {
+    color: rgb(255, 38, 38);
+    display: none;
+}
+
+.error_registrate {
+    display: block;
 }
 
 
@@ -576,4 +594,14 @@ html {
 
 .date_color:hover {
     color: black;
+}
+
+.go_to_buy {
+    color: #3d3d3d;
+    transition: 0.3s all ease;
+}
+
+.go_to_buy:hover {
+    font-weight: 600;
+    /* transition: .7s all ease; */
 }

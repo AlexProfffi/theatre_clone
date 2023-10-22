@@ -6,7 +6,8 @@
     <div class="p_40px" id="wrapper_search">
       <div id="news_current" class="d_flex_column margin_both_auto">
         <div
-          class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em" id="name_id_dep"
+          class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
+          id="name_id_dep"
         >
           <div>результати пошуку</div>
         </div>
@@ -29,21 +30,58 @@
             <div
               class="d_flex_column j_content_space_between t_left w_75 position_content_low_1000 h_100 w_low_1000"
             >
-              <div class="open_sans upper_case f_weight_bold_700 f_size_32">
+              <div
+                class="open_sans upper_case f_weight_bold_700 f_size_32"
+                v-if="srch.type == 'play'"
+              >
+                <router-link
+                  v-if="!srch.is_past"
+                  :id="'link_play_' + srch.id_date"
+                  :to="{
+                    name: 'play',
+                    params: {
+                      id: srch.id_obj,
+                      date_id: srch.id_date,
+                      name: transcription(srch.name),
+                    },
+                  }"
+                  class="nav_link_color"
+                >
+                  {{ srch.name }}
+                </router-link>
+                <div class="d_flex_column" v-else>
+                  <div class="small_font_07">(Вистава вже відбулася)</div>
+                  <div>
+                    {{ srch.name }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="open_sans upper_case f_weight_bold_700 f_size_32"
+                v-else
+              >
                 {{ srch.name }}
               </div>
-              <div class="padding_tb_2em f_source_sans" v-if="srch.type=='play'">
+              <div
+                class="padding_tb_2em f_source_sans"
+                v-if="srch.type == 'play'"
+              >
                 {{ srch.description }}
               </div>
-              <div class="padding_tb_2em f_source_sans" v-else v-html="srch.description">
-                
-              </div>
+              <div
+                class="padding_tb_2em f_source_sans"
+                v-else
+                v-html="srch.description"
+              ></div>
               <div v-if="srch.type == 'play'" class="d_flex_row j_content_end">
                 <div class="f_source_sans">
                   {{ formatDate(srch.date_time, true) }}
                 </div>
               </div>
-              <div v-else-if="srch.type == 'new'" class="d_flex_row j_content_end">
+              <div
+                v-else-if="srch.type == 'new'"
+                class="d_flex_row j_content_end"
+              >
                 <div class="f_source_sans">
                   {{ formatDate(srch.date) }}
                 </div>
@@ -100,6 +138,7 @@ export default {
   },
   created() {
     this.getSearcherData();
+    this.setTitle();
   },
   methods: {
     async showContent() {
@@ -116,10 +155,7 @@ export default {
       }, 50);
     },
 
-    setTitle() {
-      // Встановлює назву сторінки
-      document.querySelector("title").innerHTML = "Новини";
-    },
+    
 
     repalcer(str, changeble) {
       // Замінює підстроку
@@ -166,8 +202,6 @@ export default {
       }
     },
 
-    
-
     async getSearcherData() {
       // Пошукові обєкти
       let url = `${this.$store.getters.getServerUrl}/plays_all/search/?q=${this.dataFromSearchField}&n=${this.dataFromSearchField}`;
@@ -176,6 +210,94 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    transcription(word) {
+      // Транскрипція з кирилиці на латиницю
+      let transcription_alpha = [
+        { value: ["а", "a"] },
+        { value: ["б", "b"] },
+        { value: ["в", "v"] },
+        { value: ["г", "g"] },
+        { value: ["ґ", "g"] },
+        { value: ["д", "d"] },
+        { value: ["е", "e"] },
+        { value: ["є", "ye"] },
+        { value: ["ж", "zh"] },
+        { value: ["з", "z"] },
+        { value: ["и", "y"] },
+        { value: ["і", "i"] },
+        { value: ["ї", "i"] },
+        { value: ["й", "y"] },
+        { value: ["к", "k"] },
+        { value: ["л", "l"] },
+        { value: ["м", "m"] },
+        { value: ["н", "n"] },
+        { value: ["о", "o"] },
+        { value: ["п", "p"] },
+        { value: ["р", "r"] },
+        { value: ["с", "s"] },
+        { value: ["т", "t"] },
+        { value: ["у", "u"] },
+        { value: ["ф", "f"] },
+        { value: ["х", "kh"] },
+        { value: ["ц", "ts"] },
+        { value: ["ч", "ch"] },
+        { value: ["ш", "sh"] },
+        { value: ["щ", "shch"] },
+        { value: ["ь", ""] },
+        { value: ["ю", "yu"] },
+        { value: ["я", "ya"] },
+        { value: ["0", "0"] },
+        { value: ["1", "1"] },
+        { value: ["2", "2"] },
+        { value: ["3", "3"] },
+        { value: ["4", "4"] },
+        { value: ["5", "5"] },
+        { value: ["6", "6"] },
+        { value: ["7", "7"] },
+        { value: ["8", "8"] },
+        { value: ["9", "9"] },
+        { value: [" ", "_"] },
+        { value: ["a", "a"] },
+        { value: ["b", "b"] },
+        { value: ["c", "c"] },
+        { value: ["d", "d"] },
+        { value: ["e", "e"] },
+        { value: ["f", "f"] },
+        { value: ["g", "g"] },
+        { value: ["h", "h"] },
+        { value: ["i", "i"] },
+        { value: ["j", "j"] },
+        { value: ["k", "k"] },
+        { value: ["l", "l"] },
+        { value: ["m", "m"] },
+        { value: ["n", "n"] },
+        { value: ["o", "o"] },
+        { value: ["p", "p"] },
+        { value: ["q", "q"] },
+        { value: ["r", "r"] },
+        { value: ["s", "s"] },
+        { value: ["t", "t"] },
+        { value: ["u", "u"] },
+        { value: ["v", "v"] },
+        { value: ["w", "w"] },
+        { value: ["x", "x"] },
+        { value: ["y", "y"] },
+        { value: ["z", "z"] },
+      ];
+      let list_new_word = [];
+      for (let x = 0; x < word.length; x++) {
+        for (let y = 0; y < transcription_alpha.length; y++) {
+          if (transcription_alpha[y].value[0] == word[x].toLowerCase()) {
+            list_new_word.push(transcription_alpha[y].value[1]);
+          }
+        }
+      }
+      return list_new_word.join("");
+    },
+    setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = "Результати пошуку";
     },
   },
 };
