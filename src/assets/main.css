@@ -32,6 +32,11 @@ html {
     color: black;
 }
 
+.d_grid {
+    display: grid;
+    grid-template-columns: repeat(6, 130px);
+}
+
 .d_block {
     display: block;
 }
@@ -330,6 +335,10 @@ html {
 
 .pad_0 {
     padding: 0;
+}
+
+.pad_1em {
+    padding: 1em;
 }
 
 

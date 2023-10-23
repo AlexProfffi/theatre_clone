@@ -132,7 +132,7 @@ export default {
 
     naviPanel() {
       let listNavi = [
-        // "головна",
+        "головна",
         "афіша",
         "новини",
         "про театр",
@@ -142,7 +142,7 @@ export default {
         "профіль",
       ];
       let listNaviLinks = [
-        // "/main",
+        "#/main",
         "/",
         "#/news",
         "#/about",

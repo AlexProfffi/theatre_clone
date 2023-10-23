@@ -6,7 +6,7 @@
       <div class="d_flex_row j_content_start">
         <ul>
           <li class="col_red buyed_tct" v-for="ub in myTickets" :key="ub.id">
-            {{ ub.for_play }} / {{ ub.date_time_play }};
+            <b>{{ ub.for_play }}</b> / {{ ub.date_time_play }};
           </li>
         </ul>
       </div>

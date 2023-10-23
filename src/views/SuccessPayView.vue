@@ -9,10 +9,13 @@
     </div>
 
     <div v-else>
-      <h2 class="ptb_40" v-if="whichIsShowStatus(dataAndSign.status)">
-        Платіж успішний!
-      </h2>
-      <h2 class="ptb_40" v-else>Платіж невдалий!</h2>
+      <div v-if="whichIsShowStatus(dataAndSign.status)">
+        <h2 class="ptb_40">Платіж успішний!</h2>
+      </div>
+
+      <div v-else>
+        <h2 class="ptb_40">Платіж невдалий!</h2>
+      </div>
     </div>
     <div>
       <FooterComponent />
@@ -46,12 +49,18 @@ export default {
   beforeCreate() {},
   created() {
     if (JSON.parse(localStorage.getItem("infoForTicket")) != null) {
-      console.log("ORDER ID IF ", JSON.parse(localStorage.getItem("infoForTicket")).order_id);
+      console.log(
+        "ORDER ID IF ",
+        JSON.parse(localStorage.getItem("infoForTicket")).order_id
+      );
       this.getDataAndSign().then(() => {
         this.showSpiner = false;
       });
     } else {
-      console.log("ORDER ID ELSE ", JSON.parse(localStorage.getItem("infoForTicket")).order_id);
+      console.log(
+        "ORDER ID ELSE ",
+        JSON.parse(localStorage.getItem("infoForTicket")).order_id
+      );
       setTimeout(
         this.getDataAndSign().then(() => {
           this.showSpiner = false;
@@ -66,7 +75,9 @@ export default {
   methods: {
     async getDataAndSign() {
       this.dataAndSign = await fetch(
-        `${this.$store.getters.getServerUrl}/show_status_pay/${JSON.parse(localStorage.getItem("infoForTicket")).order_id}/`
+        `${this.$store.getters.getServerUrl}/show_status_pay/${
+          JSON.parse(localStorage.getItem("infoForTicket")).order_id
+        }/`
       )
         .then((response) => response.json())
         .catch((error) => {
@@ -95,7 +106,10 @@ export default {
     whichIsShowStatus() {
       // Повертає true якщо success
       // Повертає false якщо error
-      console.log("ORDER ID  whichIsShowStatus ", JSON.parse(localStorage.getItem("infoForTicket")).order_id);
+      console.log(
+        "ORDER ID  whichIsShowStatus ",
+        JSON.parse(localStorage.getItem("infoForTicket")).order_id
+      );
       if (this.dataAndSign.status == "success") {
         this.postDataTicket()
           // .then(() => {
