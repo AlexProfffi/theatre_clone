@@ -10,11 +10,24 @@ html {
     scroll-behavior: smooth;
 }
 
-.p_abs {
+.p_abs,
+.p_abs_text {
     position: absolute;
     z-index: 15;
     top: 0%;
     left: 5%;
+}
+
+.p_abs_text,
+.p_abs_date {
+    position: relative;
+    top: -15%;
+    left: 22%;
+}
+
+.p_abs_date {
+    top: -90%;
+    left: 65%;
 }
 
 .overflow_hidden {
@@ -407,6 +420,10 @@ html {
     font-size: 1.4em;
 }
 
+.f_size_40 {
+    font-size: 2em;
+}
+
 .f_size_15 {
     font-size: .9em;
 }
@@ -484,6 +501,10 @@ html {
 
 .error_registrate {
     display: block;
+}
+
+.color_white {
+    color: #f9f9f9;
 }
 
 
