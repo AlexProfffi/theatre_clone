@@ -17,6 +17,10 @@ html {
     left: 5%;
 }
 
+.overflow_hidden {
+    overflow: hidden;
+}
+
 
 /* links */
 
@@ -34,7 +38,17 @@ html {
 
 .d_grid {
     display: grid;
-    grid-template-columns: repeat(6, 130px);
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.d_grid_6 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.d_grid_3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .d_block {
@@ -139,11 +153,19 @@ html {
     width: 50px;
 }
 
+.w_22em {
+    width: 22em;
+}
+
 
 /* height */
 
 .h_max {
     height: max-content;
+}
+
+.h_35em {
+    height: 35em;
 }
 
 .h_100 {
@@ -584,6 +606,10 @@ html {
 
 
 /* IMAGES */
+
+.img_on_main {
+    object-fit: cover;
+}
 
 .img_on_list {
     width: 226px;

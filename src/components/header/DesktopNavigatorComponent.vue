@@ -97,7 +97,7 @@ export default {
     drawHorizontalLine(index, classEl) {
       // Підкреслення по наведенню на елемент
       let navEl = document.querySelectorAll(classEl);
-      let widthElem = navEl[index].offsetWidth;
+      let widthElem = navEl[index].offsetWidth - 1;
       let cnt = 1;
       this.intrval = setInterval(() => {
         navEl[index].firstElementChild.style.width = String(cnt) + "px";
