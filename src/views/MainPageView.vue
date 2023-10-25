@@ -165,7 +165,7 @@
           </div>
           <div class="open_sans f_size_32 pad_low_1000">
             <input
-              class="b_none bg_white_custom upper_case sibscribe_button"
+              class=" bg_white_custom upper_case sibscribe_button"
               type="submit"
               value="підписатись"
             />
