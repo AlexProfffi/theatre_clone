@@ -131,6 +131,9 @@
           </div>
         </div>
       </div>
+      <div class="open_sans upper_case padding_tb_2em">
+        {{ answerSubscribe }}
+      </div>
       <div id="subscribe" class="d_flex_row j_content_space_around w_70">
         <div
           id="lbl_subscribe"
@@ -143,14 +146,16 @@
             {{ subscribeLabel.text2 }}
           </div>
         </div>
+        
         <form
           id="form_subscribe"
           action="POST"
           class="d_flex_row j_content_space_between w_50"
+          @submit="toSubscribe"
         >
           <div id="places_inputs" class="w_50 h_max horizontal_line">
             <input
-              v-model="subscribe"
+              v-model="subscribe.email"
               class="w_100 b_none f_oswald padding_4path sibscribe_input"
               type="email"
               name="email_subscribe"
@@ -161,7 +166,7 @@
           <div class="open_sans f_size_32 pad_low_1000">
             <input
               class="b_none bg_white_custom upper_case sibscribe_button"
-              type="button"
+              type="submit"
               value="підписатись"
             />
           </div>
@@ -191,13 +196,16 @@ export default {
       playwritersCaricatures: [],
       ideas: [],
       mainPlays: [],
-      subscribe: null,
+      subscribe: {
+        email: "",
+      },
       subscribeLabel: {
         text1: "хочу отримувати листи від",
         text2: "театру драматургів",
       },
       showIdeas: false,
       mobile: true,
+      answerSubscribe: "",
     };
   },
   created() {
@@ -351,6 +359,28 @@ export default {
     showMoreIdeas() {
       // hide or show all ideas
       this.showIdeas = !this.showIdeas;
+    },
+
+    async toSubscribe(e) {
+      e.preventDefault();
+      let url = `${this.$store.getters.getServerUrl}/subscribe/`;
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.subscribe),
+      })
+        .then((response) => {
+          response.json().then((response) => {
+            this.answerSubscribe = response.info;
+            this.subscribe.email = "";
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   computed: {
