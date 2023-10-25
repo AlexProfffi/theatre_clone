@@ -10,8 +10,7 @@ html {
     scroll-behavior: smooth;
 }
 
-.p_abs,
-.p_abs_text {
+.p_abs {
     position: absolute;
     z-index: 15;
     top: 0%;
@@ -22,6 +21,7 @@ html {
 .p_abs_date,
 .p_rel_hider {
     position: relative;
+    z-index: 15;
     top: -15%;
     left: 22%;
 }

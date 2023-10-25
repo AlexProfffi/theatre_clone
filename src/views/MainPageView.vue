@@ -478,7 +478,8 @@ export default {
     padding: 15px 0;
   }
   .p_abs_text_low_1000 {
-    left: calc(100% / 20);
+    left: calc(100% / 20) !important;
+    left: 5% !important;
   }
   .f_size_low_1000 {
     font-size: 0.8em;
@@ -514,6 +515,7 @@ export default {
 }
 .sibscribe_input {
   outline: none;
+  color: black;
 }
 .sibscribe_button:hover {
   font-weight: 600;
