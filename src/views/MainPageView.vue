@@ -165,7 +165,7 @@
           </div>
           <div class="open_sans f_size_32 pad_low_1000">
             <input
-              class=" bg_white_custom upper_case sibscribe_button"
+              class="b_none bg_white_custom upper_case sibscribe_button"
               type="submit"
               value="підписатись"
             />
@@ -514,7 +514,7 @@ export default {
   display: none;
 }
 .sibscribe_input {
-  outline: none;
+  outline: 1px ridge #ffffff;
   color: black;
 }
 .sibscribe_button:hover {
