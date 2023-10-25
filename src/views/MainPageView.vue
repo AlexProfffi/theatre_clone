@@ -170,6 +170,7 @@
               value="підписатись"
             />
           </div>
+          <button>text</button>
         </form>
       </div>
       <div></div>
