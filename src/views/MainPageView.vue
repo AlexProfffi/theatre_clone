@@ -101,7 +101,7 @@
               }"
             >
               <div
-                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden size_low_1000_img"
+                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
               >
                 <img
                   :src="repalcer(play.photo)"
