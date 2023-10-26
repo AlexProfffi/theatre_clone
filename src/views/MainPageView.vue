@@ -110,7 +110,7 @@
                 />
               </div>
               <div
-                class="p_abs_text w_max_content color_white p_abs_text_low_1000"
+                class="p_abs_text w_max_content color_white p_abs_text_low_1000 pl_plw_main"
               >
                 <div class="f_oswald f_size_40 pl_main">
                   {{ play.name }}
@@ -123,7 +123,7 @@
                 </div>
               </div>
               <div
-                class="p_abs_date w_max_content color_white open_sans f_size_32 f_weight_bold pl_main"
+                class="p_abs_date w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
               >
                 {{ checkDateToShow(play.id, play.on_play) }}
               </div>
@@ -390,10 +390,18 @@ export default {
     },
     async getUserAgent() {
       let sUsrAg = navigator.userAgent;
-      if (sUsrAg.indexOf("Safari") > -1) {
-        let all = document.querySelectorAll(".pl_main");
+      if (sUsrAg.indexOf("Safari") > -1 && document.body.offsetWidth < 500) {
+        let all = document.querySelectorAll(".pl_plw_main");
+        let allDate = document.querySelectorAll(".pl_main_date");
         for (let x = 0; x < all.length; x++) {
           all[x].style.color = "#212121";
+          all[x].style.position = "static";
+          all[x].style.display = "flex";
+          all[x].style.flexDirection = "column";
+          allDate[x].style.position = "relative";
+          allDate[x].style.top = "-90%";
+          allDate[x].style.color = "#f1f1f1";
+
         }
         //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
       }
