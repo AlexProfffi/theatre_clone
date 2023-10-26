@@ -112,7 +112,7 @@
               <div
                 class="p_abs_text w_max_content color_white p_abs_text_low_1000"
               >
-                <div class="f_oswald f_size_40">
+                <div class="f_oswald f_size_40 pl_main">
                   {{ play.name }}
                 </div>
                 <div class="d_flex_row j_content_start f_source_sans">
@@ -216,9 +216,9 @@ export default {
   created() {
     this.getPlaywriters()
       .then(() => this.getIdea())
-      .then(() => this.getPlaySMain());
+      .then(() => this.getPlaySMain())
+      .then(() => this.getUserAgent());
     this.setTitle();
-    this.getUserAgent();
   },
   methods: {
     setTitle() {
@@ -388,11 +388,13 @@ export default {
           console.log(error);
         });
     },
-    getUserAgent() {
+    async getUserAgent() {
       let sUsrAg = navigator.userAgent;
       if (sUsrAg.indexOf("Safari") > -1) {
-
-        document.querySelector("#plays_main_list").style.color = "#212121";
+        let all = document.querySelectorAll(".pl_main");
+        for (let x = 0; x < all.length; x++) {
+          all[x].style.color = "#212121";
+        }
         //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
       }
     },
