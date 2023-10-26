@@ -163,14 +163,13 @@
               placeholder="e-mail"
             />
           </div>
-          <div class="open_sans f_size_32 pad_low_1000">
+          <div class="f_oswald  f_size_32 pad_low_1000">
             <input
-              class="b_none bg_white_custom upper_case sibscribe_button"
+              class="btn_black b_none pad_both_7 upper_case sibscribe_button"
               type="submit"
               value="підписатись"
             />
           </div>
-          <button>text</button>
         </form>
       </div>
       <div></div>
@@ -515,7 +514,7 @@ export default {
   display: none;
 }
 .sibscribe_input {
-  outline: 1px ridge #ffffff;
+  outline: none;
   color: black;
 }
 .sibscribe_button:hover {

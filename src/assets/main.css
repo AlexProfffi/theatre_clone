@@ -685,3 +685,8 @@ html {
     font-weight: 600;
     /* transition: .7s all ease; */
 }
+
+.btn_black {
+    background-color: #212121;
+    color: #ffffff;
+}

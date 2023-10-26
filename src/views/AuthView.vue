@@ -255,9 +255,6 @@ export default {
   background-color: #ffffff;
   border: 2px solid #e0e0e0;
 }
-.btn_black {
-  background-color: #212121;
-  color: #ffffff;
-}
+
 </style>
         
