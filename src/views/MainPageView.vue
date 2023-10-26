@@ -88,7 +88,11 @@
           </div>
         </div>
         <div id="plays_main_list" class="d_grid_3 ptb_5em">
-          <div v-for="play in mainPlays" :key="play.id">
+          <div
+            class="p_relative top_100 h_100"
+            v-for="play in mainPlays"
+            :key="play.id"
+          >
             <router-link
               class="pad_b1em"
               :to="{
@@ -109,25 +113,23 @@
                   class="img_on_main h_100 w_100 zoom_hover"
                 />
               </div>
-              <div class="p_relative h_100">
-                <div
-                  class="p_abs_text w_max_content color_white p_abs_text_low_1000 pl_plw_main"
-                >
-                  <div class="f_oswald f_size_40 pl_main">
-                    {{ play.name }}
-                  </div>
-                  <div class="d_flex_row j_content_start f_source_sans">
-                    <div class="pl_main">
-                      {{ play.dramaturg[0].first_name }}
-                      {{ play.dramaturg[0].last_name }}
-                    </div>
+              <div
+                class="p_abs_text top_85 w_max_content color_white p_abs_text_low_1000 pl_plw_main"
+              >
+                <div class="f_oswald f_size_40 pl_main">
+                  {{ play.name }}
+                </div>
+                <div class="d_flex_row j_content_start f_source_sans">
+                  <div class="pl_main">
+                    {{ play.dramaturg[0].first_name }}
+                    {{ play.dramaturg[0].last_name }}
                   </div>
                 </div>
-                <div
-                  class="p_abs_date w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
-                >
-                  {{ checkDateToShow(play.id, play.on_play) }}
-                </div>
+              </div>
+              <div
+                class="p_abs_date top_15 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+              >
+                {{ checkDateToShow(play.id, play.on_play) }}
               </div>
             </router-link>
           </div>
