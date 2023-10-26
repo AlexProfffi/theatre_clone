@@ -131,7 +131,7 @@
           </div>
         </div>
       </div>
-      <div class="open_sans upper_case padding_tb_2em">
+      <div v-show="answerSubscribe" class="open_sans upper_case padding_tb_2em">
         {{ answerSubscribe }}
       </div>
       <div id="subscribe" class="d_flex_row j_content_space_around w_70">
@@ -146,14 +146,17 @@
             {{ subscribeLabel.text2 }}
           </div>
         </div>
-        
+
         <form
           id="form_subscribe"
           action="POST"
           class="d_flex_row j_content_space_between w_50"
           @submit="toSubscribe"
         >
-          <div id="places_inputs" class="w_50 h_max horizontal_line">
+          <div
+            id="places_inputs"
+            class="d_flex_row j_content_space_around w_50 h_max horizontal_line"
+          >
             <input
               v-model="subscribe.email"
               class="w_100 b_none f_oswald padding_4path sibscribe_input"
@@ -163,7 +166,9 @@
               placeholder="e-mail"
             />
           </div>
-          <div class="f_oswald  f_size_32 pad_low_1000">
+          <div
+            class="d_flex_row j_content_space_around f_oswald w_50 h_max f_size_32 pad_low_1000"
+          >
             <input
               class="btn_black b_none pad_both_7 upper_case sibscribe_button"
               type="submit"
@@ -382,6 +387,14 @@ export default {
           console.log(error);
         });
     },
+    getUserAgent() {
+      let sUsrAg = navigator.userAgent;
+      if (sUsrAg.indexOf("Safari") > -1) {
+        
+        document.querySelector("#plays_main_list").computedStyleMap.color = "#212121";
+        //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
+      }
+    },
   },
   computed: {
     firstTwoRowsPlw() {
@@ -445,7 +458,7 @@ export default {
     margin: 0 auto;
   }
   #places_inputs {
-    width: 100%;
+    width: 50%;
   }
   #lbl_subscribe {
     padding: 15px 10px;
@@ -478,14 +491,30 @@ export default {
     padding: 15px 0;
   }
   .p_abs_text_low_1000 {
-    left: calc(100% / 20) !important;
-    left: 5% !important;
+    left: calc(100% / 3.5) !important;
+    left: 29% !important;
+  }
+  .p_abs_date {
+    left: calc(100% / 1.7);
+    left: 60%;
   }
   .f_size_low_1000 {
     font-size: 0.8em;
   }
 }
-
+@media screen and (max-width: 500px) {
+  #places_inputs {
+    width: 100%;
+  }
+  .p_abs_text_low_1000 {
+    left: calc(100% / 20) !important;
+    left: 5% !important;
+  }
+  .p_abs_date {
+    left: calc(100% / 1.5);
+    left: 70%;
+  }
+}
 .size_pictures,
 .size_pictures_2 {
   height: 100px;

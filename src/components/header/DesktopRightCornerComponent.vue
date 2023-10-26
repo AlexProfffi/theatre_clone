@@ -16,7 +16,10 @@
         </span>
       </div>
     </div>
-    <div id="search_id_group" class="d_flex_row j_content_end p_1_px  mb_1rem pad_low_1000 h_30_px">
+    <div
+      id="search_id_group"
+      class="d_flex_row j_content_end p_1_px mb_1rem pad_low_1000 h_30_px"
+    >
       <div class="d_flex_row_reverse">
         <div class="c_pointer search" @click="showSearcField()">
           <svg
@@ -32,20 +35,24 @@
             />
           </svg>
         </div>
-        <div  class="margin_both_auto d_flex_row search_group">
-          <input
-            v-model="dataInputSearch"
-            class="s_field open_sans xtx "
-            type="search"
-            placeholder="Пошук по сайту..."
-          />
-          
-          <input
-            @click="clickSearchBtn()"
-            type="button"
-            value="Пошук"
-            class="btn_srch upper_case exit_b font_2 open_sans w_50_px pad_both_3"
-          />
+        <div class="margin_both_auto d_flex_row search_group">
+          <div class="horizontal_line">
+            <input
+              v-model="dataInputSearch"
+              class="s_field open_sans xtx"
+              type="search"
+              placeholder="Пошук по сайту..."
+            />
+          </div>
+
+          <div>
+            <input
+              @click="clickSearchBtn()"
+              type="button"
+              value="Пошук"
+              class="btn_srch upper_case exit_b font_2 open_sans w_50_px h_100 pad_both_3"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -57,7 +64,7 @@
       <div
         id="icon_login"
         class="hover_black c_pointer icon_usr"
-        @click="goToEnter('/registration')"
+        @click="goToEnter('/auth')"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +159,7 @@ export default {
         document.querySelector(".s_field").style.width = String(cnt) + "px";
         if (cnt <= 0) {
           clearInterval(this.intrval);
-          
+
           document.querySelector(".s_field").style.display = "none";
           document.querySelector(".btn_srch").style.display = "none";
           document.querySelector("#search_id_group").style.height = "30px";
@@ -257,10 +264,7 @@ export default {
         document.querySelector("#search_id_group").style.height = "80px";
         this.showContent();
       } else {
-        
         this.hideContent();
-        
-
       }
     },
     clickSearchBtn() {
@@ -326,6 +330,7 @@ input.xtx {
   font-size: 14px;
   width: 0;
   padding: 5px;
+  outline: solid white;
 }
 .btn_srch {
   display: none;
