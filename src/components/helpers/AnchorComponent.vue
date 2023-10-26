@@ -60,6 +60,7 @@ export default {
   position: fixed;
   top: 90%;
   left: 91%;
+  z-index: 99;
 }
 .bi-arrow-up-circle {
   color: #868686;

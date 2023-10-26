@@ -88,12 +88,19 @@
           </div>
         </div>
         <div id="plays_main_list" class="d_grid_3 ptb_5em">
-          <div
-            class="p_relative top_100 h_100"
-            v-for="play in mainPlays"
-            :key="play.id"
-          >
-            <router-link
+          <div class="p_relative" v-for="play in mainPlays" :key="play.id">
+            
+              <div
+                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
+              >
+                <img
+                  :src="repalcer(play.photo)"
+                  :alt="play.name"
+                  class="img_on_main h_100 w_100 zoom_hover"
+                />
+              </div>
+              <div class="p_relative h_100">
+                <router-link
               class="pad_b1em"
               :to="{
                 name: 'play',
@@ -104,84 +111,78 @@
                 },
               }"
             >
-              <div
-                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
-              >
-                <img
-                  :src="repalcer(play.photo)"
-                  :alt="play.name"
-                  class="img_on_main h_100 w_100 zoom_hover"
-                />
-              </div>
-              <div
-                class="p_abs_text top_85 w_max_content color_white p_abs_text_low_1000 pl_plw_main"
-              >
-                <div class="f_oswald f_size_40 pl_main">
-                  {{ play.name }}
-                </div>
-                <div class="d_flex_row j_content_start f_source_sans">
-                  <div class="pl_main">
-                    {{ play.dramaturg[0].first_name }}
-                    {{ play.dramaturg[0].last_name }}
+                <div
+                  class="p_abs_text top_85 w_max_content color_white p_abs_text_low_1000 pl_plw_main"
+                >
+                  <div class="f_oswald f_size_40 pl_main">
+                    {{ play.name }}
+                  </div>
+                  <div class="d_flex_row j_content_start f_source_sans">
+                    <div class="pl_main">
+                      {{ play.dramaturg[0].first_name }}
+                      {{ play.dramaturg[0].last_name }}
+                    </div>
                   </div>
                 </div>
+                <div
+                  class="p_abs_date top_15 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+                >
+                  {{ checkDateToShow(play.id, play.on_play) }}
+                </div>
+              </router-link>
               </div>
-              <div
-                class="p_abs_date top_15 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
-              >
-                {{ checkDateToShow(play.id, play.on_play) }}
-              </div>
-            </router-link>
+            
           </div>
         </div>
       </div>
       <div v-show="answerSubscribe" class="open_sans upper_case padding_tb_2em">
         {{ answerSubscribe }}
       </div>
-      <div id="subscribe" class="d_flex_row j_content_space_around w_70">
-        <div
-          id="lbl_subscribe"
-          class="d_flex_column open_sans upper_case t_left"
-        >
-          <div>
-            {{ subscribeLabel.text1 }}
+      <div class="p_sticky z_20">
+        <div id="subscribe" class="d_flex_row j_content_space_around w_70">
+          <div
+            id="lbl_subscribe"
+            class="d_flex_column open_sans upper_case t_left"
+          >
+            <div>
+              {{ subscribeLabel.text1 }}
+            </div>
+            <div class="f_weight_bold">
+              {{ subscribeLabel.text2 }}
+            </div>
           </div>
-          <div class="f_weight_bold">
-            {{ subscribeLabel.text2 }}
-          </div>
-        </div>
 
-        <form
-          id="form_subscribe"
-          action="POST"
-          class="d_flex_row j_content_space_between w_50"
-          @submit="toSubscribe"
-        >
-          <div
-            id="places_inputs"
-            class="d_flex_row j_content_space_around w_50 h_max horizontal_line"
+          <form
+            id="form_subscribe"
+            action="POST"
+            class="d_flex_row j_content_space_between w_50"
+            @submit="toSubscribe"
           >
-            <input
-              v-model="subscribe.email"
-              class="w_100 b_none f_oswald padding_4path sibscribe_input"
-              type="email"
-              name="email_subscribe"
-              id="e_subscribe"
-              placeholder="e-mail"
-            />
-          </div>
-          <div
-            class="d_flex_row j_content_space_around f_oswald w_50 h_max f_size_32 pad_low_1000"
-          >
-            <input
-              class="btn_black b_none pad_both_7 upper_case sibscribe_button"
-              type="submit"
-              value="підписатись"
-            />
-          </div>
-        </form>
+            <div
+              id="places_inputs"
+              class="d_flex_row j_content_space_around w_50 h_max horizontal_line"
+            >
+              <input
+                v-model="subscribe.email"
+                class="w_100 b_none f_oswald padding_4path sibscribe_input"
+                type="email"
+                name="email_subscribe"
+                id="e_subscribe"
+                placeholder="e-mail"
+              />
+            </div>
+            <div
+              class="d_flex_row j_content_space_around f_oswald w_50 h_max f_size_32 pad_low_1000"
+            >
+              <input
+                class="btn_black b_none pad_both_7 upper_case sibscribe_button"
+                type="submit"
+                value="підписатись"
+              />
+            </div>
+          </form>
+        </div>
       </div>
-      <div></div>
     </div>
     <div>
       <FooterComponent />

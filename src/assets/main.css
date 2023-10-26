@@ -15,8 +15,16 @@ html {
     scrollbar-width: thin;
 }
 
+.p_sticky {
+    position: sticky;
+}
+
 .p_relative {
     position: relative;
+}
+
+.z_20 {
+    z-index: 20;
 }
 
 .top_100 {
