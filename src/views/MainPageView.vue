@@ -116,14 +116,14 @@
                   {{ play.name }}
                 </div>
                 <div class="d_flex_row j_content_start f_source_sans">
-                  <div>
+                  <div class="pl_main">
                     {{ play.dramaturg[0].first_name }}
                     {{ play.dramaturg[0].last_name }}
                   </div>
                 </div>
               </div>
               <div
-                class="p_abs_date w_max_content color_white open_sans f_size_32 f_weight_bold"
+                class="p_abs_date w_max_content color_white open_sans f_size_32 f_weight_bold pl_main"
               >
                 {{ checkDateToShow(play.id, play.on_play) }}
               </div>
