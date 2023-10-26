@@ -218,6 +218,7 @@ export default {
       .then(() => this.getIdea())
       .then(() => this.getPlaySMain());
     this.setTitle();
+    this.getUserAgent();
   },
   methods: {
     setTitle() {
@@ -390,8 +391,8 @@ export default {
     getUserAgent() {
       let sUsrAg = navigator.userAgent;
       if (sUsrAg.indexOf("Safari") > -1) {
-        
-        document.querySelector("#plays_main_list").computedStyleMap.color = "#212121";
+
+        document.querySelector("#plays_main_list").style.color = "#212121";
         //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
       }
     },
