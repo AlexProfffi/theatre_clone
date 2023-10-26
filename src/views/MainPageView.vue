@@ -401,7 +401,6 @@ export default {
           // allDate[x].style.position = "relative";
           // allDate[x].style.top = "-90%";
           allDate[x].style.color = "#f1f1f1";
-
         }
         //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
       }
@@ -502,8 +501,8 @@ export default {
     padding: 15px 0;
   }
   .p_abs_text_low_1000 {
-    left: calc(100% / 3.5) !important;
-    left: 29% !important;
+    left: calc(100% / 3.1) !important;
+    left: 32% !important;
   }
   .p_abs_date {
     left: calc(100% / 1.7);
@@ -513,7 +512,27 @@ export default {
     font-size: 0.8em;
   }
 }
+@media screen and (max-width: 725px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 4) !important;
+    left: 26% !important;
+  }
+}
+
 @media screen and (max-width: 500px) {
+  #places_inputs {
+    width: 100%;
+  }
+  .p_abs_text_low_1000 {
+    left: calc(100% / 8) !important;
+    left: 15% !important;
+  }
+  .p_abs_date {
+    left: calc(100% / 1.5);
+    left: 70%;
+  }
+}
+@media screen and (max-width: 376px) {
   #places_inputs {
     width: 100%;
   }
