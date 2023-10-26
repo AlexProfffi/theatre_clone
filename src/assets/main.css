@@ -25,7 +25,7 @@ html {
 .p_abs_text {
     position: relative;
     z-index: 15;
-    top: -15%;
+    bottom: 15%;
     left: 22%;
 }
 
@@ -33,13 +33,13 @@ html {
     position: relative;
     z-index: 15;
     left: 0;
-    top: -130%;
+    bottom: 130%;
 }
 
 .p_abs_date {
     position: relative;
     z-index: 15;
-    top: -90%;
+    bottom: 90%;
     left: 65%;
 }
 
