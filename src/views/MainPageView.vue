@@ -539,8 +539,8 @@ export default {
     width: 100%;
   }
   .p_abs_text_low_1000 {
-    left: calc(100% / 20) !important;
-    left: 5% !important;
+    left: calc(100% / 40) !important;
+    left: 1% !important;
   }
   .p_abs_date {
     left: calc(100% / 1.5);
