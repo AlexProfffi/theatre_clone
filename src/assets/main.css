@@ -22,9 +22,7 @@ html {
     left: 5%;
 }
 
-.p_abs_text,
-.p_abs_date,
-.p_rel_hider {
+.p_abs_text {
     position: relative;
     z-index: 15;
     top: -15%;
@@ -32,11 +30,15 @@ html {
 }
 
 .p_rel_hider {
+    position: relative;
+    z-index: 15;
     left: 0;
     top: -130%;
 }
 
 .p_abs_date {
+    position: relative;
+    z-index: 15;
     top: -90%;
     left: 65%;
 }

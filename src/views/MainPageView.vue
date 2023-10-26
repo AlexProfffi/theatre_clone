@@ -394,12 +394,12 @@ export default {
         let all = document.querySelectorAll(".pl_plw_main");
         let allDate = document.querySelectorAll(".pl_main_date");
         for (let x = 0; x < all.length; x++) {
-          all[x].style.color = "#212121";
-          all[x].style.position = "static";
-          all[x].style.display = "flex";
-          all[x].style.flexDirection = "column";
-          allDate[x].style.position = "relative";
-          allDate[x].style.top = "-90%";
+          // all[x].style.color = "#212121";
+          // all[x].style.position = "static";
+          // all[x].style.display = "flex";
+          // all[x].style.flexDirection = "column";
+          // allDate[x].style.position = "relative";
+          // allDate[x].style.top = "-90%";
           allDate[x].style.color = "#f1f1f1";
 
         }
