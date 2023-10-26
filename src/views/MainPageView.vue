@@ -89,30 +89,29 @@
         </div>
         <div id="plays_main_list" class="d_grid_3 ptb_5em">
           <div class="p_relative" v-for="play in mainPlays" :key="play.id">
-            
-              <div
-                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
-              >
-                <img
-                  :src="repalcer(play.photo)"
-                  :alt="play.name"
-                  class="img_on_main h_100 w_100 zoom_hover"
-                />
-              </div>
-              <div class="p_relative h_100">
-                <router-link
-              class="pad_b1em"
-              :to="{
-                name: 'play',
-                params: {
-                  id: play.id_play,
-                  date_id: play.id,
-                  name: transcription(play.name),
-                },
-              }"
+            <div
+              class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
             >
-                <div
-                  class="p_abs_text top_85 w_max_content color_white p_abs_text_low_1000 pl_plw_main"
+              <img
+                :src="repalcer(play.photo)"
+                :alt="play.name"
+                class="img_on_main h_100 w_100 zoom_hover"
+              />
+            </div>
+            <div class="p_relative h_100">
+              <div
+                class="p_abs_text top_85 w_max_content p_abs_text_low_1000 pl_plw_main"
+              >
+                <router-link
+                  class="pad_b1em color_white"
+                  :to="{
+                    name: 'play',
+                    params: {
+                      id: play.id_play,
+                      date_id: play.id,
+                      name: transcription(play.name),
+                    },
+                  }"
                 >
                   <div class="f_oswald f_size_40 pl_main">
                     {{ play.name }}
@@ -123,15 +122,14 @@
                       {{ play.dramaturg[0].last_name }}
                     </div>
                   </div>
-                </div>
-                <div
-                  class="p_abs_date top_15 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
-                >
-                  {{ checkDateToShow(play.id, play.on_play) }}
-                </div>
-              </router-link>
+                </router-link>
               </div>
-            
+              <div
+                class="p_abs_date top_15 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+              >
+                {{ checkDateToShow(play.id, play.on_play) }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
