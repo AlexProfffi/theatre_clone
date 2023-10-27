@@ -32,11 +32,15 @@ html {
 }
 
 .top_85 {
-    top: -15%;
+    top: -8em;
 }
 
 .top_15 {
     top: -90%;
+}
+
+.top_800 {
+    top: -525px;
 }
 
 .p_abs {
@@ -47,20 +51,17 @@ html {
 }
 
 .p_abs_text {
-    position: relative;
     z-index: 15;
     left: 22%;
 }
 
 .p_rel_hider {
-    position: relative;
     z-index: 15;
     left: 0;
     bottom: 130%;
 }
 
 .p_abs_date {
-    position: relative;
     z-index: 15;
     left: 65%;
 }
@@ -175,6 +176,10 @@ html {
 
 .w_max_content {
     width: max-content;
+}
+
+.w_min_content {
+    width: min-content;
 }
 
 .w_100 {
@@ -718,4 +723,8 @@ html {
 .btn_black {
     background-color: #212121;
     color: #ffffff;
+}
+
+.nowrap_space {
+    white-space: nowrap;
 }

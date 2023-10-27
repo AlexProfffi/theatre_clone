@@ -3,7 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
-    <div class="d_flex_column p_40px padding_faces">
+    <div class="d_flex_column p_40px padding_faces opacity_05 main_content">
       <div class="margin_both_auto">
         <div id="faces_7" class="d_grid">
           <div
@@ -69,7 +69,7 @@
           <div v-for="idea in ideas" :key="idea.id" class="pad_b1em">
             <div
               v-html="idea.description"
-              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 open_sans"
+              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans"
             ></div>
             <!-- <hr class="line" /> -->
           </div>
@@ -100,7 +100,12 @@
             </div>
             <div class="p_relative h_100">
               <div
-                class="p_abs_text top_85 w_max_content p_abs_text_low_1000 pl_plw_main"
+                class="p_relative p_abs_date top_800 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+              >
+                {{ checkDateToShow(play.id, play.on_play) }}
+              </div>
+              <div
+                class="p_relative p_abs_text top_85 w_max_content t_left p_abs_text_low_1000 pl_plw_main"
               >
                 <router-link
                   class="pad_b1em color_white"
@@ -117,17 +122,12 @@
                     {{ play.name }}
                   </div>
                   <div class="d_flex_row j_content_start f_source_sans">
-                    <div class="pl_main">
+                    <div class="pl_main nowrap_space">
                       {{ play.dramaturg[0].first_name }}
                       {{ play.dramaturg[0].last_name }}
                     </div>
                   </div>
                 </router-link>
-              </div>
-              <div
-                class="p_abs_date top_15 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
-              >
-                {{ checkDateToShow(play.id, play.on_play) }}
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@
         <div id="subscribe" class="d_flex_row j_content_space_around w_70">
           <div
             id="lbl_subscribe"
-            class="d_flex_column open_sans upper_case t_left"
+            class="d_flex_column f_source_sans upper_case t_left"
           >
             <div>
               {{ subscribeLabel.text1 }}
@@ -214,19 +214,38 @@ export default {
       showIdeas: false,
       mobile: true,
       answerSubscribe: "",
+      lengthElNamePlay: 350,
+      coefficientTop: 1.1,
+      coefficientTopDate: 3.1,
+      intrval: null,
     };
   },
   created() {
     this.getPlaywriters()
+      .then(() => this.showContent())
       .then(() => this.getIdea())
       .then(() => this.getPlaySMain())
-      .then(() => this.getUserAgent());
+      .then(() => this.instanceNewWidth(this.lengthElNamePlay));
     this.setTitle();
   },
   methods: {
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Головна";
+    },
+
+    async showContent() {
+      // Показує контент методом підвищення opacity
+      let cnt = 0;
+
+      this.intrval = setInterval(() => {
+        document.querySelector(".main_content").style.opacity = String(cnt);
+        if (cnt >= 1) {
+          clearInterval(this.intrval);
+          return;
+        }
+        cnt += 0.1;
+      }, 50);
     },
 
     concat(first, last) {
@@ -395,18 +414,31 @@ export default {
       let sUsrAg = navigator.userAgent;
       if (sUsrAg.indexOf("Safari") > -1 && document.body.offsetWidth < 500) {
         let all = document.querySelectorAll(".pl_plw_main");
-        let allDate = document.querySelectorAll(".pl_main_date");
         for (let x = 0; x < all.length; x++) {
-          // all[x].style.color = "#212121";
-          // all[x].style.position = "static";
-          // all[x].style.display = "flex";
-          // all[x].style.flexDirection = "column";
-          // allDate[x].style.position = "relative";
-          // allDate[x].style.top = "-90%";
-          allDate[x].style.color = "#f1f1f1";
+          all[x].style.color = "#212121";
+          all[x].style.position = "static";
+          all[x].style.display = "flex";
+          all[x].style.flexDirection = "column";
         }
         //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
       }
+      return;
+    },
+    async instanceNewWidth(lenElement) {
+      // Змінює розашування елемента, якщо його довжина більша за lenElement
+      let all = document.querySelectorAll(".pl_plw_main");
+      // let allDate = document.querySelectorAll(".pl_main_date");
+      for (let x = 0; x < all.length; x++) {
+        let lenW = all[x].offsetWidth;
+        if (lenW > Number(lenElement)) {
+          all[x].style.width = "min-content";
+          let lenH = all[x].offsetHeight + all[x].offsetHeight * 0.1;
+
+          let imiter = lenH * this.coefficientTop;
+          all[x].style.top = `${imiter * -1}px`;
+        }
+      }
+      //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
     },
   },
   computed: {
@@ -451,6 +483,10 @@ export default {
   }
   .line {
     display: block !important;
+  }
+  .p_abs_text_low_1000 {
+    left: calc(100% / 4);
+    left: 25%;
   }
 }
 @media screen and (max-width: 1000px) {
@@ -540,8 +576,8 @@ export default {
     width: 100%;
   }
   .p_abs_text_low_1000 {
-    left: calc(100% / 40) !important;
-    left: 1% !important;
+    left: calc(100% / 20) !important;
+    left: 5% !important;
   }
   .p_abs_date {
     left: calc(100% / 1.5);
