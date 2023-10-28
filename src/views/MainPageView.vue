@@ -77,7 +77,7 @@
           <div v-for="idea in ideas" :key="idea.id" class="pad_b1em">
             <div
               v-html="idea.description"
-              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans"
+              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
             ></div>
             <!-- <hr class="line" /> -->
           </div>
