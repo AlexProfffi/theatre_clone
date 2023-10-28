@@ -5,11 +5,12 @@
       id="non_drop"
     >
       <li
-        v-for="nav in naviPanel(offert)"
+        v-for="nav in navigationData"
         :key="nav.value"
         :id="nav.idEl"
         class=""
       >
+        <div v-if="nav.txt != 'оферта' && nav.txt != 'договір'">
           <a
             :href="nav.linkTo"
             @click="deleteDataFromFilter()"
@@ -24,6 +25,22 @@
             {{ nav.txt }}
             <div class="horizontal_line_hover"></div>
           </a>
+        </div>
+        <div v-else>
+          <a
+            @click="openLinkNewWindow(nav.linkTo)"
+            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+            class="upper_case none_text_decor nav_link_color navigation_sites c_pointer"
+            style="display: block"
+            :class="{
+              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+            }"
+          >
+            {{ nav.txt }}
+            <div class="horizontal_line_hover"></div>
+          </a>
+        </div>
       </li>
     </ul>
     <div class="dropdown">
@@ -64,7 +81,7 @@
         id="drop"
       >
         <li
-          v-for="nav in naviPanel(offert)"
+          v-for="nav in navigationData"
           :key="nav.value"
           :id="nav.idEl"
           class=""
@@ -88,16 +105,15 @@ export default {
   data() {
     return {
       isMobile: false,
-      navigationData: this.naviPanel(),
+      navigationData: null,
       dropMenu: false,
       intrval: null,
       offert: [],
     };
   },
   created() {
-    this.getOffert();
+    this.getOffert().then(() => this.naviPanel(this.offert));
     this.eventScrollClick();
-    
   },
   methods: {
     drawHorizontalLine(index, classEl) {
@@ -121,10 +137,15 @@ export default {
       navEl[index].firstElementChild.style.width = 0;
     },
 
-    deleteDataFromFilter() {
+    deleteDataFromFilter(lnk = "") {
       // Видаляє зі сховища дату для фільтрів
       // Скидує фільтри по місяцям
-      localStorage.removeItem("dataYM");
+      if (!lnk) {
+        localStorage.removeItem("dataYM");
+      } else {
+        localStorage.removeItem("dataYM");
+        this.openLinkNewWindow(lnk);
+      }
     },
 
     whatTitleIsit(nameNav) {
@@ -136,7 +157,7 @@ export default {
         : false;
     },
 
-    naviPanel(offerts=[]) {
+    async naviPanel(offerts = []) {
       let listNavi = [
         "головна",
         "афіша",
@@ -150,8 +171,8 @@ export default {
         "договір",
       ];
       let listNaviLinks = [
-        "#/main",
         "/",
+        "#/plays",
         "#/news",
         "#/about",
         // "#/archive",
@@ -159,7 +180,7 @@ export default {
         "#/our_partners",
         "#/my_profile",
       ];
-      
+
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length - 2; x++) {
         dataListNavi.push({
@@ -171,13 +192,13 @@ export default {
       }
       for (let y = 0; y < offerts.length; y++) {
         dataListNavi.push({
-          value: y+listNaviLinks.length,
-          txt: listNavi[y+listNaviLinks.length],
-          idEl: "naviLink" + String(y+listNaviLinks.length),
+          value: y + listNaviLinks.length,
+          txt: listNavi[y + listNaviLinks.length],
+          idEl: "naviLink" + String(y + listNaviLinks.length),
           linkTo: offerts[y].file_offer,
         });
       }
-      return dataListNavi;
+      this.navigationData = dataListNavi;
     },
 
     async getOffert() {
@@ -208,6 +229,9 @@ export default {
       } else {
         document.querySelector(".dropdown").style.height = "0";
       }
+    },
+    openLinkNewWindow(lnk) {
+      window.open(lnk, "_blank").focus();
     },
   },
 };

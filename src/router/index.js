@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import PlaysView from "../views/PlaysView.vue";
 
 const routes = [{
-        path: "/",
+        path: "/plays",
         name: "plays",
         component: PlaysView,
     },
@@ -107,7 +107,7 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ "../views/SiteSearchView.vue"),
     },
     {
-        path: "/main",
+        path: "/",
         name: "MainPageView",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
