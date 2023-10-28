@@ -228,7 +228,7 @@
           }"
           class="go_to_buy"
         >
-          купити квиток
+          Оформити замовлення
 
           <div class="horizontal_line_hover"></div>
         </router-link>
@@ -292,6 +292,7 @@
                 id="pay_b"
                 type="submit"
                 class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
+                :class="{'opacity_0_5': !checkCorrectEmail(callBackData.email)}"
                 @click="pay(theLinkPay.link)"
               >
                 оплатити

@@ -90,6 +90,16 @@ html {
     grid-template-columns: repeat(7, 1fr);
 }
 
+.d_grid_1 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.d_grid_2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .d_grid_6 {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -445,6 +455,10 @@ html {
     font-size: 0.7em;
 }
 
+.f_18 {
+    font-size: 18px;
+}
+
 .c_pointer {
     cursor: pointer;
 }
@@ -681,6 +695,10 @@ html {
 
 .opacity_05 {
     opacity: 0;
+}
+
+.opacity_0_5 {
+    opacity: 0.5;
 }
 
 

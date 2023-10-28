@@ -65,7 +65,15 @@
             <div>ідея</div>
           </div>
         </div>
-        <div id="idea_main_list" class="d_grid_3 ptb_5em margin_both_auto">
+        <div
+          id="idea_main_list"
+          class="ptb_5em margin_both_auto"
+          :class="{
+            d_grid_3: ideas.length == 3,
+            d_grid_1: ideas.length == 1,
+            d_grid_2: ideas.length == 2,
+          }"
+        >
           <div v-for="idea in ideas" :key="idea.id" class="pad_b1em">
             <div
               v-html="idea.description"
