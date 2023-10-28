@@ -86,13 +86,37 @@
           :id="nav.idEl"
           class=""
         >
-          <a
-            :href="nav.linkTo"
-            @click="deleteDataFromFilter()"
-            class="upper_case none_text_decor nav_link_color"
-            v-html="nav.txt"
-          >
-          </a>
+          <div v-if="nav.txt != 'оферта' && nav.txt != 'договір'">
+            <a
+              :href="nav.linkTo"
+              @click="deleteDataFromFilter()"
+              @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+              @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+              class="upper_case none_text_decor nav_link_color navigation_sites"
+              style="display: block"
+              :class="{
+                'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+              }"
+            >
+              {{ nav.txt }}
+              <div class="horizontal_line_hover"></div>
+            </a>
+          </div>
+          <div v-else>
+            <a
+              @click="openLinkNewWindow(nav.linkTo)"
+              @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+              @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+              class="upper_case none_text_decor nav_link_color navigation_sites c_pointer"
+              style="display: block"
+              :class="{
+                'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+              }"
+            >
+              {{ nav.txt }}
+              <div class="horizontal_line_hover"></div>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
