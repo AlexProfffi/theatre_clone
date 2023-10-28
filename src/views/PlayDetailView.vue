@@ -40,6 +40,50 @@
             :linkPay="linkPay"
           />
         </div>
+        <div id="offerContract" class="d_flex_row j_content_start margin_both_2">
+          <div class="t_left">Купуючи квиток Ви погоджуєтесь з</div>
+          <div v-if="offert.length == 1">
+            <div v-for="offs in offert" :key="offs.id">
+              <div class="p_l_0_3">
+                <span
+                  @click="pay(offs.file_offer)"
+                  class="nav_link_color c_pointer offerts"
+                >
+                  «Публічною офертою»
+                </span>
+                <span v-if="offs.file_contract">та</span>
+                <span
+                  v-if="offs.file_contract"
+                  @click="pay(offs.file_contract)"
+                  class="nav_link_color c_pointer offerts"
+                >
+                  «Договором»
+                </span>
+                <span
+                  v-if="offs.file_lawyer"
+                  @click="pay(offs.file_lawyer)"
+                  class="nav_link_color c_pointer offerts"
+                >
+                  «Умовою повернення коштів»
+                </span>
+              </div>
+            </div>
+          </div>
+          <div v-else-if="offert.length > 1" class="d_flex_row offert_site">
+            
+            <div v-for="offs in offert" :key="offs.id" class="">
+              <div class="p_l_0_3 ">
+                <span
+                  @click="pay(offs.file_offer)"
+                  class="nav_link_color c_pointer offerts nowrap_space"
+                >
+                «{{ offs.name }}» 
+                </span>
+                <span v-if="offert.indexOf(offs) < offert.length-1">та</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="h_7em"></div>
         <div class="d_flex_column j_content_space_between">
           <div class="d_flex_row margin_both_2" id="navigate_desc">
@@ -76,7 +120,10 @@
                 </h2>
               </div>
               <div class="d_flex_row w_50 t_left pad_top" id="inner_descript">
-                <p v-if="playOneDate.description" class="open_sans text_descript">
+                <p
+                  v-if="playOneDate.description"
+                  class="open_sans text_descript"
+                >
                   {{ playOneDate.description }}
                 </p>
                 <p v-else>Інформація з`явиться незабаром</p>
@@ -95,7 +142,10 @@
               <div class="d_flex_row pad_top">
                 <ul v-if="playOneDate.staff.length > 1">
                   <li
-                    v-for="act in playOneDate.staff.slice(1, playOneDate.staff.length)"
+                    v-for="act in playOneDate.staff.slice(
+                      1,
+                      playOneDate.staff.length
+                    )"
                     :key="act.name + act.surname"
                     class="open_sans t_left"
                   >
@@ -110,34 +160,7 @@
           </div>
           <div class="d_flex_row"></div>
         </div>
-        <div id="offerContract" class="d_flex_row j_content_start small_font">
-          <div>Купуючи квиток Ви погоджуєтесь з</div>
-          <div v-for="offs in offert" :key="offs.id">
-            <div class="p_l_0_3">
-              <span
-                @click="pay(offs.file_offer)"
-                class="nav_link_color c_pointer offerts"
-              >
-                «Публічною офертою»
-              </span>
-              <span v-if="offs.file_contract">та</span>
-              <span
-                v-if="offs.file_contract"
-                @click="pay(offs.file_contract)"
-                class="nav_link_color c_pointer offerts"
-              >
-                «Договором»
-              </span>
-              <span
-                v-if="offs.file_lawyer"
-                @click="pay(offs.file_lawyer)"
-                class="nav_link_color c_pointer offerts"
-              >
-                «Умовою повернення коштів»
-              </span>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       <div>
@@ -186,6 +209,11 @@ export default {
       linkOffert: null,
       textRing: false,
       playOneDate: {},
+      allOffert: [
+        "«Публічною офертою»",
+        "«Договором»",
+        "«Умовою повернення коштів»",
+      ],
     };
   },
   created() {
@@ -360,6 +388,11 @@ export default {
     justify-content: space-around;
     font-size: 0.7em;
     margin: 0;
+  }
+  .offert_site {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
   }
 
   .text_descript {

@@ -5,23 +5,25 @@
       id="non_drop"
     >
       <li
-        v-for="nav in navigationData"
+        v-for="nav in naviPanel(offert)"
         :key="nav.value"
         :id="nav.idEl"
         class=""
       >
-        <a
-          :href="nav.linkTo"
-          @click="deleteDataFromFilter()"
-          @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-          @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-          class="upper_case none_text_decor nav_link_color navigation_sites"
-          style="display: block"
-          :class="{ 'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt) }"
-        >
-          {{ nav.txt }}
-          <div class="horizontal_line_hover"></div>
-        </a>
+          <a
+            :href="nav.linkTo"
+            @click="deleteDataFromFilter()"
+            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+            class="upper_case none_text_decor nav_link_color navigation_sites"
+            style="display: block"
+            :class="{
+              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+            }"
+          >
+            {{ nav.txt }}
+            <div class="horizontal_line_hover"></div>
+          </a>
       </li>
     </ul>
     <div class="dropdown">
@@ -41,7 +43,8 @@
               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
             />
           </svg>
-          <svg v-else
+          <svg
+            v-else
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -61,7 +64,7 @@
         id="drop"
       >
         <li
-          v-for="nav in navigationData"
+          v-for="nav in naviPanel(offert)"
           :key="nav.value"
           :id="nav.idEl"
           class=""
@@ -88,10 +91,13 @@ export default {
       navigationData: this.naviPanel(),
       dropMenu: false,
       intrval: null,
+      offert: [],
     };
   },
   created() {
+    this.getOffert();
     this.eventScrollClick();
+    
   },
   methods: {
     drawHorizontalLine(index, classEl) {
@@ -130,7 +136,7 @@ export default {
         : false;
     },
 
-    naviPanel() {
+    naviPanel(offerts=[]) {
       let listNavi = [
         "головна",
         "афіша",
@@ -140,6 +146,8 @@ export default {
         "контакти",
         "партнери",
         "профіль",
+        "оферта",
+        "договір",
       ];
       let listNaviLinks = [
         "#/main",
@@ -151,8 +159,9 @@ export default {
         "#/our_partners",
         "#/my_profile",
       ];
+      
       let dataListNavi = [];
-      for (let x = 0; x < listNavi.length; x++) {
+      for (let x = 0; x < listNavi.length - 2; x++) {
         dataListNavi.push({
           value: x,
           txt: listNavi[x],
@@ -160,7 +169,25 @@ export default {
           linkTo: listNaviLinks[x],
         });
       }
+      for (let y = 0; y < offerts.length; y++) {
+        dataListNavi.push({
+          value: y+listNaviLinks.length,
+          txt: listNavi[y+listNaviLinks.length],
+          idEl: "naviLink" + String(y+listNaviLinks.length),
+          linkTo: offerts[y].file_offer,
+        });
+      }
       return dataListNavi;
+    },
+
+    async getOffert() {
+      // Фільтр по місяцям
+      this.offert = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
+        .then((response) => response.json())
+
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     eventScrollClick() {
@@ -245,6 +272,4 @@ export default {
 .dropdown-content a:hover {
   background-color: #ffffff;
 }
-
-
 </style>
