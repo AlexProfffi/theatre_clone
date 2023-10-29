@@ -12,21 +12,36 @@
             class="pad_1em padding_faces"
           >
             <div class="c_pointer">
-              <img
-                :src="playw.image"
-                :alt="playw.name"
-                :title="
-                  concat(
-                    playw.to_playwriter.first_name,
-                    playw.to_playwriter.last_name
-                  )
-                "
-                class="size_pictures size_pictures_low_1000"
-                :class="{
-                  size_pictures: playw.id % 2 == 0,
-                  size_pictures_2: playw.id % 2 != 0,
+              <router-link
+                :to="{
+                  name: 'playwriter',
+                  params: {
+                    id: playw.to_playwriter.id,
+                    name: transcription(
+                      concat(
+                        playw.to_playwriter.first_name,
+                        playw.to_playwriter.last_name
+                      )
+                    ),
+                  },
                 }"
-              />
+              >
+                <img
+                  :src="playw.image"
+                  :alt="playw.name"
+                  :title="
+                    concat(
+                      playw.to_playwriter.first_name,
+                      playw.to_playwriter.last_name
+                    )
+                  "
+                  class="size_pictures size_pictures_low_1000"
+                  :class="{
+                    size_pictures: playw.id % 2 == 0,
+                    size_pictures_2: playw.id % 2 != 0,
+                  }"
+                />
+              </router-link>
             </div>
           </div>
         </div>
@@ -37,21 +52,36 @@
             class="pad_1em padding_faces"
           >
             <div class="c_pointer">
-              <img
-                :src="playw.image"
-                :alt="playw.name"
-                :title="
-                  concat(
-                    playw.to_playwriter.first_name,
-                    playw.to_playwriter.last_name
-                  )
-                "
-                class="size_pictures size_pictures_low_1000"
-                :class="{
-                  size_pictures: playw.id % 2 == 0,
-                  size_pictures_2: playw.id % 2 != 0,
+              <router-link
+                :to="{
+                  name: 'playwriter',
+                  params: {
+                    id: playw.to_playwriter.id,
+                    name: transcription(
+                      concat(
+                        playw.to_playwriter.first_name,
+                        playw.to_playwriter.last_name
+                      )
+                    ),
+                  },
                 }"
-              />
+              >
+                <img
+                  :src="playw.image"
+                  :alt="playw.name"
+                  :title="
+                    concat(
+                      playw.to_playwriter.first_name,
+                      playw.to_playwriter.last_name
+                    )
+                  "
+                  class="size_pictures size_pictures_low_1000"
+                  :class="{
+                    size_pictures: playw.id % 2 == 0,
+                    size_pictures_2: playw.id % 2 != 0,
+                  }"
+                />
+              </router-link>
             </div>
           </div>
         </div>
@@ -448,6 +478,7 @@ export default {
       }
       //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
     },
+    
   },
   computed: {
     firstTwoRowsPlw() {

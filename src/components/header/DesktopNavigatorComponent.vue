@@ -13,7 +13,7 @@
         <div v-if="nav.txt != 'оферта' && nav.txt != 'договір'">
           <a
             :href="nav.linkTo"
-            @click="deleteDataFromFilter()"
+            @click="deleteDataFromFilter(nav.linkTo)"
             @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
             @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
             class="upper_case none_text_decor nav_link_color navigation_sites"
@@ -28,7 +28,7 @@
         </div>
         <div v-else>
           <a
-            @click="openLinkNewWindow(nav.linkTo)"
+            @click="openLinkNewWindow(nav.linkTo, true)"
             @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
             @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
             class="upper_case none_text_decor nav_link_color navigation_sites c_pointer"
@@ -89,7 +89,7 @@
           <div v-if="nav.txt != 'оферта' && nav.txt != 'договір'">
             <a
               :href="nav.linkTo"
-              @click="deleteDataFromFilter()"
+              @click="deleteDataFromFilter(nav.linkTo)"
               @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
               @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
               class="upper_case none_text_decor nav_link_color navigation_sites"
@@ -104,7 +104,7 @@
           </div>
           <div v-else>
             <a
-              @click="openLinkNewWindow(nav.linkTo)"
+              @click="openLinkNewWindow(nav.linkTo, true)"
               @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
               @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
               class="upper_case none_text_decor nav_link_color navigation_sites c_pointer"
@@ -161,10 +161,10 @@ export default {
       navEl[index].firstElementChild.style.width = 0;
     },
 
-    deleteDataFromFilter(lnk = "") {
+    deleteDataFromFilter(lnk = "", newWindow = false) {
       // Видаляє зі сховища дату для фільтрів
       // Скидує фільтри по місяцям
-      if (!lnk) {
+      if (!newWindow) {
         localStorage.removeItem("dataYM");
       } else {
         localStorage.removeItem("dataYM");
@@ -196,13 +196,13 @@ export default {
       ];
       let listNaviLinks = [
         "/",
-        "#/plays",
-        "#/news",
-        "#/about",
+        "/plays",
+        "/news",
+        "/about",
         // "#/archive",
-        "#/contacts",
-        "#/our_partners",
-        "#/my_profile",
+        "/contacts",
+        "/our_partners",
+        "/my_profile",
       ];
 
       let dataListNavi = [];

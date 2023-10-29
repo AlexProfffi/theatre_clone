@@ -10,7 +10,7 @@
         :id="navMonth.idEl"
         class="pad_both_7"
       >
-        <a href="/" @click="filterToMonth(navMonth)"  class="upper_case none_text_decor nav_link_color c_pointer">
+        <a href="/plays" @click="filterToMonth(navMonth)"  class="upper_case none_text_decor nav_link_color c_pointer">
           {{ navMonth.text }}
         </a>
       </li>
@@ -37,6 +37,8 @@ export default {
       let year = new Date
       let dataFilter = {year: year.getFullYear(), chooseMonth: month.value}
       localStorage.setItem("dataYM", JSON.stringify(dataFilter))
+      // this.$router.push({name: "plays"})
+      // window.location.reload()
     },
     monthData() {
       // Створює дані число: місяць
