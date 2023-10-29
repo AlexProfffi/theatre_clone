@@ -10,20 +10,28 @@
           <div id="image_playwriter" class="d_flex_row j_content_center w_50">
             <div class="w_100 m_auto">
               <img
-              class="playwriter_photo"
+                class="playwriter_photo"
                 v-if="playwriter.photo"
                 :src="repalcer(playwriter.photo, '')"
                 :alt="playwriter.last_name"
               />
-              <img class="playwriter_photo" v-else :src="defaultPhoto" :alt="playwriter.last_name" />
+              <img
+                class="playwriter_photo"
+                v-else
+                :src="defaultPhoto"
+                :alt="playwriter.last_name"
+              />
             </div>
           </div>
-          <div id="all_bio" class="d_flex_column w_50 f_source_sans color_black t_left p_l_2">
+          <div
+            id="all_bio"
+            class="d_flex_column w_50 f_source_sans color_black t_left p_l_2"
+          >
             <div class="f_size_48 upper_case nowrap_space">
               {{ playwriter.first_name }} {{ playwriter.last_name }}
             </div>
             <div
-              class="upper_case f_size_40 f_weight_bold"
+              class="upper_case f_size_40 f_weight_bold pad_b1em"
               v-for="rol in playwriter.role"
               :key="playwriter.role.indexOf(rol)"
             >
@@ -102,14 +110,20 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.getPlayWriter().then(() => {
-      this.showContent();
-    }).then(() => {this.setTitle()});
+    this.getPlayWriter()
+      .then(() => {
+        this.showContent();
+      })
+      .then(() => {
+        this.setTitle();
+      });
   },
   methods: {
     async setTitle() {
       // Встановлює назву сторінки
-      document.querySelector("title").innerHTML = `${this.playwriter.first_name} ${this.playwriter.last_name}`;
+      document.querySelector(
+        "title"
+      ).innerHTML = `${this.playwriter.first_name} ${this.playwriter.last_name}`;
     },
     async showContent() {
       // Показує контент методом підвищення opacity
@@ -159,11 +173,13 @@ export default {
     text-align: justify;
     font-size: 14px;
     padding-left: 0;
+    padding-bottom: 1em;
   }
   #image_playwriter {
     width: max-content;
   }
-  #checked_texts, #projects {
+  #checked_texts,
+  #projects {
     width: 100%;
     font-size: 14px;
   }
@@ -179,6 +195,11 @@ export default {
   .f_size_48 {
     font-size: 2em;
   }
+}
+
+p > a {
+  color: black;
+  text-decoration: underline !important;
 }
 </style>
       

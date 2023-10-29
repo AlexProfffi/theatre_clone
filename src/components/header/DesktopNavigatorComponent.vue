@@ -10,7 +10,6 @@
         :id="nav.idEl"
         class=""
       >
-        <div v-if="nav.txt != 'оферта' && nav.txt != 'договір'">
           <a
             :href="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
@@ -25,22 +24,7 @@
             {{ nav.txt }}
             <div class="horizontal_line_hover"></div>
           </a>
-        </div>
-        <div v-else>
-          <a
-            @click="openLinkNewWindow(nav.linkTo, true)"
-            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-            class="upper_case none_text_decor nav_link_color navigation_sites c_pointer"
-            style="display: block"
-            :class="{
-              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
-            }"
-          >
-            {{ nav.txt }}
-            <div class="horizontal_line_hover"></div>
-          </a>
-        </div>
+        
       </li>
     </ul>
     <div class="dropdown">
@@ -86,7 +70,6 @@
           :id="nav.idEl"
           class=""
         >
-          <div v-if="nav.txt != 'оферта' && nav.txt != 'договір'">
             <a
               :href="nav.linkTo"
               @click="deleteDataFromFilter(nav.linkTo)"
@@ -101,22 +84,7 @@
               {{ nav.txt }}
               <div class="horizontal_line_hover"></div>
             </a>
-          </div>
-          <div v-else>
-            <a
-              @click="openLinkNewWindow(nav.linkTo, true)"
-              @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-              @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-              class="upper_case none_text_decor nav_link_color navigation_sites c_pointer"
-              style="display: block"
-              :class="{
-                'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
-              }"
-            >
-              {{ nav.txt }}
-              <div class="horizontal_line_hover"></div>
-            </a>
-          </div>
+          
         </li>
       </ul>
     </div>
@@ -136,7 +104,7 @@ export default {
     };
   },
   created() {
-    this.getOffert().then(() => this.naviPanel(this.offert));
+    this.naviPanel();
     this.eventScrollClick();
   },
   methods: {
@@ -181,7 +149,7 @@ export default {
         : false;
     },
 
-    async naviPanel(offerts = []) {
+    async naviPanel() {
       let listNavi = [
         "головна",
         "афіша",
@@ -191,7 +159,6 @@ export default {
         "контакти",
         "партнери",
         "профіль",
-        "оферта",
         "договір",
       ];
       let listNaviLinks = [
@@ -203,10 +170,11 @@ export default {
         "/contacts",
         "/our_partners",
         "/my_profile",
+        "/offer",
       ];
 
       let dataListNavi = [];
-      for (let x = 0; x < listNavi.length - 2; x++) {
+      for (let x = 0; x < listNavi.length; x++) {
         dataListNavi.push({
           value: x,
           txt: listNavi[x],
@@ -214,26 +182,9 @@ export default {
           linkTo: listNaviLinks[x],
         });
       }
-      for (let y = 0; y < offerts.length; y++) {
-        dataListNavi.push({
-          value: y + listNaviLinks.length,
-          txt: listNavi[y + listNaviLinks.length],
-          idEl: "naviLink" + String(y + listNaviLinks.length),
-          linkTo: offerts[y].file_offer,
-        });
-      }
       this.navigationData = dataListNavi;
     },
 
-    async getOffert() {
-      // Фільтр по місяцям
-      this.offert = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
-        .then((response) => response.json())
-
-        .catch((error) => {
-          console.log(error);
-        });
-    },
 
     eventScrollClick() {
       // Прибирає drop menu при прокрутці

@@ -533,6 +533,14 @@ html {
     text-decoration: none;
 }
 
+.hover_underline:hover {
+    text-decoration: underline;
+}
+
+.offerts:hover {
+    color: green;
+}
+
 .t_left {
     text-align: left;
 }

@@ -415,9 +415,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.offerts:hover {
-  color: green;
-}
+
 
 .navigate_ul {
   list-style: none;
