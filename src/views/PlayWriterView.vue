@@ -12,13 +12,13 @@
               <img
               class="playwriter_photo"
                 v-if="playwriter.photo"
-                :src="playwriter.photo"
+                :src="repalcer(playwriter.photo, '')"
                 :alt="playwriter.last_name"
               />
               <img class="playwriter_photo" v-else :src="defaultPhoto" :alt="playwriter.last_name" />
             </div>
           </div>
-          <div id="all_bio" class="d_flex_column w_50 f_source_sans color_black t_left">
+          <div id="all_bio" class="d_flex_column w_50 f_source_sans color_black t_left p_l_2">
             <div class="f_size_48 upper_case nowrap_space">
               {{ playwriter.first_name }} {{ playwriter.last_name }}
             </div>
@@ -32,7 +32,7 @@
               </span>
             </div>
             <div v-if="playwriter.about">
-              {{ playwriter.about }}
+              <div v-html="playwriter.about"></div>
             </div>
             <div v-else>
               {{ defaultText }}
@@ -104,9 +104,13 @@ export default {
   created() {
     this.getPlayWriter().then(() => {
       this.showContent();
-    });
+    }).then(() => {this.setTitle()});
   },
   methods: {
+    async setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = `${this.playwriter.first_name} ${this.playwriter.last_name}`;
+    },
     async showContent() {
       // Показує контент методом підвищення opacity
       let cnt = 0;
@@ -127,6 +131,16 @@ export default {
         .then((response) => response.json())
         .catch((error) => console.log(error));
     },
+    repalcer(str, changeble) {
+      // Замінює підстроку
+      if (changeble) {
+        return (
+          "https://theatreofplaywrightsapi.space:8443" +
+          str.replace(changeble, "")
+        );
+      }
+      return "https://theatreofplaywrightsapi.space:8443" + str;
+    },
   },
 };
 </script>
@@ -144,6 +158,7 @@ export default {
     width: 100%;
     text-align: justify;
     font-size: 14px;
+    padding-left: 0;
   }
   #image_playwriter {
     width: max-content;

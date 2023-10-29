@@ -516,9 +516,11 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 1500px) {
-  #plays_main_list,
-  #idea_main_list {
+  #plays_main_list {
     grid-template-columns: repeat(2, 1fr);
+  }
+  #idea_main_list {
+    grid-template-columns: repeat(1, 1fr);
   }
   .line {
     display: block !important;
