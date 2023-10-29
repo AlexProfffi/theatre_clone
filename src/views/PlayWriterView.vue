@@ -177,7 +177,7 @@ export default {
     margin: auto;
   }
   .f_size_48 {
-    font-size: 3em;
+    font-size: 2em;
   }
 }
 </style>
