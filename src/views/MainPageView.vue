@@ -160,7 +160,7 @@
                     {{ play.name }}
                   </div>
                   <div class="d_flex_row j_content_start f_source_sans">
-                    <div class="pl_main nowrap_space">
+                    <div v-if="play.dramaturg.length > 0" class="pl_main nowrap_space">
                       {{ play.dramaturg[0].first_name }}
                       {{ play.dramaturg[0].last_name }}
                     </div>
