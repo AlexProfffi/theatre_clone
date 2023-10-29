@@ -1,7 +1,7 @@
 import {
     createRouter,
     // createWebHashHistory, 
-    createWebHistory
+    createWebHistory,
 } from "vue-router";
 // import VueRouter from 'vue-router';
 import PlaysView from "../views/PlaysView.vue";

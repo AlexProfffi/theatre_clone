@@ -261,6 +261,32 @@ export default {
 };
 </script>
 <style scoped>
+@media screen and (max-width: 1700px) {
+  #non_drop {
+    padding: 0 12em;
+  }
+}
+@media screen and (max-width: 1500px) {
+  #non_drop {
+    padding: 0 12em;
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  #non_drop {
+    padding: 0 9em;
+  }
+}
+@media screen and (max-width: 1300px) {
+  #non_drop {
+    padding: 0 6em;
+  }
+}
+@media screen and (max-width: 1100px) {
+  #non_drop {
+    padding: 0 3em;
+  }
+}
 @media screen and (max-width: 1000px) {
   #non_drop {
     display: none;
