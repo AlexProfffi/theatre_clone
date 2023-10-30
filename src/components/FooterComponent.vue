@@ -1,29 +1,39 @@
 <template>
-  <div
-    v-if="!isMobile"
-    id="wrap_footer"
-    class="footer_desktop d_flex_row j_content_space_evently footer_bg height_443"
-  >
+  <div class="d_flex_column">
     <div
-      v-for="contact in contacts"
-      :key="contact.id"
-      class="d_flex_row j_content_space_around flex_grow_2 font_footer_color wrap_contact_block pad_top_1000"
+      v-if="!isMobile"
+      id="wrap_footer"
+      class="footer_desktop d_flex_row j_content_space_evently footer_bg height_443"
     >
-      <div class="flex_grow_1 d_flex_row j_content_space_around">
-        <DesktopPictureWriters :picture="contact.photo_our_playwriters" />
+      <div
+        v-for="contact in contacts"
+        :key="contact.id"
+        class="d_flex_row j_content_space_around flex_grow_2 font_footer_color wrap_contact_block pad_top_1000"
+      >
+        <div class="flex_grow_1 d_flex_row j_content_space_around">
+          <DesktopPictureWriters :picture="contact.photo_our_playwriters" />
+        </div>
+        <div class="flex_grow_2 d_flex_row contact_address">
+          <DesktopAddrComponent
+            :addr="contact.address"
+            :phone="contact.phone"
+            :email="contact.e_mail"
+          />
+        </div>
       </div>
-      <div class="flex_grow_2 d_flex_row contact_address">
-        <DesktopAddrComponent
-          :addr="contact.address"
-          :phone="contact.phone"
-          :email="contact.e_mail"
-        />
+      <div class="d_flex_column j_content_center flex_grow_1" id="socials">
+        <div v-for="soc in social" :key="soc.id" class="w_50">
+          <DesktopSocialComponent
+            :socLink="soc.link"
+            :socName="soc.name"
+            :color="false"
+            :left="false"
+          />
+        </div>
       </div>
     </div>
-    <div class="d_flex_column j_content_center flex_grow_1" id="socials">
-      <div v-for="soc in social" :key="soc.id" class="w_50">
-        <DesktopSocialComponent :socLink="soc.link" :socName="soc.name" :color="false" :left="false" />
-      </div>
+    <div class="footer_bg pad_1em">
+      <OffertsComponent />
     </div>
   </div>
 </template>
@@ -32,12 +42,15 @@ import DesktopAddrComponent from "@/components/footer/DesktopAddrComponent.vue";
 import DesktopPictureWriters from "@/components/footer/DesktopPictureWriters.vue";
 import DesktopSocialComponent from "@/components/footer/DesktopSocialComponent.vue";
 
+import OffertsComponent from "@/components/offerts/OffertsComponent.vue";
+
 export default {
   name: "FooterComponent",
   components: {
     DesktopAddrComponent,
     DesktopPictureWriters,
     DesktopSocialComponent,
+    OffertsComponent,
   },
   data() {
     return {
@@ -69,13 +82,12 @@ export default {
 };
 </script>
 <style scoped>
-
 @media screen and (max-width: 1000px) {
   #wrap_footer {
     flex-direction: column;
     height: 650px;
   }
- 
+
   .wrap_contact_block {
     flex-direction: column;
     justify-content: center;
@@ -98,5 +110,4 @@ export default {
 .height_443 {
   height: 443px;
 }
-
 </style>

@@ -159,7 +159,6 @@ export default {
         "контакти",
         "партнери",
         "профіль",
-        "договір",
       ];
       let listNaviLinks = [
         "/",
@@ -170,7 +169,6 @@ export default {
         "/contacts",
         "/our_partners",
         "/my_profile",
-        "/offer",
       ];
 
       let dataListNavi = [];

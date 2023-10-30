@@ -40,7 +40,10 @@
             :linkPay="linkPay"
           />
         </div>
-        <div id="offerContract" class="d_flex_row j_content_start margin_both_2">
+        <div
+          id="offerContract"
+          class="d_flex_row j_content_start margin_both_2"
+        >
           <div class="t_left">Купуючи квиток Ви погоджуєтесь з</div>
           <div v-if="offert.length == 1">
             <div v-for="offs in offert" :key="offs.id">
@@ -70,16 +73,15 @@
             </div>
           </div>
           <div v-else-if="offert.length > 1" class="d_flex_row offert_site">
-            
             <div v-for="offs in offert" :key="offs.id" class="">
-              <div class="p_l_0_3 ">
+              <div class="p_l_0_3">
                 <span
                   @click="pay(offs.file_offer)"
                   class="nav_link_color c_pointer offerts nowrap_space"
                 >
-                «{{ offs.name }}» 
+                  «{{ offs.name }}»
                 </span>
-                <span v-if="offert.indexOf(offs) < offert.length-1">та</span>
+                <span v-if="offert.indexOf(offs) < offert.length - 1">та</span>
               </div>
             </div>
           </div>
@@ -160,7 +162,6 @@
           </div>
           <div class="d_flex_row"></div>
         </div>
-        
       </div>
 
       <div>
@@ -244,7 +245,7 @@ export default {
         `${this.$store.getters.getServerUrl}/playss_all/${this.id}/`
       )
         .then((response) => response.json())
-        .catch((error) => {
+        .catch((error,) => {
           console.log(error);
         });
     },
@@ -253,10 +254,14 @@ export default {
       this.playOneDate = await fetch(
         `${this.$store.getters.getServerUrl}/date_one_plays/${this.date_id}/`
       )
-        .then((response) => response.json())
-        .catch((error) => {
-          console.log(error);
-        });
+        .then((response) => {
+          if (response.status == 200) {
+            return response.json();
+          } else {
+            console.log(response.status)
+          }
+        })
+        
     },
 
     async getLinkPay() {
@@ -265,7 +270,7 @@ export default {
         `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
       )
         .then((response) => response.json())
-        .catch(function (error) {
+        .catch((error,) => {
           console.log(error);
         });
     },
@@ -415,7 +420,6 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
 
 .navigate_ul {
   list-style: none;
