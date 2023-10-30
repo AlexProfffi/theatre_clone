@@ -3,65 +3,18 @@
     <div>
       <HeaderComponent />
     </div>
-    <div v-if="offert.length > 1" class="d_flex_row j_content_space_around">
+    <div class="d_flex_row j_content_space_around d_flex_column_low_1100">
       <div
-        class="d_flex_column j_content_space_around"
+        class="d_flex_row w_100 ptb_5em"
         v-for="offs in offert"
         :key="offs.id"
       >
-        <div class="t_left">
-          <h3>{{ offs.name }}</h3>
-          <div>
-            <span
-              class="c_pointer hover_underline offerts"
-              @click="openLinkInNewWindow(offs.file_offer)"
-              >Переглянути</span
-            >
+        <div class="wrapper_offerta">
+          <div class="f_size_40 f_weight_bold font_low_1100">
+            {{ offs.name }}
           </div>
-        </div>
-      </div>
-    </div>
-    <div
-      v-else-if="offert.length == 1"
-      class="d_flex_row j_content_space_around"
-    >
-      <div class="d_flex_column j_content_space_around">
-        <div class="t_left">
-          <h3>{{ offert.name }}</h3>
-          <div>
-            <span
-              v-if="offert.file_offer"
-              class="c_pointer hover_underline offerts"
-              @click="openLinkInNewWindow(offert.file_offer)"
-              >Переглянути</span
-            >
-          </div>
-        </div>
-      </div>
-      <div class="d_flex_column j_content_space_around">
-        <div class="t_left">
-          <h3>{{ offert.name }}</h3>
-          <div>
-            <span
-              v-if="offert.file_contract"
-              class="c_pointer hover_underline offerts"
-              @click="openLinkInNewWindow(offert.file_contract)"
-              >Переглянути</span
-            >
-          </div>
-        </div>
-      </div>
-      <div class="d_flex_column j_content_space_around">
-        <div class="t_left">
-          <h3>{{ offert.name }}</h3>
-          <div>
-            <span
-              v-if="offert.file_lawyer"
-              class="c_pointer hover_underline offerts"
-              @click="openLinkInNewWindow(offert.file_lawyer)"
-              >Переглянути</span
-            >
-          </div>
+          <div class="w_100 horizontal_line"></div>
+          <div class="t_justify little_pad font_1" v-html="offs.text"></div>
         </div>
       </div>
     </div>
@@ -86,7 +39,7 @@ export default {
     return {
       isMobile: false,
       offert: [],
-      contract: null,
+      showOffertOrNo: true,
     };
   },
   created() {
@@ -100,23 +53,35 @@ export default {
     },
     async getOffert() {
       // Фільтр по місяцям
-      this.offert = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
+      this.offert = await fetch(
+        `${this.$store.getters.getServerUrl}/offerta_new/`
+      )
         .then((response) => response.json())
 
         .catch((error) => {
           console.log(error);
         });
     },
-    openLinkInNewWindow(lnk) {
-      window.open(lnk, "_blank").focus();
-    },
   },
 };
 </script>
-    <style scoped>
+<style scoped>
+@media screen and (max-width: 1100px) {
+  .d_flex_column_low_1100 {
+    flex-direction: column !important;
+  }
+  .font_low_1100 {
+    font-size: 1.5em !important;
+  }
+}
 .home_play {
   display: flex;
   flex-direction: column;
+}
+.wrapper_offerta {
+  width: 100%;
+  height: 800px;
+  overflow-y: scroll;
 }
 </style>
     
