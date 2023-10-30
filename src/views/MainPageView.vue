@@ -160,7 +160,10 @@
                     {{ play.name }}
                   </div>
                   <div class="d_flex_row j_content_start f_source_sans">
-                    <div v-if="play.dramaturg.length > 0" class="pl_main nowrap_space">
+                    <div
+                      v-if="play.dramaturg.length > 0"
+                      class="pl_main nowrap_space"
+                    >
                       {{ play.dramaturg[0].first_name }}
                       {{ play.dramaturg[0].last_name }}
                     </div>
@@ -478,7 +481,6 @@ export default {
       }
       //"Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
     },
-    
   },
   computed: {
     firstTwoRowsPlw() {
@@ -656,8 +658,12 @@ export default {
   outline: none;
   color: black;
 }
+
+.sibscribe_button {
+  transition: all .2s ease-out;
+}
 .sibscribe_button:hover {
-  font-weight: 600;
+  transform: scale(1.1);
 }
 .unpack_ideas {
   display: none;

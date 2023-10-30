@@ -1,5 +1,6 @@
 <template>
   <div id="wrapper_nav" v-if="!isMobile" class="d_flex_row j_content_center">
+    
     <ul
       class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
       id="non_drop"
@@ -10,21 +11,20 @@
         :id="nav.idEl"
         class=""
       >
-          <a
-            :href="nav.linkTo"
-            @click="deleteDataFromFilter(nav.linkTo)"
-            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-            class="upper_case none_text_decor nav_link_color navigation_sites"
-            style="display: block"
-            :class="{
-              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
-            }"
-          >
-            {{ nav.txt }}
-            <div class="horizontal_line_hover"></div>
-          </a>
-        
+        <a
+          :href="nav.linkTo"
+          @click="deleteDataFromFilter(nav.linkTo)"
+          @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+          @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+          class="upper_case none_text_decor nav_link_color navigation_sites"
+          style="display: block"
+          :class="{
+            'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+          }"
+        >
+          {{ nav.txt }}
+          <div class="horizontal_line_hover"></div>
+        </a>
       </li>
     </ul>
     <div class="dropdown">
@@ -70,21 +70,20 @@
           :id="nav.idEl"
           class=""
         >
-            <a
-              :href="nav.linkTo"
-              @click="deleteDataFromFilter(nav.linkTo)"
-              @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-              @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-              class="upper_case none_text_decor nav_link_color navigation_sites"
-              style="display: block"
-              :class="{
-                'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
-              }"
-            >
-              {{ nav.txt }}
-              <div class="horizontal_line_hover"></div>
-            </a>
-          
+          <a
+            :href="nav.linkTo"
+            @click="deleteDataFromFilter(nav.linkTo)"
+            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+            class="upper_case none_text_decor nav_link_color navigation_sites"
+            style="display: block"
+            :class="{
+              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+            }"
+          >
+            {{ nav.txt }}
+            <div class="horizontal_line_hover"></div>
+          </a>
         </li>
       </ul>
     </div>
@@ -159,6 +158,7 @@ export default {
         "контакти",
         "партнери",
         "профіль",
+        // ["Автори", "Режисери", "Актори", "Команда"],
       ];
       let listNaviLinks = [
         "/",
@@ -169,20 +169,29 @@ export default {
         "/contacts",
         "/our_partners",
         "/my_profile",
+        // ["/authors", "/directors", "/actors", "/team"],
       ];
 
       let dataListNavi = [];
       for (let x = 0; x < listNavi.length; x++) {
-        dataListNavi.push({
-          value: x,
-          txt: listNavi[x],
-          idEl: "naviLink" + String(x),
-          linkTo: listNaviLinks[x],
-        });
+        if (typeof listNavi[x] == "string") {
+          dataListNavi.push({
+            value: x,
+            txt: listNavi[x],
+            idEl: "naviLink" + String(x),
+            linkTo: listNaviLinks[x],
+          });
+        } else {
+          dataListNavi.push({
+            value: x,
+            txt: {text: "команда", underText: listNavi[x]},
+            idEl: "naviLink" + String(x),
+            linkTo: listNaviLinks[x],
+          });
+        }
       }
       this.navigationData = dataListNavi;
     },
-
 
     eventScrollClick() {
       // Прибирає drop menu при прокрутці

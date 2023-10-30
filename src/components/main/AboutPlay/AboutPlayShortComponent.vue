@@ -42,14 +42,14 @@
               class="d_flex_row_reverse w_max_content c_pointer f_size_25"
               @click="instanceNewCurrentDatePlay(on_pl, $event)"
             >
-              <h2
+              <div
                 v-for="dt in datePlayVisibility(on_pl.date_pl)"
                 :key="dt.value"
                 :id="dt.idEl"
                 class="f_oswald m_0"
               >
                 {{ dt.text }}
-              </h2>
+              </div>
             </div>
           </div>
         </div>

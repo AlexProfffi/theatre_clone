@@ -8,9 +8,12 @@
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
           <div id="image_playwriter" class="d_flex_row j_content_center w_50">
-            <div class="w_100 m_auto_both_1 d_flex_column j_content_start">
+            <div
+              class="w_100 m_auto_both_1 d_flex_column j_content_start wrap_image"
+            >
               <img
-                class="playwriter_photo"
+                id="imgDram"
+                class="playwriter_photo zoom_hover_img"
                 v-if="playwriter.photo"
                 :src="repalcer(playwriter.photo, '')"
                 :alt="playwriter.last_name"
@@ -146,6 +149,9 @@ export default {
         this.showContent();
       })
       .then(() => {
+        this.getSizeImages(this.playwriter.photo);
+      })
+      .then(() => {
         this.setTitle();
       });
   },
@@ -201,10 +207,21 @@ export default {
         this.maxCountSymbols = 1000;
       }
     },
-    showOpenerText(txt){
+    showOpenerText(txt) {
       // Перевіряє довжину текста
-      return String(txt).length > this.maxCountSymbols ? true : false
-    }
+      return String(txt).length > this.maxCountSymbols ? true : false;
+    },
+    async getSizeImages(imgSrc) {
+      console.log(imgSrc);
+      let im = new Image();
+      im.src = "https://theatreofplaywrightsapi.space:8443" + imgSrc;
+      console.log(im.height);
+      if (im.height > 499) {
+        document.querySelector("#imgDram").style.height = "600px";
+      } else if (im.height == 0 && imgSrc) {
+        document.querySelector("#imgDram").style.height = "600px";
+      }
+    },
   },
 };
 </script>
@@ -237,6 +254,14 @@ export default {
     justify-content: start !important;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  #imgDram {
+    position: static;
+    transition: none;
+    transform: none;
+  }
+}
 @media screen and (max-width: 700px) {
   img.playwriter_photo {
     width: 90vw;
@@ -250,6 +275,22 @@ export default {
 p > a {
   color: black;
   text-decoration: underline !important;
+}
+.wrap_image {
+  max-height: max-content;
+  max-width: 700px;
+}
+
+img.playwriter_photo {
+  position: relative;
+  object-fit: contain;
+}
+.zoom_hover_img {
+  transition: all 0.5s ease-out;
+}
+.zoom_hover_img:hover {
+  transform: scale(1.5);
+  left: 8em;
 }
 </style>
       
