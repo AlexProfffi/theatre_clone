@@ -21,4 +21,11 @@ let monthData = function() {
     return dataMonth;
 };
 
-export { monthData };
+let sliceString = function(str, n_symbols) {
+    // Обрізає строку
+    return String(str).length > n_symbols ?
+        String(str).slice(0, Number(n_symbols)) + "..." :
+        str;
+};
+
+export { monthData, sliceString };

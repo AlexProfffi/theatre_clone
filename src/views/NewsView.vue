@@ -47,7 +47,7 @@
             <div
               class="f_source_sans padding_tb_2em w_max"
               :class="{
-                c_pointer: new_one.description.length  > maxCountSymbols,
+                c_pointer: new_one.description.length > maxCountSymbols,
               }"
               @click="showLargeTextNews(new_one.description.length)"
               v-html="sliceString(new_one.description, maxCountSymbols)"

@@ -8,7 +8,7 @@
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
           <div id="image_playwriter" class="d_flex_row j_content_center w_50">
-            <div class="w_100 m_auto">
+            <div class="w_100 m_auto_both_1 d_flex_column j_content_start">
               <img
                 class="playwriter_photo"
                 v-if="playwriter.photo"
@@ -40,7 +40,34 @@
               </span>
             </div>
             <div v-if="playwriter.about">
-              <div v-html="playwriter.about"></div>
+              <div>
+                <span
+                  class="c_pointer f_weight_bold font_1 hover_underline"
+                  v-if="isShowLargeContent"
+                  @click="showLargeTextNews(playwriter.about.length)"
+                >
+                  {{ hideAbout }}
+                </span>
+              </div>
+              <div
+                v-html="sliceString(playwriter.about, maxCountSymbols)"
+              ></div>
+              <div v-if="showOpenerText(playwriter.about)">
+                <span
+                  class="c_pointer f_weight_bold font_1 hover_underline"
+                  v-if="!isShowLargeContent"
+                  @click="showLargeTextNews(playwriter.about.length)"
+                >
+                  {{ showAbout }}
+                </span>
+                <span
+                  class="c_pointer f_weight_bold font_1 hover_underline"
+                  v-else
+                  @click="showLargeTextNews(playwriter.about.length)"
+                >
+                  {{ hideAbout }}
+                </span>
+              </div>
             </div>
             <div v-else>
               {{ defaultText }}
@@ -102,10 +129,14 @@ export default {
   },
   data() {
     return {
+      showAbout: "Розгорнути весь текст",
+      hideAbout: "Сховати",
       playwriter: {},
       defaultPhoto:
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
       defaultText: "Ось, скоро вже з'явиться...",
+      maxCountSymbols: 1000,
+      isShowLargeContent: false,
     };
   },
   beforeCreate() {},
@@ -155,6 +186,25 @@ export default {
       }
       return "https://theatreofplaywrightsapi.space:8443" + str;
     },
+    sliceString(str, n_symbols) {
+      // Обрізає строку
+      return String(str).length > n_symbols
+        ? String(str).slice(0, Number(n_symbols)) + "..."
+        : str;
+    },
+    showLargeTextNews(lengthDescription) {
+      // Показує весь текст
+      this.isShowLargeContent = !this.isShowLargeContent;
+      if (this.isShowLargeContent) {
+        this.maxCountSymbols = Number(lengthDescription) - 1;
+      } else {
+        this.maxCountSymbols = 1000;
+      }
+    },
+    showOpenerText(txt){
+      // Перевіряє довжину текста
+      return String(txt).length > this.maxCountSymbols ? true : false
+    }
   },
 };
 </script>
