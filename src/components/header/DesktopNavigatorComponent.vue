@@ -100,6 +100,17 @@ export default {
       dropMenu: false,
       intrval: null,
       offert: [],
+      listNavi: [
+        "головна",
+        "афіша",
+        "новини",
+        "про театр",
+        // "архів",
+        "контакти",
+        "партнери",
+        "профіль",
+        // "команда",
+      ],
     };
   },
   created() {
@@ -149,17 +160,7 @@ export default {
     },
 
     async naviPanel() {
-      let listNavi = [
-        "головна",
-        "афіша",
-        "новини",
-        "про театр",
-        // "архів",
-        "контакти",
-        "партнери",
-        "профіль",
-        // ["Автори", "Режисери", "Актори", "Команда"],
-      ];
+      
       let listNaviLinks = [
         "/",
         "/plays",
@@ -173,20 +174,22 @@ export default {
       ];
 
       let dataListNavi = [];
-      for (let x = 0; x < listNavi.length; x++) {
-        if (typeof listNavi[x] == "string") {
+      for (let x = 0; x < this.listNavi.length; x++) {
+        if (typeof listNaviLinks[x] == "string") {
           dataListNavi.push({
             value: x,
-            txt: listNavi[x],
+            txt: this.listNavi[x],
             idEl: "naviLink" + String(x),
             linkTo: listNaviLinks[x],
           });
         } else {
           dataListNavi.push({
             value: x,
-            txt: {text: "команда", underText: listNavi[x]},
+            txt: this.listNavi[x],
             idEl: "naviLink" + String(x),
-            linkTo: listNaviLinks[x],
+            linkTo: {
+              value: listNaviLinks[x].indexOf()
+            },
           });
         }
       }

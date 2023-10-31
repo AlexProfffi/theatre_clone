@@ -278,7 +278,7 @@ p > a {
 }
 .wrap_image {
   max-height: max-content;
-  max-width: 700px;
+  max-width: max-content;
 }
 
 img.playwriter_photo {
@@ -287,10 +287,13 @@ img.playwriter_photo {
 }
 .zoom_hover_img {
   transition: all 0.5s ease-out;
+  
+  box-shadow: 3px 3px 3px rgb(165, 165, 165);
 }
 .zoom_hover_img:hover {
   transform: scale(1.5);
   left: 8em;
+  box-shadow: 15px 10px 15px rgb(165, 165, 165);
 }
 </style>
       

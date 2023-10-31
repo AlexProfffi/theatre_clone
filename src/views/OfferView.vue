@@ -3,7 +3,13 @@
     <div>
       <HeaderComponent />
     </div>
+    <div class="d_flex_row_reverse j_content_space_around d_flex_column_low_1100">
+      <div class="d_flex_row j_content_start w_100 p_l_0_5 " v-for="pdf in offertPdf" :key="pdf.id">
+        <a class="nav_link_color" :href="pdf.file_offer"> Переглянути PDF </a>
+      </div>
+    </div>
     <div class="d_flex_row j_content_space_around d_flex_column_low_1100">
+      
       <div
         class="d_flex_row w_100 ptb_5em"
         v-for="offs in offert"
@@ -39,12 +45,16 @@ export default {
     return {
       isMobile: false,
       offert: [],
+      offertPdf: [],
       showOffertOrNo: true,
+      spiner:true,
     };
   },
   created() {
     this.setTitle();
-    this.getOffert();
+    this.getOffert().then(() => {
+      this.getOffertPdf().then(() => {this.spiner=false});
+    });
   },
   methods: {
     setTitle() {
@@ -56,6 +66,15 @@ export default {
       this.offert = await fetch(
         `${this.$store.getters.getServerUrl}/offerta_new/`
       )
+        .then((response) => response.json())
+
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async getOffertPdf() {
+      // Фільтр по місяцям
+      this.offertPdf = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
         .then((response) => response.json())
 
         .catch((error) => {
