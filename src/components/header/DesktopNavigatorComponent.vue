@@ -50,18 +50,12 @@
           >
             <ul class="pad_0 none_decor_ul_no_pad">
               <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
-                <router-link
-                  class="animate_drop nav_link_color"
-                  :to="{
-                    name: 'teams',
-                    params: {
-                      slug: team.linkTo,
-                    },
-                  }"
+                <span
+                  class="nav_link_color c_pointer"
+                  @click="goToTeamList(team.linkTo)"
                 >
                   {{ team.txt }}
-                </router-link>
-
+                </span>
                 <hr class="mar_top_bot" />
               </li>
             </ul>
@@ -113,10 +107,9 @@
           class=""
         >
           <a
+            v-if="nav.value < navigationData.length - 1"
             :href="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
-            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
             class="upper_case none_text_decor nav_link_color navigation_sites"
             style="display: block"
             :class="{
@@ -126,6 +119,38 @@
             {{ nav.txt }}
             <div class="horizontal_line_hover"></div>
           </a>
+          <div
+            v-else
+            class="d_flex_column upper_case none_text_decor"
+            style="display: block"
+            :class="{
+              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+            }"
+          >
+            <div
+              class="pad_b1em c_pointer navigation_sites"
+              @click="isTeam = !isTeam"
+            >
+              {{ nav.txt }}
+              <div class="horizontal_line_hover"></div>
+            </div>
+            <div
+              v-if="isTeam"
+              class="p_absolute left_25em z_20 font_1"
+            >
+              <ul class="pad_0 none_decor_ul_no_pad">
+                <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
+                  <span
+                    class="nav_link_color c_pointer"
+                    @click="goToTeamList(team.linkTo)"
+                  >
+                    {{ team.txt }}
+                  </span>
+                  <hr class="mar_top_bot" />
+                </li>
+              </ul>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -279,6 +304,18 @@ export default {
     },
     openLinkNewWindow(lnk) {
       window.open(lnk, "_blank").focus();
+    },
+    goToTeamList(lnk) {
+      this.$router
+        .push({
+          name: "teams",
+          params: {
+            slug: lnk,
+          },
+        })
+        .then(() => {
+          location.reload();
+        });
     },
   },
 };

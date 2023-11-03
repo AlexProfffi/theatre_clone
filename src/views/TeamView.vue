@@ -3,7 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
-    <div class="opacity_05 main_content">
+    <div class="padding_tb_2em">
       <ListTeamComponentVue :teamPart="slug" />
     </div>
     <div>
@@ -33,26 +33,28 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.showContent();
+    this.setTitle();
   },
   methods: {
     async setTitle() {
       // Встановлює назву сторінки
-      document.querySelector("title").innerHTML = ``;
+      switch(this.slug) {
+        case "/authors":
+        document.querySelector("title").innerHTML = "Автори";
+        break;
+        case "/actors":
+        document.querySelector("title").innerHTML = "Актори";
+        break;
+        case "/directors":
+        document.querySelector("title").innerHTML = "Режисери";
+        break;
+        default:
+        document.querySelector("title").innerHTML = "Основна команда";
+        break;
+      }
+      
     },
-    async showContent() {
-      // Показує контент методом підвищення opacity
-      let cnt = 0;
-
-      this.intrval = setInterval(() => {
-        document.querySelector(".main_content").style.opacity = String(cnt);
-        if (cnt >= 1) {
-          clearInterval(this.intrval);
-          return;
-        }
-        cnt += 0.1;
-      }, 50);
-    },
+    
   },
 };
 </script>

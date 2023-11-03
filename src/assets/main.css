@@ -47,6 +47,10 @@ html {
     top: -525px;
 }
 
+.left_25em {
+    left: 45vw;
+}
+
 .p_abs {
     position: absolute;
     z-index: 15;
@@ -781,4 +785,13 @@ html {
 
 .nowrap_space {
     white-space: nowrap;
+}
+
+.scale_hover {
+    transition: all 0.3s ease-out;
+}
+
+.scale_hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0px -5px 15px rgb(165, 165, 165);
 }

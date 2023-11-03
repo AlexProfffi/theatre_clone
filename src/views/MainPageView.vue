@@ -280,10 +280,11 @@ export default {
   },
   created() {
     this.getPlaywriters()
-      .then(() => this.showContent())
+
       .then(() => this.getIdea())
       .then(() => this.getPlaySMain())
-      .then(() => this.instanceNewWidth(this.lengthElNamePlay));
+      .then(() => this.instanceNewWidth(this.lengthElNamePlay))
+      .then(() => this.showContent());
     this.setTitle();
   },
   methods: {
@@ -677,7 +678,7 @@ export default {
 }
 
 .sibscribe_button {
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 .sibscribe_button:hover {
   transform: scale(1.1);
