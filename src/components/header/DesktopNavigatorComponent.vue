@@ -139,7 +139,7 @@
               class="p_absolute left_25em z_20 font_1"
             >
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
+                <li class="t_left padding_3px" v-for="team in nav.linkTo" :key="team.value">
                   <span
                     class="nav_link_color c_pointer"
                     @click="goToTeamList(team.linkTo)"

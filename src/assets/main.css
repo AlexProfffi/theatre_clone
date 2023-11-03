@@ -434,6 +434,10 @@ html {
     padding: 1px;
 }
 
+.padding_3px {
+    padding: 3px !important;
+}
+
 .padding_both_2em,
 .padding_4path {
     padding: 0 2em 0 2em;
