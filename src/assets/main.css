@@ -23,6 +23,10 @@ html {
     position: relative;
 }
 
+.p_absolute {
+    position: absolute;
+}
+
 .z_20 {
     z-index: 20;
 }
@@ -296,6 +300,10 @@ html {
 
 .mar_0_06_em {
     margin: 0 .6em;
+}
+
+.mar_06_em {
+    margin: .5em;
 }
 
 .mb_1rem {
@@ -686,6 +694,10 @@ html {
 
 
 /* BORDER */
+
+.b_radius_5 {
+    border-radius: 5px
+}
 
 .b_none {
     border: none;

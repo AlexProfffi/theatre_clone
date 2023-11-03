@@ -43,32 +43,38 @@
               </span>
             </div>
             <div v-if="playwriter.about">
-              <div>
-                <span
-                  class="c_pointer f_weight_bold font_1 hover_underline"
-                  v-if="isShowLargeContent"
-                  @click="showLargeTextNews(playwriter.about.length)"
-                >
-                  {{ hideAbout }}
-                </span>
-              </div>
+              
               <div
                 v-html="sliceString(playwriter.about, maxCountSymbols)"
               ></div>
               <div v-if="showOpenerText(playwriter.about)">
                 <span
-                  class="c_pointer f_weight_bold font_1 hover_underline"
+                  class="c_pointer f_weight_bold font_1 nav_link_color d_flex_row_reverse j_content_center"
                   v-if="!isShowLargeContent"
                   @click="showLargeTextNews(playwriter.about.length)"
                 >
-                  {{ showAbout }}
+                  <div
+                    v-for="arrow in showAbout"
+                    :key="arrow.value"
+                    :class="{'md_arrow': arrow.value == 1}"
+                  >
+                    <span v-html="arrow.htmlText"></span>
+                  </div>
                 </span>
                 <span
-                  class="c_pointer f_weight_bold font_1 hover_underline"
+                  class="c_pointer f_weight_bold font_1 nav_link_color d_flex_row j_content_center"
                   v-else
                   @click="showLargeTextNews(playwriter.about.length)"
                 >
-                  {{ hideAbout }}
+                  <div
+                    v-for="arrow in showAbout"
+                    :key="arrow.value"
+                    :class="{
+                      'md_arrow_close': arrow.value == 1
+                    }"
+                  >
+                    <span v-html="arrow.htmlText"></span>
+                  </div>
                 </span>
               </div>
             </div>
@@ -132,8 +138,32 @@ export default {
   },
   data() {
     return {
-      showAbout: "Розгорнути весь текст",
-      hideAbout: "Сховати",
+      showAbout: [
+        {
+          value: 0,
+          htmlText: `<svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="26" height="26" fill="currentColor" 
+        class="bi bi-arrow-left-short w_100" viewBox="0 0 18 18">
+        <path 
+        fill-rule="evenodd" 
+        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+        </svg>`,
+        },
+        {
+          value:1,
+          htmlText: `<div></div>`
+        },
+        {
+          value: 2,
+          htmlText: `<svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="26" height="26" fill="currentColor" 
+          class="bi bi-arrow-right-short w_100" viewBox="0 0 18 18">
+          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+          </svg>`,
+        },
+      ],
       playwriter: {},
       defaultPhoto:
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
@@ -287,13 +317,32 @@ img.playwriter_photo {
 }
 .zoom_hover_img {
   transition: all 0.5s ease-out;
-  
+
   box-shadow: 3px 3px 3px rgb(165, 165, 165);
 }
 .zoom_hover_img:hover {
   transform: scale(1.5);
   left: 8em;
   box-shadow: 15px 10px 15px rgb(165, 165, 165);
+}
+
+
+/* OPEN */
+.md_arrow {
+  transition: width 0.5s;
+  width: 10px;
+}
+.md_arrow:hover {
+  width: 50px;
+}
+
+/* CLOSE */
+.md_arrow_close {
+  transition: width 0.5s;
+  width: 50px;
+}
+.md_arrow_close:hover {
+  width: 10px;
 }
 </style>
       

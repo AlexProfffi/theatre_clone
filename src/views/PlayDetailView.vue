@@ -148,11 +148,11 @@
                       1,
                       playOneDate.staff.length
                     )"
-                    :key="act.name + act.surname"
+                    :key="act.first_name + act.last_name"
                     class="open_sans t_left"
                   >
                     <span v-if="rolesAll(act.role)">
-                      {{ act.name }}&#x20;{{ act.surname }}
+                      {{ act.first_name }}&#x20;{{ act.last_name }}
                     </span>
                   </li>
                 </ul>

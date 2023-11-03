@@ -633,7 +633,7 @@ export default {
           allStaff[x].role.indexOf(male) > -1 ||
           allStaff[x].role.indexOf(female) > -1
         ) {
-          this.modernGenderDirector.fullName = `${allStaff[x].name} ${allStaff[x].surname}`;
+          this.modernGenderDirector.fullName = `${allStaff[x].first_name} ${allStaff[x].last_name}`;
           this.modernGenderDirector.rol =
             allStaff[x].role.indexOf(male) > -1 ? male : female;
         }

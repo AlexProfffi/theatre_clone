@@ -161,11 +161,28 @@
                   </div>
                   <div class="d_flex_row j_content_start f_source_sans">
                     <div
-                      v-if="play.dramaturg.length > 0"
+                      v-if="play.dramaturg.length == 1"
                       class="pl_main nowrap_space"
                     >
                       {{ play.dramaturg[0].first_name }}
                       {{ play.dramaturg[0].last_name }}
+                    </div>
+                    <div
+                      v-else-if="play.dramaturg.length > 1"
+                      class="pl_main nowrap_space"
+                    >
+                      <span v-if="play.dramaturg.length % 10 == 2">
+                        {{ play.dramaturg.length }} драматурга
+                      </span>
+                      <span v-else-if="play.dramaturg.length % 10 == 3">
+                        {{ play.dramaturg.length }} драматурга
+                      </span>
+                      <span v-else-if="play.dramaturg.length % 10 == 4">
+                        {{ play.dramaturg.length }} драматурга
+                      </span>
+                      <span v-else>
+                        {{ play.dramaturg.length }} драматургів
+                      </span>
                     </div>
                   </div>
                 </router-link>

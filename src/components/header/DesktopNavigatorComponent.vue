@@ -1,6 +1,5 @@
 <template>
   <div id="wrapper_nav" v-if="!isMobile" class="d_flex_row j_content_center">
-    
     <ul
       class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
       id="non_drop"
@@ -12,6 +11,7 @@
         class=""
       >
         <a
+          v-if="nav.value < navigationData.length - 1"
           :href="nav.linkTo"
           @click="deleteDataFromFilter(nav.linkTo)"
           @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
@@ -25,6 +25,48 @@
           {{ nav.txt }}
           <div class="horizontal_line_hover"></div>
         </a>
+        <div
+          v-else
+          class="d_flex_column upper_case none_text_decor"
+          style="display: block"
+          :class="{
+            'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+          }"
+        >
+          <div
+            class="pad_b1em c_pointer navigation_sites"
+            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+          >
+            {{ nav.txt }}
+            <div class="horizontal_line_hover"></div>
+          </div>
+
+          <div
+            v-if="isTeam"
+            class="p_absolute z_20 font_1"
+            @mouseover="isTeam = true"
+            @mouseout="isTeam = false"
+          >
+            <ul class="pad_0 none_decor_ul_no_pad">
+              <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
+                <router-link
+                  class="animate_drop nav_link_color"
+                  :to="{
+                    name: 'teams',
+                    params: {
+                      slug: team.linkTo,
+                    },
+                  }"
+                >
+                  {{ team.txt }}
+                </router-link>
+
+                <hr class="mar_top_bot" />
+              </li>
+            </ul>
+          </div>
+        </div>
       </li>
     </ul>
     <div class="dropdown">
@@ -99,6 +141,7 @@ export default {
       navigationData: null,
       dropMenu: false,
       intrval: null,
+      isTeam: false,
       offert: [],
       listNavi: [
         "головна",
@@ -109,8 +152,9 @@ export default {
         "контакти",
         "партнери",
         "профіль",
-        // "команда",
+        "команда",
       ],
+      listNaviTeam: ["автори", "режисери", "актори", "команда"],
     };
   },
   created() {
@@ -121,7 +165,13 @@ export default {
     drawHorizontalLine(index, classEl) {
       // Підкреслення по наведенню на елемент
       let navEl = document.querySelectorAll(classEl);
-      let widthElem = navEl[index].offsetWidth - 1;
+      if (index == navEl.length - 1) {
+        this.isTeam = true;
+      } else {
+        this.isTeam = false;
+      }
+
+      let widthElem = navEl[index].offsetWidth - 2;
       let cnt = 1;
       this.intrval = setInterval(() => {
         navEl[index].firstElementChild.style.width = String(cnt) + "px";
@@ -135,6 +185,7 @@ export default {
     clearHorizontalLine(index, classEl) {
       // Скасування по прибиранню курсора миші на елемент
       let navEl = document.querySelectorAll(classEl);
+
       clearInterval(this.intrval);
       navEl[index].firstElementChild.style.width = 0;
     },
@@ -160,7 +211,6 @@ export default {
     },
 
     async naviPanel() {
-      
       let listNaviLinks = [
         "/",
         "/plays",
@@ -170,7 +220,7 @@ export default {
         "/contacts",
         "/our_partners",
         "/my_profile",
-        // ["/authors", "/directors", "/actors", "/team"],
+        ["/authors", "/directors", "/actors", "/main-team"],
       ];
 
       let dataListNavi = [];
@@ -187,13 +237,25 @@ export default {
             value: x,
             txt: this.listNavi[x],
             idEl: "naviLink" + String(x),
-            linkTo: {
-              value: listNaviLinks[x].indexOf()
-            },
+            linkTo: this.gnerateObjectLinks(listNaviLinks[x]),
           });
         }
       }
       this.navigationData = dataListNavi;
+    },
+
+    gnerateObjectLinks(list) {
+      //
+      let tempList = [];
+      for (let x = 0; x < list.length; x++) {
+        tempList.push({
+          value: x,
+          txt: this.listNaviTeam[x],
+          idEl: "naviLinkInner" + String(x),
+          linkTo: list[x],
+        });
+      }
+      return tempList;
     },
 
     eventScrollClick() {
@@ -306,5 +368,13 @@ export default {
 
 .dropdown-content a:hover {
   background-color: #ffffff;
+}
+
+.animate_drop {
+  transition: padding-left 0.5s ease-out;
+}
+
+.animate_drop:hover {
+  padding-left: 10px;
 }
 </style>
