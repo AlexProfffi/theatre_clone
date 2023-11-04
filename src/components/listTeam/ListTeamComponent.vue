@@ -73,6 +73,7 @@ export default {
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
       defaultTextNotInfo: "Скоро з'являться...",
       sluginToServer: this.teamPart.replace("/", ""),
+      
     };
   },
   beforeCreate() {},

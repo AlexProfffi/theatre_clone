@@ -3,20 +3,25 @@
     <div>
       <HeaderComponent />
     </div>
-    <div class="d_flex_row_reverse j_content_space_around d_flex_column_low_1100">
-      <div class="d_flex_row j_content_start w_100 p_l_0_5 " v-for="pdf in offertPdf" :key="pdf.id">
-        <a class="nav_link_color" :href="pdf.file_offer"> 
-        <span v-if="pdf.name_for_site">
-          {{ pdf.name_for_site }}
-        </span>
-        <span v-else>
-          {{ pdf.name }}
-        </span>
+    <div
+      class="d_flex_row_reverse j_content_space_around d_flex_column_low_1100 ptb_5em"
+    >
+      <div
+        class="d_flex_row j_content_center w_100"
+        v-for="pdf in getPathOffert()"
+        :key="pdf.id"
+      >
+        <a class="nav_link_color" :href="pdf.link">
+          <span>
+            {{ pdf.name_for_site }}
+          </span>
         </a>
       </div>
     </div>
-    <div v-if="offert.length > 0" class="d_flex_row j_content_space_around d_flex_column_low_1100">
-      
+    <div
+      v-if="offert.length > 0"
+      class="d_flex_row j_content_space_around d_flex_column_low_1100"
+    >
       <div
         class="d_flex_row w_100 ptb_5em"
         v-for="offs in offert"
@@ -54,14 +59,13 @@ export default {
       offert: [],
       offertPdf: [],
       showOffertOrNo: true,
-      spiner:true,
+      spiner: true,
+      publicPath: process.env.BASE_URL,
     };
   },
   created() {
     this.setTitle();
-    this.getOffert().then(() => {
-      this.getOffertPdf().then(() => {this.spiner=false});
-    });
+    
   },
   methods: {
     setTitle() {
@@ -81,12 +85,34 @@ export default {
     },
     async getOffertPdf() {
       // Фільтр по місяцям
-      this.offertPdf = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
+      this.offertPdf = await fetch(
+        `${this.$store.getters.getServerUrl}/offert/`
+      )
         .then((response) => response.json())
 
         .catch((error) => {
           console.log(error);
         });
+    },
+    getPathOffert() {
+      let pathOffert = [
+        {
+          id: 0,
+          link: this.publicPath + "offerts/kurochkin-leschenko.pdf",
+          name_for_site: "Договір",
+        },
+        {
+          id: 1,
+          link: this.publicPath + "offerts/publick_offert.pdf",
+          name_for_site: "Публічна оферта",
+        },
+        {
+          id: 2,
+          link: this.publicPath + "offerts/return-money.pdf",
+          name_for_site: "Умова повернення",
+        },
+      ];
+      return pathOffert;
     },
   },
 };
