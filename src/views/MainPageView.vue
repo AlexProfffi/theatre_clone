@@ -17,6 +17,7 @@
                   name: 'playwriter',
                   params: {
                     id: playw.to_playwriter.id,
+                    slugin: 'authors',
                     name: transcription(
                       concat(
                         playw.to_playwriter.first_name,
@@ -57,6 +58,7 @@
                   name: 'playwriter',
                   params: {
                     id: playw.to_playwriter.id,
+                    slugin: 'authors',
                     name: transcription(
                       concat(
                         playw.to_playwriter.first_name,

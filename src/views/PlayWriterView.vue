@@ -3,7 +3,6 @@
     <div>
       <HeaderComponent />
     </div>
-    <p></p>
     <div class="opacity_05 main_content">
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
@@ -33,17 +32,12 @@
             <div class="f_size_48 upper_case nowrap_space">
               {{ playwriter.first_name }} {{ playwriter.last_name }}
             </div>
-            <div
-              class="upper_case f_size_40 f_weight_bold pad_b1em"
-              v-for="rol in playwriter.role"
-              :key="playwriter.role.indexOf(rol)"
-            >
+            <div class="upper_case f_size_40 f_weight_bold pad_b1em">
               <span>
-                {{ rol }}
+                {{ getAllRoles(playwriter.role) }}
               </span>
             </div>
             <div v-if="playwriter.about">
-              
               <div
                 v-html="sliceString(playwriter.about, maxCountSymbols)"
               ></div>
@@ -56,7 +50,7 @@
                   <div
                     v-for="arrow in showAbout"
                     :key="arrow.value"
-                    :class="{'md_arrow': arrow.value == 1}"
+                    :class="{ md_arrow: arrow.value == 1 }"
                   >
                     <span v-html="arrow.htmlText"></span>
                   </div>
@@ -70,7 +64,7 @@
                     v-for="arrow in showAbout"
                     :key="arrow.value"
                     :class="{
-                      'md_arrow_close': arrow.value == 1
+                      md_arrow_close: arrow.value == 1,
                     }"
                   >
                     <span v-html="arrow.htmlText"></span>
@@ -84,6 +78,7 @@
           </div>
         </div>
         <div
+          v-if="slugin == 'authors'"
           id="down_content"
           class="d_flex_row j_content_space_around f_source_sans color_black ptb_5em"
         >
@@ -131,6 +126,7 @@ export default {
   name: "PlayWriterView",
   props: {
     id: String,
+    slugin: String,
   },
   components: {
     HeaderComponent,
@@ -151,8 +147,8 @@ export default {
         </svg>`,
         },
         {
-          value:1,
-          htmlText: `<div></div>`
+          value: 1,
+          htmlText: `<div></div>`,
         },
         {
           value: 2,
@@ -206,9 +202,8 @@ export default {
       }, 50);
     },
     async getPlayWriter() {
-      this.playwriter = await fetch(
-        `${this.$store.getters.getServerUrl}/playwriters/${this.id}/`
-      )
+      let url = `${this.$store.getters.getServerUrl}/playwriters/${this.slugin}/${this.id}/`;
+      this.playwriter = await fetch(url)
         .then((response) => response.json())
         .catch((error) => console.log(error));
     },
@@ -252,10 +247,22 @@ export default {
         document.querySelector("#imgDram").style.height = "600px";
       }
     },
+    getAllRoles(roles) {
+      if (roles) {
+        let str = roles.join(", ");
+        return str;
+      }
+      return roles;
+    },
   },
 };
 </script>
 <style scoped>
+@media screen and (max-width: 1650px) {
+  .f_size_48 {
+    font-size: 3.2em;
+  }
+}
 @media screen and (max-width: 1330px) {
   #wrapper_bio {
     padding: 40px 20px;
@@ -325,7 +332,6 @@ img.playwriter_photo {
   left: 8em;
   box-shadow: 15px 10px 15px rgb(165, 165, 165);
 }
-
 
 /* OPEN */
 .md_arrow {
