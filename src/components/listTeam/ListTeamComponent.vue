@@ -1,6 +1,6 @@
 <template>
   <div class="opacity_05 main_content">
-    <div class="f_weight_bold f_size_40" v-if="!personals.length">
+    <div class="f_weight_bold f_size_40" v-if="!personals">
       {{ defaultTextNotInfo }}
     </div>
     <div v-else id="wrapper_list_team" class="d_flex_column p_40px">
@@ -67,7 +67,7 @@ export default {
   components: {},
   data() {
     return {
-      personals: [],
+      personals: null,
       defaultPhoto:
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
       defaultTextNotInfo: "Скоро з'являться...",
