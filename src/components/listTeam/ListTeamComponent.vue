@@ -1,6 +1,6 @@
 <template>
   <div class="opacity_05 main_content">
-    <div class="f_weight_bold f_size_40" v-if="!personals">
+    <div class="f_weight_bold f_size_40" v-if="personals == null">
       {{ defaultTextNotInfo }}
     </div>
     <div v-else id="wrapper_list_team" class="d_flex_column p_40px">
