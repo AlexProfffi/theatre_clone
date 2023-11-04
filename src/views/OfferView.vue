@@ -5,10 +5,17 @@
     </div>
     <div class="d_flex_row_reverse j_content_space_around d_flex_column_low_1100">
       <div class="d_flex_row j_content_start w_100 p_l_0_5 " v-for="pdf in offertPdf" :key="pdf.id">
-        <a class="nav_link_color" :href="pdf.file_offer"> Переглянути PDF </a>
+        <a class="nav_link_color" :href="pdf.file_offer"> 
+        <span v-if="pdf.name_for_site">
+          {{ pdf.name_for_site }}
+        </span>
+        <span v-else>
+          {{ pdf.name }}
+        </span>
+        </a>
       </div>
     </div>
-    <div class="d_flex_row j_content_space_around d_flex_column_low_1100">
+    <div v-if="offert.length > 0" class="d_flex_row j_content_space_around d_flex_column_low_1100">
       
       <div
         class="d_flex_row w_100 ptb_5em"

@@ -33,7 +33,7 @@
         <div class="horizontal_line"></div>
       </div>
     </div>
-    <div class="f_weight_bold f_size_40" v-if="!personals.length">
+    <div class="f_weight_bold f_size_40" v-if="personals">
       {{ defaultTextNotInfo }}
     </div>
   </div>
@@ -107,9 +107,9 @@ export default {
 @media screen and (max-width: 1000px) {
 }
 @media screen and (max-width: 700px) {
-    #wrapper_list_team {
-        padding: 10px;
-    }
+  #wrapper_list_team {
+    padding: 10px;
+  }
 }
 
 .img_list_team {
