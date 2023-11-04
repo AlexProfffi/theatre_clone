@@ -1,6 +1,6 @@
 <template>
   <div class="opacity_05 main_content">
-    <div class="f_weight_bold f_size_40" v-if="personals == null">
+    <div class="f_weight_bold f_size_40" v-if="!isFull">
       {{ defaultTextNotInfo }}
     </div>
     <div v-else id="wrapper_list_team" class="d_flex_column p_40px">
@@ -67,7 +67,8 @@ export default {
   components: {},
   data() {
     return {
-      personals: null,
+      personals: [],
+      isFull: false,
       defaultPhoto:
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
       defaultTextNotInfo: "Скоро з'являться...",
@@ -76,9 +77,13 @@ export default {
   },
   beforeCreate() {},
   created() {
-    this.getPersonal().then(() => {
-      this.showContent();
-    });
+    this.getPersonal()
+      .then(() => {
+        this.showContent();
+      })
+      .then(() => {
+        this.toShowPersonal();
+      });
   },
   methods: {
     async getPersonal() {
@@ -100,6 +105,14 @@ export default {
         }
         cnt += 0.1;
       }, 50);
+    },
+    async toShowPersonal() {
+      // Показувати чи не показувати команду
+
+      if (this.personals.length) {
+        this.isFull = true;
+        console.log(this.isFull);
+      }
     },
     repalcer(str, changeble) {
       // Замінює підстроку
