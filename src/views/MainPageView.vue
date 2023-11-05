@@ -242,7 +242,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="p_sticky z_20">
       <FooterComponent />
     </div>
   </div>

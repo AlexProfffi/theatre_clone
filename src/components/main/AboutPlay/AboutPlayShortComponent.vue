@@ -3,7 +3,6 @@
     class="d_flex_row p_bottom plays_for_sale"
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
-  {{ thePlay.id }}
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
       <div>
         <h4
