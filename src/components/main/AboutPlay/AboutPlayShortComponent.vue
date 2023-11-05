@@ -418,7 +418,6 @@ export default {
         })
         .then(() => {
           window.open(this.theLinkPay.link, "_blank").focus();
-
           document.querySelector("#email").disabled = true;
           this.callBackData.email = "";
         });
@@ -427,7 +426,7 @@ export default {
     async getLinkPay() {
       // Посилання на оплату
       this.theLinkPay = await fetch(
-        `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/${this.callBackData.countTickets}/`
+        `${this.$store.getters.getServerUrl}/buy_ticket/${this.thePlay.id}/${this.callBackData.countTickets}/`
       )
         .then((response) => response.json())
         .catch((error) => {
