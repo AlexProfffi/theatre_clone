@@ -3,6 +3,7 @@
     class="d_flex_row p_bottom plays_for_sale"
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
+  {{ tt }}
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
       <div>
         <h4
@@ -311,7 +312,7 @@
                 type="submit"
                 class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
                 :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
-                @click="alert('test')"
+                @click="test()"
               >
                 оплатити
               </button>
@@ -358,6 +359,7 @@ export default {
         this.idDatePlayOne
       )[0],
       parentListEl: [],
+      tt: false
     };
   },
   created() {
@@ -365,6 +367,9 @@ export default {
     this.isUserAuth();
   },
   methods: {
+    test() {
+      this.tt = !this.tt
+    },
     drawHorizontalLine(classEl, index = 0) {
       // Підкреслення по наведенню на елемент
 
