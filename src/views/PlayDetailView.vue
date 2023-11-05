@@ -328,7 +328,7 @@ export default {
     dataNaviAboutPlay() {
       // Навігація в інфо про виставу
       let dt = [];
-      let preparedData = ["про виставу", "команда", "кометарі", "деталі"];
+      let preparedData = ["про виставу", "команда", "коментарі", "деталі"];
       let linksNav = [
         "#description_level",
         "#actors_level",
