@@ -311,7 +311,7 @@
                 type="submit"
                 class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
                 :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
-                @click="pay()"
+                @click="alert('test')"
               >
                 оплатити
               </button>
