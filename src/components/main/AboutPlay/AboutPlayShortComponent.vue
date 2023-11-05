@@ -3,6 +3,7 @@
     class="d_flex_row p_bottom plays_for_sale"
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
+    {{ testPayButton }}
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
       <div>
         <h4
@@ -358,6 +359,7 @@ export default {
         this.idDatePlayOne
       )[0],
       parentListEl: [],
+      testPayButton: null,
     };
   },
   created() {
@@ -399,7 +401,7 @@ export default {
 
     async setOrderInToStorage() {
       // Заносить order_id в локальне сховище
-      console.log("setOrderInToStorage");
+      this.testPayButton = "setOrderInToStorage";
       localStorage.setItem(
         "infoForTicket",
         JSON.stringify({
@@ -413,7 +415,7 @@ export default {
       );
     },
     async goToPayPage() {
-      console.log(this.theLinkPay.link);
+      this.testPayButton = "goToPayPage";
       window.open(this.theLinkPay.link, "_blank").focus();
       document.querySelector("#email").disabled = true;
       this.callBackData.email = "";
@@ -427,6 +429,8 @@ export default {
 
     async getLinkPay() {
       // Посилання на оплату
+      this.testPayButton = "getLinkPay";
+
       this.theLinkPay = await fetch(
         `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/`
       )
