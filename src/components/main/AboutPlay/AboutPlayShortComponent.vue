@@ -3,6 +3,7 @@
     class="d_flex_row p_bottom plays_for_sale"
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
+  {{ thePlay.id }}
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
       <div>
         <h4
@@ -333,6 +334,7 @@ export default {
     linkPay: Object,
     withPhoto: Boolean,
     idDatePlayOne: Number,
+    idp: String,
   },
   components: {
     ModalInfo,
@@ -426,7 +428,7 @@ export default {
     async getLinkPay() {
       // Посилання на оплату
       this.theLinkPay = await fetch(
-        `${this.$store.getters.getServerUrl}/buy_ticket/${this.thePlay.id}/${this.callBackData.countTickets}/`
+        `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/`
       )
         .then((response) => response.json())
         .catch((error) => {

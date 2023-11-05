@@ -38,6 +38,7 @@
             :idDatePlayOne="playOneDate.id"
             :withPhoto="false"
             :linkPay="linkPay"
+            :idp="inId"
           />
         </div>
         <div
@@ -215,6 +216,7 @@ export default {
         "«Договором»",
         "«Умовою повернення коштів»",
       ],
+      inId: this.id,
     };
   },
   created() {
@@ -245,7 +247,7 @@ export default {
         `${this.$store.getters.getServerUrl}/playss_all/${this.id}/`
       )
         .then((response) => response.json())
-        .catch((error,) => {
+        .catch((error) => {
           console.log(error);
         });
     },
@@ -253,15 +255,13 @@ export default {
     async getDatePlay() {
       this.playOneDate = await fetch(
         `${this.$store.getters.getServerUrl}/date_one_plays/${this.date_id}/`
-      )
-        .then((response) => {
-          if (response.status == 200) {
-            return response.json();
-          } else {
-            console.log(response.status)
-          }
-        })
-        
+      ).then((response) => {
+        if (response.status == 200) {
+          return response.json();
+        } else {
+          console.log(response.status);
+        }
+      });
     },
 
     async getLinkPay() {
@@ -270,7 +270,7 @@ export default {
         `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/`
       )
         .then((response) => response.json())
-        .catch((error,) => {
+        .catch((error) => {
           console.log(error);
         });
     },
