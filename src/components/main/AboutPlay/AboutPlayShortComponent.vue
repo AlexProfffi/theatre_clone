@@ -243,7 +243,7 @@
         </span>
       </div>
       <div>
-        <div v-if="theLinkPay">
+        <div>
           <div class="d_flex_row j_content_center">
             <div
               v-if="showPaymentForm"
