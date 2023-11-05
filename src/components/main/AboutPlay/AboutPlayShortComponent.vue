@@ -343,7 +343,7 @@ export default {
       isMobile: false,
       modal: false,
       genderP: null,
-      theLinkPay: this.linkPay,
+      theLinkPay: null,
       callBackData: {
         email: null,
         userName: null,
