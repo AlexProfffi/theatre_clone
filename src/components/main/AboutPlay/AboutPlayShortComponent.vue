@@ -27,8 +27,13 @@
     </div>
 
     <div class="w_20_percent plays_sl_component" v-else>
-      <div v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)" :key="on_pl.id">
-        <div v-if="newArrayDates(play.on_play, idDatePlayOne).indexOf(on_pl) == 0">
+      <div
+        v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
+        :key="on_pl.id"
+      >
+        <div
+          v-if="newArrayDates(play.on_play, idDatePlayOne).indexOf(on_pl) == 0"
+        >
           <div>
             <h4
               class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -266,6 +271,19 @@
                 </div>
               </div>
               <div class="d_flex_row">
+                <label for="number" class="open_sans small_font"
+                  >Введіть кількість квитків:
+                </label>
+              </div>
+              <input
+                class="input_field t_center w_30"
+                type="number"
+                id="number"
+                min="1"
+                @change="setCountTickets(callBackData.countTickets)"
+                v-model="callBackData.countTickets"
+              />
+              <div class="d_flex_row">
                 <label for="email" class="open_sans small_font"
                   >Введіть електронну пошту для купівлі квитка:
                 </label>
@@ -292,8 +310,8 @@
                 id="pay_b"
                 type="submit"
                 class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
-                :class="{'opacity_0_5': !checkCorrectEmail(callBackData.email)}"
-                @click="pay(theLinkPay.link)"
+                :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
+                @click="pay()"
               >
                 оплатити
               </button>
@@ -328,12 +346,16 @@ export default {
       callBackData: {
         email: null,
         userName: null,
+        countTickets: 1,
       },
       thePlay: this.play,
       showPaymentForm: false,
       modernGenderDirector: {},
       otherDate: false,
-      currentDatePlay: this.newArrayDates(this.play.on_play, this.idDatePlayOne)[0],
+      currentDatePlay: this.newArrayDates(
+        this.play.on_play,
+        this.idDatePlayOne
+      )[0],
       parentListEl: [],
     };
   },
@@ -373,7 +395,7 @@ export default {
       return dt;
     },
 
-    setOrderInToStorage() {
+    async setOrderInToStorage() {
       // Заносить order_id в локальне сховище
       localStorage.setItem(
         "infoForTicket",
@@ -383,17 +405,39 @@ export default {
           u_name: this.callBackData.userName,
           time_play: this.onlyDate(this.currentDatePlay.date_pl),
           play_name: this.thePlay.name,
+          count_tickets: this.callBackData.countTickets,
         })
       );
     },
 
-    pay(lnk) {
+    pay() {
       //  Перехід на іншу сторінку з фокусом на ній
-      this.setOrderInToStorage();
-      window.open(lnk, "_blank").focus();
+      this.getLinkPay()
+        .then(() => {
+          this.setOrderInToStorage();
+        })
+        .then(() => {
+          window.open(this.theLinkPay.link, "_blank").focus();
 
-      document.querySelector("#email").disabled = true;
-      this.callBackData.email = "";
+          document.querySelector("#email").disabled = true;
+          this.callBackData.email = "";
+        });
+    },
+
+    async getLinkPay() {
+      // Посилання на оплату
+      this.theLinkPay = await fetch(
+        `${this.$store.getters.getServerUrl}/buy_ticket/${this.id}/${this.callBackData.countTickets}/`
+      )
+        .then((response) => response.json())
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    setCountTickets(value) {
+      // к-ть квитків > 0
+      this.callBackData.countTickets = Math.abs(value);
     },
 
     checkCorrectEmail(mail) {
@@ -412,7 +456,12 @@ export default {
         }
       }
 
-      if (check_a && check_dot && this.callBackData.userName) {
+      if (
+        check_a &&
+        check_dot &&
+        this.callBackData.userName &&
+        this.callBackData.countTickets > 0
+      ) {
         return true;
       } else {
         return false;
@@ -789,7 +838,6 @@ export default {
   background: transparent;
   margin: 8px 0 5px 0;
 }
-
 
 .drop_animate {
   transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);

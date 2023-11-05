@@ -9,7 +9,9 @@
         v-for="prs in personals"
         :key="prs.id"
       >
-        <div class="d_flex_row j_content_space_between w_30 ptb_1em">
+        <div
+          class="d_flex_row j_content_space_between w_30 ptb_1em"
+        >
           <div class="h_24_px p_lr_1">
             <img
               v-if="prs.photo"
@@ -73,7 +75,6 @@ export default {
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
       defaultTextNotInfo: "Скоро з'являться...",
       sluginToServer: this.teamPart.replace("/", ""),
-      
     };
   },
   beforeCreate() {},
@@ -110,7 +111,7 @@ export default {
     async toShowPersonal() {
       // Показувати чи не показувати команду
 
-      if (this.personals.length) {
+      if (this.personals != undefined && this.personals.length) {
         this.isFull = true;
         console.log(this.isFull);
       }

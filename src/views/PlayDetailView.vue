@@ -219,7 +219,7 @@ export default {
   },
   created() {
     this.getDatePlay()
-      .then(() => this.getLinkPay())
+      // .then(() => this.getLinkPay())
       .then(() => this.getOffert())
       .then(() => this.playList.push(this.playOneDate))
       .then(() => this.linkPayList.push(this.linkPay))

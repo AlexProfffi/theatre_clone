@@ -286,7 +286,10 @@ export default {
       .then(() => this.getIdea())
       .then(() => this.getPlaySMain())
       .then(() => this.instanceNewWidth(this.lengthElNamePlay))
-      .then(() => this.showContent());
+      .then(() => this.showContent())
+      .then(() => {
+        this.delInfoBuyTicket();
+      });
     this.setTitle();
   },
   methods: {
@@ -313,7 +316,11 @@ export default {
       // Конкатенує ім'я
       return `${first} ${last}`;
     },
-
+    async delInfoBuyTicket() {
+      if (localStorage.getItem("infoForTicket")) {
+        localStorage.removeItem("infoForTicket");
+      }
+    },
     async getPlaywriters() {
       this.playwritersCaricatures = await fetch(
         `${this.$store.getters.getServerUrl}/owners_face/`
