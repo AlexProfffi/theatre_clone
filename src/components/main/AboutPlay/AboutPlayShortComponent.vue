@@ -416,9 +416,10 @@ export default {
     },
     async goToPayPage() {
       this.testPayButton = "goToPayPage";
-      window.open(this.theLinkPay.link, "_blank").focus();
       document.querySelector("#email").disabled = true;
       this.callBackData.email = "";
+      location.href = this.theLinkPay.link;
+      // window.open(this.theLinkPay.link, "_blank").focus();
     },
     pay() {
       //  Перехід на іншу сторінку з фокусом на ній
