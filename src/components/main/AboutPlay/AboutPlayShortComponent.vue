@@ -410,18 +410,16 @@ export default {
         })
       );
     },
-
+    async goToPayPage() {
+      window.open(this.theLinkPay.link, "_blank").focus();
+      document.querySelector("#email").disabled = true;
+      this.callBackData.email = "";
+    },
     pay() {
       //  Перехід на іншу сторінку з фокусом на ній
       this.getLinkPay()
-        .then(() => {
-          this.setOrderInToStorage();
-        })
-        .then(() => {
-          window.open(this.theLinkPay.link, "_blank").focus();
-          document.querySelector("#email").disabled = true;
-          this.callBackData.email = "";
-        });
+        .then(() => this.setOrderInToStorage())
+        .then(() => this.goToPayPage());
     },
 
     async getLinkPay() {
@@ -459,7 +457,7 @@ export default {
       if (
         check_a &&
         check_dot &&
-        this.callBackData.userName 
+        this.callBackData.userName
         // this.callBackData.countTickets > 0
       ) {
         return true;
