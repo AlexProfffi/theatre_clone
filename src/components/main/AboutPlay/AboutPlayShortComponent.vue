@@ -459,8 +459,8 @@ export default {
       if (
         check_a &&
         check_dot &&
-        this.callBackData.userName &&
-        this.callBackData.countTickets > 0
+        this.callBackData.userName 
+        // this.callBackData.countTickets > 0
       ) {
         return true;
       } else {
