@@ -460,6 +460,7 @@ export default {
         check_a &&
         check_dot &&
         this.callBackData.userName &&
+        this.callBackData.countTickets > 0
       ) {
         return true;
       } else {
