@@ -11,7 +11,7 @@
     <div v-else>
       <div v-if="whichIsShowStatus(dataAndSign.status)">
         <h2 class="ptb_40">Платіж успішний!</h2>
-        <div class="t_justify">
+        <div class="t_justify pad_1em">
           {{ answerInfoBuy }}
         </div>
       </div>
