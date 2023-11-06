@@ -82,8 +82,7 @@ export default {
 
     async postDataTicket(statusPay) {
       // Post query on PurcachedTiket
-      JSON.parse(localStorage.getItem("infoForTicket")).status_pay = statusPay;
-      let url = `${this.$store.getters.getServerUrl}/create_purcached_ticket/`;
+      let url = `${this.$store.getters.getServerUrl}/create_purcached_ticket/${statusPay}/`;
       await fetch(url, {
         method: "POST",
         headers: {
