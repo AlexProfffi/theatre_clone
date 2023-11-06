@@ -214,6 +214,9 @@
           {{ duration.text }}
         </h4>
       </div>
+      <div class="t_left f_size_0_9 f_weight_bold">
+        {{ play.duration }}
+      </div>
     </div>
     <div
       class="upper_case w_20_percent d_flex_column plays_sl_component"
