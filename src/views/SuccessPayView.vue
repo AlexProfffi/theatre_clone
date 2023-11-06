@@ -11,6 +11,9 @@
     <div v-else>
       <div v-if="whichIsShowStatus(dataAndSign.status)">
         <h2 class="ptb_40">Платіж успішний!</h2>
+        <div class="t_justify">
+          {{ answerInfoBuy }}
+        </div>
       </div>
 
       <div v-else>
@@ -44,23 +47,16 @@ export default {
       dataAndSign: {},
       currentOrderId: JSON.parse(localStorage.getItem("infoForTicket")),
       textRing: "Виконується оплата...",
+      answerInfoBuy: null,
     };
   },
   beforeCreate() {},
   created() {
     if (JSON.parse(localStorage.getItem("infoForTicket")) != null) {
-      console.log(
-        "ORDER ID IF ",
-        JSON.parse(localStorage.getItem("infoForTicket")).order_id
-      );
       this.getDataAndSign().then(() => {
         this.showSpiner = false;
       });
     } else {
-      console.log(
-        "ORDER ID ELSE ",
-        JSON.parse(localStorage.getItem("infoForTicket")).order_id
-      );
       setTimeout(
         this.getDataAndSign().then(() => {
           this.showSpiner = false;
@@ -74,19 +70,19 @@ export default {
   },
   methods: {
     async getDataAndSign() {
-      this.dataAndSign = await fetch(
-        `${this.$store.getters.getServerUrl}/show_status_pay/${
-          JSON.parse(localStorage.getItem("infoForTicket")).order_id
-        }/`
-      )
+      let url = `${this.$store.getters.getServerUrl}/show_status_pay/${
+        JSON.parse(localStorage.getItem("infoForTicket")).order_id
+      }/`;
+      this.dataAndSign = await fetch(url)
         .then((response) => response.json())
         .catch((error) => {
           console.log(error);
         });
     },
 
-    async postDataTicket() {
+    async postDataTicket(statusPay) {
       // Post query on PurcachedTiket
+      JSON.parse(localStorage.getItem("infoForTicket")).status_pay = statusPay;
       let url = `${this.$store.getters.getServerUrl}/create_purcached_ticket/`;
       await fetch(url, {
         method: "POST",
@@ -94,9 +90,15 @@ export default {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(JSON.parse(localStorage.getItem("infoForTicket"))),
-      }).catch((error) => {
-        console.log(error);
-      });
+      })
+        .then((response) => {
+          response.json().then((response) => {
+            this.answerInfoBuy = response.info;
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     async goToMainPage() {
@@ -106,18 +108,12 @@ export default {
     whichIsShowStatus() {
       // Повертає true якщо success
       // Повертає false якщо error
-      console.log(
-        "ORDER ID  whichIsShowStatus ",
-        JSON.parse(localStorage.getItem("infoForTicket")).order_id
-      );
       if (this.dataAndSign.status == "success") {
-        this.postDataTicket()
-          // .then(() => {
-          //   localStorage.removeItem("infoForTicket");
-          // })
-          .then(() => setTimeout(this.goToMainPage, 3000));
+        this.postDataTicket(1);
+        // .then(() => setTimeout(this.goToMainPage, 3000));
         return true;
       } else if (this.dataAndSign.status == "error") {
+        this.postDataTicket(0);
         return false;
       } else {
         return false;

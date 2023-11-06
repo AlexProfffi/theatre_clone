@@ -410,6 +410,7 @@ export default {
           time_play: this.onlyDate(this.currentDatePlay.date_pl),
           play_name: this.thePlay.name,
           count_tickets: this.callBackData.countTickets,
+          status_pay: null,
         })
       );
     },
