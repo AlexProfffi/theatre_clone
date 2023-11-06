@@ -2,7 +2,7 @@
   <div v-if="!isMobile" class="d_flex_column j_content_center">
     <div class="d_flex_row p_tb_5 open_sans font_size_08">
       <div>
-        <a :href="'tel://' + phone">
+        <a class="color_white" :href="'tel://' + phone">
           {{ phone }}
         </a>
       </div>
