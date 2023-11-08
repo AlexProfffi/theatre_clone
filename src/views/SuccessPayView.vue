@@ -11,7 +11,7 @@
     <div v-else>
       <div v-if="whichIsShowStatus(dataAndSign.status)">
         <h2 class="ptb_40">Платіж успішний!</h2>
-        <div class="t_justify pad_1em">
+        <div v-if="!innerSpiner" class="t_justify pad_1em">
           {{ answerInfoBuy }}
         </div>
       </div>
@@ -44,6 +44,7 @@ export default {
       isMobile: false,
       satatusData: {},
       showSpiner: true,
+      innerSpiner: true,
       dataAndSign: {},
       currentOrderId: JSON.parse(localStorage.getItem("infoForTicket")),
       textRing: "Виконується оплата...",
@@ -93,7 +94,7 @@ export default {
         .then((response) => {
           response.json().then((response) => {
             this.answerInfoBuy = response.info;
-          });
+          }).then(() => {this.innerSpiner = false});
         })
         .catch((error) => {
           console.log(error);

@@ -7,6 +7,7 @@
       <div>
         <HeaderComponent />
       </div>
+      {{ date_id }} {{ id}}
       <div class="d_flex_column">
         <div v-for="pl in playList" :key="pl.id_play">
           <PhotoPlayComponent
