@@ -51,6 +51,10 @@
         </div>
       </div>
     </div>
+    <div v-if="comments == null">
+      {{ noneComments }}
+    </div>
+    {{ comments }}
     <div
       v-for="comment in comments"
       :key="comment.id"
@@ -87,6 +91,7 @@ export default {
   data() {
     return {
       comments: null,
+      noneComments: "Поки що нема відгуків",
       maxSymbols: 5000,
       answerSubscribe: null,
       answerSubscribeStatus: null,

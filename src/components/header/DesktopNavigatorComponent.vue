@@ -44,7 +44,7 @@
 
           <div
             v-if="isTeam"
-            class="p_absolute z_20 font_1"
+            class="p_absolute z_20 font_1 teamss"
             @mouseover="isTeam = true"
             @mouseout="isTeam = false"
           >
@@ -413,5 +413,10 @@ export default {
 
 .animate_drop:hover {
   padding-left: 10px;
+}
+.teamss {
+  background-color: rgb(254, 254, 254);
+  border-radius: 7px;
+  padding: 7px;
 }
 </style>
