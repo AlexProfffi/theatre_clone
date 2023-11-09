@@ -37,7 +37,7 @@
             class="pad_b1em c_pointer navigation_sites"
             @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
             @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-            @click="isTeam = true"
+            @click="isTeam = !isTeam"
           >
             {{ nav.txt }} 
             <div class="horizontal_line_hover"></div>
