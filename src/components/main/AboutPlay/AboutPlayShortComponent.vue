@@ -416,7 +416,6 @@ export default {
       );
     },
     async goToPayPage() {
-      this.testPayButton = "goToPayPage";
       document.querySelector("#email").disabled = true;
       this.callBackData.email = "";
       location.href = this.theLinkPay.link;
@@ -431,7 +430,6 @@ export default {
 
     async getLinkPay() {
       // Посилання на оплату
-      this.testPayButton = "getLinkPay";
 
       this.theLinkPay = await fetch(
         `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/`
