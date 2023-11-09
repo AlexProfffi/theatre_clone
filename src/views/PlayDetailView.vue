@@ -7,7 +7,6 @@
       <div>
         <HeaderComponent />
       </div>
-      {{ date_id }} {{ id}}
       <div class="d_flex_column">
         <div v-for="pl in playList" :key="pl.id_play">
           <PhotoPlayComponent
@@ -164,6 +163,9 @@
           </div>
           <div class="d_flex_row"></div>
         </div>
+        <div class="p_40px">
+          <CommentsComponent :oneIdPlay="id" />
+        </div>
       </div>
 
       <div>
@@ -181,6 +183,7 @@ import FooterComponent from "@/components/FooterComponent.vue";
 import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 import AboutPlayShortComponentVue from "@/components/main/AboutPlay/AboutPlayShortComponent.vue";
+import CommentsComponent from "@/components/comments/CommentsComponent.vue";
 
 export default {
   name: "PlayDetailView",
@@ -190,6 +193,7 @@ export default {
     PhotoPlayComponent,
     SpinerComponent,
     AboutPlayShortComponentVue,
+    CommentsComponent,
   },
   props: {
     id: String,

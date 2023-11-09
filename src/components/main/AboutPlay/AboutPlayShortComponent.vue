@@ -236,13 +236,12 @@
           }"
           class="go_to_buy"
         >
-          Оформити замовлення
-
+          купити квиток
           <div class="horizontal_line_hover"></div>
         </router-link>
 
         <span v-else class="nav_link_color" @click="showFormToPay()">
-          купити квиток
+          Оформити замовлення
         </span>
       </div>
       <div>

@@ -257,6 +257,7 @@ export default {
       // Вихід
       localStorage.removeItem("token");
       this.$router.push({ name: "Auth" });
+      localStorage.removeItem("userInfo");
     },
     showSearcField() {
       this.searchField = !this.searchField;

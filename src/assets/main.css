@@ -406,6 +406,10 @@ html {
     padding: 0 3.5em 0 3.5em;
 }
 
+.p_lr_2 {
+    padding: 2em 25em;
+}
+
 .pad_both_7 {
     padding: 0 7px 0 7px;
 }
@@ -458,6 +462,10 @@ html {
 
 .pad_1em {
     padding: 1em;
+}
+
+.pad_03em {
+    padding: .3em;
 }
 
 
@@ -539,6 +547,10 @@ html {
 
 .f_weight_bold_700 {
     font-weight: 700;
+}
+
+.f_weight_light_300 {
+    font-weight: 300;
 }
 
 .p_both_px {
