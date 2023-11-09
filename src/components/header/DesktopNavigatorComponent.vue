@@ -1,5 +1,6 @@
 <template>
   <div id="wrapper_nav" v-if="!isMobile" class="d_flex_row j_content_center">
+    {{ isTeam }} 
     <ul
       class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
       id="non_drop"
@@ -37,16 +38,15 @@
             class="pad_b1em c_pointer navigation_sites"
             @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
             @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+            @click="isTeam = true"
           >
-            {{ nav.txt }}
+            {{ nav.txt }} 
             <div class="horizontal_line_hover"></div>
           </div>
-
+          
           <div
             v-if="isTeam"
             class="p_absolute z_20 font_1 teamss"
-            @mouseover="isTeam = true"
-            @mouseout="isTeam = false"
           >
             <ul class="pad_0 none_decor_ul_no_pad">
               <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
@@ -190,11 +190,7 @@ export default {
     drawHorizontalLine(index, classEl) {
       // Підкреслення по наведенню на елемент
       let navEl = document.querySelectorAll(classEl);
-      if (index == navEl.length - 1) {
-        this.isTeam = true;
-      } else {
-        this.isTeam = false;
-      }
+      
 
       let widthElem = navEl[index].offsetWidth - 2;
       let cnt = 1;
