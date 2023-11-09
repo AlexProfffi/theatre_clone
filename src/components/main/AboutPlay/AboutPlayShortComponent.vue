@@ -157,9 +157,19 @@
         <h4 class="upper_case horizontal_line">прем'єра</h4>
       </div>
       <div class="d_flex_row name_play_sale">
-        <h3 class="f_oswald f_weight_400 current_play">
+        <router-link
+          :to="{
+            name: 'play',
+            params: {
+              id: play.id_play,
+              date_id: play.id,
+              name: transcription(play.name),
+            },
+          }"
+          class="f_oswald f_weight_400 current_play nav_link_color"
+        >
           {{ play.name }}
-        </h3>
+        </router-link>
       </div>
       <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.dramaturg[0]">
         <span v-if="play.dramaturg.length < 2">
