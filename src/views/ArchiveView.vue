@@ -5,7 +5,7 @@
       </div>
       
       <h1>
-        Події
+        Скоро з'являться ...
       </h1>
       <div>
         <FooterComponent />

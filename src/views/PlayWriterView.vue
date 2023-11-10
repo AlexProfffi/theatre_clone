@@ -7,19 +7,18 @@
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
           <div id="image_playwriter" class="d_flex_row j_content_center w_50">
-            
             <div
               class="w_100 m_auto_both_1 d_flex_column j_content_start wrap_image"
             >
-            
               <img
                 id="imgDram"
                 class="playwriter_photo zoom_hover_img"
-                v-if="playwriter.photo"
+                v-if="playwriter.photo != badPhoto && playwriter.photo"
                 :src="repalcer(playwriter.photo, '')"
                 :alt="playwriter.last_name"
               />
               <img
+                id="imgDram"
                 class="playwriter_photo"
                 v-else
                 :src="defaultPhoto"
@@ -136,6 +135,8 @@ export default {
   },
   data() {
     return {
+      badPhoto:
+        "/image_theatre/image_theatre/%D0%94%D1%80%D0%B0%D0%BC%D0%B0%D1%82%D1%83%D1%80%D0%B3%D0%B8Photo/anonim.png",
       showAbout: [
         {
           value: 0,
@@ -239,10 +240,8 @@ export default {
       return String(txt).length > this.maxCountSymbols ? true : false;
     },
     async getSizeImages(imgSrc) {
-      console.log(imgSrc);
       let im = new Image();
       im.src = "https://theatreofplaywrightsapi.space:8443" + imgSrc;
-      console.log(im.height);
       if (im.height > 499) {
         document.querySelector("#imgDram").style.height = "600px";
       } else if (im.height == 0 && imgSrc) {

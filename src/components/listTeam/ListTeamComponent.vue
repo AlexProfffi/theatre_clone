@@ -9,15 +9,13 @@
         v-for="prs in personals"
         :key="prs.id"
       >
-        <div
-          class="d_flex_row j_content_space_between w_30 ptb_1em"
-        >
+        <div class="d_flex_row j_content_space_between w_30 ptb_1em">
           <div class="h_24_px p_lr_1">
             <img
-              v-if="prs.photo"
+              v-if="prs.photo != badPhoto && prs.photo"
               class="h_100 img_on_main img_list_team"
               :src="repalcer(prs.photo, '')"
-              :alt="prs.last_name"
+              :alt="prs.last_name + prs.first_name"
             />
             <img
               v-else
@@ -73,6 +71,8 @@ export default {
       isFull: false,
       defaultPhoto:
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
+      badPhoto:
+        "/image_theatre/image_theatre/%D0%94%D1%80%D0%B0%D0%BC%D0%B0%D1%82%D1%83%D1%80%D0%B3%D0%B8Photo/anonim.png",
       defaultTextNotInfo: "Скоро з'являться...",
       sluginToServer: this.teamPart.replace("/", ""),
     };
@@ -113,7 +113,6 @@ export default {
 
       if (this.personals != undefined && this.personals.length) {
         this.isFull = true;
-        console.log(this.isFull);
       }
     },
     repalcer(str, changeble) {
