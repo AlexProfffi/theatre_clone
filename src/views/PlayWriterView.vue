@@ -7,9 +7,11 @@
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
           <div id="image_playwriter" class="d_flex_row j_content_center w_50">
+            
             <div
               class="w_100 m_auto_both_1 d_flex_column j_content_start wrap_image"
             >
+            
               <img
                 id="imgDram"
                 class="playwriter_photo zoom_hover_img"

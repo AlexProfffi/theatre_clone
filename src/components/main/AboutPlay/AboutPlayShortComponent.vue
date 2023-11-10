@@ -201,10 +201,10 @@
         <div>
           <div>
             <span>
-              {{ modernGenderDirector.rol }}
+              {{ getDirector(play.staff, (rl = true)) }}
             </span>
             <span class="f_weight_bold p_l_0_5">
-              {{ modernGenderDirector.fullName }}
+              {{ getDirector(play.staff) }}
             </span>
           </div>
         </div>
@@ -721,6 +721,30 @@ export default {
         }
         if (this.parentListEl.length) {
           this.parentListEl[0].style.color = "black";
+        }
+      }
+    },
+
+    getDirector(stafers, rl = false) {
+      // Повертає директора
+      if (!rl) {
+        for (let x = 0; x < stafers.length; x++) {
+          if (
+            stafers[x].role.includes("Режисер") ||
+            stafers[x].role.includes("Режисерка")
+          ) {
+            return `${stafers[x].first_name} ${stafers[x].last_name}`;
+          }
+        }
+      } else {
+        for (let x = 0; x < stafers.length; x++) {
+          if (
+            stafers[x].role.indexOf("Режисерка") > -1
+          ) {
+            return stafers[x].role[stafers[x].role.indexOf("Режисерка")];
+          } else if (stafers[x].role.indexOf("Режисер") > -1) {
+            return stafers[x].role[stafers[x].role.indexOf("Режисер")];
+          }
         }
       }
     },

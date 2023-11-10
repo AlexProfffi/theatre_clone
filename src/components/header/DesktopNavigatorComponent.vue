@@ -103,13 +103,13 @@
           v-for="nav in navigationData"
           :key="nav.value"
           :id="nav.idEl"
-          class=""
+          class="d_flex_row_reverse w_75"
         >
           <a
             v-if="nav.value < navigationData.length - 1"
             :href="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
-            class="upper_case none_text_decor nav_link_color navigation_sites"
+            class="upper_case none_text_decor nav_link_color navigation_sites w_50 t_left"
             style="display: block"
             :class="{
               'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
@@ -120,14 +120,14 @@
           </a>
           <div
             v-else
-            class="d_flex_column upper_case none_text_decor"
+            class="d_flex_column upper_case none_text_decor w_50"
             style="display: block"
             :class="{
               'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
             }"
           >
             <div
-              class="pad_b1em c_pointer navigation_sites"
+              class="pad_b1em c_pointer navigation_sites t_left"
               @click="isTeam = !isTeam"
             >
               {{ nav.txt }}
@@ -172,7 +172,7 @@ export default {
         "афіша",
         "новини",
         "про театр",
-        // "архів",
+        "події",
         "контакти",
         "партнери",
         "профіль",
@@ -236,7 +236,7 @@ export default {
         "/plays",
         "/news",
         "/about",
-        // "#/archive",
+        "/archive",
         "/contacts",
         "/our_partners",
         "/my_profile",
@@ -358,7 +358,7 @@ export default {
     position: absolute !important;
     top: 7.5%;
     left: 0%;
-    background-color: #ffffffdb;
+    background-color: #fffffff6;
     z-index: 12;
   }
 }
@@ -383,7 +383,7 @@ export default {
 
 .dropdown-content {
   position: sticky;
-  background: linear-gradient(#ffffffdb, #ffffffdb);
+  background: linear-gradient(#ffffffe9, #ffffffdb);
   min-width: 100%;
   height: max-content;
   z-index: 11;
@@ -394,8 +394,8 @@ export default {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
-  display: block;
-  width: 100%;
+  /* display: block; */
+  /* width: 100%; */
 }
 
 .dropdown-content a:hover {

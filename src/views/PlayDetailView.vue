@@ -138,22 +138,19 @@
               name="actors_level"
             >
               <div class="d_flex_row">
-                <h2 id="head_actors" class="upper_case open_sans f_weight_bold">
-                  акторський склад
+                <h2 id="head_actors" class="upper_case open_sans f_weight_bold t_left">
+                  акторський та режисерський склад
                 </h2>
               </div>
               <div class="d_flex_row pad_top">
                 <ul v-if="playOneDate.staff.length > 1">
                   <li
-                    v-for="act in playOneDate.staff.slice(
-                      1,
-                      playOneDate.staff.length
-                    )"
-                    :key="act.first_name + act.last_name"
+                    v-for="act in getActors(playOneDate.staff)"
+                    :key="getActors(playOneDate.staff).indexOf(act)"
                     class="open_sans t_left"
                   >
-                    <span v-if="rolesAll(act.role)">
-                      {{ act.first_name }}&#x20;{{ act.last_name }}
+                    <span>
+                      {{ act }}
                     </span>
                   </li>
                 </ul>
@@ -354,6 +351,19 @@ export default {
         return true;
       }
       console.log(isActresses, isActror);
+    },
+
+    getActors(staffers) {
+      // Повертає акторів
+      let actors = [];
+      for (let x = 0; x < staffers.length; x++) {
+        if (staffers[x].role.indexOf("Актор") > -1) {
+          actors.push(`${staffers[x].first_name} ${staffers[x].last_name}`);
+        } else if (staffers[x].role.indexOf("Акторка") > -1) {
+          actors.push(`${staffers[x].first_name} ${staffers[x].last_name}`);
+        }
+      }
+      return actors;
     },
   },
 };
