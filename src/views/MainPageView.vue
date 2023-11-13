@@ -301,15 +301,16 @@ export default {
     async showContent() {
       // Показує контент методом підвищення opacity
       let cnt = 0;
-
-      this.intrval = setInterval(() => {
-        document.querySelector(".main_content").style.opacity = String(cnt);
-        if (cnt >= 1) {
-          clearInterval(this.intrval);
-          return;
-        }
-        cnt += 0.1;
-      }, 50);
+      if (document.querySelector(".main_content")) {
+        this.intrval = setInterval(() => {
+          document.querySelector(".main_content").style.opacity = String(cnt);
+          if (cnt >= 1) {
+            clearInterval(this.intrval);
+            return;
+          }
+          cnt += 0.1;
+        }, 50);
+      }
     },
 
     concat(first, last) {
