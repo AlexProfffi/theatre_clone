@@ -352,6 +352,7 @@ export default {
   #drop {
     padding: 85px 0;
     width: 90vw;
+    height: 70vh;
   }
   .dropdown {
     display: inline-block !important;

@@ -243,9 +243,9 @@ export default {
       let im = new Image();
       im.src = "https://theatreofplaywrightsapi.space:8443" + imgSrc;
       if (im.height > 499) {
-        document.querySelector("#imgDram").style.height = "600px";
+        document.querySelector("#imgDram").style.height = "500px";
       } else if (im.height == 0 && imgSrc) {
-        document.querySelector("#imgDram").style.height = "600px";
+        document.querySelector("#imgDram").style.height = "500px";
       }
     },
     getAllRoles(roles) {
@@ -266,7 +266,7 @@ export default {
 }
 @media screen and (max-width: 1330px) {
   #wrapper_bio {
-    padding: 40px 20px;
+    padding: 0;
   }
   #up_content,
   #down_content {
@@ -274,14 +274,15 @@ export default {
     padding: 5em 0;
   }
   #all_bio {
-    width: 100%;
+    margin: auto;
+    width: 90vw;
     text-align: justify;
     font-size: 14px;
     padding-left: 0;
     padding-bottom: 1em;
   }
   #image_playwriter {
-    width: max-content;
+    width: 100vw;
   }
   #checked_texts,
   #projects {
@@ -299,11 +300,13 @@ export default {
     transition: none;
     transform: none;
   }
+  .zoom_hover_img {
+    box-shadow: none !important;
+  }
 }
 @media screen and (max-width: 700px) {
   img.playwriter_photo {
     width: 90vw;
-    margin: auto;
   }
   .f_size_48 {
     font-size: 2em;

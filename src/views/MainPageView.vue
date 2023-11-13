@@ -501,7 +501,7 @@ export default {
         let lenW = all[x].offsetWidth;
         if (lenW > Number(lenElement)) {
           all[x].style.width = "min-content";
-          let lenH = all[x].offsetHeight + all[x].offsetHeight * 0.1;
+          let lenH = all[x].offsetHeight + all[x].offsetHeight * 0.17;
 
           let imiter = lenH * this.coefficientTop;
           all[x].style.top = `${imiter * -1}px`;
@@ -626,6 +626,9 @@ export default {
   .p_abs_text_low_1000 {
     left: calc(100% / 4) !important;
     left: 26% !important;
+  }
+  .w_22em {
+    width: 95vw;
   }
 }
 
