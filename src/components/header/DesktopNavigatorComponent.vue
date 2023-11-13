@@ -103,7 +103,7 @@
           v-for="nav in navigationData"
           :key="nav.value"
           :id="nav.idEl"
-          class="d_flex_row_reverse w_75"
+          class="d_flex_row_reverse j_content_space_around w_75"
         >
           <a
             v-if="nav.value < navigationData.length - 1"
@@ -392,7 +392,7 @@ export default {
 
 .dropdown-content li {
   color: black;
-  padding: 12px 16px;
+  padding: 7px 16px;
   text-decoration: none;
   /* display: block; */
   /* width: 100%; */
