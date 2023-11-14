@@ -18,7 +18,7 @@
       <div class="d_flex_row ptb_1em">
         <div class="horizontal_line">
           <input
-            class="t_left b_none sibscribe_input"
+            class="t_left b_none sibscribe_input f_oswald"
             type="search"
             name="enybodys"
             id="enybodys"
