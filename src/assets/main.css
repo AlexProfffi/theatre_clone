@@ -833,7 +833,7 @@ html {
 }
 
 
-/* MIN WIDTH LOW */
+/* MIN WIDTH HEIGHT LOW */
 
 @media screen and (max-width: 1000px) {
     .f_low_1000 {
@@ -861,5 +861,14 @@ html {
     }
     .p_1_px_low_700 {
         padding: 1px 15px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    #drop {
+        padding: 50px 0 !important;
+    }
+    .dropdown {
+        font-size: .7em;
     }
 }
