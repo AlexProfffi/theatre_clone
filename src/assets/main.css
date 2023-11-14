@@ -859,4 +859,7 @@ html {
         flex-direction: row;
         justify-content: center;
     }
+    .p_1_px_low_700 {
+        padding: 1px 15px;
+    }
 }

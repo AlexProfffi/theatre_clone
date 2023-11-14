@@ -1,7 +1,7 @@
 <template>
   <div class="opacity_05 main_content">
     <div class="d_flex_row j_content_center pad_1em">
-      <div class="p_1_px" v-for="navs in navigateTeam()" :key="navs.value">
+      <div class="p_1_px p_1_px_low_700" v-for="navs in navigateTeam()" :key="navs.value">
         <a class="nav_link_color upper_case font_1" :href="'/team'+navs.lnk">
           {{ navs.text }}
         </a>
@@ -250,6 +250,7 @@ export default {
   #wrapper_list_team {
     padding: 10px;
   }
+
 }
 
 .img_list_team {
