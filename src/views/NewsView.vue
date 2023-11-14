@@ -14,16 +14,16 @@
       <div
         v-for="new_one in news"
         :key="new_one.id"
-        class="d_flex_row j_content_space_around ptb_5em bg_grey_custom position_low_1000 horizontal_line"
+        class="d_flex_row j_content_space_around ptb_5em bg_grey_custom position_low_1000 direction_low_1000 w_low horizontal_line"
       >
         <div
-          class="w_30 position_img_low_1000"
+          class="w_30 w_low"
           @click="showModal(new_one.name, new_one.description, new_one.image)"
         >
           <img
             :src="repalcer(new_one.image, '')"
             :alt="new_one.name"
-            class="img_on_list_new img_on_list__low_1000 c_pointer"
+            class="img_on_list_new img_on_list__low_1000 c_pointer w_90vw"
           />
         </div>
         <div v-if="modal">
@@ -35,14 +35,16 @@
             @close="modal = false"
           />
         </div>
-        <div class="d_flex_row j_content_start w_50 margin_both_2 w_low_1000">
+        <div class="d_flex_row j_content_start w_50 w_low">
           <div
-            class="d_flex_column j_content_space_between t_left w_75 position_content_low_1000"
+            class="d_flex_column j_content_space_between t_left w_75 w_low position_content_low_1000"
           >
-            <div class="w_max">
-              <h2 class="f_oswald">
-                {{ new_one.name }}
-              </h2>
+            <div class="d_flex_row j_content_center">
+              <div class="w_max w_low_25 d_flex_for_mob j_content_start">
+                <h2 class="f_oswald">
+                  {{ new_one.name }}
+                </h2>
+              </div>
             </div>
             <div
               class="f_source_sans padding_tb_2em w_max"
@@ -52,9 +54,11 @@
               @click="showLargeTextNews(new_one.description.length)"
               v-html="sliceString(new_one.description, maxCountSymbols)"
             ></div>
-            <div class="d_flex_row j_content_end">
-              <div class="f_source_sans">
-                {{ formatDate(new_one.date_event) }}
+            <div class="d_flex_row justify_low_1000 j_content_end">
+              <div class="d_flex_row j_content_end w_low_25">
+                <div class="f_source_sans">
+                  {{ formatDate(new_one.date_event) }}
+                </div>
               </div>
             </div>
           </div>
@@ -182,25 +186,16 @@ export default {
   }
 
   .bg_grey_custom {
-    background: linear-gradient(#ffffff, #f3f3f3) !important;
+    background: #f3f3f3;
   }
   .horizontal_line {
     border: none !important;
   }
-  .w_low_1000 {
-    width: 100%;
-  }
   .position_low_1000 {
-    flex-direction: column !important;
-    width: 100% !important;
     padding: 2em 0 !important;
-  }
-  .position_img_low_1000 {
-    width: 100% !important;
   }
 
   .img_on_list__low_1000 {
-    width: 95% !important;
     height: 330px !important;
   }
 
@@ -211,7 +206,5 @@ export default {
     padding-top: 15px;
   }
 }
-
-
 </style>
         

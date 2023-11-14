@@ -5,7 +5,7 @@
     </div>
     <div
       id="map_and_contact"
-      class="d_flex_row padding_tb_15_em opacity_05 main_content"
+      class="d_flex_row padding_tb_15_em opacity_05 main_content direction_low_1000"
     >
       <div id="map" class="mapps margin_both_auto" style="z-index: 10;"></div>
       <div id="contact_current" class="d_flex_column margin_both_auto">
@@ -150,7 +150,6 @@ export default {
   <style scoped>
 @media screen and (max-width: 1000px) {
   #map_and_contact {
-    flex-direction: column;
     padding-top: 20px;
   }
   #word_cnt {
@@ -158,6 +157,7 @@ export default {
   }
   #map {
     width: 90%;
+    height: 300px;
   }
 }
 .mapps {

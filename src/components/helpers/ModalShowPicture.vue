@@ -89,10 +89,7 @@ export default {
 </script>
     <style scoped>
 @media screen and (max-width: 1000px) {
-  .img_modal_low_1000 {
-    width: 95% !important;
-    height: 80%;
-  }
+  
 
   .modal-body {
     width: 100% !important;

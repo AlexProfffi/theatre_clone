@@ -29,7 +29,7 @@
           </div>
           <div
             id="descript_about"
-            class="d_flex_row j_content_space_around ptb_40"
+            class="d_flex_row j_content_space_around ptb_40 direction_low_1000"
           >
             <AboutUsDescriptionComponentVue
               :under_name="about.under_name_1"
@@ -122,9 +122,6 @@ export default {
 @media screen and (max-width: 1000px) {
   p {
     font-size: 12px;
-  }
-  #descript_about {
-    flex-direction: column;
   }
 }
 p {

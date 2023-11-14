@@ -1,8 +1,12 @@
 <template>
   <div class="opacity_05 main_content">
     <div class="d_flex_row j_content_center pad_1em">
-      <div class="p_1_px p_1_px_low_700" v-for="navs in navigateTeam()" :key="navs.value">
-        <a class="nav_link_color upper_case font_1" :href="'/team'+navs.lnk">
+      <div
+        class="p_1_px p_1_px_low_700"
+        v-for="navs in navigateTeam()"
+        :key="navs.value"
+      >
+        <a class="nav_link_color upper_case font_1" :href="'/team' + navs.lnk">
           {{ navs.text }}
         </a>
       </div>
@@ -42,7 +46,7 @@
                     params: {
                       id: prs.id,
                       slugin: sluginToServer,
-                      name: transcription(
+                      name: transcriptWord(
                         concat(prs.first_name, prs.last_name)
                       ),
                     },
@@ -65,6 +69,7 @@
           
   <script>
 // @ is an alias to /src
+import { transcription } from "../../assets/main";
 
 export default {
   name: "ListTeamComponent",
@@ -74,6 +79,7 @@ export default {
   components: {},
   data() {
     return {
+      transcriptWord: transcription,
       personals: [],
       isFull: false,
       defaultPhoto:
@@ -140,93 +146,15 @@ export default {
       // Конкатенує ім'я
       return `${first} ${last}`;
     },
-    transcription(word) {
-      // Транскрипція з кирилиці на латиницю
-      let transcription_alpha = [
-        { value: ["а", "a"] },
-        { value: ["б", "b"] },
-        { value: ["в", "v"] },
-        { value: ["г", "g"] },
-        { value: ["ґ", "g"] },
-        { value: ["д", "d"] },
-        { value: ["е", "e"] },
-        { value: ["є", "ye"] },
-        { value: ["ж", "zh"] },
-        { value: ["з", "z"] },
-        { value: ["и", "y"] },
-        { value: ["і", "i"] },
-        { value: ["ї", "i"] },
-        { value: ["й", "y"] },
-        { value: ["к", "k"] },
-        { value: ["л", "l"] },
-        { value: ["м", "m"] },
-        { value: ["н", "n"] },
-        { value: ["о", "o"] },
-        { value: ["п", "p"] },
-        { value: ["р", "r"] },
-        { value: ["с", "s"] },
-        { value: ["т", "t"] },
-        { value: ["у", "u"] },
-        { value: ["ф", "f"] },
-        { value: ["х", "kh"] },
-        { value: ["ц", "ts"] },
-        { value: ["ч", "ch"] },
-        { value: ["ш", "sh"] },
-        { value: ["щ", "shch"] },
-        { value: ["ь", ""] },
-        { value: ["ю", "yu"] },
-        { value: ["я", "ya"] },
-        { value: ["0", "0"] },
-        { value: ["1", "1"] },
-        { value: ["2", "2"] },
-        { value: ["3", "3"] },
-        { value: ["4", "4"] },
-        { value: ["5", "5"] },
-        { value: ["6", "6"] },
-        { value: ["7", "7"] },
-        { value: ["8", "8"] },
-        { value: ["9", "9"] },
-        { value: [" ", "_"] },
-        { value: ["a", "a"] },
-        { value: ["b", "b"] },
-        { value: ["c", "c"] },
-        { value: ["d", "d"] },
-        { value: ["e", "e"] },
-        { value: ["f", "f"] },
-        { value: ["g", "g"] },
-        { value: ["h", "h"] },
-        { value: ["i", "i"] },
-        { value: ["j", "j"] },
-        { value: ["k", "k"] },
-        { value: ["l", "l"] },
-        { value: ["m", "m"] },
-        { value: ["n", "n"] },
-        { value: ["o", "o"] },
-        { value: ["p", "p"] },
-        { value: ["q", "q"] },
-        { value: ["r", "r"] },
-        { value: ["s", "s"] },
-        { value: ["t", "t"] },
-        { value: ["u", "u"] },
-        { value: ["v", "v"] },
-        { value: ["w", "w"] },
-        { value: ["x", "x"] },
-        { value: ["y", "y"] },
-        { value: ["z", "z"] },
-      ];
-      let list_new_word = [];
-      for (let x = 0; x < word.length; x++) {
-        for (let y = 0; y < transcription_alpha.length; y++) {
-          if (transcription_alpha[y].value[0] == word[x].toLowerCase()) {
-            list_new_word.push(transcription_alpha[y].value[1]);
-          }
-        }
-      }
-      return list_new_word.join("");
-    },
+
     navigateTeam() {
       //
-      let listLnks = ["%2Fauthors", "%2Fdirectors", "%2Factors", "%2Fmain-team"];
+      let listLnks = [
+        "%2Fauthors",
+        "%2Fdirectors",
+        "%2Factors",
+        "%2Fmain-team",
+      ];
       let listNamePart = ["автори", "режисери", "актори", "команда"];
       let finishData = [];
       for (let x = 0; x < listLnks.length; x++) {
@@ -250,7 +178,6 @@ export default {
   #wrapper_list_team {
     padding: 10px;
   }
-
 }
 
 .img_list_team {
