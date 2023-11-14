@@ -570,7 +570,7 @@ export default {
   }
   .p_abs_text_low_1000 {
     left: calc(100% / 26) !important;
-    left: 2em !important;
+    left: 1em !important;
   }
   .p_abs_date {
     left: calc(100% / 1.5);
