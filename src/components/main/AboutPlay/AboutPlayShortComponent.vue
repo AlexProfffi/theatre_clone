@@ -234,7 +234,7 @@
     >
       <div
         v-if="!isPast"
-        class="d_flex_row j_content_center open_sans f_size_32 c_pointer"
+        class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
       >
         <router-link
           v-if="withPhoto"
@@ -727,7 +727,7 @@ export default {
     width: max-content !important;
     padding-bottom: 5px;
     justify-content: center;
-    font-size: 0.8em;
+    font-size: 1em;
   }
 
   .pic_sl_component {

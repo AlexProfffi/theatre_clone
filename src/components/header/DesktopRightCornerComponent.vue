@@ -1,5 +1,9 @@
 <template>
-  <div id="main_right_corner" v-if="!isMobile" class="d_flex_column ptb_40">
+  <div
+    id="main_right_corner"
+    :class="{ direction_low_1000_row: !token, direction_low_1000: token }"
+    class="d_flex_column ptb_40"
+  >
     <div class="d_flex_row j_content_end p_1_px" v-if="showLanguage">
       <div
         v-for="lang in languagesData"
@@ -46,6 +50,7 @@
           </div>
 
           <div>
+            
             <input
               @click="clickSearchBtn()"
               type="button"
@@ -122,7 +127,6 @@ export default {
   data() {
     return {
       showLanguage: false,
-      isMobile: false,
       languagesData: this.languages(),
       authLinksData: this.authLinks(),
       token: localStorage.getItem("token"),
@@ -290,7 +294,10 @@ export default {
     padding: 0 0 0 5px;
   }
   #main_right_corner {
-    flex-direction: row;
+    justify-content: flex-end;
+  }
+  #main_right_corner_auth {
+    flex-direction: column;
     justify-content: flex-end;
   }
 

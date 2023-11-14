@@ -15,9 +15,21 @@
       {{ defaultTextNotInfo }}
     </div>
     <div v-else id="wrapper_list_team" class="d_flex_column p_40px">
+      <div class="d_flex_row ptb_1em">
+        <div class="horizontal_line">
+          <input
+            class="t_left b_none sibscribe_input"
+            type="search"
+            name="enybodys"
+            id="enybodys"
+            placeholder="Пошук..."
+            v-model="namePeople"
+          />
+        </div>
+      </div>
       <div
         class="t_left bg_grey_custom scale_hover"
-        v-for="prs in personals"
+        v-for="prs in teamSearch"
         :key="prs.id"
       >
         <div class="d_flex_row j_content_space_between w_30 ptb_1em">
@@ -79,6 +91,7 @@ export default {
   components: {},
   data() {
     return {
+      namePeople: "",
       transcriptWord: transcription,
       personals: [],
       isFull: false,
@@ -161,6 +174,20 @@ export default {
         finishData.push({ value: x, text: listNamePart[x], lnk: listLnks[x] });
       }
       return finishData;
+    },
+  },
+  computed: {
+    teamSearch() {
+      return this.personals.filter((object) => {
+        return (
+          object.first_name
+            .toLowerCase()
+            .indexOf(this.namePeople.toLowerCase()) > -1 ||
+          object.last_name
+            .toLowerCase()
+            .indexOf(this.namePeople.toLowerCase()) > -1
+        );
+      });
     },
   },
 };
