@@ -25,6 +25,7 @@
               :addr="cnt.address"
               :phone="cnt.phone"
               :email="cnt.e_mail"
+              :color="true"
             />
           </div>
         </div>

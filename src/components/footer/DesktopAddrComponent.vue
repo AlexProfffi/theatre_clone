@@ -2,7 +2,7 @@
   <div v-if="!isMobile" class="d_flex_column j_content_center">
     <div class="d_flex_row p_tb_5 open_sans font_size_08">
       <div>
-        <a class="color_white" :href="'tel://' + phone">
+      <a  :href="'tel://' + phone" :class="{'color_white': !color, 'nav_link_color': color}">
           {{ phone }}
         </a>
       </div>
@@ -34,6 +34,7 @@ export default {
     addr: String,
     phone: String,
     email: String,
+    color: Boolean,
   },
   components: {},
   data() {

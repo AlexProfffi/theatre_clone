@@ -316,6 +316,7 @@ export default {
 };
 </script>
 <style scoped>
+
 @media screen and (max-width: 1700px) {
   #non_drop {
     padding: 0 12em;
