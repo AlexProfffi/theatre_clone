@@ -868,7 +868,9 @@ html {
     #drop {
         padding: 50px 0 !important;
     }
-    .dropdown {
+    .dropdown_li,
+    .li_team {
         font-size: .7em;
+        font-weight: 600;
     }
 }

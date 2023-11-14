@@ -103,7 +103,7 @@
           v-for="nav in navigationData"
           :key="nav.value"
           :id="nav.idEl"
-          class="d_flex_row_reverse j_content_space_around w_75"
+          class="d_flex_row_reverse j_content_space_around w_75 dropdown_li"
         >
           <a
             v-if="nav.value < navigationData.length - 1"
@@ -138,7 +138,7 @@
               class="p_absolute left_25em z_20 font_1"
             >
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left padding_3px" v-for="team in nav.linkTo" :key="team.value">
+                <li class="t_left padding_3px li_team" v-for="team in nav.linkTo" :key="team.value">
                   <span
                     class="nav_link_color c_pointer"
                     @click="goToTeamList(team.linkTo)"
