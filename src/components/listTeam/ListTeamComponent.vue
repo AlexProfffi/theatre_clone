@@ -2,7 +2,7 @@
   <div class="opacity_05 main_content">
     <div class="d_flex_row j_content_space_around pad_1em">
       <div v-for="navs in navigateTeam()" :key="navs.value">
-        <a class="nav_link_color upper_case font_1" :href="navs.lnk">
+        <a class="nav_link_color upper_case font_1" :href="'/team'+navs.lnk">
           {{ navs.text }}
         </a>
       </div>
@@ -226,7 +226,7 @@ export default {
     },
     navigateTeam() {
       //
-      let listLnks = ["/authors", "/directors", "/actors", "/main-team"];
+      let listLnks = ["%2Fauthors", "%2Fdirectors", "%2Factors", "%2Fmain-team"];
       let listNamePart = ["автори", "режисери", "актори", "команда"];
       let finishData = [];
       for (let x = 0; x < listLnks.length; x++) {
