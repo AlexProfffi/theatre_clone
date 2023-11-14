@@ -825,7 +825,15 @@ html {
 }
 
 
-/* MIN WIDTH */
+/* INPUTS FIELDS */
+
+.sibscribe_input {
+    outline: none;
+    color: black;
+}
+
+
+/* MIN WIDTH LOW */
 
 @media screen and (max-width: 1000px) {
     .f_low_1000 {
@@ -836,6 +844,12 @@ html {
     }
     .txt_pos_low_1000 {
         text-align: center;
+    }
+    .justify_low_1000 {
+        justify-content: center;
+    }
+    .w_input_low_1000 {
+        width: 80%;
     }
 }
 

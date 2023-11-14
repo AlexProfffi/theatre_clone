@@ -2,7 +2,7 @@
   <div class="d_flex_column bg_grey_custom">
     <div class="d_flex_row p_lr_2">
       <div class="d_flex_column w_100">
-        <div class="d_flex_row upper_case f_oswald">написати відгук</div>
+        <div class="d_flex_row upper_case f_oswald ptb_1em">написати відгук</div>
         <div>
           <form
             class="d_flex_column"
@@ -13,14 +13,16 @@
             <div v-if="!checkAuth" class="d_flex_row small_font_07">
               <label for="eml">Електронна пошта:</label>
             </div>
-            <input
-              v-if="!checkAuth"
-              v-model="postComment.who"
-              id="eml"
-              class="b_radius_5"
-              type="email"
-              placeholder="Електронна пошта..."
-            />
+            <div class="w_50 horizontal_line d_flex_row j_content_start mb_1rem w_input_low_1000">
+              <input
+                v-if="!checkAuth"
+                v-model="postComment.who"
+                id="eml"
+                class="w_100 t_left b_none sibscribe_input bg_grey_custom"
+                type="email"
+                placeholder="Електронна пошта..."
+              />
+            </div>
             <div class="d_flex_row small_font_07">
               <label for="txt">{{ maxSymbols }} символів</label>
             </div>
@@ -54,10 +56,7 @@
       {{ noneComments }}
     </div>
     <div class="d_flex_row">
-      <div
-        @click="reverseData = !reverseData"
-        class=" p_lr_2 "
-      >
+      <div @click="reverseData = !reverseData" class="p_lr_2">
         <div class="c_pointer arr_sort">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -208,11 +207,12 @@ export default {
     },
     isUserAuth() {
       // Токен користувача
-      if (this.userIn) {
+      if (this.userIn == {}) {
         this.postComment.who = JSON.parse(this.userIn).email;
         this.checkAuth = true;
       } else {
         this.postComment.who = null;
+        this.checkAuth = false;
       }
     },
   },
@@ -265,7 +265,7 @@ export default {
 }
 
 .arr_sort {
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .arr_sort:hover {
   transform: rotate(0.5turn);

@@ -39,6 +39,7 @@
             :withPhoto="false"
             :linkPay="linkPay"
             :idp="inId"
+            :isPast="playOneDate.is_play_past"
           />
         </div>
         <div

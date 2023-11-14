@@ -1,7 +1,7 @@
 <template>
   <div class="opacity_05 main_content">
-    <div class="d_flex_row j_content_space_around pad_1em">
-      <div v-for="navs in navigateTeam()" :key="navs.value">
+    <div class="d_flex_row j_content_center pad_1em">
+      <div class="p_1_px" v-for="navs in navigateTeam()" :key="navs.value">
         <a class="nav_link_color upper_case font_1" :href="'/team'+navs.lnk">
           {{ navs.text }}
         </a>

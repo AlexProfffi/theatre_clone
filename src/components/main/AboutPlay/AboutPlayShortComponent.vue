@@ -232,7 +232,7 @@
       class="upper_case w_20_percent d_flex_column plays_sl_component"
       :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
     >
-      <div class="d_flex_row j_content_center open_sans f_size_32 c_pointer">
+      <div v-if="!isPast" class="d_flex_row j_content_center open_sans f_size_32 c_pointer">
         <router-link
           v-if="withPhoto"
           :id="'link_play_' + play.id"
@@ -255,7 +255,7 @@
         </span>
       </div>
       <div>
-        <div>
+        <div v-if="!isPast">
           <div class="d_flex_row j_content_center">
             <div
               v-if="showPaymentForm"
@@ -330,6 +330,9 @@
             </div>
           </div>
         </div>
+        <div v-else>
+          {{ eventWas }}
+        </div>
       </div>
     </div>
     <div class="horizontal_line"></div>
@@ -346,12 +349,14 @@ export default {
     withPhoto: Boolean,
     idDatePlayOne: Number,
     idp: String,
+    isPast: Boolean,
   },
   components: {
     ModalInfo,
   },
   data() {
     return {
+      eventWas: "Подія вже відбулась",
       isMobile: false,
       modal: false,
       genderP: null,
@@ -738,9 +743,7 @@ export default {
         }
       } else {
         for (let x = 0; x < stafers.length; x++) {
-          if (
-            stafers[x].role.indexOf("Режисерка") > -1
-          ) {
+          if (stafers[x].role.indexOf("Режисерка") > -1) {
             return stafers[x].role[stafers[x].role.indexOf("Режисерка")];
           } else if (stafers[x].role.indexOf("Режисер") > -1) {
             return stafers[x].role[stafers[x].role.indexOf("Режисер")];
@@ -800,10 +803,11 @@ export default {
     padding: 0 !important;
   }
   .plays_sl_component {
-    margin: 1.75em;
+    margin: 2em;
     width: max-content !important;
     padding-bottom: 5px;
     justify-content: center;
+    font-size: .8em;
   }
 
   .pic_sl_component {

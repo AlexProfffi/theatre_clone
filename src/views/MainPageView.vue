@@ -685,10 +685,7 @@ export default {
 .line {
   display: none;
 }
-.sibscribe_input {
-  outline: none;
-  color: black;
-}
+
 
 .sibscribe_button {
   transition: all 0.2s ease-out;
