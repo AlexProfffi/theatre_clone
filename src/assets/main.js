@@ -122,4 +122,9 @@ let scrollToTop = function(top) {
     });
 };
 
-export { monthData, sliceString, transcription, scrollToTop };
+let concat = function(first, last) {
+    // Конкатенує ім'я
+    return `${first} ${last}`;
+};
+
+export { monthData, sliceString, transcription, scrollToTop, concat };

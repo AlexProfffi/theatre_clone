@@ -2,27 +2,44 @@
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
       <div class="modal-container">
-        <div class="d_flex_row j_content_center f_source_sans f_size_32">      
-        </div>
+        <div class="d_flex_row j_content_center f_source_sans f_size_32"></div>
         <div class="modal-body">
           <slot name="body">
             <div v-for="pd in dramaturgs" :key="pd.id" class="f_source_sans">
-              <span class="f_weight_bold p_l_0_5">
+              <!-- <span class="f_weight_bold p_l_0_5">
                 {{ pd.first_name }}
               </span>
               <span class="f_weight_bold p_l_0_3">
                 {{ pd.last_name }} 
-              </span>
+              </span> -->
+              <router-link
+                class="nav_link_color"
+                :to="{
+                  name: 'playwriter',
+
+                  params: {
+                    id: pd.id,
+                    slugin: sluginToServerAuthor,
+                    name: transcriptWord(concat(pd.first_name, pd.last_name)),
+                  },
+                }"
+              >
+                <span class="f_weight_bold p_l_0_5">
+                  {{ pd.first_name }}
+                </span>
+                <span class="f_weight_bold p_l_0_3">
+                  {{ pd.last_name }}
+                </span>
+              </router-link>
             </div>
           </slot>
         </div>
 
         <div class="modal-footer">
           <slot name="footer">
-            <span
-              class="modal-default-button c_pointer"
-              @click="$emit('close')"
-            >Закрити</span>
+            <span class="modal-default-button c_pointer" @click="$emit('close')"
+              >Закрити</span
+            >
           </slot>
         </div>
       </div>
@@ -31,26 +48,28 @@
 </template>
 
   <script>
-  export default {
-    name: "ModalInfo",
-    props: {
-      dramaturgs: Array,
-      show: Boolean,
-    },
-    components: {},
-    data() {
-      return {
-        isMobile: false,
-      };
-    },
-    created() {},
-    methods: {
-      
-    },
-  };
-  </script>
+import { transcription, concat } from "../../assets/main";
+
+export default {
+  name: "ModalInfo",
+  props: {
+    dramaturgs: Array,
+    show: Boolean,
+  },
+  components: {},
+  data() {
+    return {
+      sluginToServerAuthor: "authors",
+      transcriptWord: transcription,
+      concat: concat,
+    };
+  },
+  created() {},
+  methods: {},
+};
+</script>
   <style scoped>
-  .modal-mask {
+.modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -71,8 +90,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
 }
-
-
 
 .modal-body {
   margin: 20px 0;
@@ -108,4 +125,4 @@
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-  </style>
+</style>

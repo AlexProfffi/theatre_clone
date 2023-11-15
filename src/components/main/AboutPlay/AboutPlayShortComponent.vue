@@ -178,12 +178,25 @@
         <span v-else> Драматурги/ні </span>
         <div v-if="play.dramaturg.length < 2">
           <div v-for="pd in play.dramaturg" :key="pd.id">
-            <span class="f_weight_bold p_l_0_5">
-              {{ pd.first_name }}
-            </span>
-            <span class="f_weight_bold p_l_0_3">
-              {{ pd.last_name }}
-            </span>
+            <router-link
+              class="nav_link_color"
+              :to="{
+                name: 'playwriter',
+
+                params: {
+                  id: pd.id,
+                  slugin: sluginToServerAuthor,
+                  name: transcriptWord(concat(pd.first_name, pd.last_name)),
+                },
+              }"
+            >
+              <span class="f_weight_bold p_l_0_5">
+                {{ pd.first_name }}
+              </span>
+              <span class="f_weight_bold p_l_0_3">
+                {{ pd.last_name }}
+              </span>
+            </router-link>
           </div>
         </div>
         <div v-else>
@@ -203,9 +216,22 @@
             <span>
               {{ getDirector(play.staff, (rl = true)) }}
             </span>
-            <span class="f_weight_bold p_l_0_5">
-              {{ getDirector(play.staff) }}
-            </span>
+            <router-link
+              class="nav_link_color"
+              :to="{
+                name: 'playwriter',
+
+                params: {
+                  id: getDirector(play.staff)[1],
+                  slugin: sluginToServerDirector,
+                  name: transcriptWord(getDirector(play.staff)[0]),
+                },
+              }"
+            >
+              <span class="f_weight_bold p_l_0_5">
+                {{ getDirector(play.staff)[0] }}
+              </span>
+            </router-link>
           </div>
         </div>
       </div>
@@ -343,7 +369,7 @@
 </template>
   <script>
 import ModalInfo from "../../helpers/ModalInfo.vue";
-import { transcription } from "../../../assets/main";
+import { transcription, concat } from "../../../assets/main";
 
 export default {
   name: "AboutPlayShortComponent",
@@ -354,6 +380,7 @@ export default {
     idDatePlayOne: Number,
     idp: String,
     isPast: Boolean,
+    
   },
   components: {
     ModalInfo,
@@ -381,6 +408,9 @@ export default {
       )[0],
       parentListEl: [],
       testPayButton: null,
+      sluginToServerDirector: "directors",
+      sluginToServerAuthor: "authors",
+      concat: concat,
     };
   },
   created() {
@@ -658,7 +688,10 @@ export default {
             stafers[x].role.includes("Режисер") ||
             stafers[x].role.includes("Режисерка")
           ) {
-            return `${stafers[x].first_name} ${stafers[x].last_name}`;
+            return [
+              `${stafers[x].first_name} ${stafers[x].last_name}`,
+              stafers[x].id,
+            ];
           }
         }
       } else {

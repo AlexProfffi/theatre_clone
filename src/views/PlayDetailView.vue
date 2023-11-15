@@ -139,20 +139,41 @@
               name="actors_level"
             >
               <div class="d_flex_row">
-                <h2 id="head_actors" class="upper_case open_sans f_weight_bold t_left">
+                <h2
+                  id="head_actors"
+                  class="upper_case open_sans f_weight_bold t_left"
+                >
                   акторський та режисерський склад
                 </h2>
               </div>
               <div class="d_flex_row pad_top">
                 <ul v-if="playOneDate.staff.length > 1">
                   <li
-                    v-for="act in getActors(playOneDate.staff)"
-                    :key="getActors(playOneDate.staff).indexOf(act)"
+                    v-for="act in playOneDate.staff"
+                    :key="act.id"
                     class="open_sans t_left"
                   >
-                    <span>
-                      {{ act }}
-                    </span>
+                    <router-link
+                      class="nav_link_color"
+                      :to="{
+                        name: 'playwriter',
+
+                        params: {
+                          id: act.id,
+                          slugin: actorOrDirector(act.role),
+                          name: transcriptWord(
+                            concat(act.first_name, act.last_name)
+                          ),
+                        },
+                      }"
+                    >
+                      <span class="f_weight_bold p_l_0_5">
+                        {{ act.first_name }}
+                      </span>
+                      <span class="f_weight_bold p_l_0_3">
+                        {{ act.last_name }}
+                      </span>
+                    </router-link>
                   </li>
                 </ul>
                 <p v-else>Інформація з`явиться незабаром</p>
@@ -182,6 +203,7 @@ import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 import AboutPlayShortComponentVue from "@/components/main/AboutPlay/AboutPlayShortComponent.vue";
 import CommentsComponent from "@/components/comments/CommentsComponent.vue";
+import { transcription, concat } from "../assets/main";
 
 export default {
   name: "PlayDetailView",
@@ -220,6 +242,9 @@ export default {
         "«Умовою повернення коштів»",
       ],
       inId: this.id,
+      transcriptWord: transcription,
+      concat: concat,
+      sluginToServerActor: "actors",
     };
   },
   created() {
@@ -235,6 +260,13 @@ export default {
       });
   },
   methods: {
+    actorOrDirector(rols) {
+      if (rols.indexOf("Режисерка") > -1 || rols.indexOf("Режисер") > -1) {
+        return "directors";
+      }
+      return "actors";
+    },
+
     async getOffert() {
       // Фільтр по місяцям
       this.offert = await fetch(`${this.$store.getters.getServerUrl}/offert/`)
