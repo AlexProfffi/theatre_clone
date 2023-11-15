@@ -10,21 +10,23 @@
         :id="nav.idEl"
         class=""
       >
-        <a
-          v-if="nav.value < navigationData.length - 1"
-          :href="nav.linkTo"
-          @click="deleteDataFromFilter(nav.linkTo)"
-          @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
-          @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-          class="upper_case none_text_decor nav_link_color navigation_sites"
-          style="display: block"
-          :class="{
-            'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
-          }"
-        >
-          {{ nav.txt }}
-          <div class="horizontal_line_hover"></div>
-        </a>
+        <div v-if="nav.value < navigationData.length - 1">
+          <router-link
+            :to="nav.linkTo"
+            @click="deleteDataFromFilter(nav.linkTo)"
+            @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+            @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+            class="upper_case none_text_decor nav_link_color navigation_sites"
+            style="display: block"
+            :class="{
+              'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
+            }"
+          >
+            {{ nav.txt }}
+            <div class="horizontal_line_hover"></div>
+          </router-link>
+          
+        </div>
         <div
           v-else
           class="d_flex_column upper_case none_text_decor"
@@ -39,14 +41,11 @@
             @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
             @click="isTeam = !isTeam"
           >
-            {{ nav.txt }} 
+            {{ nav.txt }}
             <div class="horizontal_line_hover"></div>
           </div>
-          
-          <div
-            v-if="isTeam"
-            class="p_absolute z_20 font_1 teamss"
-          >
+
+          <div v-if="isTeam" class="p_absolute z_20 font_1 teamss">
             <ul class="pad_0 none_decor_ul_no_pad">
               <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
                 <span
@@ -133,12 +132,13 @@
               {{ nav.txt }}
               <div class="horizontal_line_hover"></div>
             </div>
-            <div
-              v-if="isTeam"
-              class="p_absolute left_25em z_20 font_1"
-            >
+            <div v-if="isTeam" class="p_absolute left_25em z_20 font_1">
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left padding_3px li_team" v-for="team in nav.linkTo" :key="team.value">
+                <li
+                  class="t_left padding_3px li_team"
+                  v-for="team in nav.linkTo"
+                  :key="team.value"
+                >
                   <span
                     class="nav_link_color c_pointer"
                     @click="goToTeamList(team.linkTo)"
@@ -189,7 +189,6 @@ export default {
     drawHorizontalLine(index, classEl) {
       // Підкреслення по наведенню на елемент
       let navEl = document.querySelectorAll(classEl);
-      
 
       let widthElem = navEl[index].offsetWidth - 2;
       let cnt = 1;
@@ -316,7 +315,6 @@ export default {
 };
 </script>
 <style scoped>
-
 @media screen and (max-width: 1700px) {
   #non_drop {
     padding: 0 12em;
