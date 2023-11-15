@@ -113,4 +113,13 @@ let transcription = function(word) {
     return list_new_word.join("");
 };
 
-export { monthData, sliceString, transcription };
+let scrollToTop = function(top) {
+    // Scroll
+    window.scroll({
+        top: top,
+        left: 0,
+        behavior: "smooth",
+    });
+};
+
+export { monthData, sliceString, transcription, scrollToTop };

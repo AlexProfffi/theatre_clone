@@ -124,7 +124,7 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-import { transcription } from "../assets/main";
+import { transcription, scrollToTop } from "../assets/main";
 
 export default {
   name: "ArchiveView",
@@ -190,6 +190,7 @@ export default {
             this.showNext = false;
           }
         });
+      scrollToTop(200);
     },
     goToPrev() {
       // Previous page
@@ -198,6 +199,7 @@ export default {
         .then(() => {
           this.showNext = true;
         });
+      scrollToTop(200);
     },
     repalcer(str, changeble) {
       // Замінює підстроку

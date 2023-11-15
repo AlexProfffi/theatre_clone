@@ -25,7 +25,6 @@
             {{ nav.txt }}
             <div class="horizontal_line_hover"></div>
           </router-link>
-          
         </div>
         <div
           v-else
@@ -152,18 +151,25 @@
           </div>
         </li>
       </ul>
+      <div class="spinner" v-if="spiner">
+        <SpinerComponent />
+      </div>
     </div>
   </div>
 </template>
       <script>
+import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 export default {
   name: "DesktopNavigatorComponent",
-  components: {},
+  components: {
+    SpinerComponent,
+  },
   data() {
     return {
       isMobile: false,
       navigationData: null,
       dropMenu: false,
+      spiner: false,
       intrval: null,
       isTeam: false,
       offert: [],
@@ -214,6 +220,8 @@ export default {
       // Скидує фільтри по місяцям
       if (!newWindow) {
         localStorage.removeItem("dataYM");
+        this.dropMenu = !this.dropMenu;
+        this.spiner = true;
       } else {
         localStorage.removeItem("dataYM");
         this.openLinkNewWindow(lnk);
@@ -413,5 +421,8 @@ export default {
   background-color: rgb(254, 254, 254);
   border-radius: 7px;
   padding: 7px;
+}
+.spinner {
+  margin-top: 45%;
 }
 </style>
