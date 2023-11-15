@@ -35,6 +35,7 @@
     <div class="footer_bg pad_1em">
       <OffertsComponent />
     </div>
+
     <div class="dev_tools d_flex_row j_content_center pad_b1em">
       <div class="pad_both_7">
         <a href="https://vuejs.org/">
@@ -124,6 +125,9 @@
         </a>
       </div>
     </div>
+    <div>
+      <a class="font_1 color_white" :href="this.publicPath + 'sitemap/sitemap.xml'">Карта сайту</a>
+    </div>
     <div class="t_left" style="color: #212121">Vova Savin</div>
   </div>
 </template>
@@ -147,6 +151,7 @@ export default {
       isMobile: false,
       contacts: null,
       social: null,
+      publicPath: process.env.BASE_URL,
     };
   },
   created() {
