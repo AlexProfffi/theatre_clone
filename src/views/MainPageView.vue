@@ -217,7 +217,7 @@
           <form
             id="form_subscribe"
             action="POST"
-            class="d_flex_row j_content_start  w_50"
+            class="d_flex_row j_content_start"
             @submit="toSubscribe"
           >
             <div
@@ -234,7 +234,7 @@
               />
             </div>
             <div
-              class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000 "
+              class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000"
             >
               <input
                 class="btn_black b_none pad_both_7 upper_case sibscribe_button"
@@ -468,6 +468,12 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 2565px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 29% !important;
+  }
+}
 
 @media screen and (max-width: 2400px) {
   .p_abs_text_low_1000 {
@@ -493,6 +499,13 @@ export default {
   }
 }
 
+@media screen and (max-width: 1600px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 17% !important;
+  }
+}
+
 @media screen and (max-width: 1500px) {
   #plays_main_list {
     grid-template-columns: repeat(2, 1fr);
@@ -508,6 +521,28 @@ export default {
     left: 25%;
   }
 }
+
+@media screen and (max-width: 1490px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 26% !important;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 21% !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 15% !important;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   #plays_main_list,
   #idea_main_list {
