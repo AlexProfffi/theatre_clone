@@ -110,6 +110,109 @@
             </div>
           </div>
         </div>
+        <!-- <div
+          id="his_her_works"
+          class="d_flex_column f_source_sans color_black ptb_5em"
+        >
+          <div class="d_flex_row j_content_center ptb_1em j_content_low_1300">
+            <div class="upper_case f_size_40 f_weight_bold w_50 nowrap_space">
+              вистави
+            </div>
+          </div>
+          <div class="d_flex_row j_content_center ptb_1em">
+            <div class="little_pad c_pointer" @click="moveWorksToLeft()">
+              <button :disabled="firstIndex < 1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="25"
+                  viewBox="0 0 10.605 15.555"
+                >
+                  <polygon
+                    points="10.605 12.727 5.656 7.776 10.605 2.828 7.777 0 0 7.776 7.777 15.555 10.605 12.727"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="little_pad c_pointer"
+              @click="moveWorksToRight()"
+            >
+              <button :disabled="secondIndex > test.length - 1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="25"
+                  viewBox="0 0 10.605 15.555"
+                >
+                  <polygon
+                    points="2.828 15.555 10.605 7.776 2.828 0 0 2.828 4.949 7.776 0 12.727 2.828 15.555"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="d_flex_row j_content_center">
+            <div
+              v-for="plwr in test.slice(firstIndex, secondIndex)"
+              :key="plwr.value"
+            >
+              <span class="little_pad">
+                {{ plwr.text }}
+              </span>
+            </div>
+          </div>
+
+          <div class="d_flex_row j_content_center">
+            <div
+              v-for="plwr in playwriter.works"
+              :key="plwr.id"
+              class="d_flex_column little_pad"
+            >
+              <div>
+                <img
+                  class="img_on_list_work"
+                  :src="repalcer(plwr.photo)"
+                  :alt="plwr.name"
+                />
+              </div>
+              <div class="d_flex_row">
+                <div v-if="plwr.on_play.length" class="f_oswald f_size_40">
+                  <router-link
+                    class="nav_link_color"
+                    :to="{
+                      name: 'play',
+                      params: {
+                        id: plwr.id,
+                        date_id: plwr.on_play[0].id,
+                        name: transcriptWord(plwr.name),
+                      },
+                    }"
+                  >
+                    {{ plwr.name }}
+                  </router-link>
+                </div>
+                <div v-else class="f_oswald f_size_40">
+                  {{ plwr.name }}
+                </div>
+              </div>
+              <div
+                class="d_flex_row j_content_space_between w_80"
+                v-if="plwr.on_play.length"
+              >
+                <span>
+                  {{ inTimeDate }}
+                </span>
+                <span class="open_sans f_weight_bold font_1">
+                  {{ brackeDate(plwr.on_play[0].date_pl) }}
+                </span>
+              </div>
+              <div v-else class="d_flex_row j_content_space_between w_80">
+                {{ noDatePlay }}
+              </div>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
     <div>
@@ -122,6 +225,7 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import { transcription, setBrakeDate } from "../assets/main";
 
 export default {
   name: "PlayWriterView",
@@ -135,6 +239,20 @@ export default {
   },
   data() {
     return {
+      firstIndex: 0,
+      secondIndex: 2,
+      test: [
+        { value: 0, text: "1" },
+        { value: 1, text: "2" },
+        { value: 2, text: "3" },
+        { value: 3, text: "4" },
+        { value: 4, text: "5" },
+        { value: 5, text: "6" },
+      ],
+      brackeDate: setBrakeDate,
+      noDatePlay: "Ось, скоро вже буде показ...",
+      inTimeDate: "Найближча дата:",
+      transcriptWord: transcription,
       badPhoto:
         "/image_theatre/image_theatre/%D0%94%D1%80%D0%B0%D0%BC%D0%B0%D1%82%D1%83%D1%80%D0%B3%D0%B8Photo/anonim.png",
       showAbout: [
@@ -185,6 +303,14 @@ export default {
       });
   },
   methods: {
+    moveWorksToRight() {
+      this.firstIndex++;
+      this.secondIndex++;
+    },
+    moveWorksToLeft() {
+      this.firstIndex--;
+      this.secondIndex--;
+    },
     async setTitle() {
       // Встановлює назву сторінки
       document.querySelector(

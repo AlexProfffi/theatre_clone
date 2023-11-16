@@ -60,7 +60,7 @@ html {
 
 .p_abs_text {
     z-index: 15;
-    left: 22%;
+    left: 34%;
 }
 
 .p_rel_hider {
@@ -71,7 +71,7 @@ html {
 
 .p_abs_date {
     z-index: 15;
-    left: 65%;
+    left: 60%;
 }
 
 .overflow_hidden {
@@ -173,6 +173,10 @@ html {
     flex-wrap: wrap;
 }
 
+.flex_no_wrap {
+    flex-wrap: nowrap !important;
+}
+
 .flex_grow_2 {
     flex-grow: 2;
 }
@@ -210,6 +214,10 @@ html {
 
 .w_75 {
     width: 85%;
+}
+
+.w_80 {
+    width: 80%;
 }
 
 .w_70 {
@@ -466,6 +474,10 @@ html {
 
 .pad_1em {
     padding: 1em;
+}
+
+.pad_51em {
+    padding: 5em 1em;
 }
 
 .pad_03em {
@@ -776,10 +788,16 @@ html {
     object-fit: cover;
 }
 
-.img_on_list {
+.img_on_list,
+.img_on_list_work {
     width: 226px;
     height: 223px;
     object-fit: cover;
+}
+
+.img_on_list_work {
+    width: 326px;
+    height: 323px;
 }
 
 .img_on_list_new {

@@ -127,4 +127,18 @@ let concat = function(first, last) {
     return `${first} ${last}`;
 };
 
-export { monthData, sliceString, transcription, scrollToTop, concat };
+let setBrakeDate = function(dt) {
+    // Ділить дату на добу та години
+    let newDate = String(dt).split("T");
+    let objDate = [
+        { when: newDate[0], value: 0 },
+        {
+            when: newDate[1].split("+")[0].split(":").slice(0, 2).join(":"),
+            value: 1,
+        },
+    ];
+    let correctDate = `${objDate[0].when} о ${objDate[1].when}`;
+    return correctDate;
+}
+
+export { monthData, sliceString, transcription, scrollToTop, concat, setBrakeDate };

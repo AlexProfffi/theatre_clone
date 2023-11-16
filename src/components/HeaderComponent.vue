@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" class="header_desktop">
+  <div class="header_desktop">
     <div class="d_flex_column">
       <DesktopRightCornerComponent />
       <DesktopNameSiteComponent />
@@ -20,9 +20,7 @@ export default {
     DesktopNavigatorComponent,
   },
   data() {
-    return {
-      isMobile: false,
-    };
+    return {};
   },
   created() {},
   methods: {},

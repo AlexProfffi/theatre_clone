@@ -106,7 +106,11 @@
             d_grid_2: ideas.length == 2,
           }"
         >
-          <div v-for="idea in ideas" :key="idea.id" class="pad_b1em">
+          <div
+            v-for="idea in ideas"
+            :key="idea.id"
+            class="d_flex_row j_content_center pad_b1em"
+          >
             <div
               v-html="idea.description"
               class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
@@ -197,10 +201,10 @@
         {{ answerSubscribe }}
       </div>
       <div class="p_sticky z_20">
-        <div id="subscribe" class="d_flex_row j_content_space_around w_70">
+        <div id="subscribe" class="d_flex_row j_content_center">
           <div
             id="lbl_subscribe"
-            class="d_flex_column f_source_sans upper_case t_left"
+            class="d_flex_column f_source_sans upper_case t_left little_pad"
           >
             <div>
               {{ subscribeLabel.text1 }}
@@ -213,12 +217,12 @@
           <form
             id="form_subscribe"
             action="POST"
-            class="d_flex_row j_content_space_between w_50"
+            class="d_flex_row j_content_start  w_50"
             @submit="toSubscribe"
           >
             <div
               id="places_inputs"
-              class="d_flex_row j_content_space_around w_50 h_max horizontal_line"
+              class="d_flex_row j_content_space_around w_50 h_max horizontal_line little_pad"
             >
               <input
                 v-model="subscribe.email"
@@ -230,7 +234,7 @@
               />
             </div>
             <div
-              class="d_flex_row j_content_space_around f_oswald w_50 h_max f_size_32 pad_low_1000"
+              class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000 "
             >
               <input
                 class="btn_black b_none pad_both_7 upper_case sibscribe_button"
@@ -371,7 +375,7 @@ export default {
       }
       return;
     },
-    
+
     showMoreIdeas() {
       // hide or show all ideas
       this.showIdeas = !this.showIdeas;
@@ -464,6 +468,31 @@ export default {
 </script>
 
 <style scoped>
+
+@media screen and (max-width: 2400px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 30% !important;
+  }
+}
+@media screen and (max-width: 2200px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 28% !important;
+  }
+}
+
+@media screen and (max-width: 2000px) {
+  .p_abs_text_low_1000 {
+    left: calc(100% / 3.1) !important;
+    left: 25% !important;
+  }
+  .p_abs_date {
+    z-index: 15;
+    left: 65%;
+  }
+}
+
 @media screen and (max-width: 1500px) {
   #plays_main_list {
     grid-template-columns: repeat(2, 1fr);
@@ -531,7 +560,7 @@ export default {
   }
   .p_abs_text_low_1000 {
     left: calc(100% / 3.1) !important;
-    left: 32% !important;
+    left: 32%;
   }
   .p_abs_date {
     left: calc(100% / 1.7);
@@ -544,10 +573,14 @@ export default {
 @media screen and (max-width: 725px) {
   .p_abs_text_low_1000 {
     left: calc(100% / 4) !important;
-    left: 26% !important;
+    left: 5% !important;
   }
   .w_22em {
     width: 95vw;
+  }
+  .p_abs_date {
+    z-index: 15;
+    left: 85%;
   }
 }
 
@@ -604,7 +637,6 @@ export default {
 .line {
   display: none;
 }
-
 
 .sibscribe_button {
   transition: all 0.2s ease-out;

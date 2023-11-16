@@ -352,4 +352,7 @@ input.xtx {
   margin-top: 55px;
   height: max-content;
 }
+/* #main_right_corner {
+  background: url("D:\театрДраматургівФото\snow.gif");
+} */
 </style>
