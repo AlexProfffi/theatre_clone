@@ -8,8 +8,8 @@
       class="d_flex_row j_content_space_around opacity_05 main_content p_40px"
     >
       <div class="d_flex_row j_content_center">
-        <div>
-          <img :src="news.image" :alt="news.name" />
+        <div class="h_600">
+          <img class="h_100" :src="news.image" :alt="news.name" />
         </div>
       </div>
       <div class="d_flex_column">
