@@ -3,6 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
+    {{ sizeScreen }}
     <div class="opacity_05 main_content">
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
@@ -114,12 +115,17 @@
           id="his_her_works"
           class="d_flex_column f_source_sans color_black ptb_5em bg_grey_custom"
         >
-          <div class="d_flex_row j_content_center ptb_1em j_content_low_1300">
+          <div
+            class="d_flex_row j_content_center ptb_1em j_content_center_low_1000"
+          >
             <div class="upper_case f_size_40 f_weight_bold w_50 nowrap_space">
               вистави
             </div>
           </div>
-          <div v-if="plWorks.length > 3" class="d_flex_row j_content_center ptb_1em">
+          <div
+            v-if="plWorks.length > 3"
+            class="d_flex_row j_content_center ptb_1em"
+          >
             <div class="little_pad c_pointer" @click="moveWorksToLeft()">
               <button
                 class="bg_grey_custom b_none scale_hover"
@@ -155,7 +161,8 @@
               </button>
             </div>
           </div>
-          <div class="d_flex_row j_content_center">
+
+          <div class="d_flex_row j_content_center direction_low_1000">
             <div
               v-for="plwr in plWorks.slice(firstIndex, secondIndex)"
               :key="plwr.id"
@@ -169,7 +176,7 @@
                     :alt="plwr.name"
                   />
                 </div>
-                <div class="d_flex_row">
+                <div class="d_flex_row j_content_center_low_1000 j_content_mobile_center">
                   <div v-if="plwr.on_play.length" class="f_oswald f_size_32">
                     <router-link
                       class="nav_link_color"
@@ -190,17 +197,20 @@
                   </div>
                 </div>
                 <div
-                  class="d_flex_row j_content_space_between w_80"
+                  class="d_flex_row j_content_space_between w_80 j_content_center_low_1000 w_low_1000 j_content_mobile_center w_low"
                   v-if="plwr.on_play.length"
                 >
-                  <span>
+                  <span class="p_low_100_5">
                     {{ inTimeDate }}
                   </span>
-                  <span class="open_sans f_weight_bold font_1">
+                  <span class="open_sans f_weight_bold font_1 p_low_100_5">
                     {{ brackeDate(plwr.on_play[0].date_pl) }}
                   </span>
                 </div>
-                <div v-else class="d_flex_row j_content_space_between w_80">
+                <div
+                  v-else
+                  class="d_flex_row j_content_space_between w_80 j_content_center_low_1000 w_low_1000 j_content_mobile_center w_low"
+                >
                   {{ plwr.alter_text }}
                 </div>
               </div>
@@ -233,16 +243,9 @@ export default {
   },
   data() {
     return {
+      sizeScreen: document.body.offsetWidth,
       firstIndex: 0,
       secondIndex: 3,
-      test: [
-        { value: 0, text: "1" },
-        { value: 1, text: "2" },
-        { value: 2, text: "3" },
-        { value: 3, text: "4" },
-        { value: 4, text: "5" },
-        { value: 5, text: "6" },
-      ],
       brackeDate: setBrakeDate,
       noDatePlay: "Ось, скоро вже буде показ...",
       inTimeDate: "Найближча дата:",
@@ -299,6 +302,9 @@ export default {
       })
       .then(() => {
         this.plWorks = this.playwriter.works;
+        if (this.sizeScreen < 750) {
+          this.secondIndex = this.plWorks.length;
+        }
       });
   },
   methods: {
@@ -455,7 +461,7 @@ export default {
   #up_content,
   #down_content {
     flex-direction: column;
-    padding: 5em 0;
+    padding: 5em 1em;
   }
   #all_bio {
     margin: auto;

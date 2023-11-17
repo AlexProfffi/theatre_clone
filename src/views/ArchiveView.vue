@@ -279,6 +279,7 @@ export default {
   .row_reverse_low_1000 {
     flex-direction: column;
   }
+ 
 }
 
 .scale_hover:hover {

@@ -244,6 +244,10 @@ html {
     width: 7em;
 }
 
+.w_95vw {
+    width: 95vw;
+}
+
 
 /* height */
 
@@ -257,6 +261,10 @@ html {
 
 .h_100 {
     height: 100%;
+}
+
+.h_90 {
+    height: 90%;
 }
 
 .h_7em {
@@ -877,6 +885,9 @@ html {
     .p_low_1000 {
         padding: 20px;
     }
+    .p_low_100_5 {
+        padding: 0 5px;
+    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -904,6 +915,9 @@ html {
     .direction_low_1000 {
         flex-direction: column !important;
     }
+    .j_content_center_low_1000 {
+        justify-content: center !important;
+    }
     .direction_low_1000_row {
         flex-direction: row !important;
     }
@@ -912,6 +926,9 @@ html {
     }
     .p_low_1000 {
         padding: 20px;
+    }
+    .w_low_1000 {
+        width: 100% !important;
     }
 }
 

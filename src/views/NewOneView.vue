@@ -9,7 +9,7 @@
     >
       <div class="d_flex_row j_content_center">
         <div class="h_600">
-          <img class="h_100" :src="news.image" :alt="news.name" />
+          <img class="h_90 w_95vw_low_1000" :src="news.image" :alt="news.name" />
         </div>
       </div>
       <div class="d_flex_column">
@@ -108,6 +108,9 @@ export default {
   }
   .w_low_600 {
     width: 85vw !important;
+  }
+  .w_95vw_low_1000 {
+    width: 95vw !important;
   }
 }
 </style>
