@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" class="home_play">
+  <div class="home_play">
     <div>
       <HeaderComponent />
     </div>
@@ -110,18 +110,21 @@
             </div>
           </div>
         </div>
-        <!-- <div
+        <div
           id="his_her_works"
-          class="d_flex_column f_source_sans color_black ptb_5em"
+          class="d_flex_column f_source_sans color_black ptb_5em bg_grey_custom"
         >
           <div class="d_flex_row j_content_center ptb_1em j_content_low_1300">
             <div class="upper_case f_size_40 f_weight_bold w_50 nowrap_space">
               вистави
             </div>
           </div>
-          <div class="d_flex_row j_content_center ptb_1em">
+          <div v-if="plWorks.length > 3" class="d_flex_row j_content_center ptb_1em">
             <div class="little_pad c_pointer" @click="moveWorksToLeft()">
-              <button :disabled="firstIndex < 1">
+              <button
+                class="bg_grey_custom b_none scale_hover"
+                :disabled="firstIndex < 1"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="15"
@@ -134,11 +137,11 @@
                 </svg>
               </button>
             </div>
-            <div
-              class="little_pad c_pointer"
-              @click="moveWorksToRight()"
-            >
-              <button :disabled="secondIndex > test.length - 1">
+            <div class="little_pad c_pointer" @click="moveWorksToRight()">
+              <button
+                class="bg_grey_custom b_none scale_hover"
+                :disabled="secondIndex > plWorks.length - 1"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="15"
@@ -154,65 +157,56 @@
           </div>
           <div class="d_flex_row j_content_center">
             <div
-              v-for="plwr in test.slice(firstIndex, secondIndex)"
-              :key="plwr.value"
-            >
-              <span class="little_pad">
-                {{ plwr.text }}
-              </span>
-            </div>
-          </div>
-
-          <div class="d_flex_row j_content_center">
-            <div
-              v-for="plwr in playwriter.works"
+              v-for="plwr in plWorks.slice(firstIndex, secondIndex)"
               :key="plwr.id"
-              class="d_flex_column little_pad"
+              class="d_flex_column little_pad all_works_author"
             >
-              <div>
-                <img
-                  class="img_on_list_work"
-                  :src="repalcer(plwr.photo)"
-                  :alt="plwr.name"
-                />
-              </div>
-              <div class="d_flex_row">
-                <div v-if="plwr.on_play.length" class="f_oswald f_size_40">
-                  <router-link
-                    class="nav_link_color"
-                    :to="{
-                      name: 'play',
-                      params: {
-                        id: plwr.id,
-                        date_id: plwr.on_play[0].id,
-                        name: transcriptWord(plwr.name),
-                      },
-                    }"
-                  >
+              <div class="d_flex_column">
+                <div>
+                  <img
+                    class="img_on_list_work"
+                    :src="repalcer(plwr.photo)"
+                    :alt="plwr.name"
+                  />
+                </div>
+                <div class="d_flex_row">
+                  <div v-if="plwr.on_play.length" class="f_oswald f_size_32">
+                    <router-link
+                      class="nav_link_color"
+                      :to="{
+                        name: 'play',
+                        params: {
+                          id: plwr.id,
+                          date_id: plwr.on_play[0].id,
+                          name: transcriptWord(plwr.name),
+                        },
+                      }"
+                    >
+                      {{ plwr.name }}
+                    </router-link>
+                  </div>
+                  <div v-else class="f_oswald f_size_32">
                     {{ plwr.name }}
-                  </router-link>
+                  </div>
                 </div>
-                <div v-else class="f_oswald f_size_40">
-                  {{ plwr.name }}
+                <div
+                  class="d_flex_row j_content_space_between w_80"
+                  v-if="plwr.on_play.length"
+                >
+                  <span>
+                    {{ inTimeDate }}
+                  </span>
+                  <span class="open_sans f_weight_bold font_1">
+                    {{ brackeDate(plwr.on_play[0].date_pl) }}
+                  </span>
                 </div>
-              </div>
-              <div
-                class="d_flex_row j_content_space_between w_80"
-                v-if="plwr.on_play.length"
-              >
-                <span>
-                  {{ inTimeDate }}
-                </span>
-                <span class="open_sans f_weight_bold font_1">
-                  {{ brackeDate(plwr.on_play[0].date_pl) }}
-                </span>
-              </div>
-              <div v-else class="d_flex_row j_content_space_between w_80">
-                {{ noDatePlay }}
+                <div v-else class="d_flex_row j_content_space_between w_80">
+                  {{ plwr.alter_text }}
+                </div>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
     <div>
@@ -240,7 +234,7 @@ export default {
   data() {
     return {
       firstIndex: 0,
-      secondIndex: 2,
+      secondIndex: 3,
       test: [
         { value: 0, text: "1" },
         { value: 1, text: "2" },
@@ -282,11 +276,13 @@ export default {
         },
       ],
       playwriter: {},
+      plWorks: [],
       defaultPhoto:
         "https://theatreofplaywrightsapi.space:8443/image_theatre/ДраматургиPhoto/anonim.png",
       defaultText: "Ось, скоро вже з'явиться...",
       maxCountSymbols: 1000,
       isShowLargeContent: false,
+      workInterval: null,
     };
   },
   beforeCreate() {},
@@ -300,16 +296,77 @@ export default {
       })
       .then(() => {
         this.setTitle();
+      })
+      .then(() => {
+        this.plWorks = this.playwriter.works;
       });
   },
   methods: {
+    async movedRight() {
+      let need = document.querySelectorAll(".all_works_author")[0];
+      // let needNext = document.querySelectorAll(".all_works_author")[1];
+      let needNextNext = document.querySelectorAll(".all_works_author")[2];
+
+      // let count = need.offsetWidth;
+      let pad = 0;
+      let ops = 1;
+      this.workInterval = setInterval(() => {
+        if (need) {
+          need.style.paddingRight = String(pad) + "px";
+        }
+
+        // needNext.style.paddingRight = String(pad) + "px";
+        needNextNext.style.paddingRight = String(pad) + "px";
+
+        need.style.opacity = String(ops);
+        if (pad > 350) {
+          clearInterval(this.workInterval);
+          this.firstIndex++;
+          this.secondIndex++;
+          document.querySelectorAll(
+            ".all_works_author"
+          )[1].style.paddingRight = 0;
+          document.querySelectorAll(
+            ".all_works_author"
+          )[2].style.paddingRight = 0;
+          return;
+        }
+        pad += 25;
+        ops -= 0.1;
+      }, 5);
+    },
+
+    async movedLeft() {
+      let need = document.querySelectorAll(".all_works_author")[0];
+      let needNext = document.querySelectorAll(".all_works_author")[2];
+      // let count = need.offsetWidth;
+      let pad = 0;
+      let ops = 1;
+      this.workInterval = setInterval(() => {
+        need.style.paddingLeft = String(pad) + "px";
+        if (needNext) {
+          needNext.style.paddingLeft = String(pad) + "px";
+        }
+
+        needNext.style.opacity = String(ops);
+
+        if (pad > 350) {
+          clearInterval(this.workInterval);
+          this.firstIndex--;
+          this.secondIndex--;
+          document.querySelectorAll(".all_works_author")[0].style.paddingLeft =
+            1.5 + "em";
+          return;
+        }
+        pad += 25;
+        ops -= 0.1;
+      }, 5);
+    },
     moveWorksToRight() {
-      this.firstIndex++;
-      this.secondIndex++;
+      this.movedRight();
     },
     moveWorksToLeft() {
-      this.firstIndex--;
-      this.secondIndex--;
+      this.movedLeft();
     },
     async setTitle() {
       // Встановлює назву сторінки
@@ -334,6 +391,7 @@ export default {
       let url = `${this.$store.getters.getServerUrl}/playwriters/${this.slugin}/${this.id}/`;
       this.playwriter = await fetch(url)
         .then((response) => response.json())
+
         .catch((error) => console.log(error));
     },
     repalcer(str, changeble) {
@@ -479,6 +537,11 @@ img.playwriter_photo {
 }
 .md_arrow_close:hover {
   width: 10px;
+}
+
+.scale_hover:hover {
+  transform: scale(1.2);
+  box-shadow: none;
 }
 </style>
       

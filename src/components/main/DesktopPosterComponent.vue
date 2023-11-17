@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" class="posters d_flex_column j_content_center ptb_40">
+  <div class="posters d_flex_column j_content_center ptb_40">
     <div v-if="showSpiner">
       <SpinerComponent />
     </div>

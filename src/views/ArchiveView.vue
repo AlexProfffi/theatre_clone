@@ -32,9 +32,11 @@
                 {{ eventPast.date }}
               </div>
             </div>
-            <div class="flex_low_500">
+            <div
+              class="d_flex_column j_content_space_around flex_low_500 direction_low_1000_row"
+            >
               <img
-                class="img_on_list img_on_list_low_1000"
+                class="img_on_list img_on_list_low_1000 zoom_hover_img_arch cancel_zoom"
                 :src="repalcer(eventPast.photo)"
                 :alt="eventPast.name"
                 :title="eventPast.name"
@@ -42,10 +44,10 @@
             </div>
             <div
               v-if="eventPast.type == 'play'"
-              class="d_flex_column j_content_space_around f_size_41 w_50 f_oswald f_low_1000 flex_low_500 w_low"
+              class="d_flex_column j_content_space_around w_50 f_low_1000 flex_low_500_c w_low p_low_1000"
             >
               <router-link
-                class="nav_link_color t_left txt_pos_low_1000"
+                class="nav_link_color t_left txt_pos_low_1000 f_oswald f_size_41 f_size_header_low_1000"
                 :to="{
                   name: 'play',
                   params: {
@@ -57,14 +59,36 @@
               >
                 {{ eventPast.name }}
               </router-link>
+              <div
+                class="nav_link_color t_left txt_pos_low_1000 f_size_22 f_size_low_1000 t_justify_low_1000"
+                v-html="eventPast.description"
+              ></div>
             </div>
             <div
               v-else
-              class="d_flex_column j_content_space_around f_size_41 w_50 f_oswald f_low_1000 flex_low_500 w_low"
+              class="d_flex_column j_content_space_around w_50 f_low_1000 flex_low_500_c w_low p_low_1000"
             >
-              <div class="nav_link_color t_left txt_pos_low_1000">
-                {{ eventPast.name }}
+              <div
+                class="nav_link_color t_left txt_pos_low_1000 f_oswald f_size_41 f_size_header_low_1000"
+              >
+                <router-link
+                  class="nav_link_color"
+                  :to="{
+                    name: 'new',
+                    params: {
+                      id: eventPast.id_obj,
+                      name: transcriptWord(eventPast.name),
+                    },
+                  }"
+                >
+                  {{ eventPast.name }}
+                </router-link>
               </div>
+
+              <div
+                class="nav_link_color t_left txt_pos_low_1000 f_size_22 f_size_low_1000 t_justify_low_1000"
+                v-html="sliceString(eventPast.description, maxCountSymbols)"
+              ></div>
             </div>
           </div>
           <div class="horizontal_line"></div>
@@ -137,6 +161,8 @@ export default {
       partName: "Минулі події",
       page: 1,
       showNext: true,
+      maxCountSymbols: 50,
+      isShowLargeContent: false,
     };
   },
   created() {
@@ -148,6 +174,14 @@ export default {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Події";
     },
+
+    sliceString(str, n_symbols) {
+      // Обрізає строку
+      return String(str).length > n_symbols
+        ? String(str).slice(0, Number(n_symbols)) + "..."
+        : str;
+    },
+
     async showContent() {
       // Показує контент методом підвищення opacity
       let cnt = 0;
@@ -224,6 +258,19 @@ export default {
 };
 </script>
         <style scoped>
+@media screen and (max-width: 550px) {
+  .cancel_zoom {
+    transition: none !important;
+    object-fit: cover !important;
+    width: 85vw !important;
+    height: 300px !important;
+    margin: auto;
+  }
+  .cancel_zoom:hover {
+    transform: none !important;
+  }
+}
+
 @media screen and (max-width: 875px) {
   #events_wrapper {
     padding: 1em 0 5em 0;
@@ -237,6 +284,17 @@ export default {
 .scale_hover:hover {
   transform: scale(1.2);
   box-shadow: none;
+}
+
+.zoom_hover_img_arch {
+  transition: all 0.5s ease-out;
+}
+.zoom_hover_img_arch:hover {
+  transform: scale(1.5);
+  object-fit: scale-down;
+  width: 400px;
+  height: 450px;
+  margin: auto;
 }
 </style>
             

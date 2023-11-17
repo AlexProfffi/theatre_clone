@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isMobile" class="d_flex_row j_content_center">
+  <div class="d_flex_row j_content_center">
     <div
       id="name_site"
       class="upper_case big_font_site_name open_sans w_max_content"
