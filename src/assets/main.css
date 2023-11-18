@@ -248,6 +248,10 @@ html {
     width: 95vw;
 }
 
+.w_100vw {
+    width: 100vw;
+}
+
 
 /* height */
 
@@ -668,6 +672,10 @@ html {
 
 .bg_white_custom {
     background-color: #fff;
+}
+
+.bg_white_custom_tr {
+    background-color: #ffffffa5;
 }
 
 .bg_hide {

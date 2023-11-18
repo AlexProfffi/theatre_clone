@@ -9,20 +9,29 @@
     >
       <div class="d_flex_row j_content_center">
         <div class="h_600">
-          <img class="h_90 w_95vw_low_1000" :src="news.image" :alt="news.name" />
+          <img
+            class="h_90 w_95vw_low_1000"
+            :src="news.image"
+            :alt="news.name"
+          />
         </div>
       </div>
       <div class="d_flex_column">
         <div class="d_flex_row j_content_center">
           <div class="w_70 w_low_600">
-            <div class="d_flex_row j_content_start f_source_sans f_size_40 f_weight_bold">
+            <div
+              class="d_flex_row j_content_start f_source_sans f_size_40 f_weight_bold"
+            >
               {{ news.name }}
             </div>
           </div>
         </div>
         <div class="d_flex_row j_content_center ptb_1em">
           <div class="w_70 w_low_600">
-            <div class="d_flex_row j_content_start t_left f_source_sans" v-html="news.description"></div>
+            <div
+              class="d_flex_row j_content_start t_left f_source_sans"
+              v-html="news.description"
+            ></div>
           </div>
         </div>
         <div class="d_flex_row j_content_center ptb_1em">
@@ -42,6 +51,7 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
+import { scrollToTop } from "../assets/main";
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
@@ -66,6 +76,7 @@ export default {
         this.setTitle();
       })
       .then(() => this.showContent());
+    scrollToTop(150);
   },
   methods: {
     async showContent() {

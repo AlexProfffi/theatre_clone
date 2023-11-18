@@ -8,7 +8,11 @@
       <div class="upper_case open_sans name_dep p_1_px pad_b1em f_low_1000">
         {{ partName }}
       </div>
-
+      <div>
+        <span class="font_1 f_weight_bold">
+          Сторінка: {{ page }}
+        </span>
+      </div>
       <div id="events_wrapper" class="d_flex_column p_40px">
         <div
           v-for="eventPast in pastEvents"
@@ -111,7 +115,7 @@
                 />
               </svg>
             </button>
-            <span>
+            <span class="font_1 f_weight_bold">
               {{ page }}
             </span>
             <button
@@ -279,7 +283,6 @@ export default {
   .row_reverse_low_1000 {
     flex-direction: column;
   }
- 
 }
 
 .scale_hover:hover {

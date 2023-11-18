@@ -3,7 +3,6 @@
     <div>
       <HeaderComponent />
     </div>
-    {{ sizeScreen }}
     <div class="opacity_05 main_content">
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
@@ -112,6 +111,7 @@
           </div>
         </div>
         <div
+          v-if="plWorks.length"
           id="his_her_works"
           class="d_flex_column f_source_sans color_black ptb_5em bg_grey_custom"
         >
@@ -176,8 +176,10 @@
                     :alt="plwr.name"
                   />
                 </div>
-                <div class="d_flex_row j_content_center_low_1000 j_content_mobile_center">
-                  <div v-if="plwr.on_play.length" class="f_oswald f_size_32">
+                <div
+                  class="d_flex_row j_content_center_low_1000 j_content_mobile_center"
+                >
+                  <div v-if="plwr.on_play.length && !plwr.on_play[0].cancel_event" class="f_oswald f_size_32">
                     <router-link
                       class="nav_link_color"
                       :to="{
@@ -198,7 +200,7 @@
                 </div>
                 <div
                   class="d_flex_row j_content_space_between w_80 j_content_center_low_1000 w_low_1000 j_content_mobile_center w_low"
-                  v-if="plwr.on_play.length"
+                  v-if="plwr.on_play.length && !plwr.on_play[0].cancel_event"
                 >
                   <span class="p_low_100_5">
                     {{ inTimeDate }}
@@ -301,7 +303,9 @@ export default {
         this.setTitle();
       })
       .then(() => {
-        this.plWorks = this.playwriter.works;
+        this.plWorks = this.playwriter.works
+          ? this.playwriter.works
+          : (this.plWorks = []);
         if (this.sizeScreen < 750) {
           this.secondIndex = this.plWorks.length;
         }
@@ -472,7 +476,7 @@ export default {
     padding-bottom: 1em;
   }
   #image_playwriter {
-    width: 100vw;
+    width: 100%;
   }
   #checked_texts,
   #projects {

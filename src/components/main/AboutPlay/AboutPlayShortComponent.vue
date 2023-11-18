@@ -4,6 +4,7 @@
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
+      
       <div>
         <h4
           class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -380,7 +381,6 @@ export default {
     idDatePlayOne: Number,
     idp: String,
     isPast: Boolean,
-    
   },
   components: {
     ModalInfo,
@@ -837,5 +837,9 @@ export default {
 
 .drop_animate {
   transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.t_rotate_30 {
+  transform: rotate(15deg);
+  letter-spacing: 10px;
 }
 </style>
