@@ -9,11 +9,13 @@
         {{ partName }}
       </div>
       <div>
-        <span class="font_1 f_weight_bold">
-          Сторінка: {{ page }}
-        </span>
+        <span class="font_1 f_weight_bold"> Сторінка: {{ page }} </span>
       </div>
-      <div id="events_wrapper" class="d_flex_column p_40px">
+      <div
+        v-if="pastEvents.length"
+        id="events_wrapper"
+        class="d_flex_column p_40px"
+      >
         <div
           v-for="eventPast in pastEvents"
           :key="eventPast.id_obj"
@@ -137,6 +139,20 @@
           </div>
         </div>
       </div>
+      <div
+        v-else
+        class="upper_case open_sans f_weight_bold f_size_40 p_1_px pad_b1em f_low_1000"
+      >
+        Це була остання сторінка
+        <div>
+          <a
+            href="/archive"
+            class="font_1 c_pointer nav_link_color f_weight_bold"
+          >
+            Назад
+          </a>
+        </div>
+      </div>
     </div>
     <div>
       <FooterComponent />
@@ -176,7 +192,13 @@ export default {
   methods: {
     setTitle() {
       // Встановлює назву сторінки
-      document.querySelector("title").innerHTML = "Події";
+      document.querySelector("title").innerHTML = "Архів";
+    },
+
+    async checkerError() {
+      if (this.pastEvents.detail == "Недійсна сторінка.") {
+        this.$router.push({ name: "Archive" });
+      }
     },
 
     sliceString(str, n_symbols) {
@@ -205,7 +227,6 @@ export default {
         `${this.$store.getters.getServerUrl}/archive/?page=${page}`
       )
         .then((response) => response.json())
-
         .catch((error) => console.log(error));
     },
     async increment(inc = true) {

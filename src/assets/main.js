@@ -103,7 +103,7 @@ let transcription = function(word) {
         { value: ["z", "z"] },
     ];
     let list_new_word = [];
-    for (let x = 0; x < word.length; x++) {
+    for (let x = 0; x < word.length - 1; x++) {
         for (let y = 0; y < transcription_alpha.length; y++) {
             if (transcription_alpha[y].value[0] == word[x].toLowerCase()) {
                 list_new_word.push(transcription_alpha[y].value[1]);
