@@ -175,7 +175,7 @@
               class="p_absolute z_20 font_1 teamss"
             >
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left f_weight_bold_700" v-for="team in nav.linkTo" :key="team.value">
+                <li class="t_left f_weight_bold_700 small_font_07" v-for="team in nav.linkTo" :key="team.value">
                   <a
                     class="upper_case none_text_decor nav_link_color navigation_sites"
                     :href="'/team' + team.linkTo"
@@ -187,7 +187,7 @@
             </div>
             <div v-if="isEvent && nav.value == 4" class="font_1 teamss">
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left f_weight_bold_700" v-for="team in nav.linkTo" :key="team.value">
+                <li class="t_left f_weight_bold_700 small_font_07" v-for="team in nav.linkTo" :key="team.value">
                   <a
                     class="upper_case none_text_decor nav_link_color navigation_sites"
                     :href="'/archive' + team.linkTo"
