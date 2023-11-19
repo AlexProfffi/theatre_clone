@@ -185,6 +185,7 @@ export default {
         "команда",
       ],
       listNaviTeam: ["автори", "режисери", "актори", "команда"],
+      listNaviArch: ["всі події", "новини", "вистави"],
     };
   },
   created() {
@@ -243,7 +244,8 @@ export default {
         "/plays",
         "/news",
         "/about",
-        "/archive",
+        "/archive-all",
+        // ["/archive-all", "/archive-news", "/archive-plays"],
         "/contacts",
         "/our_partners",
         "/my_profile",
@@ -278,7 +280,7 @@ export default {
         tempList.push({
           value: x,
           txt: this.listNaviTeam[x],
-          idEl: "naviLinkInner" + String(x),
+          // idEl: "naviLinkInner" + String(x) + list[x].replace("/", ""),
           linkTo: list[x],
         });
       }

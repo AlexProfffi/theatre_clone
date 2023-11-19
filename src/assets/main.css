@@ -252,6 +252,10 @@ html {
     width: 100vw;
 }
 
+.third_path_w {
+    min-width: calc(100%/4);
+}
+
 
 /* height */
 

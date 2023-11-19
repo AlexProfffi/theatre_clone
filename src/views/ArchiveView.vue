@@ -9,15 +9,17 @@
         {{ partName }}
       </div>
       <div>
-        <span class="font_1 f_weight_bold"> Сторінка: {{ page }} </span>
+        <span class="font_1 f_weight_bold">
+          Сторінка: {{ page }} | {{ Math.ceil(pastEvents.count / 5) }}
+        </span>
       </div>
       <div
-        v-if="pastEvents.length"
+        v-if="pastEvents.count"
         id="events_wrapper"
         class="d_flex_column p_40px"
       >
         <div
-          v-for="eventPast in pastEvents"
+          v-for="eventPast in pastEvents.result"
           :key="eventPast.id_obj"
           class="d_flex_column j_content_space_around bg_grey_custom"
         >
@@ -101,56 +103,46 @@
         </div>
         <div class="d_flex_row j_content_center padding_tb_2em">
           <div class="w_30 d_flex_row j_content_space_around">
-            <button
-              :disabled="page == 1"
-              class="bg_white_custom b_none scale_hover c_pointer"
-              @click="goToPrev()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="25"
-                viewBox="0 0 10.605 15.555"
+            <div class="third_path_w">
+              <button
+                v-show="page > 1"
+                class="bg_white_custom b_none scale_hover c_pointer"
+                @click="goToPrev()"
               >
-                <polygon
-                  points="10.605 12.727 5.656 7.776 10.605 2.828 7.777 0 0 7.776 7.777 15.555 10.605 12.727"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="25"
+                  viewBox="0 0 10.605 15.555"
+                >
+                  <polygon
+                    points="10.605 12.727 5.656 7.776 10.605 2.828 7.777 0 0 7.776 7.777 15.555 10.605 12.727"
+                  />
+                </svg>
+              </button>
+            </div>
             <span class="font_1 f_weight_bold">
-              {{ page }}
+              Сторінка: {{ page }} | {{ Math.ceil(pastEvents.count / 5) }}
             </span>
-            <button
-              :disabled="!showNext"
-              class="bg_white_custom b_none scale_hover c_pointer"
-              @click="goToNext()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="25"
-                viewBox="0 0 10.605 15.555"
+            <div class="third_path_w">
+              <button
+                v-show="page < Math.ceil(pastEvents.count / 5)"
+                class="bg_white_custom b_none scale_hover c_pointer third_path_w"
+                @click="goToNext()"
               >
-                <polygon
-                  points="2.828 15.555 10.605 7.776 2.828 0 0 2.828 4.949 7.776 0 12.727 2.828 15.555"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="25"
+                  viewBox="0 0 10.605 15.555"
+                >
+                  <polygon
+                    points="2.828 15.555 10.605 7.776 2.828 0 0 2.828 4.949 7.776 0 12.727 2.828 15.555"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-      <div
-        v-else
-        class="upper_case open_sans f_weight_bold f_size_40 p_1_px pad_b1em f_low_1000"
-      >
-        Це була остання сторінка
-        <div>
-          <a
-            href="/archive"
-            class="font_1 c_pointer nav_link_color f_weight_bold"
-          >
-            Назад
-          </a>
         </div>
       </div>
     </div>
@@ -168,7 +160,9 @@ import { transcription, scrollToTop } from "../assets/main";
 
 export default {
   name: "ArchiveView",
-  props: {},
+  props: {
+    slug: String,
+  },
   components: {
     HeaderComponent,
     FooterComponent,
@@ -193,12 +187,6 @@ export default {
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Архів";
-    },
-
-    async checkerError() {
-      if (this.pastEvents.detail == "Недійсна сторінка.") {
-        this.$router.push({ name: "Archive" });
-      }
     },
 
     sliceString(str, n_symbols) {
@@ -238,22 +226,12 @@ export default {
     },
     goToNext() {
       // Next page
-      this.increment(true)
-        .then(() => this.getPastEvents(this.page))
-        .then(() => {
-          if (this.pastEvents.length < 5) {
-            this.showNext = false;
-          }
-        });
+      this.increment(true).then(() => this.getPastEvents(this.page));
       scrollToTop(200);
     },
     goToPrev() {
       // Previous page
-      this.increment(false)
-        .then(() => this.getPastEvents(this.page))
-        .then(() => {
-          this.showNext = true;
-        });
+      this.increment(false).then(() => this.getPastEvents(this.page));
       scrollToTop(200);
     },
     repalcer(str, changeble) {
