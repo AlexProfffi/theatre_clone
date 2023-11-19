@@ -152,7 +152,7 @@ const routes = [{
         props: true,
     },
     {
-        path: "/archive" + "-" + ":slug",
+        path: "/archive" + ":slug",
         name: "Archive",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route

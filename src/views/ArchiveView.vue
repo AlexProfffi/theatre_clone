@@ -3,7 +3,6 @@
     <div>
       <HeaderComponent />
     </div>
-
     <div class="opacity_05 main_content">
       <div class="upper_case open_sans name_dep p_1_px pad_b1em f_low_1000">
         {{ partName }}
@@ -13,11 +12,7 @@
           Сторінка: {{ page }} | {{ Math.ceil(pastEvents.count / 5) }}
         </span>
       </div>
-      <div
-        v-if="pastEvents.count"
-        id="events_wrapper"
-        class="d_flex_column p_40px"
-      >
+      <div v-if="pastEvents.count" id="events_wrapper" class="d_flex_column p_40px">
         <div
           v-for="eventPast in pastEvents.result"
           :key="eventPast.id_obj"
@@ -156,7 +151,7 @@
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
-import { transcription, scrollToTop } from "../assets/main";
+import { transcription, scrollToTop ,slugGet } from "../assets/main";
 
 export default {
   name: "ArchiveView",
@@ -170,13 +165,15 @@ export default {
   data() {
     return {
       eventWas: "Подія відбулась:",
-      pastEvents: [],
+      pastEvents: {},
       transcriptWord: transcription,
       partName: "Минулі події",
       page: 1,
       showNext: true,
       maxCountSymbols: 50,
       isShowLargeContent: false,
+      whatIsSlug: slugGet(this.slug)
+      
     };
   },
   created() {
@@ -212,9 +209,10 @@ export default {
     },
     async getPastEvents(page) {
       this.pastEvents = await fetch(
-        `${this.$store.getters.getServerUrl}/archive/?page=${page}`
+        `${this.$store.getters.getServerUrl}/archive/${this.whatIsSlug}?page=${page}`
       )
         .then((response) => response.json())
+        
         .catch((error) => console.log(error));
     },
     async increment(inc = true) {

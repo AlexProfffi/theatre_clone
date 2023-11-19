@@ -139,6 +139,27 @@ let setBrakeDate = function(dt) {
     ];
     let correctDate = `${objDate[0].when} о ${objDate[1].when}`;
     return correctDate;
-}
+};
 
-export { monthData, sliceString, transcription, scrollToTop, concat, setBrakeDate };
+let slugGet = function(slug) {
+    let dd = [
+        { slugUrl: "/archive-news", goToUrl: "news/" },
+        { slugUrl: "/archive-plays", goToUrl: "plays/" },
+        { slugUrl: "/archive-all", goToUrl: "" },
+    ];
+    for (let x = 0; x < dd.length; x++) {
+        if (slug == dd[x].slugUrl) {
+            return dd[x].goToUrl;
+        }
+    }
+};
+
+export {
+    monthData,
+    sliceString,
+    transcription,
+    scrollToTop,
+    concat,
+    setBrakeDate,
+    slugGet,
+};

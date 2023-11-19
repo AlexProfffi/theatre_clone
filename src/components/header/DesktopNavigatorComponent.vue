@@ -10,7 +10,7 @@
         :id="nav.idEl"
         class=""
       >
-        <div v-if="nav.value < navigationData.length - 1">
+        <div v-if="nav.value < navigationData.length - 1 && nav.value != 4">
           <router-link
             :to="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
@@ -28,7 +28,7 @@
         </div>
         <div
           v-else
-          class="d_flex_column upper_case none_text_decor"
+          class="d_flex_column upper_case nav_link_color"
           style="display: block"
           :class="{
             'f_weight_bold_700 color_black ': whatTitleIsit(nav.txt),
@@ -38,21 +38,39 @@
             class="pad_b1em c_pointer navigation_sites"
             @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
             @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
-            @click="isTeam = !isTeam"
+            @click="getNeedNavigate(nav.value)"
           >
             {{ nav.txt }}
             <div class="horizontal_line_hover"></div>
           </div>
 
-          <div v-if="isTeam" class="p_absolute z_20 font_1 teamss">
+          <div
+            v-if="isTeam && nav.value == 8"
+            class="p_absolute z_20 font_1 teamss"
+          >
             <ul class="pad_0 none_decor_ul_no_pad">
               <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
-                <span
-                  class="nav_link_color c_pointer"
-                  @click="goToTeamList(team.linkTo)"
+                <a
+                  class="upper_case none_text_decor nav_link_color navigation_sites"
+                  :href="'/team' + team.linkTo"
+                  >{{ team.txt }}
+                </a>
+                <hr class="mar_top_bot" />
+              </li>
+            </ul>
+          </div>
+          <div
+            v-if="isEvent && nav.value == 4"
+            class="p_absolute z_20 font_1 teamss"
+          >
+            <ul class="pad_0 none_decor_ul_no_pad">
+              <li class="t_left" v-for="team in nav.linkTo" :key="team.value">
+                <a
+                  class="upper_case none_text_decor nav_link_color navigation_sites"
+                  :href="'/archive' + team.linkTo"
+                  >{{ team.txt }}</a
                 >
-                  {{ team.txt }}
-                </span>
+
                 <hr class="mar_top_bot" />
               </li>
             </ul>
@@ -104,7 +122,7 @@
           class="d_flex_row_reverse j_content_space_around w_75 dropdown_li"
         >
           <a
-            v-if="nav.value < navigationData.length - 1"
+            v-if="nav.value < navigationData.length - 1 && nav.value != 4"
             :href="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
             class="upper_case none_text_decor nav_link_color navigation_sites w_50 t_left"
@@ -125,25 +143,57 @@
             }"
           >
             <div
-              class="pad_b1em c_pointer navigation_sites t_left"
-              @click="isTeam = !isTeam"
+              class="c_pointer navigation_sites d_flex_row j_content_start"
+              @mouseover="drawHorizontalLine(nav.value, '.navigation_sites')"
+              @mouseout="clearHorizontalLine(nav.value, '.navigation_sites')"
+              @click="getNeedNavigate(nav.value)"
             >
-              {{ nav.txt }}
+              <div class="d_inline">
+                <span>
+                  {{ nav.txt }}
+                </span>
+                <span class="v_align_super">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    fill="currentColor"
+                    class="bi bi-caret-down-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                    />
+                  </svg>
+                </span>
+              </div>
               <div class="horizontal_line_hover"></div>
             </div>
-            <div v-if="isTeam" class="p_absolute left_25em z_20 font_1">
+
+            <div
+              v-if="isTeam && nav.value == 8"
+              class="p_absolute z_20 font_1 teamss"
+            >
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li
-                  class="t_left padding_3px li_team"
-                  v-for="team in nav.linkTo"
-                  :key="team.value"
-                >
-                  <span
-                    class="nav_link_color c_pointer"
-                    @click="goToTeamList(team.linkTo)"
+                <li class="t_left f_weight_bold_700" v-for="team in nav.linkTo" :key="team.value">
+                  <a
+                    class="upper_case none_text_decor nav_link_color navigation_sites"
+                    :href="'/team' + team.linkTo"
+                    >{{ team.txt }}
+                  </a>
+                  <hr class="mar_top_bot" />
+                </li>
+              </ul>
+            </div>
+            <div v-if="isEvent && nav.value == 4" class="font_1 teamss">
+              <ul class="pad_0 none_decor_ul_no_pad">
+                <li class="t_left f_weight_bold_700" v-for="team in nav.linkTo" :key="team.value">
+                  <a
+                    class="upper_case none_text_decor nav_link_color navigation_sites"
+                    :href="'/archive' + team.linkTo"
+                    >{{ team.txt }}</a
                   >
-                    {{ team.txt }}
-                  </span>
+
                   <hr class="mar_top_bot" />
                 </li>
               </ul>
@@ -172,17 +222,22 @@ export default {
       spiner: false,
       intrval: null,
       isTeam: false,
+      isEvent: false,
+      isBoth: {},
       offert: [],
       listNavi: [
-        "головна",
-        "афіша",
-        "новини",
-        "про театр",
-        "архів",
-        "контакти",
-        "партнери",
-        "профіль",
-        "команда",
+        { value: "головна", inner: [] },
+        { value: "афіша", inner: [] },
+        { value: "новини", inner: [] },
+        { value: "про театр", inner: [] },
+        { value: "архів", inner: ["всі події", "новини", "вистави"] },
+        { value: "контакти", inner: [] },
+        { value: "партнери", inner: [] },
+        { value: "профіль", inner: [] },
+        {
+          value: "команда",
+          inner: ["автори", "режисери", "актори", "команда"],
+        },
       ],
       listNaviTeam: ["автори", "режисери", "актори", "команда"],
       listNaviArch: ["всі події", "новини", "вистави"],
@@ -200,7 +255,10 @@ export default {
       let widthElem = navEl[index].offsetWidth - 2;
       let cnt = 1;
       this.intrval = setInterval(() => {
-        navEl[index].firstElementChild.style.width = String(cnt) + "px";
+        if (navEl[index].firstElementChild) {
+          navEl[index].firstElementChild.style.width = String(cnt) + "px";
+        }
+
         if (cnt >= Number(widthElem)) {
           clearInterval(this.intrval);
           return;
@@ -213,7 +271,9 @@ export default {
       let navEl = document.querySelectorAll(classEl);
 
       clearInterval(this.intrval);
-      navEl[index].firstElementChild.style.width = 0;
+      if (navEl[index].firstElementChild) {
+        navEl[index].firstElementChild.style.width = 0;
+      }
     },
 
     deleteDataFromFilter(lnk = "", newWindow = false) {
@@ -228,7 +288,13 @@ export default {
         this.openLinkNewWindow(lnk);
       }
     },
-
+    getNeedNavigate(val) {
+      if (val == 4) {
+        this.isEvent = !this.isEvent;
+      } else if (val == 8) {
+        this.isTeam = !this.isTeam;
+      }
+    },
     whatTitleIsit(nameNav) {
       // Перевіряряє назву сторінки і поле навігації
       let namePage = document.querySelector("title").innerHTML;
@@ -240,50 +306,51 @@ export default {
 
     async naviPanel() {
       let listNaviLinks = [
-        "/",
-        "/plays",
-        "/news",
-        "/about",
-        "/archive-all",
-        // ["/archive-all", "/archive-news", "/archive-plays"],
-        "/contacts",
-        "/our_partners",
-        "/my_profile",
-        ["/authors", "/directors", "/actors", "/main-team"],
+        ["/"],
+        ["/plays"],
+        ["/news"],
+        ["/about"],
+        // ["/archive-all"],
+        ["%2Farchive-all", "%2Farchive-news", "%2Farchive-plays"],
+        ["/contacts"],
+        ["/our_partners"],
+        ["/my_profile"],
+        ["%2Fauthors", "%2Fdirectors", "%2Factors", "%2Fmain-team"],
       ];
 
       let dataListNavi = [];
       for (let x = 0; x < this.listNavi.length; x++) {
-        if (typeof listNaviLinks[x] == "string") {
+        if (listNaviLinks[x].length == 1) {
           dataListNavi.push({
             value: x,
-            txt: this.listNavi[x],
+            txt: this.listNavi[x].value,
             idEl: "naviLink" + String(x),
-            linkTo: listNaviLinks[x],
+            linkTo: listNaviLinks[x][0],
           });
         } else {
           dataListNavi.push({
             value: x,
-            txt: this.listNavi[x],
+            txt: this.listNavi[x].value,
             idEl: "naviLink" + String(x),
-            linkTo: this.gnerateObjectLinks(listNaviLinks[x]),
+            linkTo: this.gnerateObjectLinks(listNaviLinks[x], x),
           });
         }
       }
       this.navigationData = dataListNavi;
     },
 
-    gnerateObjectLinks(list) {
+    gnerateObjectLinks(list, counter) {
       //
       let tempList = [];
       for (let x = 0; x < list.length; x++) {
         tempList.push({
           value: x,
-          txt: this.listNaviTeam[x],
+          txt: this.listNavi[counter].inner[x],
           // idEl: "naviLinkInner" + String(x) + list[x].replace("/", ""),
           linkTo: list[x],
         });
       }
+
       return tempList;
     },
 
@@ -309,17 +376,16 @@ export default {
     openLinkNewWindow(lnk) {
       window.open(lnk, "_blank").focus();
     },
-    goToTeamList(lnk) {
-      this.$router
-        .push({
-          name: "teams",
-          params: {
-            slug: lnk,
-          },
-        })
-        .then(() => {
-          location.reload();
-        });
+    goToTeamList(lnk, pathTo) {
+      this.$router.push({
+        name: pathTo,
+        params: {
+          slug: lnk,
+        },
+      });
+      // .then(() => {
+      //   location.reload();
+      // });
     },
   },
 };
@@ -361,7 +427,7 @@ export default {
   #drop {
     padding: 85px 0;
     width: 90vw;
-    height: 70vh;
+    height: max-content;
   }
   .dropdown {
     display: inline-block !important;
