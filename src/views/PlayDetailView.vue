@@ -127,8 +127,8 @@
                 <p
                   v-if="playOneDate.description"
                   class="open_sans text_descript"
+                  v-html="playOneDate.description"
                 >
-                  {{ playOneDate.description }}
                 </p>
                 <p v-else>Інформація з`явиться незабаром</p>
               </div>

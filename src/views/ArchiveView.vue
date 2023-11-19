@@ -67,7 +67,7 @@
               </router-link>
               <div
                 class="nav_link_color t_left txt_pos_low_1000 f_size_22 f_size_low_1000 t_justify_low_1000"
-                v-html="eventPast.description"
+                v-html="sliceString(eventPast.description, maxCountSymbols)"
               ></div>
             </div>
             <div
