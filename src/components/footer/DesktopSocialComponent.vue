@@ -41,7 +41,7 @@ export default {
 @media screen and (max-width: 1000px) {
   .cancel_reverse {
     flex-direction: row !important;
-    padding-left: 4.5em;
+    justify-content: center;
   }
 }
 

@@ -1,7 +1,6 @@
 <template>
   <div class="d_flex_column footer_bg">
     <div
-      v-if="!isMobile"
       id="wrap_footer"
       class="footer_desktop d_flex_row j_content_space_evently height_443"
     >
@@ -13,12 +12,24 @@
         <div class="flex_grow_1 d_flex_row j_content_space_around">
           <DesktopPictureWriters :picture="contact.photo_our_playwriters" />
         </div>
-        <div class="flex_grow_2 d_flex_row contact_address">
+        <div class="flex_grow_2 d_flex_row j_content_center contact_address">
           <DesktopAddrComponent
             :addr="contact.address"
             :phone="contact.phone"
             :email="contact.e_mail"
           />
+        </div>
+      </div>
+      <div class="w_30 d_flex_column j_content_center" id="raid_info">
+        <div
+          class="d_flex_column j_content_center color_white"
+          v-for="rd in raidTxt"
+          :key="rd.id"
+        >
+          <h3 class="t_left">
+            {{ rd.name }}
+          </h3>
+          <div class="font_1 t_justify" v-html="rd.description"></div>
         </div>
       </div>
       <div class="d_flex_column j_content_center flex_grow_1" id="socials">
@@ -179,9 +190,9 @@ export default {
   },
   data() {
     return {
-      isMobile: false,
       contacts: null,
       social: null,
+      raidTxt: null,
       publicPath: process.env.BASE_URL,
     };
   },
@@ -200,6 +211,11 @@ export default {
             `${this.$store.getters.getServerUrl}/social_links/`
           ).then((response) => response.json()))
         )
+        .then(
+          (this.raidTxt = await fetch(
+            `${this.$store.getters.getServerUrl}/raid_text_info/`
+          ).then((response) => response.json()))
+        )
         .catch((error) => {
           console.log(error);
         });
@@ -212,6 +228,14 @@ export default {
   #wrap_footer {
     flex-direction: column;
     height: 650px;
+  }
+  #raid_info {
+    width: 95vw;
+    padding: 0 2em;
+  }
+  #socials {
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   .wrap_contact_block {
