@@ -9,9 +9,8 @@
         <SpinerComponent />
       </div>
       <div v-else class="d_flex_column p_40px">
-        <ProfileNavigatorComponent
-          :bools="boolsC"
-        />
+        {{ crd }}
+        <ProfileNavigatorComponent :bools="boolsC" />
         <div v-if="boolsC[0]" class="d_flex_column">
           <MyPlaysComponent :myTickets="user.buyuser" />
         </div>
@@ -21,7 +20,6 @@
         <div v-else-if="boolsC[2]" class="d_flex_column">
           <MyDataComponent :myData="user" />
         </div>
-        
       </div>
       <div>
         <FooterComponent />
@@ -53,6 +51,7 @@ export default {
   },
   data() {
     return {
+      crd: null,
       isMobile: false,
       user: {},
       comments: [],
@@ -78,11 +77,8 @@ export default {
           })
         );
       })
-      .then(() => {
-        this.getLocationGoogle().then(() => {
-          setTimeout(this.setUserActivity, 7000);
-        });
-      });
+      .then(() => (this.spiner = false))
+      .then(() => this.getLocationGoogle());
   },
   mounted() {
     // Получене карты
@@ -101,6 +97,11 @@ export default {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+
+          localStorage.setItem("lat", position.coords.latitude);
+          localStorage.setItem("lon", position.coords.longitude);
+          localStorage.setItem("eml", this.user.email);
+
           this.latitude = pos.lat;
           this.longitude = pos.lng;
         });
@@ -147,8 +148,8 @@ export default {
         },
         body: JSON.stringify({
           email: this.user.email,
-          longitude: this.longitude,
-          latitude: this.latitude,
+          longitude: Number(localStorage.getItem("lon")),
+          latitude: Number(localStorage.getItem("lat")),
         }),
       }).then(() => {
         this.spiner = false;

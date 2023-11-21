@@ -4,7 +4,10 @@
       <HeaderComponent />
     </div>
 
-    <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
+    <div
+      v-if="!spiner"
+      class="reg_wrapper d_flex_column j_content_center m_auto_both"
+    >
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_column j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">реєстрація</h3>
@@ -173,6 +176,9 @@
         >
       </div>
     </div>
+    <div v-else>
+      <SpinerComponent />
+    </div>
     <FooterComponent />
   </div>
 </template>
@@ -182,7 +188,7 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
-// import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
+import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 // import axios from "axios";
 
 export default {
@@ -190,10 +196,11 @@ export default {
   components: {
     HeaderComponent,
     FooterComponent,
-    // SpinerComponent,
+    SpinerComponent,
   },
   data() {
     return {
+      spiner: false,
       isAgree: false,
       isShowSocial: false,
       isMobile: false,
@@ -248,6 +255,7 @@ export default {
     async createUser(e) {
       // Registration djoser
       e.preventDefault();
+      this.spiner = true;
       let url = `${this.$store.getters.getServerUrl}/auth/users/`;
       await fetch(url, {
         method: "POST",
@@ -259,43 +267,47 @@ export default {
       })
         .then((response) => {
           if (response.status == 400) {
-            response.json().then((response) => {
-              this.errorLog = [];
-              if (response.password) {
-                for (let x = 0; x < response.password.length; x++) {
-                  if (response.password) {
-                    this.errorLog.push({
-                      value: x,
-                      text: response.password[x],
-                    });
+            response
+              .json()
+              .then((response) => {
+                this.errorLog = [];
+                if (response.password) {
+                  for (let x = 0; x < response.password.length; x++) {
+                    if (response.password) {
+                      this.errorLog.push({
+                        value: x,
+                        text: response.password[x],
+                      });
+                    }
                   }
+                  this.showErrors = true;
                 }
-                this.showErrors = true;
-              }
-              if (response.username) {
-                for (let x = 0; x < response.username.length; x++) {
-                  if (response.username) {
-                    this.errorLog.push({
-                      value: x,
-                      text: response.username[x],
-                    });
+                if (response.username) {
+                  for (let x = 0; x < response.username.length; x++) {
+                    if (response.username) {
+                      this.errorLog.push({
+                        value: x,
+                        text: response.username[x],
+                      });
+                    }
                   }
+                  this.showErrors = true;
                 }
-                this.showErrors = true;
-              }
-              if (response.email) {
-                for (let x = 0; x < response.email.length; x++) {
-                  if (response.email) {
-                    this.errorLog.push({ value: x, text: response.email[x] });
+                if (response.email) {
+                  for (let x = 0; x < response.email.length; x++) {
+                    if (response.email) {
+                      this.errorLog.push({ value: x, text: response.email[x] });
+                    }
                   }
+                  this.showErrors = true;
                 }
-                this.showErrors = true;
-              }
-            });
+              })
+              .then(() => (this.spiner = false));
           } else if (response.status == 201) {
             localStorage.setItem("youAuth", "Ви успішно зареєструвались!");
             localStorage.setItem("password", this.formRegistrateData.password);
             localStorage.setItem("login", this.formRegistrateData.username);
+            this.spiner = false;
             this.$router.push({ name: "Auth" });
           }
         })

@@ -50,7 +50,6 @@
           </div>
 
           <div>
-            
             <input
               @click="clickSearchBtn()"
               type="button"
@@ -259,9 +258,28 @@ export default {
 
     removeToken() {
       // Вихід
-      localStorage.removeItem("token");
-      this.$router.push({ name: "Auth" });
-      localStorage.removeItem("userInfo");
+      this.setUserActivity().then(() => {
+        localStorage.removeItem("token");
+        this.$router.push({ name: "Auth" });
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("lon");
+        localStorage.removeItem("lat");
+      });
+    },
+    async setUserActivity() {
+      // Створює запис при вході користувача
+      await fetch(`${this.$store.getters.getServerUrl}/user_activity_record/`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem("eml"),
+          longitude: Number(localStorage.getItem("lon")),
+          latitude: Number(localStorage.getItem("lat")),
+        }),
+      });
     },
     showSearcField() {
       this.searchField = !this.searchField;

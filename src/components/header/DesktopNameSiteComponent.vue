@@ -15,8 +15,38 @@ export default {
   data() {
     return {};
   },
-  created() {},
-  methods: {},
+  created() {
+    this.checkCoords();
+  },
+  methods: {
+    checkCoords() {
+      if (localStorage.getItem("token")) {
+        console.log("USER IS AUTH")
+        if (Number(localStorage.getItem("lon")) == 0) {
+          setTimeout(this.setUserActivity, 7000);
+        } else {
+          this.setUserActivity();
+        }
+      }
+    },
+
+    async setUserActivity() {
+      // Створює запис при вході користувача
+
+      await fetch(`${this.$store.getters.getServerUrl}/user_activity_record/`, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem("eml"),
+          longitude: Number(localStorage.getItem("lon")),
+          latitude: Number(localStorage.getItem("lat")),
+        }),
+      });
+    },
+  },
 };
 </script>
 <style scoped>
