@@ -3,7 +3,6 @@
     <div>
       <HeaderComponent />
     </div>
-    {{ playwriter.works }}
     <div class="opacity_05 main_content">
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
