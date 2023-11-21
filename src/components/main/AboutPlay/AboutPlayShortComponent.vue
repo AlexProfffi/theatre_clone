@@ -4,7 +4,6 @@
     :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
   >
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
-      
       <div>
         <h4
           class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
@@ -259,30 +258,35 @@
       class="upper_case w_20_percent d_flex_column plays_sl_component"
       :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
     >
-      <div
-        v-if="!isPast"
-        class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
-      >
-        <router-link
-          v-if="withPhoto"
-          :id="'link_play_' + play.id"
-          :to="{
-            name: 'play',
-            params: {
-              id: play.id_play,
-              date_id: play.id,
-              name: transcriptWord(play.name),
-            },
-          }"
-          class="go_to_buy"
+      <div v-if="!play.on_play[0].cancel_event">
+        <div
+          v-if="!isPast"
+          class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
         >
-          купити квиток
-          <div class="horizontal_line_hover"></div>
-        </router-link>
+          <router-link
+            v-if="withPhoto"
+            :id="'link_play_' + play.id"
+            :to="{
+              name: 'play',
+              params: {
+                id: play.id_play,
+                date_id: play.id,
+                name: transcriptWord(play.name),
+              },
+            }"
+            class="go_to_buy"
+          >
+            купити квиток
+            <div class="horizontal_line_hover"></div>
+          </router-link>
 
-        <span v-else class="nav_link_color" @click="showFormToPay()">
-          Оформити замовлення
-        </span>
+          <span v-else class="nav_link_color" @click="showFormToPay()">
+            Оформити замовлення
+          </span>
+        </div>
+      </div>
+      <div class="f_size_32 c_red" v-else>
+        {{ eventCancel }}
       </div>
       <div>
         <div v-if="!isPast">
@@ -389,6 +393,7 @@ export default {
     return {
       transcriptWord: transcription,
       eventWas: "Подія вже відбулась",
+      eventCancel: "Подію скасовано",
       isMobile: false,
       modal: false,
       genderP: null,
