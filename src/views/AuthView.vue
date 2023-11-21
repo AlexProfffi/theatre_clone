@@ -3,6 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
+    {{ infoAuth }}
     <div class="reg_wrapper d_flex_column j_content_center m_auto_both">
       <div class="d_flex_column j_content_center pad_top">
         <div class="d_flex_column j_content_center pad_b1em">
@@ -144,14 +145,19 @@ export default {
   },
   data() {
     return {
+      infoAuth: localStorage.getItem("youAuth"),
+      aData: {
+        login: localStorage.getItem("login"),
+        password: localStorage.getItem("password"),
+      },
       isShowSocial: false,
       gComponent: false,
       isMobile: false,
       isShowPassword: false,
       gLinkAuth: {},
       formRegistrateData: {
-        username: "",
-        password: "",
+        username: localStorage.getItem("login"),
+        password: localStorage.getItem("password"),
       },
       redirectAfterAuth: "",
       errorLog: "Неможливо зайти з введеними даними.",
@@ -255,6 +261,5 @@ export default {
   background-color: #ffffff;
   border: 2px solid #e0e0e0;
 }
-
 </style>
         

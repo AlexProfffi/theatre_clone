@@ -286,6 +286,9 @@ export default {
               }
             });
           } else if (response.status == 201) {
+            localStorage.setItem("youAuth", "Ви успішно зареєструвались!");
+            localStorage.setItem("password", this.formRegistrateData.password);
+            localStorage.setItem("login", this.formRegistrateData.username);
             this.$router.push({ name: "Auth" });
           }
         })
