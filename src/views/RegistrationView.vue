@@ -254,7 +254,14 @@ export default {
             if (response.password) {
               this.errorLog = [];
               for (let x = 0; x < response.password.length; x++) {
-                this.errorLog.push({ value: x, text: response.password[x] });
+                if (response.password) {
+                  this.errorLog.push({ value: x, text: response.password[x] });
+                } else if (response.username) {
+                  this.errorLog.push({ value: x, text: response.username[x] });
+                } else if (response.email) {
+                  this.errorLog.push({ value: x, text: response.email[x] });
+                }
+                
               }
               this.showErrors = true;
               console.log(this.errorLog);
