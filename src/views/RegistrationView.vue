@@ -261,10 +261,20 @@ export default {
               this.showErrors = true;
               console.log(this.errorLog);
             } else if (response.username.length) {
-              this.errorLog.push({ value: 1, text: response.username[0] });
+              this.errorLog = [];
+              for (let x = 0; x < response.username.length; x++) {
+                if (response.username) {
+                  this.errorLog.push({ value: x, text: response.username[x] });
+                }
+              }
               this.showErrors = true;
             } else if (response.email.length) {
-              this.errorLog.push({ value: 2, text: response.email[0] });
+              this.errorLog = [];
+              for (let x = 0; x < response.email.length; x++) {
+                if (response.email) {
+                  this.errorLog.push({ value: x, text: response.email[x] });
+                }
+              }
               this.showErrors = true;
             } else {
               this.$router.push({ name: "Auth" });
