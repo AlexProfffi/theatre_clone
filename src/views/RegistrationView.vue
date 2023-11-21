@@ -260,7 +260,7 @@ export default {
               }
               this.showErrors = true;
               console.log(this.errorLog);
-            } else if (response.username.length) {
+            } else if (response.username) {
               this.errorLog = [];
               for (let x = 0; x < response.username.length; x++) {
                 if (response.username) {
@@ -268,7 +268,7 @@ export default {
                 }
               }
               this.showErrors = true;
-            } else if (response.email.length) {
+            } else if (response.email) {
               this.errorLog = [];
               for (let x = 0; x < response.email.length; x++) {
                 if (response.email) {
