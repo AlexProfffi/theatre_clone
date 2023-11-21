@@ -9,6 +9,14 @@
         <div class="d_flex_column j_content_center pad_b1em">
           <h3 class="upper_case f_oswald">реєстрація</h3>
         </div>
+        <div class="small_font_07 d_flex_row j_content_center">
+          <div class="d_flex_column">
+            <div>Пароль повинен містити мінімум 8 символів;</div>
+            <div>
+              Пароль повинен містити цифри та літери латинського алфавіту;
+            </div>
+          </div>
+        </div>
         <div class="d_flex_row j_content_center f_oswald">
           <form
             class="d_flex_column w_70"
@@ -276,7 +284,6 @@ export default {
                 this.showErrors = true;
               }
               if (response.email) {
-                
                 for (let x = 0; x < response.email.length; x++) {
                   if (response.email) {
                     this.errorLog.push({ value: x, text: response.email[x] });
