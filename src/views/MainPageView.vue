@@ -297,6 +297,7 @@ export default {
         this.delInfoBuyTicket();
       });
     this.setTitle();
+    localStorage.removeItem("youAuth");
   },
   methods: {
     setTitle() {

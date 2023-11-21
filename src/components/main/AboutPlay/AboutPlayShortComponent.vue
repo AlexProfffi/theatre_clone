@@ -288,7 +288,7 @@
       <div class="f_size_32 c_red" v-else>
         {{ eventCancel }}
       </div>
-      <div>
+      <div v-if="!play.on_play[0].cancel_event">
         <div v-if="!isPast">
           <div class="d_flex_row j_content_center">
             <div

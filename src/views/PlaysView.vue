@@ -32,6 +32,7 @@ export default {
   },
   created() {
     this.setTitle();
+    localStorage.removeItem("youAuth");
   },
   methods: {
     setTitle() {
