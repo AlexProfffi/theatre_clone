@@ -256,15 +256,14 @@ export default {
               for (let x = 0; x < response.password.length; x++) {
                 if (response.password) {
                   this.errorLog.push({ value: x, text: response.password[x] });
-                } else if (response.username) {
-                  this.errorLog.push({ value: x, text: response.username[x] });
-                } else if (response.email) {
-                  this.errorLog.push({ value: x, text: response.email[x] });
                 }
-                
               }
               this.showErrors = true;
               console.log(this.errorLog);
+            } else if (response.username.length) {
+              this.errorLog.push({ value: x, text: response.username[x] });
+            } else if (response.email.length) {
+              this.errorLog.push({ value: x, text: response.email[x] });
             } else {
               this.$router.push({ name: "Auth" });
             }
@@ -293,7 +292,8 @@ export default {
         this.formRegistrateData.email &&
         this.formRegistrateData.password &&
         this.formRegistrateData.re_password &&
-        this.formRegistrateData.password == this.formRegistrateData.re_password &&
+        this.formRegistrateData.password ==
+          this.formRegistrateData.re_password &&
         this.isAgree
       ) {
         return true;
