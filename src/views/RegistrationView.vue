@@ -250,35 +250,44 @@ export default {
         body: JSON.stringify(this.formRegistrateData),
       })
         .then((response) => {
-          response.json().then((response) => {
-            if (response.password) {
+          if (response.status == 400) {
+            response.json().then((response) => {
               this.errorLog = [];
-              for (let x = 0; x < response.password.length; x++) {
-                if (response.password) {
-                  this.errorLog.push({ value: x, text: response.password[x] });
+              if (response.password) {
+                for (let x = 0; x < response.password.length; x++) {
+                  if (response.password) {
+                    this.errorLog.push({
+                      value: x,
+                      text: response.password[x],
+                    });
+                  }
                 }
+                this.showErrors = true;
               }
-              this.showErrors = true;
-            } else if (response.username) {
-              this.errorLog = [];
-              for (let x = 0; x < response.username.length; x++) {
-                if (response.username) {
-                  this.errorLog.push({ value: x, text: response.username[x] });
+              if (response.username) {
+                for (let x = 0; x < response.username.length; x++) {
+                  if (response.username) {
+                    this.errorLog.push({
+                      value: x,
+                      text: response.username[x],
+                    });
+                  }
                 }
+                this.showErrors = true;
               }
-              this.showErrors = true;
-            } else if (response.email) {
-              this.errorLog = [];
-              for (let x = 0; x < response.email.length; x++) {
-                if (response.email) {
-                  this.errorLog.push({ value: x, text: response.email[x] });
+              if (response.email) {
+                
+                for (let x = 0; x < response.email.length; x++) {
+                  if (response.email) {
+                    this.errorLog.push({ value: x, text: response.email[x] });
+                  }
                 }
+                this.showErrors = true;
               }
-              this.showErrors = true;
-            } else {
-              this.$router.push({ name: "Auth" });
-            }
-          });
+            });
+          } else if (response.status == 201) {
+            this.$router.push({ name: "Auth" });
+          }
         })
         .catch((error) => {
           console.log(error);
