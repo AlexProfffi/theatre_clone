@@ -3,6 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
+    {{ playwriter.works }}
     <div class="opacity_05 main_content">
       <div id="wrapper_bio" class="d_flex_column p_40px">
         <div id="up_content" class="d_flex_row j_content_space_around ptb_5em">
@@ -200,7 +201,7 @@
                 </div>
                 <div
                   class="d_flex_row j_content_space_between w_80 j_content_center_low_1000 w_low_1000 j_content_mobile_center w_low"
-                  v-if="plwr.on_play.length && !plwr.on_play[0].cancel_event"
+                  v-if="plwr.on_play.length && !plwr.on_play[0].cancel_event && plwr.is_show"
                 >
                   <span class="p_low_100_5">
                     {{ inTimeDate }}

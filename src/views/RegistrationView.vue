@@ -254,7 +254,6 @@ export default {
             if (response.password) {
               this.errorLog = [];
               for (let x = 0; x < response.password.length; x++) {
-                console.log();
                 this.errorLog.push({ value: x, text: response.password[x] });
               }
               this.showErrors = true;
