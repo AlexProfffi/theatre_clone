@@ -142,8 +142,8 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="36"
+          height="36"
           fill="black"
           class="bi bi-arrow-left-circle"
           viewBox="0 0 16 16"
@@ -169,8 +169,8 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="36"
+          height="36"
           fill="black"
           class="bi bi-arrow-right-circle"
           viewBox="0 0 16 16"
@@ -388,5 +388,8 @@ export default {
   left: 50%;
   /* top: 70rem; */
   z-index: 9;
+}
+.carousel-control-prev:hover, .carousel-control-next:hover {
+  background-color: #f1f1f120;
 }
 </style>

@@ -104,7 +104,7 @@
                 </svg>
               </span>
             </div>
-            <ul v-if="showErrors" class="error_registrate small_font_07 t_left">
+            <ul v-if="showErrors" class="error_registrate f_size_15 t_left">
               <li v-for="err in errorLog" :key="err.value">
                 {{ err.text }}
               </li>
@@ -259,7 +259,6 @@ export default {
                 }
               }
               this.showErrors = true;
-              console.log(this.errorLog);
             } else if (response.username) {
               this.errorLog = [];
               for (let x = 0; x < response.username.length; x++) {

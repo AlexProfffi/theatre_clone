@@ -2,7 +2,10 @@
   <div v-if="!isMobile" class="d_flex_column j_content_center">
     <div class="d_flex_row p_tb_5 open_sans font_size_08">
       <div>
-      <a  :href="'tel://' + phone" :class="{'color_white': !color, 'nav_link_color': color}">
+        <a
+          :href="'tel://' + phone"
+          :class="{ color_white: !color, nav_link_color: color }"
+        >
           {{ phone }}
         </a>
       </div>
@@ -15,15 +18,17 @@
     </div>
 
     <div class="d_flex_column p_tb_5">
-      <div
-        v-for="str in separatedString(addr)"
-        :key="str.value"
-        class="d_flex_row open_sans f_semi_bold_size_1 upper_case"
-      >
-        <div>
-          {{ str.text }}
+      <a href="/contacts" :class="{color_white: !color, nav_link_color: color}">
+        <div
+          v-for="str in separatedString(addr)"
+          :key="str.value"
+          class="d_flex_row open_sans f_semi_bold_size_1 upper_case"
+        >
+          <div>
+            {{ str.text }}
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
