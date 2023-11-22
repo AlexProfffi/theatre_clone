@@ -13,10 +13,17 @@
         <form class="d_flex_row j_content_center" action="" method="POST">
           <div class="horizontal_line">
             <input
+              class="w_100 b_none f_oswald padding_4path sibscribe_input"
+              type="password"
+              placeholder="Введіть новий пароль"
+            />
+          </div>
+          <div class="horizontal_line">
+            <input
               v-model="formSendData.email"
               class="w_100 b_none f_oswald padding_4path sibscribe_input"
-              type="email"
-              placeholder="Електронна пошта"
+              type="password"
+              placeholder="Повторіть новий пароль"
             />
           </div>
           <div class="d_flex_column pad_both_7">
@@ -34,8 +41,8 @@
     </div>
   </div>
 </template>
-    
-    <script>
+      
+      <script>
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
@@ -52,8 +59,10 @@ export default {
     return {
       txt: "На дану електронну адресу буде надіслано листа з посиланням на створення нового пароля!",
 
-      formSendData: {
-        email: "",
+      formNewData: {
+        token: "",
+        new_password: "",
+        re_new_password: "",
       },
       showErrors: false,
       errorLog: [],
@@ -71,18 +80,18 @@ export default {
     },
     async sendReset(e) {
       e.preventDefault();
-      let url = `${this.$store.getters.getServerUrlNoV1}/auth/users/reset_password/`;
+      let url = `${this.$store.getters.getServerUrlNoV1}/auth/users/reset_password_confirm/`;
       await fetch(url, {
         method: "POST",
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(this.formSendData),
+        body: JSON.stringify(this.formNewData),
       })
         .then((response) => {
           if (response.status == 204) {
-            this.$router.push({name: "SetNewPassword"})
+            this.$router.push({ name: "Auth" });
           }
         })
 
@@ -93,7 +102,7 @@ export default {
   },
 };
 </script>
-    <style scoped>
+      <style scoped>
 @media screen and (max-width: 1000px) {
   .reg_wrapper {
     height: 550px !important;
@@ -130,4 +139,4 @@ export default {
   color: #ffffff;
 }
 </style>
-        
+          
