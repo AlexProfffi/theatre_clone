@@ -121,6 +121,14 @@
           >Реєстрація</router-link
         >
       </div>
+      <!-- <div class="pad_top font_1">
+        
+        <router-link
+          class="nav_link_color f_weight_bold underline_txt"
+          to="/reset-password"
+          >Забули пароль?</router-link
+        >
+      </div> -->
     </div>
     <FooterComponent />
   </div>
