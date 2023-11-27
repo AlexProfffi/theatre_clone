@@ -520,6 +520,10 @@ html {
     padding: .3em;
 }
 
+.pad_01em {
+    padding: .1em;
+}
+
 
 /* font */
 
@@ -702,6 +706,14 @@ html {
     background-color: #fff;
 }
 
+.bg_white_custom_hv {
+    background-color: #fff;
+}
+
+.bg_white_custom_hv:hover {
+    background-color: #fe6f5f;
+}
+
 .bg_white_custom_tr {
     background-color: #ffffffa5;
 }
@@ -789,6 +801,10 @@ html {
 
 .b_radius_5 {
     border-radius: 5px
+}
+
+.b_radius_3 {
+    border-radius: 2px
 }
 
 .b_none {
