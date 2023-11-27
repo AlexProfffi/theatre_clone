@@ -10,7 +10,7 @@
         :id="nav.idEl"
         class=""
       >
-        <div v-if="nav.value < navigationData.length - 1 && nav.value != 4">
+        <div v-if="nav.value != 5 && nav.value != 4">
           <router-link
             :to="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
@@ -45,7 +45,7 @@
           </div>
 
           <div
-            v-if="isTeam && nav.value == 8"
+            v-if="isTeam && nav.value == 4"
             class="p_absolute z_20 font_1 teamss"
           >
             <ul class="pad_0 none_decor_ul_no_pad">
@@ -60,7 +60,7 @@
             </ul>
           </div>
           <div
-            v-if="isEvent && nav.value == 4"
+            v-if="isEvent && nav.value == 5"
             class="p_absolute z_20 font_1 teamss"
           >
             <ul class="pad_0 none_decor_ul_no_pad">
@@ -122,7 +122,7 @@
           class="d_flex_row_reverse j_content_space_around w_75 dropdown_li"
         >
           <a
-            v-if="nav.value < navigationData.length - 1 && nav.value != 4"
+            v-if="nav.value != 5 && nav.value != 4"
             :href="nav.linkTo"
             @click="deleteDataFromFilter(nav.linkTo)"
             class="upper_case none_text_decor nav_link_color navigation_sites w_50 t_left"
@@ -171,11 +171,15 @@
             </div>
 
             <div
-              v-if="isTeam && nav.value == 8"
-              class="p_absolute z_20 font_1 teamss"
+              v-if="isTeam && nav.value == 4"
+              class="font_1 teamss"
             >
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left f_weight_bold_700 small_font_07" v-for="team in nav.linkTo" :key="team.value">
+                <li
+                  class="t_left f_weight_bold_700 small_font_07"
+                  v-for="team in nav.linkTo"
+                  :key="team.value"
+                >
                   <a
                     class="upper_case none_text_decor nav_link_color navigation_sites"
                     :href="'/team' + team.linkTo"
@@ -185,9 +189,13 @@
                 </li>
               </ul>
             </div>
-            <div v-if="isEvent && nav.value == 4" class="font_1 teamss">
+            <div v-if="isEvent && nav.value == 5" class="font_1 teamss">
               <ul class="pad_0 none_decor_ul_no_pad">
-                <li class="t_left f_weight_bold_700 small_font_07" v-for="team in nav.linkTo" :key="team.value">
+                <li
+                  class="t_left f_weight_bold_700 small_font_07"
+                  v-for="team in nav.linkTo"
+                  :key="team.value"
+                >
                   <a
                     class="upper_case none_text_decor nav_link_color navigation_sites"
                     :href="'/archive' + team.linkTo"
@@ -230,14 +238,14 @@ export default {
         { value: "афіша", inner: [] },
         { value: "новини", inner: [] },
         { value: "про театр", inner: [] },
-        { value: "архів", inner: ["всі події", "новини", "вистави"] },
-        { value: "контакти", inner: [] },
-        { value: "партнери", inner: [] },
-        { value: "профіль", inner: [] },
         {
           value: "люди",
           inner: ["автори", "режисери", "актори", "команда"],
         },
+        { value: "архів", inner: ["всі події", "новини", "вистави"] },
+        { value: "партнери", inner: [] },
+        { value: "профіль", inner: [] },
+        { value: "контакти", inner: [] },
       ],
       listNaviTeam: ["автори", "режисери", "актори", "команда"],
       listNaviArch: ["всі події", "новини", "вистави"],
@@ -289,9 +297,9 @@ export default {
       }
     },
     getNeedNavigate(val) {
-      if (val == 4) {
+      if (val == 5) {
         this.isEvent = !this.isEvent;
-      } else if (val == 8) {
+      } else if (val == 4) {
         this.isTeam = !this.isTeam;
       }
     },
@@ -310,12 +318,12 @@ export default {
         ["/plays"],
         ["/news"],
         ["/about"],
+        ["%2Fauthors", "%2Fdirectors", "%2Factors", "%2Fmain-team"],
         // ["/archive-all"],
         ["%2Farchive-all", "%2Farchive-news", "%2Farchive-plays"],
-        ["/contacts"],
         ["/our_partners"],
         ["/my_profile"],
-        ["%2Fauthors", "%2Fdirectors", "%2Factors", "%2Fmain-team"],
+        ["/contacts"],
       ];
 
       let dataListNavi = [];
