@@ -248,6 +248,10 @@ html {
     width: 22em;
 }
 
+.w_20em {
+    width: 20em;
+}
+
 .w_10em {
     width: 7em;
 }
@@ -297,6 +301,10 @@ html {
 
 .h_100_px {
     height: 100px;
+}
+
+.h_150 {
+    height: 250px;
 }
 
 .h_30_px {
@@ -673,6 +681,14 @@ html {
 
 .color_white {
     color: #f9f9f9;
+}
+
+.color_gr {
+    color: #eef0f4;
+}
+
+.color_gr:hover {
+    color: #fe6f5f;
 }
 
 

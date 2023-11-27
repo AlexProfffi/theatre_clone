@@ -1,6 +1,6 @@
 import {
     createRouter,
-    // createWebHashHistory, 
+    // createWebHashHistory,
     createWebHistory,
 } from "vue-router";
 // import VueRouter from 'vue-router';
@@ -172,7 +172,7 @@ const routes = [{
         props: true,
     },
     {
-        path: "/set-password",
+        path: "/set-password" + "/" + ":uid" + "/" + ":token",
         name: "SetNewPassword",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route

@@ -5,12 +5,28 @@
     </div>
     <div class="d_flex_column j_content_space_between ptb_5em">
       <div class="d_flex_row j_content_center pad_b1em">
-        <div class="w_30 t_jusify font_1">
+        <div id="info" class="w_30 t_jusify font_1">
           {{ txt }}
         </div>
       </div>
+      <div class="d_flex_row j_content_center pad_b1em">
+        <div
+          id="err_info"
+          class="w_30 t_jusify font_1 c_red"
+          v-for="erl in errorLog"
+          :key="erl.val"
+        >
+          {{ erl.txt }}
+        </div>
+      </div>
       <div class="d_flex_row j_content_center">
-        <form class="d_flex_row j_content_center" action="" method="POST">
+        <form
+          id="forms"
+          class="d_flex_row j_content_center"
+          action=""
+          method="POST"
+          @submit="sendReset"
+        >
           <div class="horizontal_line">
             <input
               v-model="formSendData.email"
@@ -19,10 +35,10 @@
               placeholder="Електронна пошта"
             />
           </div>
-          <div class="d_flex_column pad_both_7">
+          <div id="wrap_btn" class="d_flex_column pad_both_7">
             <input
               class="btn_black b_none pad_both_7 upper_case sibscribe_button f_oswald h_100"
-              type="button"
+              type="submit"
               value="Відправити"
             />
           </div>
@@ -43,7 +59,7 @@ import FooterComponent from "@/components/FooterComponent.vue";
 // import axios from "axios";
 
 export default {
-  name: "RegistrationView",
+  name: "ResetView",
   components: {
     HeaderComponent,
     FooterComponent,
@@ -61,7 +77,6 @@ export default {
   },
   beforeCreate() {},
   created() {
-    // this.loginGoogle();
     this.setTitle();
   },
   methods: {
@@ -71,7 +86,7 @@ export default {
     },
     async sendReset(e) {
       e.preventDefault();
-      let url = `${this.$store.getters.getServerUrlNoV1}/auth/users/reset_password/`;
+      let url = `${this.$store.getters.getServerUrl}/auth/users/reset_password/`;
       await fetch(url, {
         method: "POST",
         headers: {
@@ -82,7 +97,10 @@ export default {
       })
         .then((response) => {
           if (response.status == 204) {
-            this.$router.push({name: "SetNewPassword"})
+            this.errorLog.push({
+              val: 0,
+              txt: "На вказану електронну пошту був відправлений лист з посиланням на сторінку зміни пароля.",
+            });
           }
         })
 
@@ -94,10 +112,23 @@ export default {
 };
 </script>
     <style scoped>
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 600px) {
   .reg_wrapper {
     height: 550px !important;
     width: 100% !important;
+  }
+  #info,
+  #err_info {
+    width: 80vw;
+  }
+  #forms {
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80vw;
+    height: 100px;
+  }
+  #wrap_btn {
+    height: 40%;
   }
 }
 
