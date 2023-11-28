@@ -62,15 +62,9 @@
               >
                 {{ srch.name }}
               </div>
+
               <div
                 class="padding_tb_2em f_source_sans"
-                v-if="srch.type == 'play'"
-              >
-                {{ srch.description }}
-              </div>
-              <div
-                class="padding_tb_2em f_source_sans"
-                v-else
                 v-html="srch.description"
               ></div>
               <div v-if="srch.type == 'play'" class="d_flex_row j_content_end">
@@ -111,7 +105,6 @@
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import { transcription } from "../assets/main";
-
 
 // import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 
@@ -157,8 +150,6 @@ export default {
         cnt += 0.1;
       }, 50);
     },
-
-    
 
     repalcer(str, changeble) {
       // Замінює підстроку
@@ -221,8 +212,13 @@ export default {
   },
 };
 </script>
-      <style scoped>
-@media screen and (max-width: 1000px) {
+<style scoped>
+@media screen and (max-width: 1220px) {
+  .block_low_1000 {
+    justify-content: space-between !important;
+  }
+}
+@media screen and (max-width: 1050px) {
   #name_id_dep {
     font-size: 2em;
   }
