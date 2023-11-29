@@ -315,6 +315,14 @@ html {
     height: 600px;
 }
 
+.h_50 {
+    height: 80%;
+}
+
+.h_30 {
+    height: 30%;
+}
+
 
 /* margin */
 
@@ -891,6 +899,10 @@ html {
 .btn_black {
     background-color: #212121;
     color: #ffffff;
+}
+
+.c_like_footer {
+    color: #212121;
 }
 
 .nowrap_space {
