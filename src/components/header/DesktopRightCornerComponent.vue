@@ -264,6 +264,7 @@ export default {
         localStorage.removeItem("userInfo");
         localStorage.removeItem("lon");
         localStorage.removeItem("lat");
+        localStorage.removeItem("eml");
       });
     },
     async setUserActivity() {

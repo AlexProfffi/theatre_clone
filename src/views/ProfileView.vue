@@ -69,6 +69,7 @@ export default {
         this.getDataComments();
       })
       .then(() => {
+        localStorage.setItem("eml", this.user.email);
         localStorage.setItem(
           "userInfo",
           JSON.stringify({
@@ -100,7 +101,6 @@ export default {
 
           localStorage.setItem("lat", position.coords.latitude);
           localStorage.setItem("lon", position.coords.longitude);
-          localStorage.setItem("eml", this.user.email);
 
           this.latitude = pos.lat;
           this.longitude = pos.lng;

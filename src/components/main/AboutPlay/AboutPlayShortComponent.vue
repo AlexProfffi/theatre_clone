@@ -27,6 +27,7 @@
     </div>
 
     <div class="w_20_percent plays_sl_component" v-else>
+      
       <div
         v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
         :key="on_pl.id"
@@ -467,6 +468,7 @@ export default {
           time_play: this.onlyDate(this.currentDatePlay.date_pl),
           play_name: this.thePlay.name,
           count_tickets: this.callBackData.countTickets,
+          object_date: this.idDatePlayOne,
         })
       );
     },
