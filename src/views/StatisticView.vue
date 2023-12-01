@@ -192,8 +192,9 @@ export default {
 
     visibleDate(date) {
       // Перетворює дату з UTC на нормальну
-      let only_date = String(date).split("T")[0];
-      let only_time = String(date).split("T")[1].split("+")[0];
+      let splited = String(date).split("T");
+      let only_date = splited[0];
+      let only_time = splited[1].split("+")[0];
       return concat(only_date, only_time);
     },
 
