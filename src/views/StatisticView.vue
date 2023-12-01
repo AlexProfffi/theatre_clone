@@ -91,7 +91,11 @@
         class="d_flex_row j_content_space_between bg_grey_custom border_td_like visualiseble"
       >
         <div class="border_td_like_right w_30">
-          <div class="d_flex_column j_content_center h_100 f_source_sans f_weight_bold">Всього:</div>
+          <div
+            class="d_flex_column j_content_center h_100 f_source_sans f_weight_bold"
+          >
+            Всього:
+          </div>
         </div>
         <div class="w_30">
           <div class="d_flex_row j_content_center pad_03em">
@@ -146,6 +150,7 @@ export default {
       .then(() => {
         this.sumSeparateDataAmounts();
       });
+    this.setTitle();
   },
   methods: {
     async getStatistic() {
@@ -207,6 +212,10 @@ export default {
         this.sumAmount +=
           this.statistic[x].dateobj.length * this.statistic[x].to_play.amount;
       }
+    },
+    setTitle() {
+      // Встановлює назву сторінки
+      document.querySelector("title").innerHTML = "Статистика";
     },
   },
 };

@@ -45,10 +45,17 @@
         </div>
       </div>
     </div>
-    <hr>
-    <div id="copywright" class="d_flex_row j_content_space_between ">
-      
-      <div class="pad_both_7 color_white">© <span>theatreofplaywrights.com</span> 2023</div>
+    <hr />
+    <div id="copywright" class="d_flex_row j_content_space_between">
+      <div class="pad_both_7 color_white d_flex_column">
+        <div>© <span>theatreofplaywrights.com</span> 2023</div>
+        <div class="t_left">
+          <a class="font_1 color_white " href="/statistics"
+            >Для адміністраторів</a
+          >
+        </div>
+      </div>
+
       <div class="dev_tools d_flex_row j_content_center pad_b1em">
         <div class="pad_both_7">
           <a href="https://vuejs.org/">
@@ -170,13 +177,6 @@
           class="font_1 c_like_footer"
           :href="this.publicPath + 'sitemap/sitemap.xml'"
           >Карта сайту</a
-        >
-      </div>
-      <div>
-        <a
-          class="font_1 "
-          href="/statistic"
-          >Для адміністраторів</a
         >
       </div>
     </div>
