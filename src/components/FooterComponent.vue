@@ -172,6 +172,13 @@
           >Карта сайту</a
         >
       </div>
+      <div>
+        <a
+          class="font_1 "
+          href="/statistic"
+          >Для адміністраторів</a
+        >
+      </div>
     </div>
   </div>
 </template>
