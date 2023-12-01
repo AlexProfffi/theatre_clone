@@ -49,8 +49,8 @@
     <div id="copywright" class="d_flex_row j_content_space_between">
       <div class="pad_both_7 color_white d_flex_column">
         <div>© <span>theatreofplaywrights.com</span> 2023</div>
-        <div class="t_left">
-          <a class="font_1 color_white " href="/statistics"
+        <div id="statistic" class="t_left">
+          <a class="font_1 color_white" href="/statistics"
             >Для адміністраторів</a
           >
         </div>
@@ -243,7 +243,8 @@ export default {
     flex-direction: row;
     justify-content: space-around;
   }
-  #copywright {
+  #copywright,
+  #statistic {
     flex-direction: column;
   }
 
