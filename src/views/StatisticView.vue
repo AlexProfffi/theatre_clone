@@ -194,7 +194,7 @@ export default {
       // Перетворює дату з UTC на нормальну
       let splited = String(date).split("T");
       let only_date = splited[0];
-      let only_time = splited[1].split("+")[0];
+      let only_time = String(splited[1]).split("+")[0];
       return concat(only_date, only_time);
     },
 
