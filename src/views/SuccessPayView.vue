@@ -66,7 +66,6 @@ export default {
       ).then(() => {
         this.showSpiner = false;
       });
-      // .then(() => this.whichIsShowStatusAsync());
     }
   },
   methods: {
