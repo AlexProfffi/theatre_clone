@@ -77,7 +77,7 @@
             class="border_td_like_left w_30 pad_03em f_source_sans"
             :class="{ f_weight_bold: st.dateobj.length }"
           >
-            {{ st.dateobj.length }}
+            {{ Object(st.dateobj).length }}
           </div>
           <div
             class="border_td_like_left w_30 pad_03em f_source_sans"
