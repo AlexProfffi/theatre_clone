@@ -243,9 +243,11 @@ export default {
     flex-direction: row;
     justify-content: space-around;
   }
-  #copywright,
-  #statistic {
+  #copywright {
     flex-direction: column;
+  }
+  #statistic {
+    text-align: center;
   }
 
   .wrap_contact_block {
