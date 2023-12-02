@@ -980,6 +980,9 @@ html {
     .f_size_low_1000 {
         font-size: 14px !important;
     }
+    .f_size_low_1000_2 {
+        font-size: 0.7em !important;
+    }
     .f_size_header_low_1000 {
         font-size: 1.5em !important;
     }
