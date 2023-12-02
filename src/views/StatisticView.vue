@@ -38,9 +38,40 @@
       >
         <div class="border_td_like_right w_30">
           <div
-            class="d_flex_column j_content_center h_100 f_source_sans f_weight_bold"
+            class="d_flex_row j_content_space_around h_100 f_source_sans f_weight_bold"
           >
-            Дата вистави
+            <div class="d_flex_column j_content_center">Дата вистави</div>
+            <div
+              class="d_flex_column j_content_center c_pointer"
+              @click="reverseDataStatistic()"
+            >
+              <svg
+                v-if="!isReverse"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-caret-up-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                />
+              </svg>
+              <svg
+                v-else
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-caret-down-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                />
+              </svg>
+            </div>
           </div>
         </div>
         <div class="w_30">
@@ -146,6 +177,7 @@ export default {
       sumTicket: 0,
       sumAmount: 0,
       email: localStorage.getItem("eml"),
+      isReverse: false,
     };
   },
   created() {
@@ -223,6 +255,18 @@ export default {
     setTitle() {
       // Встановлює назву сторінки
       document.querySelector("title").innerHTML = "Статистика";
+    },
+
+    reverseDataStatistic() {
+      // Розвертає список статистики
+      for (let x = 0; x < this.statistic.length; x++) {
+        if (x > this.statistic.length - (1 + x)) {
+          let temp = this.statistic[x];
+          this.statistic[x] = this.statistic[this.statistic.length - (x + 1)];
+          this.statistic[this.statistic.length - (x + 1)] = temp;
+        }
+      }
+      this.isReverse = !this.isReverse;
     },
   },
 };
