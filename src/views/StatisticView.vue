@@ -352,7 +352,7 @@ export default {
   <style scoped>
 @media screen and (max-width: 1000px) {
   #wrapTbl {
-    padding: 2px;
+    padding: 2px 2px 55px 2px;
   }
   #formDate {
     flex-direction: column;
