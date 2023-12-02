@@ -16,11 +16,17 @@
               id="fromDate"
               type="date"
               v-model="filterDate.filterDateFrom"
+              required
             />
           </div>
           <div class="d_flex_column t_left">
             <label class="font_1" for="toDate">До:</label>
-            <input id="toDate" type="date" v-model="filterDate.filterDateTo" />
+            <input
+              id="toDate"
+              type="date"
+              v-model="filterDate.filterDateTo"
+              required
+            />
           </div>
           <div class="d_flex_column j_content_end">
             <input type="submit" value="Застосувати" />
@@ -157,7 +163,7 @@ export default {
       // Statistic get
       if (this.email) {
         this.statistic = await fetch(
-          `${this.$store.getters.getServerUrl}/statistic/?q=${this.email}`
+          `${this.$store.getters.getServerUrl}/statistic/?q=${this.email}&afrom=0&ato=0`
         )
           .then((response) => response.json())
           .catch((error) => {
