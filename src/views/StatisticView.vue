@@ -5,9 +5,9 @@
     </div>
 
     <div id="wrapTbl" class="p_40px">
-      <div>
+      <div class="d_flex_row j_content_space_between">
         <form
-        id="formDate"
+          id="formDate"
           class="d_flex_row j_content_space_between w_40 pad_1em"
           @submit="setFilterToStatistic"
         >
@@ -41,7 +41,9 @@
           <div
             class="d_flex_row j_content_space_around h_100 f_source_sans f_weight_bold"
           >
-            <div class="d_flex_column j_content_center f_size_low_1000">Дата вистави</div>
+            <div class="d_flex_column j_content_center f_size_low_1000">
+              Дата вистави
+            </div>
             <div
               class="d_flex_column j_content_center c_pointer"
               @click="reverseDataStatistic()"
@@ -78,7 +80,7 @@
         <div class="w_30 f_basis_low_1000">
           <div class="d_flex_row j_content_center pad_03em">
             <div
-              class="d_flex_row j_content_space_between f_source_sans f_weight_bold  f_size_low_1000"
+              class="d_flex_row j_content_space_between f_source_sans f_weight_bold f_size_low_1000"
             >
               Назва вистави
             </div>
@@ -100,13 +102,17 @@
           class="d_flex_row j_content_space_between bg_grey_custom border_td_like visualiseble"
         >
           <div class="border_td_like_right w_30">
-            <div class="d_flex_column j_content_center h_100 f_source_sans f_size_low_1000">
+            <div
+              class="d_flex_column j_content_center h_100 f_source_sans f_size_low_1000"
+            >
               {{ visibleDate(st.date_pl) }}
             </div>
           </div>
           <div class="w_30 f_basis_low_1000">
             <div class="d_flex_row j_content_center pad_03em">
-              <div class="d_flex_row j_content_space_between f_source_sans f_size_low_1000 ">
+              <div
+                class="d_flex_row j_content_space_between f_source_sans f_size_low_1000"
+              >
                 {{ Object(st.to_play).name }}
               </div>
             </div>
@@ -179,7 +185,7 @@
       <div
         class="d_flex_row j_content_space_between bg_grey_custom border_td_like visualiseble"
       >
-        <div class="border_td_like_right w_30 ">
+        <div class="border_td_like_right w_30">
           <div
             class="d_flex_column j_content_center h_100 f_source_sans f_weight_bold f_size_low_1000"
           >
@@ -188,7 +194,7 @@
         </div>
         <div class="w_30 f_basis_low_1000">
           <div class="d_flex_row j_content_center pad_03em">
-            <div class="d_flex_row j_content_space_between ">-</div>
+            <div class="d_flex_row j_content_space_between">-</div>
           </div>
         </div>
         <div
@@ -201,6 +207,14 @@
         >
           {{ sumAmount }}
         </div>
+      </div>
+      <div class="w_30">
+        <form @submit="toXlsx" id="formXls" action="" class="d_flex_column">
+          <label class="t_left font_1" for="xlxs">
+            Сформувати файл *.xlsx
+          </label>
+          <input type="submit" name="xlxs" id="xlxs" value="Сформувати" />
+        </form>
       </div>
     </div>
     <div>
@@ -256,7 +270,18 @@ export default {
           });
       }
     },
-
+    async toXlsx(e) {
+      e.preventDefault();
+      let url = `${this.$store.getters.getServerUrl}/export_xlsx/`;
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.filterDate),
+      });
+    },
     async getStatisticFiltered() {
       // Statistic get
       if (this.email) {
