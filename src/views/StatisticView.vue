@@ -210,6 +210,9 @@
       </div>
       <div class="w_30">
         <form @submit="toXlsx" id="formXls" action="" class="d_flex_column">
+          <div>
+            {{ answer }}
+          </div>
           <label class="t_left font_1" for="xlxs">
             Сформувати файл *.xlsx
           </label>
@@ -235,6 +238,7 @@ export default {
   },
   data() {
     return {
+      answer: "",
       filterDate: {
         filterDateFrom: "",
         filterDateTo: "",
@@ -280,6 +284,14 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.filterDate),
+      }).then((response) => {
+        if (response.status == 201) {
+          response.json().then((response) => {
+            this.answer = response.info;
+          });
+        } else {
+          this.answer = "Щось пішло не так!";
+        }
       });
     },
     async getStatisticFiltered() {

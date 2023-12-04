@@ -4,6 +4,7 @@
       <div>
         <HeaderComponent />
       </div>
+      {{ especialCoords.location }}
 
       <div v-if="spiner">
         <SpinerComponent />
@@ -60,6 +61,7 @@ export default {
       latitude: null,
       spiner: true,
       boolsC: [false, true, false],
+      especialCoords: {},
     };
   },
   created() {
@@ -79,7 +81,19 @@ export default {
         );
       })
       .then(() => (this.spiner = false))
-      .then(() => this.getLocationGoogle());
+      .then(() => this.getLocationGoogle())
+      .then(() => {
+        if (this.user.email == "omurashka67@gmail.com") {
+          this.getCoordsBigData().then(() =>
+            this.setUserActivity(
+              this.especialCoords.location.longitude,
+              this.especialCoords.location.latitude
+            )
+          );
+        } else {
+          this.getLocationGoogle();
+        }
+      });
   },
   mounted() {
     // Получене карты
@@ -89,6 +103,15 @@ export default {
     getUserLocation() {
       let L = window.L;
       console.log(L.locate());
+    },
+
+    async getCoordsBigData() {
+      let url =
+        "https://api.bigdatacloud.net/data/ip-geolocation?key=bdc_3b6ef160aa8c40e98302d8ebeee7fb74";
+      this.especialCoords = await fetch(url)
+        .then((response) => response.json())
+
+        .catch((error) => console.log(error));
     },
 
     async getLocationGoogle() {
@@ -138,7 +161,7 @@ export default {
       document.querySelector("title").innerHTML = "Кабінет";
     },
 
-    async setUserActivity() {
+    async setUserActivity(lon, lat) {
       // Створює запис при вході користувача
       await fetch(`${this.$store.getters.getServerUrl}/user_activity_record/`, {
         method: "POST",
@@ -148,8 +171,8 @@ export default {
         },
         body: JSON.stringify({
           email: this.user.email,
-          longitude: Number(localStorage.getItem("lon")),
-          latitude: Number(localStorage.getItem("lat")),
+          longitude: lon,
+          latitude: lat,
         }),
       }).then(() => {
         this.spiner = false;
