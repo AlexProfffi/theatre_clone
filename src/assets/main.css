@@ -556,6 +556,10 @@ html {
     padding: .1em;
 }
 
+.pad_lr_1e {
+    padding: 0 1em;
+}
+
 
 /* font */
 
