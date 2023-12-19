@@ -48,7 +48,7 @@
     <!-- tech -->
     <div id="copywright" class="d_flex_row j_content_center">
       <div class="dev_tools d_flex_column j_content_end pad_b1em">
-        <div class="d_flex_row">
+        <div class="d_flex_row j_content_center">
           <div class="">
             <a href="https://vuejs.org/">
               <svg
