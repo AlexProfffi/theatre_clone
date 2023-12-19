@@ -12,10 +12,7 @@
             </a>
           </div>
         </div>
-        <div
-          id="makers"
-          class="t_left open_sans d_flex_column j_content_start "
-        >
+        <div id="makers" class="t_left open_sans d_flex_column j_content_start">
           <div id="designer" class="">
             <a
               class="nav_link_color"

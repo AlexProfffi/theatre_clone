@@ -244,6 +244,10 @@ html {
     width: 30%;
 }
 
+.w_25 {
+    width: 25%;
+}
+
 .w_50_px {
     width: 50px;
 }
@@ -291,6 +295,10 @@ html {
     height: 90%;
 }
 
+.h_70 {
+    height: 70%;
+}
+
 .h_7em {
     height: 7em;
 }
@@ -319,8 +327,20 @@ html {
     height: 600px;
 }
 
+.h_500 {
+    height: 500px;
+}
+
 .h_50 {
     height: 80%;
+}
+
+.h_80 {
+    height: 80%;
+}
+
+.h_20 {
+    height: 20%;
 }
 
 .h_30 {
