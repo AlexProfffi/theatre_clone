@@ -136,11 +136,23 @@
             <div
               class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
             >
-              <img
-                :src="repalcer(play.photo)"
-                :alt="play.name"
-                class="img_on_main h_100 w_100 zoom_hover"
-              />
+              <router-link
+                class="pad_b1em color_white"
+                :to="{
+                  name: 'play',
+                  params: {
+                    id: play.id_play,
+                    date_id: play.id,
+                    name: transcriptWord(play.name),
+                  },
+                }"
+              >
+                <img
+                  :src="repalcer(play.photo)"
+                  :alt="play.name"
+                  class="img_on_main h_100 w_100 zoom_hover"
+                />
+              </router-link>
             </div>
             <div class="p_relative h_100">
               <div

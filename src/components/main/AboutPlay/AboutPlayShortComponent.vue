@@ -27,7 +27,6 @@
     </div>
 
     <div class="w_20_percent plays_sl_component" v-else>
-      
       <div
         v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
         :key="on_pl.id"
@@ -213,11 +212,12 @@
       </div>
       <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
         <div>
-          <div>
+          <div v-if="getDirector(play.staff)[0] != '--'">
             <span>
               {{ getDirector(play.staff, (rl = true)) }}
             </span>
             <router-link
+              
               class="nav_link_color"
               :to="{
                 name: 'playwriter',
@@ -334,6 +334,9 @@
                 <label for="email" class="open_sans small_font"
                   >Введіть електронну пошту для купівлі квитка:
                 </label>
+                <div>
+                  {{ callBackData.email }}
+                </div>
               </div>
               <input
                 class="input_field"
@@ -463,7 +466,7 @@ export default {
         "infoForTicket",
         JSON.stringify({
           order_id: this.theLinkPay.order_id,
-          email: this.callBackData.email,
+          email: this.callBackData.email.trim(),
           u_name: this.callBackData.userName,
           time_play: this.onlyDate(this.currentDatePlay.date_pl),
           play_name: this.thePlay.name,
@@ -688,7 +691,9 @@ export default {
     },
 
     getDirector(stafers, rl = false) {
-      // Повертає директора
+      // Повертає режисера
+      // rl  це його роль
+      
       if (!rl) {
         for (let x = 0; x < stafers.length; x++) {
           if (
@@ -699,7 +704,7 @@ export default {
               `${stafers[x].first_name} ${stafers[x].last_name}`,
               stafers[x].id,
             ];
-          }
+          } 
         }
       } else {
         for (let x = 0; x < stafers.length; x++) {
@@ -710,6 +715,9 @@ export default {
           }
         }
       }
+      return [
+        "--", -1
+      ]
     },
 
     isUserAuth() {

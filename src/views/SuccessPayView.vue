@@ -9,7 +9,7 @@
     </div>
 
     <div v-else>
-      <div v-if="whichIsShowStatus(dataAndSign.status)">
+      <div v-if="checkStatus">
         <h2 class="ptb_40">Платіж успішний!</h2>
         <div v-if="!innerSpiner" class="t_justify pad_1em">
           {{ answerInfoBuy }}
@@ -49,6 +49,8 @@ export default {
       currentOrderId: JSON.parse(localStorage.getItem("infoForTicket")),
       textRing: "Виконується оплата...",
       answerInfoBuy: null,
+      checkStatus: false,
+      numStatus: 0,
     };
   },
   beforeCreate() {},
@@ -56,7 +58,7 @@ export default {
     if (JSON.parse(localStorage.getItem("infoForTicket")) != null) {
       this.getDataAndSign().then(() => {
         this.showSpiner = false;
-      });
+      }).then(() => this.whichIsShowStatus());
     } else {
       setTimeout(
         this.getDataAndSign().then(() => {
@@ -65,7 +67,7 @@ export default {
         2500
       ).then(() => {
         this.showSpiner = false;
-      });
+      }).then(() => this.whichIsShowStatus());
     }
   },
   methods: {
@@ -91,9 +93,14 @@ export default {
         body: JSON.stringify(JSON.parse(localStorage.getItem("infoForTicket"))),
       })
         .then((response) => {
-          response.json().then((response) => {
-            this.answerInfoBuy = response.info;
-          }).then(() => {this.innerSpiner = false});
+          response
+            .json()
+            .then((response) => {
+              this.answerInfoBuy = response.info;
+            })
+            .then(() => {
+              this.innerSpiner = false;
+            });
         })
         .catch((error) => {
           console.log(error);
@@ -104,35 +111,23 @@ export default {
       window.location = "https://theatreofplaywrights.com/";
     },
 
-    whichIsShowStatus() {
-      // Повертає true якщо success
-      // Повертає false якщо error
-      if (this.dataAndSign.status == "success") {
-        this.postDataTicket(1);
-        // .then(() => setTimeout(this.goToMainPage, 3000));
-        return true;
-      } else if (this.dataAndSign.status == "error") {
-        this.postDataTicket(0);
-        return false;
+    async changeStatus(sts) {
+      // Міняє статус
+      if (sts == "success") {
+        this.checkStatus = true;
+        this.numStatus = 1;
       } else {
-        return false;
+        this.checkStatus = false;
+        this.numStatus = 0;
       }
     },
 
-    async whichIsShowStatusAsync() {
+    async whichIsShowStatus() {
       // Повертає true якщо success
       // Повертає false якщо error
-      // Асинхронна
-      // Викликається якщо був повторний запит
-
-      if (this.dataAndSign.status == "success") {
-        this.postDataTicket().then(() => {
-          localStorage.removeItem("infoForTicket");
-        });
-        return true;
-      } else if (this.dataAndSign.status == "error") {
-        return false;
-      }
+      this.changeStatus(this.dataAndSign.status).then(() =>
+        this.postDataTicket(this.numStatus)
+      );
     },
   },
 };
