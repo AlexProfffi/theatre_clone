@@ -604,6 +604,10 @@ html {
     font-weight: 600;
 }
 
+.f_damage_rubik {
+    font-family: 'Rubik Lines', system-ui;
+}
+
 .f_size_32 {
     font-size: 1.4em;
 }
@@ -759,6 +763,13 @@ html {
 }
 
 
+/* rotate */
+
+.rotate_something {
+    transform: rotate(0.05turn);
+}
+
+
 /* ul */
 
 .none_decor_ul {
@@ -834,6 +845,10 @@ html {
 
 
 /* BORDER */
+
+.b_red {
+    border: 2px solid red;
+}
 
 .b_radius_5 {
     border-radius: 5px

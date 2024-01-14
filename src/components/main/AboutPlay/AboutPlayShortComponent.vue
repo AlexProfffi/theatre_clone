@@ -286,7 +286,7 @@
           </span>
         </div>
       </div>
-      <div class="f_size_32 c_red" v-else>
+      <div class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em" v-else>
         {{ eventCancel }}
       </div>
       <div v-if="!play.on_play[0].cancel_event">
