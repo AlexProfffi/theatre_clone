@@ -87,7 +87,19 @@
             </div>
           </div>
         </div>
+        <div class="d_flex_row_reverse">
+          <div class="small_font">Автор лого - Люда Тимошенко</div>
+        </div>
       </div>
+      <marquee
+        v-if="runTxt.length"
+        class="upper_case ptb_1em"
+        truespeed
+        :scrollamount="runTxt[0].speed"
+        scrolldelay="15"
+      >
+        {{ runTxt[0].text }}
+      </marquee>
       <div class="">
         <div id="idea_main" class="d_flex_column margin_both_auto">
           <div
@@ -296,6 +308,7 @@ export default {
       coefficientTop: 1.1,
       coefficientTopDate: 3.1,
       intrval: null,
+      runTxt: [],
     };
   },
   created() {
@@ -303,6 +316,7 @@ export default {
 
       .then(() => this.getIdea())
       .then(() => this.getPlaySMain())
+      .then(() => this.getRunningText())
       .then(() => this.instanceNewWidth(this.lengthElNamePlay))
       .then(() => this.showContent())
       .then(() => {
@@ -336,6 +350,15 @@ export default {
       // Конкатенує ім'я
       return `${first} ${last}`;
     },
+
+    async getRunningText() {
+      this.runTxt = await fetch(
+        `${this.$store.getters.getServerUrl}/running_txt/`
+      )
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+    },
+
     async delInfoBuyTicket() {
       if (localStorage.getItem("infoForTicket")) {
         localStorage.removeItem("infoForTicket");
@@ -694,5 +717,33 @@ export default {
 }
 .unpack_ideas {
   display: none;
+}
+
+/* runjing text */
+
+.block {
+  height: 90px;
+  width: 80%;
+  margin: 0 auto;
+  background: #ffffff;
+}
+
+.block p {
+  text-align: center;
+  color: #212121;
+  text-transform: uppercase;
+  padding-top: 35px;
+  animation: text 25s infinite linear;
+  padding-left: 100%;
+  white-space: nowrap;
+}
+
+@keyframes text {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-185%, 0);
+  }
 }
 </style>

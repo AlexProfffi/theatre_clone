@@ -735,6 +735,10 @@ html {
     color: #fe6f5f;
 }
 
+.wh_space {
+    white-space: nowrap;
+}
+
 
 /* backgroung */
 
