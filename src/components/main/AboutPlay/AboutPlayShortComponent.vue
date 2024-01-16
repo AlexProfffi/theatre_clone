@@ -286,7 +286,7 @@
           </span>
         </div>
       </div>
-      <div class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em" v-else>
+      <div id="cancelEv" class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em" v-else>
         {{ eventCancel }}
       </div>
       <div v-if="!play.on_play[0].cancel_event">
@@ -749,6 +749,10 @@ export default {
 </script>
   <style scoped>
 @media screen and (max-width: 1000px) {
+  #cancelEv {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
   #form_pay {
     width: 100%;
     padding: 20px 0 20px 0;
