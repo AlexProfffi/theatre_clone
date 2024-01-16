@@ -263,8 +263,10 @@ export default {
     actorOrDirector(rols) {
       if (rols.indexOf("Режисерка") > -1 || rols.indexOf("Режисер") > -1) {
         return "directors";
+      } else if (rols.indexOf("Актор") > -1 || rols.indexOf("Акторка") > -1) {
+        return "actors";
       }
-      return "actors";
+      return "crew";
     },
 
     async getOffert() {
