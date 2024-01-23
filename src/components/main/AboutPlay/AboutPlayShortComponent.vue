@@ -334,9 +334,7 @@
                 <label for="email" class="open_sans small_font"
                   >Введіть електронну пошту для купівлі квитка:
                 </label>
-                <div>
-                  {{ callBackData.email }}
-                </div>
+               
               </div>
               <input
                 class="input_field"
