@@ -178,7 +178,7 @@
             class="border_td_like_left w_30 pad_03em f_source_sans"
             :class="{ f_weight_bold: Object(st.dateobj).length }"
           >
-            {{ Object(st.dateobj).length * Object(st.to_play).amount }}
+            {{ Object(st.dateobj).length * Object(st.price_for_play) }}
           </div>
         </div>
       </div>
@@ -342,7 +342,7 @@ export default {
       this.sumAmount = 0;
       for (let x = 0; x < this.statistic.length; x++) {
         this.sumAmount +=
-          this.statistic[x].dateobj.length * this.statistic[x].to_play.amount;
+          this.statistic[x].dateobj.length * this.statistic[x].price_for_play;
       }
     },
     setTitle() {

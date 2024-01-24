@@ -237,7 +237,7 @@
         </div>
       </div>
       <div class="d_flex_row j_content_start f_family_sans">
-        {{ play.amount }} грн.
+        {{ play.price_for_play }} грн.
       </div>
       <div class="d_flex_row f_oswald pad_top play_sl_duration">
         <h4
