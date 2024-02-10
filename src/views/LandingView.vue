@@ -4,9 +4,19 @@
       <HeaderComponent />
     </div>
     <div>
+      <div>
+        <div>
+          <img
+          id="img_faces"
+            class="w_100 img_on_main h_400px"
+            src="https://kulturhusetstadsteatern.se/sites/default/files/styles/hero_landingpage_mini/public/2023-11/%D0%A2%D0%B5%D0%B0%D1%82%D1%80-%D0%94%D1%80%D1%83%D0%BA.jpg?h=5338a8a1&itok=9ZUBGwPP"
+            alt="faces"
+          />
+        </div>
+      </div>
       <div class="d_flex_column">
         <div
-        id="banner_landing"
+          id="banner_landing"
           class="w_100 d_flex_column f_neue_plak_cond f_size_42 f_weight_bold_800 color_black upper_case"
         >
           <div
@@ -23,7 +33,7 @@
           </div>
         </div>
         <div
-        id="pre_description_landing"
+          id="pre_description_landing"
           class="d_flex_column f_size_32 f_neue_plak color_black padding_tb_3em"
         >
           <div
@@ -82,12 +92,18 @@
                 class="d_flex_row j_content_start ptb_05em"
               >
                 <div v-if="$store.state.currentLanguage == 2">
-                  <a :href="lin.the_link" class="border_black nav_link_color w_100">
+                  <a
+                    :href="lin.the_link"
+                    class="border_black nav_link_color w_100"
+                  >
                     {{ lin.name_en }}
                   </a>
                 </div>
                 <div v-else-if="$store.state.currentLanguage == 0">
-                  <a :href="lin.the_link" class="border_black nav_link_color w_100">
+                  <a
+                    :href="lin.the_link"
+                    class="border_black nav_link_color w_100"
+                  >
                     {{ lin.name_ua }}
                   </a>
                 </div>
@@ -98,7 +114,7 @@
         <div class="ptb_1em d_flex_row j_content_center">
           <div class="w_70">
             <img
-            class="w_100"
+              class="w_100"
               src="https://kulturhusetstadsteatern.se/sites/default/files/styles/body_image_big/public/2023-12/EN_Co-fundedbytheEU_RGB_POS.jpg?itok=70sS3pt5"
               alt="EUR"
             />
@@ -181,7 +197,6 @@ export default {
   #link_landing {
     font-size: 0.9em;
   }
-  
 }
 
 @media screen and (max-width: 650px) {
@@ -194,7 +209,11 @@ export default {
   #pre_description_landing {
     font-size: 1.2em;
   }
-
+  #img_faces {
+    width: 90%;
+    object-fit: none;
+    height: max-content;
+  }
 }
 </style>
           
