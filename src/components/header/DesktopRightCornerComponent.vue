@@ -14,7 +14,7 @@
           class="hover_black pad_1"
           :class="{ c_pointer: lang.txt !== '|', c_black: lang.value == 0 }"
           :id="lang.idEl"
-          @click="selectLanguage(lang.idEl)"
+          @click="selectLanguage(lang.idEl, lang.value)"
         >
           {{ lang.txt }}
         </span>
@@ -125,7 +125,7 @@ export default {
   components: {},
   data() {
     return {
-      showLanguage: false,
+      showLanguage: true,
       languagesData: this.languages(),
       authLinksData: this.authLinks(),
       token: localStorage.getItem("token"),
@@ -134,10 +134,16 @@ export default {
       intrval: null,
       widthSearchField: 200,
       dataInputSearch: null,
+      currentLanguage: 0,
+      languagesAll: [
+        { lang: "УКР", dts: 0 },
+        { lang: "EN", dts: 2 },
+      ],
     };
   },
   created() {
     this.getDataUser();
+    localStorage.setItem("currentLanguage", this.currentLanguage);
   },
   methods: {
     showContent() {
@@ -175,6 +181,7 @@ export default {
     languages() {
       // Мови на сайті
       let arrLangs = ["УКР", "|", "EN"];
+
       let langs = [];
       for (let x = 0; x < arrLangs.length; x++) {
         langs.push({ value: x, txt: arrLangs[x], idEl: "lang" + String(x) });
@@ -200,13 +207,19 @@ export default {
       }
       return false;
     },
-    selectLanguage(idElem) {
+    selectLanguage(idElem, cl) {
       // Відстеження кліка по мові
       let el = document.querySelector("#" + idElem);
       if (el.innerHTML !== "|") {
         let prevEl = document.querySelector(".c_black");
         prevEl.classList.remove("c_black");
         el.classList.add("c_black");
+        for (let x = 0; x < this.languagesAll.length; x++) {
+          if (el.innerHTML == this.languagesAll[x].lang) {
+            this.currentLanguage = this.languagesAll[x].dts;
+          }
+        }
+        this.$store.state.currentLanguage = cl;
       }
     },
     goToEnter(lnk) {

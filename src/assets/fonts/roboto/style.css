@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Neue Plak';
+    src: local('Neue Plak Regular'), local('Neue-Plak-Regular'), url('NeuePlak-Regular.woff2') format('woff2'), url('NeuePlak-Regular.woff') format('woff'), url('NeuePlak-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Plak Condensed';
+    src: local('Neue Plak Condensed Black'), local('Neue-Plak-Condensed-Black'), url('NeuePlak-CondBlack.woff2') format('woff2'), url('NeuePlak-CondBlack.woff') format('woff'), url('NeuePlak-CondBlack.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}

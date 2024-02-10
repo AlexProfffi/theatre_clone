@@ -20,10 +20,13 @@ export default {
     DesktopNavigatorComponent,
   },
   data() {
-    return {};
+    return {
+    };
   },
-  created() {},
-  methods: {},
+  created() {
+  },
+  methods: {
+  },
 };
 </script>
 <style scoped>

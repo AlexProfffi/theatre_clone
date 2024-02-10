@@ -246,6 +246,7 @@ export default {
         { value: "партнери", inner: [] },
         { value: "профіль", inner: [] },
         { value: "контакти", inner: [] },
+        { value: "лендінг", inner: [] },
       ],
       listNaviTeam: ["автори", "режисери", "актори", "команда"],
       listNaviArch: ["всі події", "новини", "вистави"],
@@ -324,6 +325,7 @@ export default {
         ["/our_partners"],
         ["/my_profile"],
         ["/contacts"],
+        ["/triangle-for-ukrainian-artists"],
       ];
 
       let dataListNavi = [];

@@ -276,6 +276,10 @@ html {
     min-width: calc(100%/4);
 }
 
+.w_700px {
+    width: 700px;
+}
+
 
 /* height */
 
@@ -412,6 +416,10 @@ html {
     margin-top: 3em;
 }
 
+.m_lr_3 {
+    margin: 0 18em;
+}
+
 
 /* padding */
 
@@ -477,6 +485,11 @@ html {
     padding-bottom: 1em;
 }
 
+.ptb_05em {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
 .padding_tb_15_em {
     padding-top: 10em;
     padding-bottom: 15em;
@@ -492,6 +505,10 @@ html {
 
 .p_lr_2 {
     padding: 2em 25em;
+}
+
+.p_lr_3 {
+    padding: 0 18em 0 18em;
 }
 
 .pad_both_7 {
@@ -538,6 +555,10 @@ html {
 
 .padding_tb_2em {
     padding: 2em 0 2em 0;
+}
+
+.padding_tb_3em {
+    padding: 3em 0 3em 0;
 }
 
 .pad_0 {
@@ -603,6 +624,22 @@ html {
     font-family: 'Source Sans 3', sans-serif;
 }
 
+.f_neue {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.f_neue_plak {
+    font: 15px ‘Roboto’, Arial, Helvetica, sans-serif;
+}
+
+.f_neue_plak_cond {
+    font: 15px ‘Roboto’, Arial, Helvetica, sans-serif;
+}
+
+.f_family_plak_neue {
+    font-family: 'Neue Plak', sans-serif;
+}
+
 .f_family_sans {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: 600;
@@ -636,6 +673,10 @@ html {
     font-size: 4.2em;
 }
 
+.f_size_54 {
+    font-size: 5em;
+}
+
 .f_size_22 {
     font-size: 1em;
 }
@@ -651,6 +692,10 @@ html {
 
 .f_weight_bold_700 {
     font-weight: 700;
+}
+
+.f_weight_bold_800 {
+    font-weight: 800;
 }
 
 .f_weight_light_300 {
@@ -803,6 +848,14 @@ html {
     } */
     border-bottom: 2px solid rgb(15, 15, 15);
     width: 0;
+}
+
+.border_black {
+    border-bottom: 2px solid red;
+}
+
+.border_black:hover {
+    border-bottom: 2px solid black;
 }
 
 
@@ -979,6 +1032,10 @@ html {
 .scale_hover:hover {
     transform: scale(1.05);
     box-shadow: 0px -5px 15px rgb(165, 165, 165);
+}
+
+.scale_pressure_both {
+    transform: scale(.7, 1.5);
 }
 
 
