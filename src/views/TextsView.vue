@@ -3,7 +3,7 @@
     <div>
       <HeaderComponent />
     </div>
-    <div class="d_flex_column">
+    <div class="d_flex_column" v-if="dataText.text">
       <div class="d_flex_row j_content_center">
         <div class="pad_4_path f_oswald f_size_40">
           {{ Object(dataText.name).name }}
@@ -25,11 +25,40 @@
             v-for="playwriter in dataText.playwright"
             :key="playwriter.id"
           >
-            <div>
+            <!-- <div>
               {{ playwriter.first_name }} {{ playwriter.last_name }} &nbsp;
-            </div>
+            </div> -->
+            <router-link
+              class="nav_link_color"
+              :to="{
+                name: 'playwriter',
+
+                params: {
+                  id: playwriter.id,
+                  slugin: sluginToServerAuthor,
+                  name: transcriptWord(
+                    concat(playwriter.first_name, playwriter.last_name)
+                  ),
+                },
+              }"
+            >
+              <span>
+                {{ playwriter.first_name }}
+              </span>
+              <span>&nbsp;</span>
+              <span>
+                {{ playwriter.last_name }}
+              </span>
+              <span> &nbsp; </span>
+              <span> &nbsp; </span>
+            </router-link>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="d_flex_column padding_tb_3em f_oswald f_size_41" v-else>
+      <div>
+        {{ dataText.info }}
       </div>
     </div>
     <div>
@@ -39,6 +68,7 @@
 </template>
         
   <script>
+import { transcription, concat } from "../assets/main";
 // @ is an alias to /src
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
@@ -59,6 +89,9 @@ export default {
       dataText: {},
       intrval: null,
       plId: this.idCurrentPlay,
+      sluginToServerAuthor: "authors",
+      transcriptWord: transcription,
+      concat: concat,
     };
   },
   beforeCreate() {},
@@ -103,10 +136,10 @@ export default {
 }
 
 @media screen and (max-width: 650px) {
-    #authors_txt {
-        flex-direction: column;
-        text-align: left;
-    }
+  #authors_txt {
+    flex-direction: column;
+    text-align: left;
+  }
 }
 </style>
             

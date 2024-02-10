@@ -131,8 +131,8 @@
                 ></p>
                 <p v-else>Інформація з`явиться незабаром</p>
               </div>
-              <div>
-                <a :href="'/text-play/' + idPlay"> Текст вистави </a>
+              <div class="d_flex_row">
+                <a class="nav_link_color horizontal_line" :href="'/text-play/' + idPlay"> Текст вистави </a>
               </div>
             </div>
             <div
