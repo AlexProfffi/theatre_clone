@@ -423,6 +423,7 @@ export default {
   created() {
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
     this.isUserAuth();
+    console.log(this.thePlay.price_for_play)
   },
   methods: {
     test() {},
@@ -490,7 +491,7 @@ export default {
       // Посилання на оплату
 
       this.theLinkPay = await fetch(
-        `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/`
+        `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/${this.thePlay.price_for_play}/`
       )
         .then((response) => response.json())
         .catch((error) => {
