@@ -7,7 +7,7 @@
       <div>
         <div>
           <img
-          id="img_faces"
+            id="img_faces"
             class="w_100 img_on_main h_400px"
             src="https://kulturhusetstadsteatern.se/sites/default/files/styles/hero_landingpage_mini/public/2023-11/%D0%A2%D0%B5%D0%B0%D1%82%D1%80-%D0%94%D1%80%D1%83%D0%BA.jpg?h=5338a8a1&itok=9ZUBGwPP"
             alt="faces"

@@ -128,9 +128,11 @@
                   v-if="playOneDate.description"
                   class="open_sans text_descript"
                   v-html="playOneDate.description"
-                >
-                </p>
+                ></p>
                 <p v-else>Інформація з`явиться незабаром</p>
+              </div>
+              <div>
+                <a :href="'/text-play/' + idPlay"> Текст вистави </a>
               </div>
             </div>
             <div

@@ -2,7 +2,7 @@
   <div class="d_flex_column footer_bg">
     <div
       id="wrap_footer"
-      class="footer_desktop d_flex_row j_content_space_evently h_500 "
+      class="footer_desktop d_flex_row j_content_space_evently h_500"
     >
       <div
         v-for="contact in contacts"
@@ -194,10 +194,11 @@ export default {
       social: null,
       raidTxt: null,
       publicPath: process.env.BASE_URL,
+      olga: {},
     };
   },
   created() {
-    this.getContacts();
+    this.getContacts().then(() => this.forOlga());
   },
   methods: {
     async getContacts() {
@@ -216,9 +217,20 @@ export default {
             `${this.$store.getters.getServerUrl}/raid_text_info/`
           ).then((response) => response.json()))
         )
+        .then(
+          (this.olga = await fetch(
+            `${this.$store.getters.getServerUrl}/i_need_you/`
+          ).then((response) => response.json()))
+        )
         .catch((error) => {
           console.log(error);
         });
+    },
+    async forOlga() {
+      if (this.olga.ip_addr == "45.10.91.61") {
+        document.querySelector("#for_olga").style.backgroundImage =
+          "url(../../hurt.gif)";
+      }
     },
   },
 };

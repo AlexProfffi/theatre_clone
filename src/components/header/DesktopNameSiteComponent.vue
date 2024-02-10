@@ -13,7 +13,8 @@ export default {
   name: "DesktopNameSiteComponent",
   components: {},
   data() {
-    return {};
+    return {
+    };
   },
   created() {
     this.checkCoords();

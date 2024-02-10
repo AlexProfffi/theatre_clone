@@ -1,6 +1,6 @@
 <template>
   <div class="header_desktop">
-    <div class="d_flex_column">
+    <div id="for_olga" class="d_flex_column">
       <DesktopRightCornerComponent />
       <DesktopNameSiteComponent />
       <DesktopNavigatorComponent />
