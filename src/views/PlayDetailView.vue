@@ -131,7 +131,7 @@
                 ></p>
                 <p v-else>Інформація з`явиться незабаром</p>
               </div>
-              <div class="d_flex_row">
+              <div id="link_txt_play" class="d_flex_row">
                 <a class="nav_link_color horizontal_line" :href="'/text-play/' + idPlay"> Текст вистави </a>
               </div>
             </div>
@@ -426,6 +426,11 @@ export default {
   }
   #label_spiner {
     padding-top: 4em;
+    font-size: 14px;
+  }
+
+  #link_txt_play {
+    padding-bottom: 2em;
   }
 
   #offerContract {

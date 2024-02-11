@@ -11,6 +11,7 @@
       </div>
       <div>
         <div
+          id="text"
           class="pad_4_path f_source_sans t_justify"
           v-html="dataText.text"
         ></div>
@@ -139,6 +140,9 @@ export default {
   #authors_txt {
     flex-direction: column;
     text-align: left;
+  }
+  #text {
+    padding: 1em 2em;
   }
 }
 </style>
