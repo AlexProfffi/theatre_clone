@@ -18,6 +18,9 @@
 
       <div v-else>
         <h2 class="ptb_40">Платіж невдалий!</h2>
+        <div v-if="!innerSpiner" class="t_justify pad_1em">
+          {{ answerInfoBuy }}
+        </div>
       </div>
     </div>
     <div>
@@ -56,18 +59,22 @@ export default {
   beforeCreate() {},
   created() {
     if (JSON.parse(localStorage.getItem("infoForTicket")) != null) {
-      this.getDataAndSign().then(() => {
-        this.showSpiner = false;
-      }).then(() => this.whichIsShowStatus());
+      this.getDataAndSign()
+        .then(() => {
+          this.showSpiner = false;
+        })
+        .then(() => this.whichIsShowStatus());
     } else {
       setTimeout(
         this.getDataAndSign().then(() => {
           this.showSpiner = false;
         }),
         2500
-      ).then(() => {
-        this.showSpiner = false;
-      }).then(() => this.whichIsShowStatus());
+      )
+        .then(() => {
+          this.showSpiner = false;
+        })
+        .then(() => this.whichIsShowStatus());
     }
   },
   methods: {

@@ -283,6 +283,10 @@ html {
 
 /* height */
 
+.h_auto {
+    height: auto;
+}
+
 .h_max {
     height: max-content;
 }

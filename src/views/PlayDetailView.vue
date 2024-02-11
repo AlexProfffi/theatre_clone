@@ -42,6 +42,7 @@
             :isPast="playOneDate.is_play_past"
           />
         </div>
+
         <div
           id="offerContract"
           class="d_flex_row j_content_start margin_both_2"
@@ -88,7 +89,23 @@
             </div>
           </div>
         </div>
-        <div class="h_7em"></div>
+        <div
+          class="d_flex_column margin_both_2 horizontal_line"
+          v-if="playOneDate.link_video"
+        >
+          <div class="d_flex_row j_content_center padding_tb_2em">
+            <iframe
+              id="frame_youtube"
+              class="w_80 h_400px"
+              :src="playOneDate.link_video"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div v-else class="h_7em"></div>
         <div class="d_flex_column j_content_space_between">
           <div class="d_flex_row margin_both_2" id="navigate_desc">
             <div
@@ -132,7 +149,12 @@
                 <p v-else>Інформація з`явиться незабаром</p>
               </div>
               <div id="link_txt_play" class="d_flex_row">
-                <a class="nav_link_color horizontal_line" :href="'/text-play/' + idPlay"> Текст вистави </a>
+                <a
+                  class="nav_link_color horizontal_line"
+                  :href="'/text-play/' + idPlay"
+                >
+                  Текст вистави
+                </a>
               </div>
             </div>
             <div
@@ -421,6 +443,9 @@ export default {
 }
 
 @media screen and (max-width: 1000px) {
+  #frame_youtube {
+    height: 300px;
+  }
   #spinner_is {
     margin-top: 10em;
   }
