@@ -444,6 +444,7 @@ export default {
 
 @media screen and (max-width: 1000px) {
   #frame_youtube {
+    width: 90vw;
     height: 300px;
   }
   #spinner_is {
