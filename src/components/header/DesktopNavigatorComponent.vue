@@ -1,11 +1,12 @@
 <template>
   <div id="wrapper_nav" v-if="!isMobile" class="d_flex_row j_content_center">
+    
     <ul
       class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
       id="non_drop"
     >
       <li
-        v-for="nav in navigationData"
+        v-for="nav in naviPanel($store.state.currentLanguage)"
         :key="nav.value"
         :id="nav.idEl"
         class=""
@@ -116,7 +117,7 @@
         id="drop"
       >
         <li
-          v-for="nav in navigationData"
+          v-for="nav in naviPanel($store.state.currentLanguage)"
           :key="nav.value"
           :id="nav.idEl"
           class="d_flex_row_reverse j_content_space_around w_75 dropdown_li"
@@ -170,10 +171,7 @@
               <div class="horizontal_line_hover"></div>
             </div>
 
-            <div
-              v-if="isTeam && nav.value == 4"
-              class="font_1 teamss"
-            >
+            <div v-if="isTeam && nav.value == 4" class="font_1 teamss">
               <ul class="pad_0 none_decor_ul_no_pad">
                 <li
                   class="t_left f_weight_bold_700 small_font_07"
@@ -250,10 +248,29 @@ export default {
       ],
       listNaviTeam: ["автори", "режисери", "актори", "команда"],
       listNaviArch: ["всі події", "новини", "вистави"],
+      listNaviEn: [
+        { value: "main", inner: [] },
+        { value: "poster", inner: [] },
+        { value: "news", inner: [] },
+        { value: "about", inner: [] },
+        {
+          value: "people",
+          inner: ["authors", "directors", "actors", "team"],
+        },
+        { value: "archive", inner: ["all events", "news", "plays"] },
+        { value: "parthners", inner: [] },
+        { value: "profile", inner: [] },
+        { value: "contacts", inner: [] },
+        { value: "landing", inner: [] },
+      ],
+      listNaviTeamEn: ["authors", "directors", "actors", "team"],
+      listNaviArchEn: ["all events", "news", "plays"],
+      watchData: 0,
     };
   },
+
   created() {
-    this.naviPanel();
+    this.naviPanel(this.$store.state.currentLanguage);
     this.eventScrollClick();
   },
   methods: {
@@ -313,7 +330,13 @@ export default {
         : false;
     },
 
-    async naviPanel() {
+    naviPanel(language) {
+      let tempListNavigate;
+      tempListNavigate = this.listNaviEn;
+      if (language == 0) {
+        tempListNavigate = this.listNavi;
+      }
+
       let listNaviLinks = [
         ["/"],
         ["/plays"],
@@ -329,33 +352,40 @@ export default {
       ];
 
       let dataListNavi = [];
-      for (let x = 0; x < this.listNavi.length; x++) {
+      for (let x = 0; x < tempListNavigate.length; x++) {
         if (listNaviLinks[x].length == 1) {
           dataListNavi.push({
             value: x,
-            txt: this.listNavi[x].value,
+            txt: tempListNavigate[x].value,
             idEl: "naviLink" + String(x),
             linkTo: listNaviLinks[x][0],
           });
         } else {
           dataListNavi.push({
             value: x,
-            txt: this.listNavi[x].value,
+            txt: tempListNavigate[x].value,
             idEl: "naviLink" + String(x),
             linkTo: this.gnerateObjectLinks(listNaviLinks[x], x),
           });
         }
       }
-      this.navigationData = dataListNavi;
+      return dataListNavi;
     },
 
-    gnerateObjectLinks(list, counter) {
+    gnerateObjectLinks(list, counter, language) {
       //
+
+      let tempListNavigate;
+      tempListNavigate = this.listNaviEn;
+      if (language == 0) {
+        tempListNavigate = this.listNavi;
+      }
+
       let tempList = [];
       for (let x = 0; x < list.length; x++) {
         tempList.push({
           value: x,
-          txt: this.listNavi[counter].inner[x],
+          txt: tempListNavigate[counter].inner[x],
           // idEl: "naviLinkInner" + String(x) + list[x].replace("/", ""),
           linkTo: list[x],
         });

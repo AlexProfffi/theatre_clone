@@ -1,10 +1,18 @@
 <template>
   <div class="d_flex_row j_content_center">
     <div
+      v-if="$store.state.currentLanguage == 0"
       id="name_site"
       class="upper_case big_font_site_name open_sans w_max_content"
     >
       театр драматургів
+    </div>
+    <div
+      v-else-if="$store.state.currentLanguage == 2"
+      id="name_site"
+      class="upper_case big_font_site_name open_sans w_max_content"
+    >
+      Theatre of Playwrights
     </div>
   </div>
 </template>
@@ -13,8 +21,7 @@ export default {
   name: "DesktopNameSiteComponent",
   components: {},
   data() {
-    return {
-    };
+    return {};
   },
   created() {
     this.checkCoords();
@@ -22,7 +29,7 @@ export default {
   methods: {
     checkCoords() {
       if (localStorage.getItem("token")) {
-        console.log("USER IS AUTH")
+        console.log("USER IS AUTH");
         if (Number(localStorage.getItem("lon")) == 0) {
           setTimeout(this.setUserActivity, 7000);
         } else {

@@ -106,7 +106,8 @@
             id="n_idea"
             class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
           >
-            <div>ідея</div>
+            <div v-if="$store.state.currentLanguage == 0">{{nameIdea.txt_ua}}</div>
+            <div v-else-if="$store.state.currentLanguage == 2">{{nameIdea.txt_en}}</div>
           </div>
         </div>
         <div
@@ -124,14 +125,16 @@
             class="d_flex_row j_content_center pad_b1em"
           >
             <div
-              v-html="idea.description"
+              v-if="$store.state.currentLanguage == 0"
+              v-html="idea.description_new_ua"
               class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
             ></div>
-            <!-- <hr class="line" /> -->
+            <div
+              v-else-if="$store.state.currentLanguage == 2"
+              v-html="idea.description_new_en"
+              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
+            ></div>
           </div>
-          <!-- <div class="upper_case f_weight_bold">
-            більше
-          </div> -->
         </div>
       </div>
 
@@ -140,7 +143,12 @@
           <div
             class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
           >
-            <div>вистави</div>
+            <div v-if="$store.state.currentLanguage == 0">
+              {{ namePage.txt_ua }}
+            </div>
+            <div v-else-if="$store.state.currentLanguage == 2">
+              {{ namePage.txt_en }}
+            </div>
           </div>
         </div>
         <div id="plays_main_list" class="d_grid_3 ptb_5em">
@@ -227,6 +235,7 @@
       <div class="p_sticky z_20">
         <div id="subscribe" class="d_flex_row j_content_center">
           <div
+            v-if="$store.state.currentLanguage == 0"
             id="lbl_subscribe"
             class="d_flex_column f_source_sans upper_case t_left little_pad"
           >
@@ -235,6 +244,18 @@
             </div>
             <div class="f_weight_bold">
               {{ subscribeLabel.text2 }}
+            </div>
+          </div>
+          <div
+            v-else-if="$store.state.currentLanguage == 2"
+            id="lbl_subscribe"
+            class="d_flex_column f_source_sans upper_case t_left little_pad"
+          >
+            <div>
+              {{ subscribeLabelEn.text1 }}
+            </div>
+            <div class="f_weight_bold">
+              {{ subscribeLabelEn.text2 }}
             </div>
           </div>
 
@@ -261,9 +282,16 @@
               class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000"
             >
               <input
+                v-if="$store.state.currentLanguage == 0"
                 class="btn_black b_none pad_both_7 upper_case sibscribe_button"
                 type="submit"
                 value="підписатись"
+              />
+              <input
+                v-else-if="$store.state.currentLanguage == 2"
+                class="btn_black b_none pad_both_7 upper_case sibscribe_button"
+                type="submit"
+                value="subscribe"
               />
             </div>
           </form>
@@ -300,6 +328,18 @@ export default {
       subscribeLabel: {
         text1: "хочу отримувати листи від",
         text2: "театру драматургів",
+      },
+      subscribeLabelEn: {
+        text1: "I want to receive letters from",
+        text2: "the Playwrights Theater",
+      },
+      namePage: {
+        txt_ua: "вистави",
+        txt_en: "plays",
+      },
+      nameIdea: {
+        txt_ua: "ідея",
+        txt_en: "idea",
       },
       showIdeas: false,
       mobile: true,
