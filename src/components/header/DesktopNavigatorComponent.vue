@@ -258,7 +258,7 @@ export default {
           inner: ["authors", "directors", "actors", "team"],
         },
         { value: "archive", inner: ["all events", "news", "plays"] },
-        { value: "parthners", inner: [] },
+        { value: "partners", inner: [] },
         { value: "profile", inner: [] },
         { value: "contacts", inner: [] },
         { value: "landing", inner: [] },

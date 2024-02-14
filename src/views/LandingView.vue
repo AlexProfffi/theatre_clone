@@ -14,7 +14,7 @@
           />
         </div>
       </div>
-      <div class="d_flex_column">
+      <div class="d_flex_column pt_10em">
         <div
           id="banner_landing"
           class="w_100 d_flex_column f_neue_plak_cond f_size_42 f_weight_bold_800 color_black upper_case"
@@ -38,7 +38,7 @@
         >
           <div
             v-if="$store.state.currentLanguage == 2"
-            class="d_flex_row j_content_space_around"
+            class="d_flex_row j_content_space_around padding_tb_2em"
           >
             <div
               class="w_700px"
@@ -47,7 +47,7 @@
           </div>
           <div
             v-else-if="$store.state.currentLanguage == 0"
-            class="d_flex_row j_content_space_around"
+            class="d_flex_row j_content_space_around padding_tb_2em"
           >
             <div
               class="w_700px"

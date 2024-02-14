@@ -88,7 +88,12 @@
           </div>
         </div>
         <div class="d_flex_row_reverse">
-          <div class="small_font">Автор лого - Люда Тимошенко</div>
+          <div v-if="$store.state.currentLanguage == 0" class="small_font">
+            Автор лого - Люда Тимошенко
+          </div>
+          <div v-else-if="$store.state.currentLanguage == 2" class="small_font">
+            The author of the logo - Luda Timoshenko
+          </div>
         </div>
       </div>
       <marquee
@@ -106,8 +111,12 @@
             id="n_idea"
             class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
           >
-            <div v-if="$store.state.currentLanguage == 0">{{nameIdea.txt_ua}}</div>
-            <div v-else-if="$store.state.currentLanguage == 2">{{nameIdea.txt_en}}</div>
+            <div v-if="$store.state.currentLanguage == 0">
+              {{ nameIdea.txt_ua }}
+            </div>
+            <div v-else-if="$store.state.currentLanguage == 2">
+              {{ nameIdea.txt_en }}
+            </div>
           </div>
         </div>
         <div

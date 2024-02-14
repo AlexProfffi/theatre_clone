@@ -154,7 +154,18 @@
     </div>
     <div class="d_flex_column j_content_start w_20_percent plays_sl_component">
       <div v-if="play.is_premiere" class="d_flex_row" id="premier">
-        <h4 class="upper_case horizontal_line">прем'єра</h4>
+        <h4
+          v-if="$store.state.currentLanguage == 0"
+          class="upper_case horizontal_line"
+        >
+          {{ isPremierePlayUa }}
+        </h4>
+        <h4
+          v-else-if="$store.state.currentLanguage == 2"
+          class="upper_case horizontal_line"
+        >
+          {{ isPremierePlayEn }}
+        </h4>
       </div>
       <div class="d_flex_row name_play_sale">
         <router-link
@@ -217,7 +228,6 @@
               {{ getDirector(play.staff, (rl = true)) }}
             </span>
             <router-link
-              
               class="nav_link_color"
               :to="{
                 name: 'playwriter',
@@ -261,7 +271,7 @@
     >
       <div v-if="!play.on_play[0].cancel_event">
         <div
-          v-if="!isPast"
+          v-if="!isPast && $store.state.currentLanguage == 0"
           class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
         >
           <router-link
@@ -277,21 +287,53 @@
             }"
             class="go_to_buy"
           >
-            купити квиток
+            {{ buyTicket }}
             <div class="horizontal_line_hover"></div>
           </router-link>
 
           <span v-else class="nav_link_color" @click="showFormToPay()">
-            Оформити замовлення
+            {{ toOrder }}
+          </span>
+        </div>
+        <div
+          v-else-if="!isPast && $store.state.currentLanguage == 2"
+          class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
+        >
+          <router-link
+            v-if="withPhoto"
+            :id="'link_play_' + play.id"
+            :to="{
+              name: 'play',
+              params: {
+                id: play.id_play,
+                date_id: play.id,
+                name: transcriptWord(play.name),
+              },
+            }"
+            class="go_to_buy"
+          >
+            {{ buyTicketEn }}
+            <div class="horizontal_line_hover"></div>
+          </router-link>
+
+          <span v-else class="nav_link_color" @click="showFormToPay()">
+            {{ toOrderEn }}
           </span>
         </div>
       </div>
-      <div id="cancelEv" class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em" v-else>
+      <div
+        id="cancelEv"
+        class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
+        v-else
+      >
         {{ eventCancel }}
       </div>
       <div v-if="!play.on_play[0].cancel_event">
         <div v-if="!isPast">
-          <div class="d_flex_row j_content_center">
+          <div
+            v-if="$store.state.currentLanguage == 0"
+            class="d_flex_row j_content_center"
+          >
             <div
               v-if="showPaymentForm"
               id="form_pay"
@@ -300,7 +342,7 @@
               <div class="d_flex_column j_content_space_around p_tb_5">
                 <div class="d_flex_row">
                   <span class="open_sans small_font">
-                    Дата показу вистави:
+                    {{ dataFormBiLing.dateShowPlay }}
                   </span>
                 </div>
 
@@ -318,8 +360,8 @@
                 </div>
               </div>
               <div class="d_flex_row">
-                <label for="number" class="open_sans small_font"
-                  >Введіть кількість квитків:
+                <label for="number" class="open_sans small_font">
+                  {{ dataFormBiLing.countTicketsChoose }}
                 </label>
               </div>
               <input
@@ -331,10 +373,9 @@
                 v-model="callBackData.countTickets"
               />
               <div class="d_flex_row">
-                <label for="email" class="open_sans small_font"
-                  >Введіть електронну пошту для купівлі квитка:
+                <label for="email" class="open_sans small_font">
+                  {{ dataFormBiLing.emailEnter }}
                 </label>
-               
               </div>
               <input
                 class="input_field"
@@ -361,7 +402,83 @@
                 :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
                 @click="pay()"
               >
-                оплатити
+                {{ dataFormBiLing.toPay }}
+              </button>
+            </div>
+          </div>
+          <div
+            v-if="$store.state.currentLanguage == 2"
+            class="d_flex_row j_content_center"
+          >
+            <div
+              v-if="showPaymentForm"
+              id="form_pay"
+              class="d_flex_column w_75"
+            >
+              <div class="d_flex_column j_content_space_around p_tb_5">
+                <div class="d_flex_row">
+                  <span class="open_sans small_font">
+                    {{ dataFormBiLing.dateShowPlayEn }}
+                  </span>
+                </div>
+
+                <div class="d_flex_row_reverse j_content_center b_wrap">
+                  <div
+                    v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
+                    :key="dt.value"
+                    :id="dt.idEl"
+                    class="f_oswald m_0 underline_txt f_size_32"
+                  >
+                    <span>
+                      {{ dt.text }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="d_flex_row">
+                <label for="number" class="open_sans small_font">
+                  {{ dataFormBiLing.countTicketsChooseEn }}
+                </label>
+              </div>
+              <input
+                class="input_field t_center w_30"
+                type="number"
+                id="number"
+                min="1"
+                @change="setCountTickets(callBackData.countTickets)"
+                v-model="callBackData.countTickets"
+              />
+              <div class="d_flex_row">
+                <label for="email" class="open_sans small_font">
+                  {{ dataFormBiLing.emailEnterEn }}
+                </label>
+              </div>
+              <input
+                class="input_field"
+                type="email"
+                id="email"
+                placeholder="Email... (Required field)"
+                v-model="callBackData.email"
+              />
+              <label for="email" class="open_sans small_font t_left"
+                >Введіть Ваше ім'я:
+              </label>
+              <input
+                class="input_field"
+                type="text mar_top_bot"
+                id="txt"
+                placeholder="Name... (Required field)"
+                v-model="callBackData.userName"
+              />
+              <button
+                :disabled="!checkCorrectEmail(callBackData.email)"
+                id="pay_b"
+                type="submit"
+                class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
+                :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
+                @click="pay()"
+              >
+                {{ dataFormBiLing.toPayEn }}
               </button>
             </div>
           </div>
@@ -394,8 +511,56 @@ export default {
   data() {
     return {
       transcriptWord: transcription,
+      isPremierePlayUa: "прем'єра",
+      isPremierePlayEn: "premiere",
       eventWas: "Подія вже відбулась",
       eventCancel: "Подію скасовано",
+      eventWasEn: "The event has already taken",
+      eventCancelEn: "cancelled",
+      toOrder: "оформити замовлення",
+      toOrderEn: "to order",
+      buyTicket: "купити квиток",
+      buyTicketEn: "buy a ticket",
+
+      dataFormBiLing: {
+        dateShowPlay: "Дата показу вистави:",
+        dateShowPlayEn: "The date of the performance:",
+        countTicketsChoose: "введіть кількість квитків:",
+        countTicketsChooseEn: "enter the number of tickets",
+        emailEnter: "введіть електронну пошту для купівлі квитка:",
+        emailEnterEn: "enter your e-mail address to purchase a ticket",
+        yourName: "введіть ваше ім'я:",
+        yourNameEn: "enter your name",
+        toPay: "оплатити",
+        toPayEn: "pay",
+        placeholderField: "Обов'язкове поле...",
+        placeholderFieldEn: "Required field...",
+      },
+
+      days: {
+        daysOfWeekUa: [
+        "неділя",
+        "понеділок",
+        "вівторок",
+        "середа",
+        "четвер",
+        "п'ятниця",
+        "субота",
+      ],
+      daysOfWeekShortUa: ["нд", "пн", "вт", "ср", "чт", "пт", "сб"],
+
+      daysOfWeekEn: [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+      ],
+      daysOfWeekShortEn: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
+      },
+
       isMobile: false,
       modal: false,
       genderP: null,
@@ -423,7 +588,7 @@ export default {
   created() {
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
     this.isUserAuth();
-    console.log(this.thePlay.price_for_play)
+    console.log(this.thePlay.price_for_play);
   },
   methods: {
     test() {},
@@ -541,6 +706,16 @@ export default {
 
     getMeDay(dat) {
       // Повертає день тижня
+
+      let daysOfWeek = [];
+      let daysOfWeekShort = [];
+      if(this.$store.state.currentLanguage == 0){
+        daysOfWeek = this.days.daysOfWeekUa
+        daysOfWeekShort = this.days.daysOfWeekShortUa
+      } else{
+        daysOfWeek = this.days.daysOfWeekEn
+        daysOfWeekShort = this.days.daysOfWeekShortEn
+      }
       let dt = String(dat).split("T");
 
       dt = dt[0].split("-");
@@ -549,16 +724,6 @@ export default {
       let date = new Date();
       date.setMonth(Number(month) - 1);
       date.setDate(Number(day));
-      const daysOfWeek = [
-        "неділя",
-        "понеділок",
-        "вівторок",
-        "середа",
-        "четвер",
-        "п'ятниця",
-        "субота",
-      ];
-      const daysOfWeekShort = ["нд", "пн", "вт", "ср", "чт", "пт", "сб"];
       let daysAllData = [];
       for (let x = 0; x < daysOfWeek.length; x++) {
         daysAllData.push({
@@ -692,7 +857,7 @@ export default {
     getDirector(stafers, rl = false) {
       // Повертає режисера
       // rl  це його роль
-      
+
       if (!rl) {
         for (let x = 0; x < stafers.length; x++) {
           if (
@@ -703,7 +868,7 @@ export default {
               `${stafers[x].first_name} ${stafers[x].last_name}`,
               stafers[x].id,
             ];
-          } 
+          }
         }
       } else {
         for (let x = 0; x < stafers.length; x++) {
@@ -714,9 +879,7 @@ export default {
           }
         }
       }
-      return [
-        "--", -1
-      ]
+      return ["--", -1];
     },
 
     isUserAuth() {

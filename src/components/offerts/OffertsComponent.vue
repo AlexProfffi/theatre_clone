@@ -8,7 +8,8 @@
               href="/offerta"
               class="c_pointer offerts color_gr none_text_decor open_sans font_1"
             >
-              Публічна оферта
+            <span v-if="$store.state.currentLanguage == 0"> {{ dataUa.offert }} </span>
+                <span v-else-if="$store.state.currentLanguage == 2"> {{ dataEn.offert }} </span>
             </a>
           </div>
         </div>
@@ -19,7 +20,12 @@
               href="https://www.behance.net/nika_hondarenko"
             >
               <div class="color_gr f_weight_bold">
-                <span> Дизайн: </span>
+                <span v-if="$store.state.currentLanguage == 0">
+                  {{ dataUa.design }}
+                </span>
+                <span v-else-if="$store.state.currentLanguage == 2">
+                  {{ dataEn.design }}
+                </span>
                 <span> Hondarenko </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +47,12 @@
               href="https://github.com/VovaSavin/"
             >
               <div class="color_gr f_weight_bold">
-                <span> Розробка: </span>
+                <span v-if="$store.state.currentLanguage == 0">
+                  {{ dataUa.dev }}
+                </span>
+                <span v-else-if="$store.state.currentLanguage == 2">
+                  {{ dataEn.dev }}
+                </span>
                 <span> VovaSavin </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -73,6 +84,16 @@ export default {
   data() {
     return {
       isMobile: false,
+      dataUa: {
+        offert: "Публічна оферта",
+        design: "Дизайн:",
+        dev: "Розробка:",
+      },
+      dataEn: {
+        offert: "Public offer",
+        design: "Design:",
+        dev: "Development:",
+      },
     };
   },
   created() {},

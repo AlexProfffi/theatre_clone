@@ -39,7 +39,7 @@
             />
           </svg>
         </div>
-        <div class="margin_both_auto d_flex_row search_group">
+        <div v-if="$store.state.currentLanguage == 0" class="margin_both_auto d_flex_row search_group">
           <div class="horizontal_line">
             <input
               v-model="dataInputSearch"
@@ -54,6 +54,25 @@
               @click="clickSearchBtn()"
               type="button"
               value="Пошук"
+              class="btn_srch upper_case exit_b font_2 open_sans w_50_px h_100 pad_both_3"
+            />
+          </div>
+        </div>
+        <div v-else-if="$store.state.currentLanguage == 2" class="margin_both_auto d_flex_row search_group">
+          <div class="horizontal_line">
+            <input
+              v-model="dataInputSearch"
+              class="s_field open_sans xtx"
+              type="search"
+              placeholder="Search on the site..."
+            />
+          </div>
+
+          <div>
+            <input
+              @click="clickSearchBtn()"
+              type="button"
+              value="Search"
               class="btn_srch upper_case exit_b font_2 open_sans w_50_px h_100 pad_both_3"
             />
           </div>
@@ -85,7 +104,7 @@
       </div>
       <div id="links_auth_usr" class="d_flex_row j_content_end">
         <div
-          v-for="auth in authLinksData"
+          v-for="auth in authLinks()"
           :key="auth.value"
           class="font_1 font_corner_right"
         >
@@ -190,7 +209,15 @@ export default {
     },
     authLinks() {
       // Кнопки увійти\зареєструватися
-      let arrAuths = ["УВІЙТИ", "|", "ЗАРЕЄСТРУВАТИСЯ"];
+      let arrAuths;
+
+
+      if (this.$store.state.currentLanguage == 0) {
+        arrAuths = ["УВІЙТИ", "|", "ЗАРЕЄСТРУВАТИСЯ"];
+      } else {
+        arrAuths = ["ENTER", "|", "REGISTARTION"];
+      }
+      
       let linkS = ["/auth", "|", "/registration"];
       let auth = [];
       for (let x = 0; x < arrAuths.length; x++) {

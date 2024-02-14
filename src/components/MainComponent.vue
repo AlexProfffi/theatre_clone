@@ -1,7 +1,18 @@
 <template>
   <div v-if="!isMobile" class="main_desktop" id="all_poster">
     <div class="d_flex_column">
-      <div class="upper_case open_sans name_dep">афіша</div>
+      <div
+        v-if="$store.state.currentLanguage == 0"
+        class="upper_case open_sans name_dep"
+      >
+        {{ namePage }}
+      </div>
+      <div
+        v-else-if="$store.state.currentLanguage == 2"
+        class="upper_case open_sans name_dep"
+      >
+        {{ namePageEn }}
+      </div>
       <div>
         <DesktopMonthNaviComponent />
       </div>
@@ -24,6 +35,8 @@ export default {
   data() {
     return {
       isMobile: false,
+      namePage: "афіша",
+      namePageEn: "poster",
     };
   },
   created() {},
@@ -37,10 +50,7 @@ export default {
   }
 }
 
-
 .main_desktop {
   padding: 40px;
 }
-
-
 </style>

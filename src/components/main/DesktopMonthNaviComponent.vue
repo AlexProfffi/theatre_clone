@@ -1,16 +1,20 @@
 <template>
   <div v-if="!isMobile" class="monthes d_flex_row j_content_center">
     <ul
-    id="month_filter"
+      id="month_filter"
       class="none_decor_ul d_flex_row flex_wrap j_content_center f_family_sans w_100"
     >
       <li
-        v-for="navMonth in threeMontes"
+        v-for="navMonth in monthes(2)"
         :key="navMonth.value"
         :id="navMonth.idEl"
         class="pad_both_7"
       >
-        <a href="/plays" @click="filterToMonth(navMonth)"  class="upper_case none_text_decor nav_link_color c_pointer">
+        <a
+          href="/plays"
+          @click="filterToMonth(navMonth)"
+          class="upper_case none_text_decor nav_link_color c_pointer"
+        >
           {{ navMonth.text }}
         </a>
       </li>
@@ -24,25 +28,9 @@ export default {
   data() {
     return {
       isMobile: false,
-      threeMontes: [],
       yearMonth: null,
-    };
-  },
-  created() {
-    this.monthes(2);
-  },
-  methods: {
-    filterToMonth(month) {
-      // Фільтрація по місяцям
-      let year = new Date
-      let dataFilter = {year: year.getFullYear(), chooseMonth: month.value}
-      localStorage.setItem("dataYM", JSON.stringify(dataFilter))
-      // this.$router.push({name: "plays"})
-      // window.location.reload()
-    },
-    monthData() {
-      // Створює дані число: місяць
-      let monthList = [
+      needCountMonthes: 2,
+      monthUa: [
         "Січень",
         "Лютий",
         "Березень",
@@ -55,7 +43,41 @@ export default {
         "Жовтень",
         "Листопад",
         "Грудень",
-      ];
+      ],
+      monthEn: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+    };
+  },
+  created() {},
+  methods: {
+    filterToMonth(month) {
+      // Фільтрація по місяцям
+      let year = new Date();
+      let dataFilter = { year: year.getFullYear(), chooseMonth: month.value };
+      localStorage.setItem("dataYM", JSON.stringify(dataFilter));
+      // this.$router.push({name: "plays"})
+      // window.location.reload()
+    },
+    monthData() {
+      // Створює дані число: місяць
+      let monthList;
+      if (this.$store.state.currentLanguage == 0) {
+        monthList = this.monthUa;
+      } else {
+        monthList = this.monthEn;
+      }
       let dataMonth = [];
       for (let x = 0; x < monthList.length; x++) {
         dataMonth.push({ value: x + 1, text: monthList[x] });
@@ -63,7 +85,8 @@ export default {
       return dataMonth;
     },
     monthes(countMonth) {
-      // Повертає поточний місяць і + countMonth наступних
+      // Повертає  countMonth наступних місяців
+      let threeMontes = [];
       let date = new Date();
       let numMonth = date.getUTCMonth() + 1;
       let monthList = this.monthData();
@@ -76,13 +99,13 @@ export default {
               new_x = x + y - 12;
               new_y = 0;
             }
-            this.threeMontes.push({
+            threeMontes.push({
               value: new_x + new_y + 1,
               text: monthList[new_x + new_y].text,
               idEl: "month" + String(new_x + new_y + 1),
             });
           }
-          return;
+          return threeMontes;
         }
       }
     },
@@ -91,11 +114,8 @@ export default {
 </script>
 <style scoped>
 @media screen and (max-width: 1000px) {
-  #month_filter{
+  #month_filter {
     padding: 0;
   }
 }
-
-
-
 </style>
