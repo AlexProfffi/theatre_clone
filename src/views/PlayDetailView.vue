@@ -46,46 +46,68 @@
         <div
           id="offerContract"
           class="d_flex_row j_content_start margin_both_2"
+          v-if="$store.state.currentLanguage == 0"
         >
           <div class="t_left">Купуючи квиток Ви погоджуєтесь з</div>
-          <div v-if="offert.length == 1">
-            <div v-for="offs in offert" :key="offs.id">
-              <div class="p_l_0_3">
-                <span
-                  @click="pay(offs.file_offer)"
-                  class="nav_link_color c_pointer offerts"
-                >
-                  «Публічною офертою»
-                </span>
-                <span v-if="offs.file_contract">та</span>
-                <span
-                  v-if="offs.file_contract"
-                  @click="pay(offs.file_contract)"
-                  class="nav_link_color c_pointer offerts"
-                >
-                  «Договором»
-                </span>
-                <span
-                  v-if="offs.file_lawyer"
-                  @click="pay(offs.file_lawyer)"
-                  class="nav_link_color c_pointer offerts"
-                >
-                  «Умовою повернення коштів»
-                </span>
-              </div>
+          <div>
+            <div class="p_l_0_3">
+              <a
+                :href="publicPath + 'offerts/publick_offert.pdf'"
+                class="nav_link_color c_pointer offerts"
+              >
+                {{ dataTextOffert.ua.offerta }}
+              </a>
+
+              <a
+                :href="publicPath + 'offerts/kurochkin-leschenko.pdf'"
+                class="nav_link_color c_pointer offerts"
+              >
+                {{ dataTextOffert.ua.contract }}
+              </a>
+              <span>
+                {{ dataTextOffert.ua.unionWord }}
+              </span>
+              <a
+                :href="publicPath + 'offerts/return-money.pdf'"
+                class="nav_link_color c_pointer offerts"
+              >
+                {{ dataTextOffert.ua.returtTicket }}
+              </a>
             </div>
           </div>
-          <div v-else-if="offert.length > 1" class="d_flex_row offert_site">
-            <div v-for="offs in offert" :key="offs.id" class="">
-              <div class="p_l_0_3">
-                <span
-                  @click="pay(offs.file_offer)"
-                  class="nav_link_color c_pointer offerts nowrap_space"
-                >
-                  «{{ offs.name }}»
-                </span>
-                <span v-if="offert.indexOf(offs) < offert.length - 1">та</span>
-              </div>
+        </div>
+        <div
+          id="offerContract"
+          class="d_flex_row j_content_start margin_both_2"
+          v-else-if="$store.state.currentLanguage == 2"
+        >
+          <div class="t_left">
+            {{ dataTextOffert.en.txt }}
+          </div>
+          <div>
+            <div class="p_l_0_3">
+              <a
+                :href="publicPath + 'offerts/publick_offert.pdf'"
+                class="nav_link_color c_pointer offerts"
+              >
+                {{ dataTextOffert.en.offerta }}
+              </a>
+
+              <a
+                :href="publicPath + 'offerts/kurochkin-leschenko.pdf'"
+                class="nav_link_color c_pointer offerts"
+              >
+                {{ dataTextOffert.en.contract }}
+              </a>
+              <span>
+                {{ dataTextOffert.en.unionWord }}
+              </span>
+              <a
+                :href="publicPath + 'offerts/return-money.pdf'"
+                class="nav_link_color c_pointer offerts"
+              >
+                {{ dataTextOffert.en.returtTicket }}
+              </a>
             </div>
           </div>
         </div>
@@ -136,24 +158,56 @@
                 <h2
                   id="head_description"
                   class="upper_case open_sans f_weight_bold"
+                  v-if="$store.state.currentLanguage == 0"
                 >
-                  про виставу
+                  {{ dataText.aboutPlayUa }}
+                </h2>
+                <h2
+                  id="head_description"
+                  class="upper_case open_sans f_weight_bold"
+                  v-else-if="$store.state.currentLanguage == 2"
+                >
+                  {{ dataText.aboutPlayEn }}
                 </h2>
               </div>
-              <div class="d_flex_row w_50 t_left pad_top" id="inner_descript">
+              <div
+                v-if="$store.state.currentLanguage == 0"
+                class="d_flex_row w_50 t_left pad_top"
+                id="inner_descript"
+              >
                 <p
                   v-if="playOneDate.description"
                   class="open_sans text_descript"
                   v-html="playOneDate.description"
                 ></p>
-                <p v-else>Інформація з`явиться незабаром</p>
+                <p v-else>{{ dataText.alterTxtUa }}</p>
+              </div>
+              <div
+                v-else-if="$store.state.currentLanguage == 2"
+                class="d_flex_row w_50 t_left pad_top"
+                id="inner_descript"
+              >
+                <p
+                  v-if="playOneDate.description"
+                  class="open_sans text_descript"
+                  v-html="playOneDate.description"
+                ></p>
+                <p v-else>{{ dataText.alterTxtEn }}</p>
               </div>
               <div id="link_txt_play" class="d_flex_row">
                 <a
                   class="nav_link_color horizontal_line"
                   :href="'/text-play/' + idPlay"
+                  v-if="$store.state.currentLanguage == 0"
                 >
-                  Текст вистави
+                  {{ dataText.txtPlayUa }}
+                </a>
+                <a
+                  class="nav_link_color horizontal_line"
+                  :href="'/text-play/' + idPlay"
+                  v-else-if="$store.state.currentLanguage == 2"
+                >
+                  {{ dataText.txtPlayEn }}
                 </a>
               </div>
             </div>
@@ -166,8 +220,16 @@
                 <h2
                   id="head_actors"
                   class="upper_case open_sans f_weight_bold t_left"
+                  v-if="$store.state.currentLanguage == 0"
                 >
-                  акторський та режисерський склад
+                  {{ dataText.castUa }}
+                </h2>
+                <h2
+                  id="head_actors"
+                  class="upper_case open_sans f_weight_bold t_left"
+                  v-else-if="$store.state.currentLanguage == 2"
+                >
+                  {{ dataText.castEn }}
                 </h2>
               </div>
               <div class="d_flex_row pad_top">
@@ -200,7 +262,14 @@
                     </router-link>
                   </li>
                 </ul>
-                <p v-else>Інформація з`явиться незабаром</p>
+                <div v-else>
+                  <p v-if="$store.state.currentLanguage == 0">
+                    {{ dataText.alterTxtUa }}
+                  </p>
+                  <p v-else-if="$store.state.currentLanguage == 2">
+                    {{ dataText.alterTxtEn }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -245,6 +314,7 @@ export default {
   },
   data() {
     return {
+      publicPath: process.env.BASE_URL,
       showSpiner: true,
       isMobile: false,
       play: {},
@@ -260,15 +330,37 @@ export default {
       linkOffert: null,
       textRing: false,
       playOneDate: {},
-      allOffert: [
-        "«Публічною офертою»",
-        "«Договором»",
-        "«Умовою повернення коштів»",
-      ],
+
       inId: this.id,
       transcriptWord: transcription,
       concat: concat,
       sluginToServerActor: "actors",
+      dataText: {
+        alterTxtUa: "Інформація з`явиться незабаром",
+        alterTxtEn: "Information will appear soon",
+        castUa: "акторський та режисерський склад",
+        castEn: "cast and director",
+        txtPlayUa: "Текст вистави",
+        txtPlayEn: "The text of the play",
+        aboutPlayUa: "про виставу",
+        aboutPlayEn: "about the play",
+      },
+      dataTextOffert: {
+        ua: {
+          txt: "Купуючи квиток Ви погоджуєтесь з",
+          returtTicket: "«Повернення квитків»",
+          contract: "«Договір»",
+          offerta: "«Оферта» ",
+          unionWord: " та ",
+        },
+        en: {
+          txt: "By buying a ticket, you agree with",
+          returtTicket: "«Refund of tickets»",
+          contract: "«Contract»",
+          offerta: "«Offer» ",
+          unionWord: " and ",
+        },
+      },
     };
   },
   created() {
