@@ -174,12 +174,14 @@
       </div>
     </div>
     <!-- tech -->
+    <ModalCoffeComponent @close="modal = false" :show="modal" />
   </div>
 </template>
   <script>
 import DesktopAddrComponent from "@/components/footer/DesktopAddrComponent.vue";
 import DesktopPictureWriters from "@/components/footer/DesktopPictureWriters.vue";
 import DesktopSocialComponent from "@/components/footer/DesktopSocialComponent.vue";
+import ModalCoffeComponent from "@/components/helpers/ModalCoffeComponent.vue";
 
 export default {
   name: "FooterComponent",
@@ -187,6 +189,7 @@ export default {
     DesktopAddrComponent,
     DesktopPictureWriters,
     DesktopSocialComponent,
+    ModalCoffeComponent,
   },
   data() {
     return {
@@ -195,6 +198,7 @@ export default {
       raidTxt: null,
       publicPath: process.env.BASE_URL,
       olga: {},
+      modal: false,
     };
   },
   created() {
@@ -230,6 +234,11 @@ export default {
       if (this.olga.ip_addr == "45.10.91.61") {
         document.querySelector("#for_olga").style.backgroundImage =
           "url(../../hurt.gif)";
+        let el = document.querySelector("#coffe");
+        el.innerHTML = `
+        <img src="../../coffe.gif" alt="coffe" style="width: 50%;" />
+        <div>На каву, Олю?</div>
+        `;
       }
     },
   },

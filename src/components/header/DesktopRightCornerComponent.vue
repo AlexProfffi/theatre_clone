@@ -1,10 +1,14 @@
 <template>
   <div
     id="main_right_corner"
-    :class="{ direction_low_1000_row: !token, direction_low_1000: token }"
+    :class="{ direction_low_1000: token }"
     class="d_flex_column ptb_40"
   >
-    <div class="d_flex_row j_content_end p_1_px" v-if="showLanguage">
+    <div
+      id="langs_chooser"
+      class="d_flex_row j_content_end p_1_px"
+      v-if="showLanguage"
+    >
       <div
         v-for="lang in languagesData"
         :key="lang.value"
@@ -39,7 +43,10 @@
             />
           </svg>
         </div>
-        <div v-if="$store.state.currentLanguage == 0" class="margin_both_auto d_flex_row search_group">
+        <div
+          v-if="$store.state.currentLanguage == 0"
+          class="margin_both_auto d_flex_row search_group"
+        >
           <div class="horizontal_line">
             <input
               v-model="dataInputSearch"
@@ -58,7 +65,10 @@
             />
           </div>
         </div>
-        <div v-else-if="$store.state.currentLanguage == 2" class="margin_both_auto d_flex_row search_group">
+        <div
+          v-else-if="$store.state.currentLanguage == 2"
+          class="margin_both_auto d_flex_row search_group"
+        >
           <div class="horizontal_line">
             <input
               v-model="dataInputSearch"
@@ -211,13 +221,12 @@ export default {
       // Кнопки увійти\зареєструватися
       let arrAuths;
 
-
       if (this.$store.state.currentLanguage == 0) {
         arrAuths = ["УВІЙТИ", "|", "ЗАРЕЄСТРУВАТИСЯ"];
       } else {
         arrAuths = ["ENTER", "|", "REGISTARTION"];
       }
-      
+
       let linkS = ["/auth", "|", "/registration"];
       let auth = [];
       for (let x = 0; x < arrAuths.length; x++) {
@@ -351,6 +360,9 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
     padding: 0 0 0 5px;
+  }
+  #langs_chooser {
+    padding: 0.5em 0;
   }
   #main_right_corner {
     justify-content: flex-end;

@@ -803,6 +803,10 @@ html {
 
 /* backgroung */
 
+.bg_grey_coffe {
+    background-color: #ff9ac1;
+}
+
 .bg_grey_custom {
     background-color: #f3f3f3;
 }

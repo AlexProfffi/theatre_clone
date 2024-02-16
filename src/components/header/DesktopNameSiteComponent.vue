@@ -1,5 +1,6 @@
 <template>
   <div class="d_flex_row j_content_center">
+    <div id="coffe"></div>
     <div
       v-if="$store.state.currentLanguage == 0"
       id="name_site"
@@ -84,5 +85,11 @@ export default {
 .scale_hover:hover {
   box-shadow: none;
   transform: scale(1.1);
+}
+#coffe {
+  position: absolute;
+  width: 25%;
+  left: 40%;
+  top: 5%;
 }
 </style>
