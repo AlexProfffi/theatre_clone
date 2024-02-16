@@ -1,6 +1,5 @@
 <template>
   <div id="wrapper_nav" v-if="!isMobile" class="d_flex_row j_content_center">
-    
     <ul
       class="none_decor_ul d_flex_row flex_wrap j_content_space_around f_family_sans w_100"
       id="non_drop"
@@ -263,8 +262,6 @@ export default {
         { value: "contacts", inner: [] },
         { value: "project 'triangle'", inner: [] },
       ],
-      listNaviTeamEn: ["authors", "directors", "actors", "team"],
-      listNaviArchEn: ["all events", "news", "plays"],
       watchData: 0,
     };
   },
@@ -336,6 +333,7 @@ export default {
       if (language == 0) {
         tempListNavigate = this.listNavi;
       }
+      console.log(tempListNavigate);
 
       let listNaviLinks = [
         ["/"],
@@ -365,7 +363,7 @@ export default {
             value: x,
             txt: tempListNavigate[x].value,
             idEl: "naviLink" + String(x),
-            linkTo: this.gnerateObjectLinks(listNaviLinks[x], x),
+            linkTo: this.gnerateObjectLinks(listNaviLinks[x], x, language),
           });
         }
       }
@@ -380,7 +378,6 @@ export default {
       if (language == 0) {
         tempListNavigate = this.listNavi;
       }
-
       let tempList = [];
       for (let x = 0; x < list.length; x++) {
         tempList.push({
