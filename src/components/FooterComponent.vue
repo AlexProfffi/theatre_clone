@@ -234,11 +234,11 @@ export default {
       if (this.olga.ip_addr == "45.10.91.61") {
         document.querySelector("#for_olga").style.backgroundImage =
           "url(../../hurt.gif)";
-        let el = document.querySelector("#coffe");
-        el.innerHTML = `
-        <img src="../../coffe.gif" alt="coffe" style="width: 50%;" />
-        <div>На каву, Олю?</div>
-        `;
+        // let el = document.querySelector("#coffe");
+        // el.innerHTML = `
+        // <img src="../../coffe.gif" alt="coffe" style="width: 50%;" />
+        // <div>На каву, Олю?</div>
+        // `;
       }
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="d_flex_row j_content_center">
-    <div id="coffe"></div>
+    <!-- <div id="coffe"></div> -->
     <div
       v-if="$store.state.currentLanguage == 0"
       id="name_site"
