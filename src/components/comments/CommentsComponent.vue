@@ -2,7 +2,18 @@
   <div class="d_flex_column bg_grey_custom">
     <div class="d_flex_row p_lr_2">
       <div class="d_flex_column w_100">
-        <div class="d_flex_row upper_case f_oswald ptb_1em">написати відгук</div>
+        <div
+          v-if="$store.state.currentLanguage == 0"
+          class="d_flex_row upper_case f_oswald ptb_1em"
+        >
+          {{ dataLn.textUa.rewiew }}
+        </div>
+        <div
+          v-else-if="$store.state.currentLanguage == 2"
+          class="d_flex_row upper_case f_oswald ptb_1em"
+        >
+          {{ dataLn.textEn.rewiew }}
+        </div>
         <div>
           <form
             class="d_flex_column"
@@ -11,25 +22,56 @@
             @submit="publicComment"
           >
             <div v-if="!checkAuth" class="d_flex_row small_font_07">
-              <label for="eml">Електронна пошта:</label>
+              <label v-if="$store.state.currentLanguage == 0" for="eml">
+                {{ dataLn.textUa.emai }}
+              </label>
+              <label v-else-if="$store.state.currentLanguage == 2" for="eml">
+                {{ dataLn.textEn.emai }}
+              </label>
             </div>
-            <div class="w_50 horizontal_line d_flex_row j_content_start mb_1rem w_input_low_1000">
+            <div
+              class="w_50 horizontal_line d_flex_row j_content_start mb_1rem w_input_low_1000"
+            >
               <input
-                v-if="!checkAuth"
+                v-if="!checkAuth && $store.state.currentLanguage == 0"
                 v-model="postComment.who"
                 id="eml"
                 class="w_100 t_left b_none sibscribe_input bg_grey_custom"
                 type="email"
-                placeholder="Електронна пошта..."
+                :placeholder="dataLn.textUa.emai + '...'"
+              />
+              <input
+                v-else-if="!checkAuth && $store.state.currentLanguage == 2"
+                v-model="postComment.who"
+                id="eml"
+                class="w_100 t_left b_none sibscribe_input bg_grey_custom"
+                type="email"
+                :placeholder="dataLn.textEn.emai + '...'"
               />
             </div>
             <div class="d_flex_row small_font_07">
-              <label for="txt">{{ maxSymbols }} символів</label>
+              <label v-if="$store.state.currentLanguage == 0" for="txt"
+                >{{ maxSymbols }} {{ dataLn.textUa.symb }}</label
+              >
+              <label v-else-if="$store.state.currentLanguage == 2" for="txt"
+                >{{ maxSymbols }} {{ dataLn.textEn.symb }}</label
+              >
             </div>
             <div class="w_100">
               <textarea
+              v-if="$store.state.currentLanguage == 0"
                 class="b_radius_5 w_100"
-                placeholder="Напишіть відгук..."
+                :placeholder="dataLn.textUa.rewiew + '...'"
+                name="comment"
+                id="txt"
+                rows="5"
+                v-model="postComment.text"
+                @input="countSymbols()"
+              ></textarea>
+              <textarea
+              v-else-if="$store.state.currentLanguage == 2"
+                class="b_radius_5 w_100"
+                :placeholder="dataLn.textEn.rewiew + '...'"
                 name="comment"
                 id="txt"
                 rows="5"
@@ -39,10 +81,18 @@
             </div>
             <div class="d_flex_row_reverse p_tb_5">
               <input
+              v-if="$store.state.currentLanguage == 0"
                 id="p_submit"
                 class="comment_b color_white f_oswald upper_case pad_03em b_radius_5"
                 type="submit"
-                value="Опублікувати"
+                :value="dataLn.textUa.pub"
+              />
+              <input
+              v-else-if="$store.state.currentLanguage == 2"
+                id="p_submit"
+                class="comment_b color_white f_oswald upper_case pad_03em b_radius_5"
+                type="submit"
+                :value="dataLn.textEn.pub"
               />
             </div>
           </form>
@@ -53,7 +103,12 @@
       </div>
     </div>
     <div class="pad_b1em" v-if="comments == null || comments.length == 0">
-      {{ noneComments }}
+      <div v-if="$store.state.currentLanguage == 0">
+        {{ noneComments }}
+      </div>
+      <div v-else-if="$store.state.currentLanguage == 2">
+        {{ noneCommentsEn }}
+      </div>
     </div>
     <div class="d_flex_row">
       <div @click="reverseData = !reverseData" class="p_lr_2">
@@ -134,6 +189,7 @@ export default {
     return {
       comments: null,
       noneComments: "Поки що нема відгуків",
+      noneCommentsEn: "There are no reviews yet",
       maxSymbols: 5000,
       answerSubscribe: null,
       answerSubscribeStatus: null,
@@ -145,6 +201,20 @@ export default {
         text: null,
         who: null,
         thePlay: this.oneIdPlay,
+      },
+      dataLn: {
+        textUa: {
+          emai: "Електронна пошта:",
+          rewiew: "Написати відгук",
+          symb: "символів",
+          pub: "Опублікувати",
+        },
+        textEn: {
+          emai: "Email:",
+          rewiew: "Write a review",
+          symb: "symbols",
+          pub: "Public",
+        },
       },
     };
   },

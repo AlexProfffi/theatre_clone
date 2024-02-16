@@ -333,7 +333,6 @@ export default {
       if (language == 0) {
         tempListNavigate = this.listNavi;
       }
-      console.log(tempListNavigate);
 
       let listNaviLinks = [
         ["/"],

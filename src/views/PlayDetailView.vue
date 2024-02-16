@@ -25,10 +25,18 @@
           />
           <div class="d_flex_row j_content_center pad_b3em pad_top">
             <h3
+              v-if="$store.state.currentLanguage == 0"
               id="pl_name"
               class="play_hame_h3 upper_case pad_top f_size_42 open_sans"
             >
               {{ pl.name }}
+            </h3>
+            <h3
+              v-else-if="$store.state.currentLanguage == 2"
+              id="pl_name"
+              class="play_hame_h3 upper_case pad_top f_size_42 open_sans"
+            >
+              {{ pl.name_en }}
             </h3>
           </div>
         </div>
@@ -188,9 +196,9 @@
                 id="inner_descript"
               >
                 <p
-                  v-if="playOneDate.description"
+                  v-if="playOneDate.description_en"
                   class="open_sans text_descript"
-                  v-html="playOneDate.description"
+                  v-html="playOneDate.description_en"
                 ></p>
                 <p v-else>{{ dataText.alterTxtEn }}</p>
               </div>
