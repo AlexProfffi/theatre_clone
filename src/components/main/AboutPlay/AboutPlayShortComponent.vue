@@ -268,6 +268,7 @@
     <div
       class="upper_case w_20_percent d_flex_column plays_sl_component"
       :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
+      v-if="!isPastOnView"
     >
       <div v-if="!play.on_play[0].cancel_event">
         <div
@@ -290,10 +291,14 @@
             {{ buyTicket }}
             <div class="horizontal_line_hover"></div>
           </router-link>
-
-          <span v-else class="nav_link_color" @click="showFormToPay()">
-            {{ toOrder }}
-          </span>
+          <div v-else>
+            <span
+              class="nav_link_color"
+              @click="showFormToPay()"
+            >
+              {{ toOrder }}
+            </span>
+          </div>
         </div>
         <div
           v-else-if="!isPast && $store.state.currentLanguage == 2"
@@ -504,6 +509,7 @@ export default {
     idDatePlayOne: Number,
     idp: String,
     isPast: Boolean,
+    isPastOnView: Boolean,
   },
   components: {
     ModalInfo,
@@ -539,26 +545,26 @@ export default {
 
       days: {
         daysOfWeekUa: [
-        "неділя",
-        "понеділок",
-        "вівторок",
-        "середа",
-        "четвер",
-        "п'ятниця",
-        "субота",
-      ],
-      daysOfWeekShortUa: ["нд", "пн", "вт", "ср", "чт", "пт", "сб"],
+          "неділя",
+          "понеділок",
+          "вівторок",
+          "середа",
+          "четвер",
+          "п'ятниця",
+          "субота",
+        ],
+        daysOfWeekShortUa: ["нд", "пн", "вт", "ср", "чт", "пт", "сб"],
 
-      daysOfWeekEn: [
-        "sunday",
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-      ],
-      daysOfWeekShortEn: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
+        daysOfWeekEn: [
+          "sunday",
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday",
+          "saturday",
+        ],
+        daysOfWeekShortEn: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
       },
 
       isMobile: false,
@@ -709,12 +715,12 @@ export default {
 
       let daysOfWeek = [];
       let daysOfWeekShort = [];
-      if(this.$store.state.currentLanguage == 0){
-        daysOfWeek = this.days.daysOfWeekUa
-        daysOfWeekShort = this.days.daysOfWeekShortUa
-      } else{
-        daysOfWeek = this.days.daysOfWeekEn
-        daysOfWeekShort = this.days.daysOfWeekShortEn
+      if (this.$store.state.currentLanguage == 0) {
+        daysOfWeek = this.days.daysOfWeekUa;
+        daysOfWeekShort = this.days.daysOfWeekShortUa;
+      } else {
+        daysOfWeek = this.days.daysOfWeekEn;
+        daysOfWeekShort = this.days.daysOfWeekShortEn;
       }
       let dt = String(dat).split("T");
 

@@ -48,6 +48,7 @@
             :linkPay="linkPay"
             :idp="inId"
             :isPast="playOneDate.is_play_past"
+            :isPastOnView="playOneDate.is_past"
           />
         </div>
 
