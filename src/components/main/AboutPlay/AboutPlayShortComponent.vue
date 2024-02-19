@@ -1,7 +1,11 @@
 <template>
   <div
     class="d_flex_row p_bottom plays_for_sale"
-    :class="{ j_content_space_around: !withPhoto, horizontal_line: withPhoto }"
+    :class="{
+      j_content_space_around: !withPhoto,
+      horizontal_line: withPhoto,
+      opacity_0_3: isPastOnView,
+    }"
   >
     <div class="w_20_percent plays_sl_component" v-if="withPhoto">
       <div>
@@ -268,34 +272,50 @@
     <div
       class="upper_case w_20_percent d_flex_column plays_sl_component"
       :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
-      v-if="!isPastOnView"
     >
       <div v-if="!play.on_play[0].cancel_event">
         <div
           v-if="!isPast && $store.state.currentLanguage == 0"
           class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
         >
-          <router-link
-            v-if="withPhoto"
-            :id="'link_play_' + play.id"
-            :to="{
-              name: 'play',
-              params: {
-                id: play.id_play,
-                date_id: play.id,
-                name: transcriptWord(play.name),
-              },
-            }"
-            class="go_to_buy"
-          >
-            {{ buyTicket }}
-            <div class="horizontal_line_hover"></div>
-          </router-link>
-          <div v-else>
-            <span
-              class="nav_link_color"
-              @click="showFormToPay()"
+          <div v-if="withPhoto">
+            <router-link
+              v-if="!isPastOnView"
+              :id="'link_play_' + play.id"
+              :to="{
+                name: 'play',
+                params: {
+                  id: play.id_play,
+                  date_id: play.id,
+                  name: transcriptWord(play.name),
+                },
+              }"
+              class="go_to_buy"
             >
+              {{ buyTicket }}
+              <div class="horizontal_line_hover"></div>
+            </router-link>
+            <router-link
+              v-else
+              :id="'link_play_' + play.id"
+              :to="{
+                name: 'play',
+                params: {
+                  id: play.id_play,
+                  date_id: play.id,
+                  name: transcriptWord(play.name),
+                },
+              }"
+              class="go_to_buy"
+            >
+              <span v-if="$store.state.currentLanguage == 0">{{ playPast.txt_ua }}</span>
+              
+              <div class="horizontal_line_hover"></div>
+            </router-link>
+          </div>
+
+          <div v-else>
+            <span v-if="!isPastOnView" class="nav_link_color" @click="showFormToPay()">
               {{ toOrder }}
             </span>
           </div>
@@ -317,7 +337,8 @@
             }"
             class="go_to_buy"
           >
-            {{ buyTicketEn }}
+            <span v-if="!isPastOnView">{{ buyTicketEn }}</span>
+            <span v-else class="f_size_15">{{ playPast.txt_en }}</span>
             <div class="horizontal_line_hover"></div>
           </router-link>
 
@@ -527,7 +548,10 @@ export default {
       toOrderEn: "to order",
       buyTicket: "купити квиток",
       buyTicketEn: "buy a ticket",
-
+      playPast: {
+        txt_ua: "вистава вже минула",
+        txt_en: "the performance has already passed",
+      },
       dataFormBiLing: {
         dateShowPlay: "Дата показу вистави:",
         dateShowPlayEn: "The date of the performance:",

@@ -41,6 +41,7 @@
           </div>
         </div>
         <div class="margin_both_2 bg_grey_custom padding_tb_2em">
+          
           <AboutPlayShortComponentVue
             :play="playOneDate"
             :idDatePlayOne="playOneDate.id"

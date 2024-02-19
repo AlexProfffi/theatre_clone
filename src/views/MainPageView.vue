@@ -4,7 +4,7 @@
       <HeaderComponent />
     </div>
     <div class="d_flex_column p_40px padding_faces opacity_05 main_content">
-      <div class="margin_both_auto">
+      <div id="faces_dramats" class="m_both_0_12">
         <div id="faces_7" class="d_grid">
           <div
             v-for="playw in firstTwoRowsPlw"
@@ -167,7 +167,12 @@
               :class="{'opacity_0_3': play.is_past}"
             >
             <div class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold" v-if="play.is_past">
-              {{ playPast.txt_ua }}
+              <div v-if="$store.state.currentLanguage == 0">
+                {{ playPast.txt_ua }}
+              </div>
+              <div v-else-if="$store.state.currentLanguage == 2" class="f_16">
+                {{ playPast.txt_en }}
+              </div>
             </div>
               <router-link
                 class="pad_b1em color_white"
@@ -638,6 +643,9 @@ export default {
 }
 
 @media screen and (max-width: 1000px) {
+  #faces_dramats {
+    margin: 0 auto;
+  }
   #plays_main_list,
   #idea_main_list {
     grid-template-columns: repeat(1, 1fr);

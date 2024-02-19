@@ -9,7 +9,7 @@
         :key="play.id"
         class="bg_grey_custom for_mobile_center"
       >
-        <AboutPlayShortComponentVue  :play="play" :withPhoto="true" />
+        <AboutPlayShortComponentVue  :play="play" :withPhoto="true" :isPastOnView="play.is_past"/>
       </div>
     </div>
   </div>
