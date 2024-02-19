@@ -163,50 +163,31 @@
         <div id="plays_main_list" class="d_grid_3 ptb_5em">
           <div class="p_relative" v-for="play in mainPlays" :key="play.id">
             <div
-              v-if="!play.is_past"
               class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
+              :class="{'opacity_0_3': play.is_past}"
             >
+            <div class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold" v-if="play.is_past">
+              {{ playPast.txt_ua }}
+            </div>
+              <router-link
+                class="pad_b1em color_white"
+                :to="{
+                  name: 'play',
+                  params: {
+                    id: play.id_play,
+                    date_id: play.id,
+                    name: transcriptWord(play.name),
+                  },
+                }"
+              >
+                <img
+                  :src="repalcer(play.photo)"
+                  :alt="play.name"
+                  class="img_on_main h_100 w_100 zoom_hover"
+                />
+              </router-link>
+            </div>
             
-              <router-link
-                class="pad_b1em color_white"
-                :to="{
-                  name: 'play',
-                  params: {
-                    id: play.id_play,
-                    date_id: play.id,
-                    name: transcriptWord(play.name),
-                  },
-                }"
-              >
-                <img
-                  :src="repalcer(play.photo)"
-                  :alt="play.name"
-                  class="img_on_main h_100 w_100 zoom_hover"
-                />
-              </router-link>
-            </div>
-            <div
-              v-else
-              class="w_22em h_35em margin_both_auto c_pointer overflow_hidden opacity_0_3"
-            >
-              <router-link
-                class="pad_b1em color_white"
-                :to="{
-                  name: 'play',
-                  params: {
-                    id: play.id_play,
-                    date_id: play.id,
-                    name: transcriptWord(play.name),
-                  },
-                }"
-              >
-                <img
-                  :src="repalcer(play.photo)"
-                  :alt="play.name"
-                  class="img_on_main h_100 w_100 zoom_hover"
-                />
-              </router-link>
-            </div>
             <div class="p_relative h_100">
               <div
                 class="p_relative p_abs_date top_800 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
@@ -373,6 +354,10 @@ export default {
       nameIdea: {
         txt_ua: "ідея",
         txt_en: "idea",
+      },
+      playPast: {
+        txt_ua: "вистава вже минула",
+        txt_en: "the performance has already passed",
       },
       showIdeas: false,
       mobile: true,
