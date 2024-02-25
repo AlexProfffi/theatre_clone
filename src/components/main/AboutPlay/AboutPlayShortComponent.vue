@@ -1,178 +1,150 @@
 <template>
-  <div
-    class="d_flex_row p_bottom plays_for_sale"
-    :class="{
-      j_content_space_around: !withPhoto,
-      horizontal_line: withPhoto,
-      opacity_0_3: isPastOnView,
-    }"
-  >
-    <div class="w_20_percent plays_sl_component" v-if="withPhoto">
-      <div>
-        <h4
-          class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
-          :id="getMeDay(play.date_play).idEl"
-        >
-          {{ getMeDay(play.date_play).shortText }}
-        </h4>
-      </div>
-      <div class="p_both_px">
-        <div class="d_flex_row_reverse f_size_25">
-          <h2
-            v-for="dt in datePlayVisibility(play.date_play)"
-            :key="dt.value"
-            :id="dt.idEl"
-            class="f_oswald m_0"
+  <div>
+    <!-- ENG LANGUAGE -->
+    <div
+      v-if="$store.state.currentLanguage == 2"
+      class="d_flex_row p_bottom plays_for_sale"
+      :class="{
+        j_content_space_around: !withPhoto,
+        horizontal_line: withPhoto,
+        opacity_0_3: isPastOnView,
+      }"
+    >
+      <div class="w_20_percent plays_sl_component" v-if="withPhoto">
+        <div>
+          <h4
+            class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+            :id="getMeDay(play.date_play).idEl"
           >
-            {{ dt.text }}
-          </h2>
+            {{ getMeDay(play.date_play).shortText }}
+          </h4>
+        </div>
+        <div class="p_both_px">
+          <div class="d_flex_row_reverse f_size_25">
+            <h2
+              v-for="dt in datePlayVisibility(play.date_play)"
+              :key="dt.value"
+              :id="dt.idEl"
+              class="f_oswald m_0"
+            >
+              {{ dt.text }}
+            </h2>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="w_20_percent plays_sl_component" v-else>
-      <div
-        v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
-        :key="on_pl.id"
-      >
+      <div class="w_20_percent plays_sl_component" v-else>
         <div
-          v-if="newArrayDates(play.on_play, idDatePlayOne).indexOf(on_pl) == 0"
+          v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
+          :key="on_pl.id"
         >
-          <div>
-            <h4
-              class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
-              :id="getMeDay(on_pl.date_pl).idEl"
-            >
-              {{ getMeDay(on_pl.date_pl).shortText }}
-            </h4>
-          </div>
-          <div class="p_both_px d_flex_row j_content_end">
-            <div
-              class="d_flex_row_reverse w_max_content c_pointer f_size_25"
-              @click="instanceNewCurrentDatePlay(on_pl, $event)"
-            >
-              <div
-                v-for="dt in datePlayVisibility(on_pl.date_pl)"
-                :key="dt.value"
-                :id="dt.idEl"
-                class="f_oswald m_0"
-              >
-                {{ dt.text }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div v-else>
           <div
-            @click="otherDate = !otherDate"
-            class="d_flex_row j_content_center f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
-            v-if="play.on_play.indexOf(on_pl) == 1"
+            v-if="
+              newArrayDates(play.on_play, idDatePlayOne).indexOf(on_pl) == 0
+            "
           >
-            <div>Вибрати іншу дату</div>
-            <div>&nbsp;</div>
             <div>
-              <span v-if="!otherDate">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
-                  />
-                </svg>
-              </span>
-              <span v-else>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-caret-up-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
-                  />
-                </svg>
-              </span>
+              <h4
+                class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+                :id="getMeDay(on_pl.date_pl).idEl"
+              >
+                {{ getMeDay(on_pl.date_pl).shortText }}
+              </h4>
             </div>
-          </div>
-
-          <div>
-            <div class="drop_animate" v-show="otherDate">
-              <div>
+            <div class="p_both_px d_flex_row j_content_end">
+              <div
+                class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+                @click="instanceNewCurrentDatePlay(on_pl, $event)"
+              >
                 <div
-                  class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
-                  :id="getMeDay(on_pl.date_pl).idEl"
+                  v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                  :key="dt.value"
+                  :id="dt.idEl"
+                  class="f_oswald m_0"
                 >
-                  {{ getMeDay(on_pl.date_pl).shortText }}
+                  {{ dt.text }}
                 </div>
               </div>
-              <div class="d_flex_row j_content_end p_both_px">
-                <div
-                  class="d_flex_row_reverse w_max_content c_pointer f_size_25"
-                  @click="instanceNewCurrentDatePlay(on_pl, $event)"
-                >
-                  <div
-                    v-for="dt in datePlayVisibility(on_pl.date_pl)"
-                    :key="dt.value"
-                    :id="dt.idEl"
-                    class="f_oswald m_0"
+            </div>
+          </div>
+          <div v-else>
+            <div
+              @click="otherDate = !otherDate"
+              class="d_flex_row j_content_center f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
+              v-if="play.on_play.indexOf(on_pl) == 1"
+            >
+              <div>Вибрати іншу дату</div>
+              <div>&nbsp;</div>
+              <div>
+                <span v-if="!otherDate">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-caret-down-fill"
+                    viewBox="0 0 16 16"
                   >
-                    {{ dt.text }}
+                    <path
+                      d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                    />
+                  </svg>
+                </span>
+                <span v-else>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-caret-up-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <div class="drop_animate" v-show="otherDate">
+                <div>
+                  <div
+                    class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+                    :id="getMeDay(on_pl.date_pl).idEl"
+                  >
+                    {{ getMeDay(on_pl.date_pl).shortText }}
                   </div>
                 </div>
+                <div class="d_flex_row j_content_end p_both_px">
+                  <div
+                    class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+                    @click="instanceNewCurrentDatePlay(on_pl, $event)"
+                  >
+                    <div
+                      v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                      :key="dt.value"
+                      :id="dt.idEl"
+                      class="f_oswald m_0"
+                    >
+                      {{ dt.text }}
+                    </div>
+                  </div>
+                </div>
+                <hr />
               </div>
-              <hr />
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div
-      v-if="withPhoto"
-      class="d_flex_row w_20_percent plays_sl_component pic_sl_component"
-    >
-      <router-link
+      <div
         v-if="withPhoto"
-        :to="{
-          name: 'play',
-          params: {
-            id: play.id_play,
-            date_id: play.id,
-            name: transcriptWord(play.name),
-          },
-        }"
+        class="d_flex_row w_20_percent plays_sl_component pic_sl_component"
       >
-        <img
-          :src="repalcer(play.photo, '')"
-          :alt="play.photo"
-          class="img_on_list img_on_list__low_1000"
-        />
-      </router-link>
-    </div>
-    <div class="d_flex_column j_content_start w_20_percent plays_sl_component">
-      <div v-if="play.is_premiere" class="d_flex_row" id="premier">
-        <h4
-          v-if="$store.state.currentLanguage == 0"
-          class="upper_case horizontal_line"
-        >
-          {{ isPremierePlayUa }}
-        </h4>
-        <h4
-          v-else-if="$store.state.currentLanguage == 2"
-          class="upper_case horizontal_line"
-        >
-          {{ isPremierePlayEn }}
-        </h4>
-      </div>
-      <div class="d_flex_row name_play_sale">
         <router-link
+          v-if="withPhoto"
           :to="{
             name: 'play',
             params: {
@@ -181,152 +153,27 @@
               name: transcriptWord(play.name),
             },
           }"
-          class="f_oswald f_weight_400 current_play nav_link_color"
         >
-          {{ play.name }}
+          <img
+            :src="repalcer(play.photo, '')"
+            :alt="play.photo"
+            class="img_on_list img_on_list__low_1000"
+          />
         </router-link>
       </div>
-      <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.dramaturg[0]">
-        <span v-if="play.dramaturg.length < 2">
-          {{ play.dramaturg[0].role[0] }}
-        </span>
-        <span v-else> Драматурги/ні </span>
-        <div v-if="play.dramaturg.length < 2">
-          <div v-for="pd in play.dramaturg" :key="pd.id">
-            <router-link
-              class="nav_link_color"
-              :to="{
-                name: 'playwriter',
-
-                params: {
-                  id: pd.id,
-                  slugin: sluginToServerAuthor,
-                  name: transcriptWord(concat(pd.first_name, pd.last_name)),
-                },
-              }"
-            >
-              <span class="f_weight_bold p_l_0_5">
-                {{ pd.first_name }}
-              </span>
-              <span class="f_weight_bold p_l_0_3">
-                {{ pd.last_name }}
-              </span>
-            </router-link>
-          </div>
+      <div
+        class="d_flex_column j_content_start w_20_percent plays_sl_component"
+      >
+        <div v-if="play.is_premiere" class="d_flex_row" id="premier">
+        
+          <h4
+            class="upper_case horizontal_line"
+          >
+            {{ isPremierePlayEn }}
+          </h4>
         </div>
-        <div v-else>
-          <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
-            Показати всіх
-          </span>
-          <ModalInfo
-            :dramaturgs="play.dramaturg"
-            :show="modal"
-            @close="modal = false"
-          />
-        </div>
-      </div>
-      <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
-        <div>
-          <div v-if="getDirector(play.staff)[0] != '--'">
-            <span>
-              {{ getDirector(play.staff, (rl = true)) }}
-            </span>
-            <router-link
-              class="nav_link_color"
-              :to="{
-                name: 'playwriter',
-
-                params: {
-                  id: getDirector(play.staff)[1],
-                  slugin: sluginToServerDirector,
-                  name: transcriptWord(getDirector(play.staff)[0]),
-                },
-              }"
-            >
-              <span class="f_weight_bold p_l_0_5">
-                {{ getDirector(play.staff)[0] }}
-              </span>
-            </router-link>
-          </div>
-        </div>
-      </div>
-      <div class="d_flex_row j_content_start f_family_sans">
-        {{ play.price_for_play }} грн.
-      </div>
-      <div class="d_flex_row f_oswald pad_top play_sl_duration">
-        <h4
-          v-for="duration in setDurationPlay(
-            play.date_play,
-            play.duration_minutes
-          )"
-          :key="duration.value"
-          class="f_weight_300"
-        >
-          {{ duration.text }}
-        </h4>
-      </div>
-      <div class="t_left f_size_0_9 f_weight_bold">
-        {{ play.duration }}
-      </div>
-    </div>
-    <div
-      class="upper_case w_20_percent d_flex_column plays_sl_component"
-      :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
-    >
-      <div v-if="!play.on_play[0].cancel_event">
-        <div
-          v-if="!isPast && $store.state.currentLanguage == 0"
-          class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
-        >
-          <div v-if="withPhoto">
-            <router-link
-              v-if="!isPastOnView"
-              :id="'link_play_' + play.id"
-              :to="{
-                name: 'play',
-                params: {
-                  id: play.id_play,
-                  date_id: play.id,
-                  name: transcriptWord(play.name),
-                },
-              }"
-              class="go_to_buy"
-            >
-              {{ buyTicket }}
-              <div class="horizontal_line_hover"></div>
-            </router-link>
-            <router-link
-              v-else
-              :id="'link_play_' + play.id"
-              :to="{
-                name: 'play',
-                params: {
-                  id: play.id_play,
-                  date_id: play.id,
-                  name: transcriptWord(play.name),
-                },
-              }"
-              class="go_to_buy"
-            >
-              <span v-if="$store.state.currentLanguage == 0">{{ playPast.txt_ua }}</span>
-              
-              <div class="horizontal_line_hover"></div>
-            </router-link>
-          </div>
-
-          <div v-else>
-            <span v-if="!isPastOnView" class="nav_link_color" @click="showFormToPay()">
-              {{ toOrder }}
-            </span>
-          </div>
-        </div>
-        <div
-          v-else-if="!isPast && $store.state.currentLanguage == 2"
-          class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
-        >
+        <div class="d_flex_row name_play_sale">
           <router-link
-            v-if="withPhoto"
-            :id="'link_play_' + play.id"
             :to="{
               name: 'play',
               params: {
@@ -335,186 +182,652 @@
                 name: transcriptWord(play.name),
               },
             }"
-            class="go_to_buy"
+            class="f_oswald f_weight_400 current_play nav_link_color"
           >
-            <span v-if="!isPastOnView">{{ buyTicketEn }}</span>
-            <span v-else class="f_size_15">{{ playPast.txt_en }}</span>
-            <div class="horizontal_line_hover"></div>
+            {{ play.name }}
           </router-link>
-
-          <span v-else class="nav_link_color" @click="showFormToPay()">
-            {{ toOrderEn }}
+        </div>
+        <div
+          class="d_flex_row f_source_sans f_size_0_9"
+          v-if="play.dramaturg[0]"
+        >
+          <span v-if="play.dramaturg.length < 2">
+            {{ play.dramaturg[0].role[0] }}
           </span>
+          <span v-else> Драматурги/ні </span>
+          <div v-if="play.dramaturg.length < 2">
+            <div v-for="pd in play.dramaturg" :key="pd.id">
+              <router-link
+                class="nav_link_color"
+                :to="{
+                  name: 'playwriter',
+
+                  params: {
+                    id: pd.id,
+                    slugin: sluginToServerAuthor,
+                    name: transcriptWord(concat(pd.first_name, pd.last_name)),
+                  },
+                }"
+              >
+                <span class="f_weight_bold p_l_0_5">
+                  {{ pd.first_name }}
+                </span>
+                <span class="f_weight_bold p_l_0_3">
+                  {{ pd.last_name }}
+                </span>
+              </router-link>
+            </div>
+          </div>
+          <div v-else>
+            <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
+              Показати всіх
+            </span>
+            <ModalInfo
+              :dramaturgs="play.dramaturg"
+              :show="modal"
+              @close="modal = false"
+            />
+          </div>
+        </div>
+        <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
+          <div>
+            <div v-if="getDirector(play.staff)[0] != '--'">
+              <span>
+                {{ getDirector(play.staff, (rl = true)) }}
+              </span>
+              <router-link
+                class="nav_link_color"
+                :to="{
+                  name: 'playwriter',
+
+                  params: {
+                    id: getDirector(play.staff)[1],
+                    slugin: sluginToServerDirector,
+                    name: transcriptWord(getDirector(play.staff)[0]),
+                  },
+                }"
+              >
+                <span class="f_weight_bold p_l_0_5">
+                  {{ getDirector(play.staff)[0] }}
+                </span>
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <div class="d_flex_row j_content_start f_family_sans">
+          {{ play.price_for_play }} грн.
+        </div>
+        <div class="d_flex_row f_oswald pad_top play_sl_duration">
+          <h4
+            v-for="duration in setDurationPlay(
+              play.date_play,
+              play.duration_minutes
+            )"
+            :key="duration.value"
+            class="f_weight_300"
+          >
+            {{ duration.text }}
+          </h4>
+        </div>
+        <div class="t_left f_size_0_9 f_weight_bold">
+          {{ play.duration }}
         </div>
       </div>
       <div
-        id="cancelEv"
-        class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
-        v-else
+        class="upper_case w_20_percent d_flex_column plays_sl_component"
+        :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
       >
-        {{ eventCancel }}
-      </div>
-      <div v-if="!play.on_play[0].cancel_event">
-        <div v-if="!isPast">
-          <div
-            v-if="$store.state.currentLanguage == 0"
-            class="d_flex_row j_content_center"
-          >
-            <div
-              v-if="showPaymentForm"
-              id="form_pay"
-              class="d_flex_column w_75"
-            >
-              <div class="d_flex_column j_content_space_around p_tb_5">
-                <div class="d_flex_row">
-                  <span class="open_sans small_font">
-                    {{ dataFormBiLing.dateShowPlay }}
-                  </span>
-                </div>
+        <div v-if="!play.on_play[0].cancel_event">
 
-                <div class="d_flex_row_reverse j_content_center b_wrap">
-                  <div
-                    v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
-                    :key="dt.value"
-                    :id="dt.idEl"
-                    class="f_oswald m_0 underline_txt f_size_32"
-                  >
-                    <span>
-                      {{ dt.text }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="d_flex_row">
-                <label for="number" class="open_sans small_font">
-                  {{ dataFormBiLing.countTicketsChoose }}
-                </label>
-              </div>
-              <input
-                class="input_field t_center w_30"
-                type="number"
-                id="number"
-                min="1"
-                @change="setCountTickets(callBackData.countTickets)"
-                v-model="callBackData.countTickets"
-              />
-              <div class="d_flex_row">
-                <label for="email" class="open_sans small_font">
-                  {{ dataFormBiLing.emailEnter }}
-                </label>
-              </div>
-              <input
-                class="input_field"
-                type="email"
-                id="email"
-                placeholder="Email... (Обов'язкове поле)"
-                v-model="callBackData.email"
-              />
-              <label for="email" class="open_sans small_font t_left"
-                >Введіть Ваше ім'я:
-              </label>
-              <input
-                class="input_field"
-                type="text mar_top_bot"
-                id="txt"
-                placeholder="Ім'я... (Обов'язкове поле)"
-                v-model="callBackData.userName"
-              />
-              <button
-                :disabled="!checkCorrectEmail(callBackData.email)"
-                id="pay_b"
-                type="submit"
-                class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
-                :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
-                @click="pay()"
-              >
-                {{ dataFormBiLing.toPay }}
-              </button>
-            </div>
-          </div>
           <div
-            v-if="$store.state.currentLanguage == 2"
-            class="d_flex_row j_content_center"
+            class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
           >
-            <div
-              v-if="showPaymentForm"
-              id="form_pay"
-              class="d_flex_column w_75"
+            <router-link
+              v-if="withPhoto"
+              :id="'link_play_' + play.id"
+              :to="{
+                name: 'play',
+                params: {
+                  id: play.id_play,
+                  date_id: play.id,
+                  name: transcriptWord(play.name),
+                },
+              }"
+              class="go_to_buy"
             >
-              <div class="d_flex_column j_content_space_around p_tb_5">
-                <div class="d_flex_row">
-                  <span class="open_sans small_font">
-                    {{ dataFormBiLing.dateShowPlayEn }}
-                  </span>
-                </div>
+              <span v-if="!isPastOnView">{{ buyTicketEn }}</span>
+              <span v-else class="f_size_15">{{ playPast.txt_en }}</span>
+              <div class="horizontal_line_hover"></div>
+            </router-link>
 
-                <div class="d_flex_row_reverse j_content_center b_wrap">
-                  <div
-                    v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
-                    :key="dt.value"
-                    :id="dt.idEl"
-                    class="f_oswald m_0 underline_txt f_size_32"
-                  >
-                    <span>
-                      {{ dt.text }}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="d_flex_row">
-                <label for="number" class="open_sans small_font">
-                  {{ dataFormBiLing.countTicketsChooseEn }}
-                </label>
-              </div>
-              <input
-                class="input_field t_center w_30"
-                type="number"
-                id="number"
-                min="1"
-                @change="setCountTickets(callBackData.countTickets)"
-                v-model="callBackData.countTickets"
-              />
-              <div class="d_flex_row">
-                <label for="email" class="open_sans small_font">
-                  {{ dataFormBiLing.emailEnterEn }}
-                </label>
-              </div>
-              <input
-                class="input_field"
-                type="email"
-                id="email"
-                placeholder="Email... (Required field)"
-                v-model="callBackData.email"
-              />
-              <label for="email" class="open_sans small_font t_left"
-                >Введіть Ваше ім'я:
-              </label>
-              <input
-                class="input_field"
-                type="text mar_top_bot"
-                id="txt"
-                placeholder="Name... (Required field)"
-                v-model="callBackData.userName"
-              />
-              <button
-                :disabled="!checkCorrectEmail(callBackData.email)"
-                id="pay_b"
-                type="submit"
-                class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
-                :class="{ opacity_0_5: !checkCorrectEmail(callBackData.email) }"
-                @click="pay()"
-              >
-                {{ dataFormBiLing.toPayEn }}
-              </button>
-            </div>
+            <span v-else class="nav_link_color" @click="showFormToPay()">
+              {{ toOrderEn }}
+            </span>
           </div>
         </div>
-        <div v-else>
-          {{ eventWas }}
+        <div
+          id="cancelEv"
+          class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
+          v-else
+        >
+          {{ eventCancel }}
+        </div>
+        <div v-if="!play.on_play[0].cancel_event">
+          <div v-if="!isPast">
+            <div
+              class="d_flex_row j_content_center"
+            >
+              <div
+                v-if="showPaymentForm"
+                id="form_pay"
+                class="d_flex_column w_75"
+              >
+                <div class="d_flex_column j_content_space_around p_tb_5">
+                  <div class="d_flex_row">
+                    <span class="open_sans small_font">
+                      {{ dataFormBiLing.dateShowPlayEn }}
+                    </span>
+                  </div>
+
+                  <div class="d_flex_row_reverse j_content_center b_wrap">
+                    <div
+                      v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
+                      :key="dt.value"
+                      :id="dt.idEl"
+                      class="f_oswald m_0 underline_txt f_size_32"
+                    >
+                      <span>
+                        {{ dt.text }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d_flex_row">
+                  <label for="number" class="open_sans small_font">
+                    {{ dataFormBiLing.countTicketsChooseEn }}
+                  </label>
+                </div>
+                <input
+                  class="input_field t_center w_30"
+                  type="number"
+                  id="number"
+                  min="1"
+                  @change="setCountTickets(callBackData.countTickets)"
+                  v-model="callBackData.countTickets"
+                />
+                <div class="d_flex_row">
+                  <label for="email" class="open_sans small_font">
+                    {{ dataFormBiLing.emailEnterEn }}
+                  </label>
+                </div>
+                <input
+                  class="input_field"
+                  type="email"
+                  id="email"
+                  placeholder="Email... (Required field)"
+                  v-model="callBackData.email"
+                />
+                <label for="email" class="open_sans small_font t_left"
+                  >
+                  {{ dataFormBiLing.yourNameEn }}
+                </label>
+                <input
+                  class="input_field"
+                  type="text mar_top_bot"
+                  id="txt"
+                  placeholder="Name... (Required field)"
+                  v-model="callBackData.userName"
+                />
+                <button
+                  :disabled="!checkCorrectEmail(callBackData.email)"
+                  id="pay_b"
+                  type="submit"
+                  class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
+                  :class="{
+                    opacity_0_5: !checkCorrectEmail(callBackData.email),
+                  }"
+                  @click="pay()"
+                >
+                  {{ dataFormBiLing.toPayEn }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            {{ eventWas }}
+          </div>
         </div>
       </div>
+      <div class="horizontal_line"></div>
     </div>
-    <div class="horizontal_line"></div>
+    <!-- UKR LANGUAGE -->
+    <div
+      v-else-if="$store.state.currentLanguage == 0"
+      class="d_flex_row p_bottom plays_for_sale"
+      :class="{
+        j_content_space_around: !withPhoto,
+        horizontal_line: withPhoto,
+        opacity_0_3: isPastOnView,
+      }"
+    >
+      <div class="w_20_percent plays_sl_component" v-if="withPhoto">
+        <div>
+          <h4
+            class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+            :id="getMeDay(play.date_play).idEl"
+          >
+            {{ getMeDay(play.date_play).shortText }}
+          </h4>
+        </div>
+        <div class="p_both_px">
+          <div class="d_flex_row_reverse f_size_25">
+            <h2
+              v-for="dt in datePlayVisibility(play.date_play)"
+              :key="dt.value"
+              :id="dt.idEl"
+              class="f_oswald m_0"
+            >
+              {{ dt.text }}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="w_20_percent plays_sl_component" v-else>
+        <div
+          v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
+          :key="on_pl.id"
+        >
+          <div
+            v-if="
+              newArrayDates(play.on_play, idDatePlayOne).indexOf(on_pl) == 0
+            "
+          >
+            <div>
+              <h4
+                class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+                :id="getMeDay(on_pl.date_pl).idEl"
+              >
+                {{ getMeDay(on_pl.date_pl).shortText }}
+              </h4>
+            </div>
+            <div class="p_both_px d_flex_row j_content_end">
+              <div
+                class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+                @click="instanceNewCurrentDatePlay(on_pl, $event)"
+              >
+                <div
+                  v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                  :key="dt.value"
+                  :id="dt.idEl"
+                  class="f_oswald m_0"
+                >
+                  {{ dt.text }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div
+              @click="otherDate = !otherDate"
+              class="d_flex_row j_content_center f_oswald font_1 c_pointer nav_link_color underline_txt pad_top"
+              v-if="play.on_play.indexOf(on_pl) == 1"
+            >
+              <div>Вибрати іншу дату</div>
+              <div>&nbsp;</div>
+              <div>
+                <span v-if="!otherDate">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-caret-down-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                    />
+                  </svg>
+                </span>
+                <span v-else>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-caret-up-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <div class="drop_animate" v-show="otherDate">
+                <div>
+                  <div
+                    class="f_oswald f_weight_300 m_0 p_l_2 short_day short_day_low_1000"
+                    :id="getMeDay(on_pl.date_pl).idEl"
+                  >
+                    {{ getMeDay(on_pl.date_pl).shortText }}
+                  </div>
+                </div>
+                <div class="d_flex_row j_content_end p_both_px">
+                  <div
+                    class="d_flex_row_reverse w_max_content c_pointer f_size_25"
+                    @click="instanceNewCurrentDatePlay(on_pl, $event)"
+                  >
+                    <div
+                      v-for="dt in datePlayVisibility(on_pl.date_pl)"
+                      :key="dt.value"
+                      :id="dt.idEl"
+                      class="f_oswald m_0"
+                    >
+                      {{ dt.text }}
+                    </div>
+                  </div>
+                </div>
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-if="withPhoto"
+        class="d_flex_row w_20_percent plays_sl_component pic_sl_component"
+      >
+        <router-link
+          v-if="withPhoto"
+          :to="{
+            name: 'play',
+            params: {
+              id: play.id_play,
+              date_id: play.id,
+              name: transcriptWord(play.name),
+            },
+          }"
+        >
+          <img
+            :src="repalcer(play.photo, '')"
+            :alt="play.photo"
+            class="img_on_list img_on_list__low_1000"
+          />
+        </router-link>
+      </div>
+      <div
+        class="d_flex_column j_content_start w_20_percent plays_sl_component"
+      >
+        <div v-if="play.is_premiere" class="d_flex_row" id="premier">
+          <h4
+            v-if="$store.state.currentLanguage == 0"
+            class="upper_case horizontal_line"
+          >
+            {{ isPremierePlayUa }}
+          </h4>
+        </div>
+        <div class="d_flex_row name_play_sale">
+          <router-link
+            :to="{
+              name: 'play',
+              params: {
+                id: play.id_play,
+                date_id: play.id,
+                name: transcriptWord(play.name),
+              },
+            }"
+            class="f_oswald f_weight_400 current_play nav_link_color"
+          >
+            {{ play.name }}
+          </router-link>
+        </div>
+        <div
+          class="d_flex_row f_source_sans f_size_0_9"
+          v-if="play.dramaturg[0]"
+        >
+          <span v-if="play.dramaturg.length < 2">
+            {{ play.dramaturg[0].role[0] }}
+          </span>
+          <span v-else> Драматурги/ні </span>
+          <div v-if="play.dramaturg.length < 2">
+            <div v-for="pd in play.dramaturg" :key="pd.id">
+              <router-link
+                class="nav_link_color"
+                :to="{
+                  name: 'playwriter',
+
+                  params: {
+                    id: pd.id,
+                    slugin: sluginToServerAuthor,
+                    name: transcriptWord(concat(pd.first_name, pd.last_name)),
+                  },
+                }"
+              >
+                <span class="f_weight_bold p_l_0_5">
+                  {{ pd.first_name }}
+                </span>
+                <span class="f_weight_bold p_l_0_3">
+                  {{ pd.last_name }}
+                </span>
+              </router-link>
+            </div>
+          </div>
+          <div v-else>
+            <span class="c_pointer f_weight_bold p_l_0_5" @click="showModal()">
+              Показати всіх
+            </span>
+            <ModalInfo
+              :dramaturgs="play.dramaturg"
+              :show="modal"
+              @close="modal = false"
+            />
+          </div>
+        </div>
+        <div class="d_flex_row f_source_sans f_size_0_9" v-if="play.staff[0]">
+          <div>
+            <div v-if="getDirector(play.staff)[0] != '--'">
+              <span>
+                {{ getDirector(play.staff, (rl = true)) }}
+              </span>
+              <router-link
+                class="nav_link_color"
+                :to="{
+                  name: 'playwriter',
+
+                  params: {
+                    id: getDirector(play.staff)[1],
+                    slugin: sluginToServerDirector,
+                    name: transcriptWord(getDirector(play.staff)[0]),
+                  },
+                }"
+              >
+                <span class="f_weight_bold p_l_0_5">
+                  {{ getDirector(play.staff)[0] }}
+                </span>
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <div class="d_flex_row j_content_start f_family_sans">
+          {{ play.price_for_play }} грн.
+        </div>
+        <div class="d_flex_row f_oswald pad_top play_sl_duration">
+          <h4
+            v-for="duration in setDurationPlay(
+              play.date_play,
+              play.duration_minutes
+            )"
+            :key="duration.value"
+            class="f_weight_300"
+          >
+            {{ duration.text }}
+          </h4>
+        </div>
+        <div class="t_left f_size_0_9 f_weight_bold">
+          {{ play.duration }}
+        </div>
+      </div>
+      <div
+        class="upper_case w_20_percent d_flex_column plays_sl_component"
+        :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
+      >
+        <div v-if="!play.on_play[0].cancel_event">
+          <div
+            v-if="!isPast && $store.state.currentLanguage == 0"
+            class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
+          >
+            <div v-if="withPhoto">
+              <router-link
+                v-if="!isPastOnView"
+                :id="'link_play_' + play.id"
+                :to="{
+                  name: 'play',
+                  params: {
+                    id: play.id_play,
+                    date_id: play.id,
+                    name: transcriptWord(play.name),
+                  },
+                }"
+                class="go_to_buy"
+              >
+                {{ buyTicket }}
+                <div class="horizontal_line_hover"></div>
+              </router-link>
+              <router-link
+                v-else
+                :id="'link_play_' + play.id"
+                :to="{
+                  name: 'play',
+                  params: {
+                    id: play.id_play,
+                    date_id: play.id,
+                    name: transcriptWord(play.name),
+                  },
+                }"
+                class="go_to_buy"
+              >
+                <span v-if="$store.state.currentLanguage == 0">{{
+                  playPast.txt_ua
+                }}</span>
+
+                <div class="horizontal_line_hover"></div>
+              </router-link>
+            </div>
+
+            <div v-else>
+              <span
+                v-if="!isPastOnView"
+                class="nav_link_color"
+                @click="showFormToPay()"
+              >
+                {{ toOrder }}
+              </span>
+            </div>
+          </div>
+          
+        </div>
+        <div
+          id="cancelEv"
+          class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
+          v-else
+        >
+          {{ eventCancel }}
+        </div>
+        <div v-if="!play.on_play[0].cancel_event">
+          <div v-if="!isPast">
+            <div
+              v-if="$store.state.currentLanguage == 0"
+              class="d_flex_row j_content_center"
+            >
+              <div
+                v-if="showPaymentForm"
+                id="form_pay"
+                class="d_flex_column w_75"
+              >
+                <div class="d_flex_column j_content_space_around p_tb_5">
+                  <div class="d_flex_row">
+                    <span class="open_sans small_font">
+                      {{ dataFormBiLing.dateShowPlay }}
+                    </span>
+                  </div>
+
+                  <div class="d_flex_row_reverse j_content_center b_wrap">
+                    <div
+                      v-for="dt in datePlayVisibility(currentDatePlay.date_pl)"
+                      :key="dt.value"
+                      :id="dt.idEl"
+                      class="f_oswald m_0 underline_txt f_size_32"
+                    >
+                      <span>
+                        {{ dt.text }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d_flex_row">
+                  <label for="number" class="open_sans small_font">
+                    {{ dataFormBiLing.countTicketsChoose }}
+                  </label>
+                </div>
+                <input
+                  class="input_field t_center w_30"
+                  type="number"
+                  id="number"
+                  min="1"
+                  @change="setCountTickets(callBackData.countTickets)"
+                  v-model="callBackData.countTickets"
+                />
+                <div class="d_flex_row">
+                  <label for="email" class="open_sans small_font">
+                    {{ dataFormBiLing.emailEnter }}
+                  </label>
+                </div>
+                <input
+                  class="input_field"
+                  type="email"
+                  id="email"
+                  placeholder="Email... (Обов'язкове поле)"
+                  v-model="callBackData.email"
+                />
+                <label for="email" class="open_sans small_font t_left"
+                  >
+                  {{ dataFormBiLing.yourName }}
+                </label>
+                <input
+                  class="input_field"
+                  type="text mar_top_bot"
+                  id="txt"
+                  placeholder="Ім'я... (Обов'язкове поле)"
+                  v-model="callBackData.userName"
+                />
+                <button
+                  :disabled="!checkCorrectEmail(callBackData.email)"
+                  id="pay_b"
+                  type="submit"
+                  class="payment_button f_source_sans nav_link_color f_size_32 upper_case"
+                  :class="{
+                    opacity_0_5: !checkCorrectEmail(callBackData.email),
+                  }"
+                  @click="pay()"
+                >
+                  {{ dataFormBiLing.toPay }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            {{ eventWas }}
+          </div>
+        </div>
+      </div>
+      <div class="horizontal_line"></div>
+    </div>
   </div>
 </template>
   <script>
@@ -559,8 +872,8 @@ export default {
         countTicketsChooseEn: "enter the number of tickets",
         emailEnter: "введіть електронну пошту для купівлі квитка:",
         emailEnterEn: "enter your e-mail address to purchase a ticket",
-        yourName: "введіть ваше ім'я:",
-        yourNameEn: "enter your name",
+        yourName: "Введіть Ваше ім'я:",
+        yourNameEn: "Enter Your name:",
         toPay: "оплатити",
         toPayEn: "pay",
         placeholderField: "Обов'язкове поле...",

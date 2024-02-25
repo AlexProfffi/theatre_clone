@@ -4,204 +4,165 @@
       <HeaderComponent />
     </div>
     <div class="d_flex_column p_40px padding_faces opacity_05 main_content">
-      <div id="faces_dramats" class="m_both_0_12">
-        <div id="faces_7" class="d_grid">
-          <div
-            v-for="playw in firstTwoRowsPlw"
-            :key="playw.id"
-            class="pad_1em padding_faces"
-          >
-            <div class="c_pointer">
-              <router-link
-                :to="{
-                  name: 'playwriter',
-                  params: {
-                    id: playw.to_playwriter.id,
-                    slugin: 'authors',
-                    name: transcriptWord(
-                      concat(
-                        playw.to_playwriter.first_name,
-                        playw.to_playwriter.last_name
-                      )
-                    ),
-                  },
-                }"
-              >
-                <img
-                  :src="playw.image"
-                  :alt="playw.name"
-                  :title="
-                    concat(
-                      playw.to_playwriter.first_name,
-                      playw.to_playwriter.last_name
-                    )
-                  "
-                  class="size_pictures size_pictures_low_1000"
-                  :class="{
-                    size_pictures: playw.id % 2 == 0,
-                    size_pictures_2: playw.id % 2 != 0,
-                  }"
-                />
-              </router-link>
-            </div>
-          </div>
-        </div>
-        <div id="faces_6" class="d_grid_6">
-          <div
-            v-for="playw in downRowPlw"
-            :key="playw.id"
-            class="pad_1em padding_faces"
-          >
-            <div class="c_pointer">
-              <router-link
-                :to="{
-                  name: 'playwriter',
-                  params: {
-                    id: playw.to_playwriter.id,
-                    slugin: 'authors',
-                    name: transcriptWord(
-                      concat(
-                        playw.to_playwriter.first_name,
-                        playw.to_playwriter.last_name
-                      )
-                    ),
-                  },
-                }"
-              >
-                <img
-                  :src="playw.image"
-                  :alt="playw.name"
-                  :title="
-                    concat(
-                      playw.to_playwriter.first_name,
-                      playw.to_playwriter.last_name
-                    )
-                  "
-                  class="size_pictures size_pictures_low_1000"
-                  :class="{
-                    size_pictures: playw.id % 2 == 0,
-                    size_pictures_2: playw.id % 2 != 0,
-                  }"
-                />
-              </router-link>
-            </div>
-          </div>
-        </div>
-        <div class="d_flex_row_reverse">
-          <div v-if="$store.state.currentLanguage == 0" class="small_font">
-            Автор лого - Люда Тимошенко
-          </div>
-          <div v-else-if="$store.state.currentLanguage == 2" class="small_font">
-            The author of the logo - Luda Timoshenko
-          </div>
-        </div>
-      </div>
-      <marquee
-        v-if="runTxt.length"
-        class="upper_case ptb_1em"
-        truespeed
-        :scrollamount="runTxt[0].speed"
-        scrolldelay="15"
+      <!-- ENG LANGUAGE -->
+      <div
+        v-if="$store.state.currentLanguage == 2"
       >
-        {{ runTxt[0].text }}
-      </marquee>
-      <div class="">
-        <div id="idea_main" class="d_flex_column margin_both_auto">
-          <div
-            id="n_idea"
-            class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
-          >
-            <div v-if="$store.state.currentLanguage == 0">
-              {{ nameIdea.txt_ua }}
-            </div>
-            <div v-else-if="$store.state.currentLanguage == 2">
-              {{ nameIdea.txt_en }}
-            </div>
-          </div>
-        </div>
-        <div
-          id="idea_main_list"
-          class="ptb_5em margin_both_auto"
-          :class="{
-            d_grid_3: ideas.length == 3,
-            d_grid_1: ideas.length == 1,
-            d_grid_2: ideas.length == 2,
-          }"
-        >
-          <div
-            v-for="idea in ideas"
-            :key="idea.id"
-            class="d_flex_row j_content_center pad_b1em"
-          >
+        <div id="faces_dramats" class="m_both_0_12">
+          <div id="faces_7" class="d_grid">
             <div
-              v-if="$store.state.currentLanguage == 0"
-              v-html="idea.description_new_ua"
-              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
-            ></div>
-            <div
-              v-else-if="$store.state.currentLanguage == 2"
-              v-html="idea.description_new_en"
-              class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
-            ></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mar_0_06_em">
-        <div id="plays_main_name" class="d_flex_column margin_both_auto">
-          <div
-            class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
-          >
-            <div v-if="$store.state.currentLanguage == 0">
-              {{ namePage.txt_ua }}
-            </div>
-            <div v-else-if="$store.state.currentLanguage == 2">
-              {{ namePage.txt_en }}
-            </div>
-          </div>
-        </div>
-        <div id="plays_main_list" class="d_grid_3 ptb_5em">
-          <div class="p_relative" v-for="play in mainPlays" :key="play.id">
-            <div
-              class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
-              :class="{'opacity_0_3': play.is_past}"
+              v-for="playw in firstTwoRowsPlw"
+              :key="playw.id"
+              class="pad_1em padding_faces"
             >
-            <div class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold" v-if="play.is_past">
-              <div v-if="$store.state.currentLanguage == 0">
-                {{ playPast.txt_ua }}
-              </div>
-              <div v-else-if="$store.state.currentLanguage == 2" class="f_16">
-                {{ playPast.txt_en }}
+              <div class="c_pointer">
+                <router-link
+                  :to="{
+                    name: 'playwriter',
+                    params: {
+                      id: playw.to_playwriter.id,
+                      slugin: 'authors',
+                      name: transcriptWord(
+                        concat(
+                          playw.to_playwriter.first_name,
+                          playw.to_playwriter.last_name
+                        )
+                      ),
+                    },
+                  }"
+                >
+                  <img
+                    :src="playw.image"
+                    :alt="playw.name"
+                    :title="
+                      concat(
+                        playw.to_playwriter.first_name,
+                        playw.to_playwriter.last_name
+                      )
+                    "
+                    class="size_pictures size_pictures_low_1000"
+                    :class="{
+                      size_pictures: playw.id % 2 == 0,
+                      size_pictures_2: playw.id % 2 != 0,
+                    }"
+                  />
+                </router-link>
               </div>
             </div>
-              <router-link
-                class="pad_b1em color_white"
-                :to="{
-                  name: 'play',
-                  params: {
-                    id: play.id_play,
-                    date_id: play.id,
-                    name: transcriptWord(play.name),
-                  },
-                }"
-              >
-                <img
-                  :src="repalcer(play.photo)"
-                  :alt="play.name"
-                  class="img_on_main h_100 w_100 zoom_hover"
-                />
-              </router-link>
-            </div>
-            
-            <div class="p_relative h_100">
-              <div
-                class="p_relative p_abs_date top_800 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
-              >
-                {{ checkDateToShow(play.id, play.on_play) }}
+          </div>
+          <div id="faces_6" class="d_grid_6">
+            <div
+              v-for="playw in downRowPlw"
+              :key="playw.id"
+              class="pad_1em padding_faces"
+            >
+              <div class="c_pointer">
+                <router-link
+                  :to="{
+                    name: 'playwriter',
+                    params: {
+                      id: playw.to_playwriter.id,
+                      slugin: 'authors',
+                      name: transcriptWord(
+                        concat(
+                          playw.to_playwriter.first_name,
+                          playw.to_playwriter.last_name
+                        )
+                      ),
+                    },
+                  }"
+                >
+                  <img
+                    :src="playw.image"
+                    :alt="playw.name"
+                    :title="
+                      concat(
+                        playw.to_playwriter.first_name,
+                        playw.to_playwriter.last_name
+                      )
+                    "
+                    class="size_pictures size_pictures_low_1000"
+                    :class="{
+                      size_pictures: playw.id % 2 == 0,
+                      size_pictures_2: playw.id % 2 != 0,
+                    }"
+                  />
+                </router-link>
               </div>
+            </div>
+          </div>
+          <div class="d_flex_row_reverse">
+            <div class="small_font">
+              The author of the logo - Luda Timoshenko
+            </div>
+          </div>
+        </div>
+        <marquee
+          v-if="runTxt.length"
+          class="upper_case ptb_1em"
+          truespeed
+          :scrollamount="runTxt[0].speed"
+          scrolldelay="15"
+        >
+          {{ runTxt[0].text }}
+        </marquee>
+        <div class="">
+          <div id="idea_main" class="d_flex_column margin_both_auto">
+            <div
+              id="n_idea"
+              class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
+            >
+              <div>
+                {{ nameIdea.txt_en }}
+              </div>
+            </div>
+          </div>
+          <div
+            id="idea_main_list"
+            class="ptb_5em margin_both_auto"
+            :class="{
+              d_grid_3: ideas.length == 3,
+              d_grid_1: ideas.length == 1,
+              d_grid_2: ideas.length == 2,
+            }"
+          >
+            <div
+              v-for="idea in ideas"
+              :key="idea.id"
+              class="d_flex_row j_content_center pad_b1em"
+            >
               <div
-                class="p_relative p_abs_text top_85 w_max_content t_left p_abs_text_low_1000 pl_plw_main"
+                v-html="idea.description_new_en"
+                class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mar_0_06_em">
+          <div id="plays_main_name" class="d_flex_column margin_both_auto">
+            <div
+              class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
+            >
+              <div>
+                {{ namePage.txt_en }}
+              </div>
+            </div>
+          </div>
+          <div id="plays_main_list" class="d_grid_3 ptb_5em">
+            <div class="p_relative" v-for="play in mainPlays" :key="play.id">
+              <div
+                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
+                :class="{ opacity_0_3: play.is_past }"
               >
+                <div
+                  class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold"
+                  v-if="play.is_past"
+                >
+                  <div class="f_16">
+                    {{ playPast.txt_en }}
+                  </div>
+                </div>
                 <router-link
                   class="pad_b1em color_white"
                   :to="{
@@ -213,107 +174,403 @@
                     },
                   }"
                 >
-                  <div class="f_oswald f_size_40 pl_main">
-                    {{ play.name }}
-                  </div>
-                  <div class="d_flex_row j_content_start f_source_sans">
-                    <div
-                      v-if="play.dramaturg.length == 1"
-                      class="pl_main nowrap_space"
-                    >
-                      {{ play.dramaturg[0].first_name }}
-                      {{ play.dramaturg[0].last_name }}
-                    </div>
-                    <div
-                      v-else-if="play.dramaturg.length > 1"
-                      class="pl_main nowrap_space"
-                    >
-                      <span v-if="play.dramaturg.length % 10 == 2">
-                        {{ play.dramaturg.length }} драматурга
-                      </span>
-                      <span v-else-if="play.dramaturg.length % 10 == 3">
-                        {{ play.dramaturg.length }} драматурга
-                      </span>
-                      <span v-else-if="play.dramaturg.length % 10 == 4">
-                        {{ play.dramaturg.length }} драматурга
-                      </span>
-                      <span v-else>
-                        {{ play.dramaturg.length }} драматургів
-                      </span>
-                    </div>
-                  </div>
+                  <img
+                    :src="repalcer(play.photo)"
+                    :alt="play.name"
+                    class="img_on_main h_100 w_100 zoom_hover"
+                  />
                 </router-link>
+              </div>
+
+              <div class="p_relative h_100">
+                <div
+                  class="p_relative p_abs_date top_800 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+                >
+                  {{ checkDateToShow(play.id, play.on_play) }}
+                </div>
+                <div
+                  class="p_relative p_abs_text top_85 w_max_content t_left p_abs_text_low_1000 pl_plw_main"
+                >
+                  <router-link
+                    class="pad_b1em color_white"
+                    :to="{
+                      name: 'play',
+                      params: {
+                        id: play.id_play,
+                        date_id: play.id,
+                        name: transcriptWord(play.name),
+                      },
+                    }"
+                  >
+                    <div class="f_oswald f_size_40 pl_main">
+                      {{ play.name }}
+                    </div>
+                    <div class="d_flex_row j_content_start f_source_sans">
+                      <div
+                        v-if="play.dramaturg.length == 1"
+                        class="pl_main nowrap_space"
+                      >
+                        {{ play.dramaturg[0].first_name }}
+                        {{ play.dramaturg[0].last_name }}
+                      </div>
+                      <div
+                        v-else-if="play.dramaturg.length > 1"
+                        class="pl_main nowrap_space"
+                      >
+                        <span v-if="play.dramaturg.length % 10 == 2">
+                          {{ play.dramaturg.length }} драматурга
+                        </span>
+                        <span v-else-if="play.dramaturg.length % 10 == 3">
+                          {{ play.dramaturg.length }} драматурга
+                        </span>
+                        <span v-else-if="play.dramaturg.length % 10 == 4">
+                          {{ play.dramaturg.length }} драматурга
+                        </span>
+                        <span v-else>
+                          {{ play.dramaturg.length }} драматургів
+                        </span>
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div v-show="answerSubscribe" class="open_sans upper_case padding_tb_2em">
-        {{ answerSubscribe }}
-      </div>
-      <div class="p_sticky z_20">
-        <div id="subscribe" class="d_flex_row j_content_center">
-          <div
-            v-if="$store.state.currentLanguage == 0"
-            id="lbl_subscribe"
-            class="d_flex_column f_source_sans upper_case t_left little_pad"
-          >
-            <div>
-              {{ subscribeLabel.text1 }}
+        <div
+          v-show="answerSubscribe"
+          class="open_sans upper_case padding_tb_2em"
+        >
+          {{ answerSubscribe }}
+        </div>
+        <div class="p_sticky z_20">
+          <div id="subscribe" class="d_flex_row j_content_center">
+            <div
+              id="lbl_subscribe"
+              class="d_flex_column f_source_sans upper_case t_left little_pad"
+            >
+              <div>
+                {{ subscribeLabelEn.text1 }}
+              </div>
+              <div class="f_weight_bold">
+                {{ subscribeLabelEn.text2 }}
+              </div>
             </div>
-            <div class="f_weight_bold">
-              {{ subscribeLabel.text2 }}
-            </div>
-          </div>
-          <div
-            v-else-if="$store.state.currentLanguage == 2"
-            id="lbl_subscribe"
-            class="d_flex_column f_source_sans upper_case t_left little_pad"
-          >
-            <div>
-              {{ subscribeLabelEn.text1 }}
-            </div>
-            <div class="f_weight_bold">
-              {{ subscribeLabelEn.text2 }}
-            </div>
-          </div>
 
-          <form
-            id="form_subscribe"
-            action="POST"
-            class="d_flex_row j_content_start"
-            @submit="toSubscribe"
+            <form
+              id="form_subscribe"
+              action="POST"
+              class="d_flex_row j_content_start"
+              @submit="toSubscribe"
+            >
+              <div
+                id="places_inputs"
+                class="d_flex_row j_content_space_around w_50 h_max horizontal_line little_pad"
+              >
+                <input
+                  v-model="subscribe.email"
+                  class="w_100 b_none f_oswald padding_4path sibscribe_input"
+                  type="email"
+                  name="email_subscribe"
+                  id="e_subscribe"
+                  placeholder="e-mail"
+                />
+              </div>
+              <div
+                class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000"
+              >
+                <input
+                  class="btn_black b_none pad_both_7 upper_case sibscribe_button"
+                  type="submit"
+                  value="subscribe"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- UKR LANGUAGE -->
+      <div
+        
+        v-else-if="$store.state.currentLanguage == 0"
+      >
+        <div id="faces_dramats" class="m_both_0_12">
+          <div id="faces_7" class="d_grid">
+            <div
+              v-for="playw in firstTwoRowsPlw"
+              :key="playw.id"
+              class="pad_1em padding_faces"
+            >
+              <div class="c_pointer">
+                <router-link
+                  :to="{
+                    name: 'playwriter',
+                    params: {
+                      id: playw.to_playwriter.id,
+                      slugin: 'authors',
+                      name: transcriptWord(
+                        concat(
+                          playw.to_playwriter.first_name,
+                          playw.to_playwriter.last_name
+                        )
+                      ),
+                    },
+                  }"
+                >
+                  <img
+                    :src="playw.image"
+                    :alt="playw.name"
+                    :title="
+                      concat(
+                        playw.to_playwriter.first_name,
+                        playw.to_playwriter.last_name
+                      )
+                    "
+                    class="size_pictures size_pictures_low_1000"
+                    :class="{
+                      size_pictures: playw.id % 2 == 0,
+                      size_pictures_2: playw.id % 2 != 0,
+                    }"
+                  />
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div id="faces_6" class="d_grid_6">
+            <div
+              v-for="playw in downRowPlw"
+              :key="playw.id"
+              class="pad_1em padding_faces"
+            >
+              <div class="c_pointer">
+                <router-link
+                  :to="{
+                    name: 'playwriter',
+                    params: {
+                      id: playw.to_playwriter.id,
+                      slugin: 'authors',
+                      name: transcriptWord(
+                        concat(
+                          playw.to_playwriter.first_name,
+                          playw.to_playwriter.last_name
+                        )
+                      ),
+                    },
+                  }"
+                >
+                  <img
+                    :src="playw.image"
+                    :alt="playw.name"
+                    :title="
+                      concat(
+                        playw.to_playwriter.first_name,
+                        playw.to_playwriter.last_name
+                      )
+                    "
+                    class="size_pictures size_pictures_low_1000"
+                    :class="{
+                      size_pictures: playw.id % 2 == 0,
+                      size_pictures_2: playw.id % 2 != 0,
+                    }"
+                  />
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div class="d_flex_row_reverse">
+            <div class="small_font">Автор лого - Люда Тимошенко</div>
+          </div>
+        </div>
+        <marquee
+          v-if="runTxt.length"
+          class="upper_case ptb_1em"
+          truespeed
+          :scrollamount="runTxt[0].speed"
+          scrolldelay="15"
+        >
+          {{ runTxt[0].text }}
+        </marquee>
+        <div class="">
+          <div id="idea_main" class="d_flex_column margin_both_auto">
+            <div
+              id="n_idea"
+              class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
+            >
+              <div>
+                {{ nameIdea.txt_ua }}
+              </div>
+            </div>
+          </div>
+          <div
+            id="idea_main_list"
+            class="ptb_5em margin_both_auto"
+            :class="{
+              d_grid_3: ideas.length == 3,
+              d_grid_1: ideas.length == 1,
+              d_grid_2: ideas.length == 2,
+            }"
           >
             <div
-              id="places_inputs"
-              class="d_flex_row j_content_space_around w_50 h_max horizontal_line little_pad"
+              v-for="idea in ideas"
+              :key="idea.id"
+              class="d_flex_row j_content_center pad_b1em"
             >
-              <input
-                v-model="subscribe.email"
-                class="w_100 b_none f_oswald padding_4path sibscribe_input"
-                type="email"
-                name="email_subscribe"
-                id="e_subscribe"
-                placeholder="e-mail"
-              />
+              <div
+                v-html="idea.description_new_ua"
+                class="t_justify p_lr_1 padding_low_1000 f_size_low_1000 f_source_sans f_18"
+              ></div>
             </div>
+          </div>
+        </div>
+
+        <div class="mar_0_06_em">
+          <div id="plays_main_name" class="d_flex_column margin_both_auto">
             <div
-              class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000"
+              class="d_flex_row j_content_center upper_case open_sans name_dep t_left ptb_1em"
             >
-              <input
-                v-if="$store.state.currentLanguage == 0"
-                class="btn_black b_none pad_both_7 upper_case sibscribe_button"
-                type="submit"
-                value="підписатись"
-              />
-              <input
-                v-else-if="$store.state.currentLanguage == 2"
-                class="btn_black b_none pad_both_7 upper_case sibscribe_button"
-                type="submit"
-                value="subscribe"
-              />
+              <div>
+                {{ namePage.txt_ua }}
+              </div>
             </div>
-          </form>
+          </div>
+          <div id="plays_main_list" class="d_grid_3 ptb_5em">
+            <div class="p_relative" v-for="play in mainPlays" :key="play.id">
+              <div
+                class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
+                :class="{ opacity_0_3: play.is_past }"
+              >
+                <div
+                  class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold"
+                  v-if="play.is_past"
+                >
+                  <div>
+                    {{ playPast.txt_ua }}
+                  </div>
+                </div>
+                <router-link
+                  class="pad_b1em color_white"
+                  :to="{
+                    name: 'play',
+                    params: {
+                      id: play.id_play,
+                      date_id: play.id,
+                      name: transcriptWord(play.name),
+                    },
+                  }"
+                >
+                  <img
+                    :src="repalcer(play.photo)"
+                    :alt="play.name"
+                    class="img_on_main h_100 w_100 zoom_hover"
+                  />
+                </router-link>
+              </div>
+
+              <div class="p_relative h_100">
+                <div
+                  class="p_relative p_abs_date top_800 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+                >
+                  {{ checkDateToShow(play.id, play.on_play) }}
+                </div>
+                <div
+                  class="p_relative p_abs_text top_85 w_max_content t_left p_abs_text_low_1000 pl_plw_main"
+                >
+                  <router-link
+                    class="pad_b1em color_white"
+                    :to="{
+                      name: 'play',
+                      params: {
+                        id: play.id_play,
+                        date_id: play.id,
+                        name: transcriptWord(play.name),
+                      },
+                    }"
+                  >
+                    <div class="f_oswald f_size_40 pl_main">
+                      {{ play.name }}
+                    </div>
+                    <div class="d_flex_row j_content_start f_source_sans">
+                      <div
+                        v-if="play.dramaturg.length == 1"
+                        class="pl_main nowrap_space"
+                      >
+                        {{ play.dramaturg[0].first_name }}
+                        {{ play.dramaturg[0].last_name }}
+                      </div>
+                      <div
+                        v-else-if="play.dramaturg.length > 1"
+                        class="pl_main nowrap_space"
+                      >
+                        <span v-if="play.dramaturg.length % 10 == 2">
+                          {{ play.dramaturg.length }} драматурга
+                        </span>
+                        <span v-else-if="play.dramaturg.length % 10 == 3">
+                          {{ play.dramaturg.length }} драматурга
+                        </span>
+                        <span v-else-if="play.dramaturg.length % 10 == 4">
+                          {{ play.dramaturg.length }} драматурга
+                        </span>
+                        <span v-else>
+                          {{ play.dramaturg.length }} драматургів
+                        </span>
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          v-show="answerSubscribe"
+          class="open_sans upper_case padding_tb_2em"
+        >
+          {{ answerSubscribe }}
+        </div>
+        <div class="p_sticky z_20">
+          <div id="subscribe" class="d_flex_row j_content_center">
+            <div
+              id="lbl_subscribe"
+              class="d_flex_column f_source_sans upper_case t_left little_pad"
+            >
+              <div>
+                {{ subscribeLabel.text1 }}
+              </div>
+              <div class="f_weight_bold">
+                {{ subscribeLabel.text2 }}
+              </div>
+            </div>
+
+            <form
+              id="form_subscribe"
+              action="POST"
+              class="d_flex_row j_content_start"
+              @submit="toSubscribe"
+            >
+              <div
+                id="places_inputs"
+                class="d_flex_row j_content_space_around w_50 h_max horizontal_line little_pad"
+              >
+                <input
+                  v-model="subscribe.email"
+                  class="w_100 b_none f_oswald padding_4path sibscribe_input"
+                  type="email"
+                  name="email_subscribe"
+                  id="e_subscribe"
+                  placeholder="e-mail"
+                />
+              </div>
+              <div
+                class="d_flex_row j_content_start f_oswald w_50 h_max little_pad f_size_32 pad_low_1000"
+              >
+                <input
+                  class="btn_black b_none pad_both_7 upper_case sibscribe_button"
+                  type="submit"
+                  value="підписатись"
+                />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

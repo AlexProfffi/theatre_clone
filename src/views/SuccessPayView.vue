@@ -52,6 +52,7 @@ export default {
       currentOrderId: JSON.parse(localStorage.getItem("infoForTicket")),
       textRing: "Виконується оплата...",
       answerInfoBuy: null,
+      answerInfoBuyNumberOrder: null,
       checkStatus: false,
       numStatus: 0,
     };
@@ -104,6 +105,7 @@ export default {
             .json()
             .then((response) => {
               this.answerInfoBuy = response.info;
+              this.answerInfoBuyNumberOrder = response.number_order;
             })
             .then(() => {
               this.innerSpiner = false;
