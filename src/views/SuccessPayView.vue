@@ -11,7 +11,12 @@
     <div v-else>
       <div v-if="checkStatus">
         <h2 class="ptb_40">Платіж успішний!</h2>
-        <h3>{{ answerInfoBuyNumberOrder }}</h3>
+        <div class="d_flex_column">
+          <h3>
+            {{ dataTxt.numberTextOrderUa }}
+          </h3>
+          <h3>{{ answerInfoBuyNumberOrder }}</h3>
+        </div>
         <div v-if="!innerSpiner" class="t_justify pad_1em">
           {{ answerInfoBuy }}
         </div>
@@ -56,6 +61,11 @@ export default {
       answerInfoBuyNumberOrder: null,
       checkStatus: false,
       numStatus: 0,
+      dataTxt: {
+        numberTextOrderUa:
+          "Ваш номер замовлення(збережіть його до показу вистави):",
+        numberTextOrderEn: "Your order number:",
+      },
     };
   },
   beforeCreate() {},
