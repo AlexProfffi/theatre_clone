@@ -11,6 +11,7 @@
     <div v-else>
       <div v-if="checkStatus">
         <h2 class="ptb_40">Платіж успішний!</h2>
+        <h3>{{ answerInfoBuyNumberOrder }}</h3>
         <div v-if="!innerSpiner" class="t_justify pad_1em">
           {{ answerInfoBuy }}
         </div>
