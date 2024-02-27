@@ -5,9 +5,7 @@
     </div>
     <div class="d_flex_column p_40px padding_faces opacity_05 main_content">
       <!-- ENG LANGUAGE -->
-      <div
-        v-if="$store.state.currentLanguage == 2"
-      >
+      <div v-if="$store.state.currentLanguage == 2">
         <div id="faces_dramats" class="m_both_0_12">
           <div id="faces_7" class="d_grid">
             <div
@@ -290,10 +288,7 @@
         </div>
       </div>
       <!-- UKR LANGUAGE -->
-      <div
-        
-        v-else-if="$store.state.currentLanguage == 0"
-      >
+      <div v-else-if="$store.state.currentLanguage == 0">
         <div id="faces_dramats" class="m_both_0_12">
           <div id="faces_7" class="d_grid">
             <div
@@ -443,7 +438,13 @@
                   class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold"
                   v-if="play.is_past"
                 >
-                  <div>
+                  <div
+                    :class="{
+                      c_white: play.color_name == '#f9f9f9',
+                      c_black: play.color_name == '#202121',
+                      c_gray: play.color_name == '#6e6f70',
+                    }"
+                  >
                     {{ playPast.txt_ua }}
                   </div>
                 </div>
@@ -468,7 +469,13 @@
 
               <div class="p_relative h_100">
                 <div
-                  class="p_relative p_abs_date top_800 w_max_content color_white open_sans f_size_32 f_weight_bold pl_main_date"
+                  class="p_relative p_abs_date top_800 w_max_content open_sans f_size_32 f_weight_bold pl_main_date"
+                  :class="{
+                    c_white: play.color_name == '#f9f9f9',
+                    c_black: play.color_name == '#202121',
+                    c_gray: play.color_name == '#6e6f70',
+                    opacity_0_3: play.is_past,
+                  }"
                 >
                   {{ checkDateToShow(play.id, play.on_play) }}
                 </div>
@@ -486,13 +493,27 @@
                       },
                     }"
                   >
-                    <div class="f_oswald f_size_40 pl_main">
+                    <div
+                      class="f_oswald f_size_40 pl_main"
+                      :class="{
+                        c_white: play.color_name == '#f9f9f9',
+                        c_black: play.color_name == '#202121',
+                        c_gray: play.color_name == '#6e6f70',
+                        opacity_0_3: play.is_past,
+                      }"
+                    >
                       {{ play.name }}
                     </div>
                     <div class="d_flex_row j_content_start f_source_sans">
                       <div
                         v-if="play.dramaturg.length == 1"
                         class="pl_main nowrap_space"
+                        :class="{
+                          c_white: play.color_name == '#f9f9f9',
+                          c_black: play.color_name == '#202121',
+                          c_gray: play.color_name == '#6e6f70',
+                          opacity_0_3: play.is_past,
+                        }"
                       >
                         {{ play.dramaturg[0].first_name }}
                         {{ play.dramaturg[0].last_name }}
@@ -500,6 +521,12 @@
                       <div
                         v-else-if="play.dramaturg.length > 1"
                         class="pl_main nowrap_space"
+                        :class="{
+                          c_white: play.color_name == '#f9f9f9',
+                          c_black: play.color_name == '#202121',
+                          c_gray: play.color_name == '#6e6f70',
+                          opacity_0_3: play.is_past,
+                        }"
                       >
                         <span v-if="play.dramaturg.length % 10 == 2">
                           {{ play.dramaturg.length }} драматурга
@@ -1004,6 +1031,16 @@ export default {
     left: 70%;
   }
 }
+.c_white {
+  color: #f9f9f9;
+}
+.c_black {
+  color: #383838;
+}
+.c_gray {
+  color: #7b7b7b;
+}
+
 .size_pictures,
 .size_pictures_2 {
   height: 100px;
