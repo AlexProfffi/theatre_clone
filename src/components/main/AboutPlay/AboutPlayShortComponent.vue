@@ -165,10 +165,7 @@
         class="d_flex_column j_content_start w_20_percent plays_sl_component"
       >
         <div v-if="play.is_premiere" class="d_flex_row" id="premier">
-        
-          <h4
-            class="upper_case horizontal_line"
-          >
+          <h4 class="upper_case horizontal_line">
             {{ isPremierePlayEn }}
           </h4>
         </div>
@@ -277,8 +274,7 @@
         class="upper_case w_20_percent d_flex_column plays_sl_component"
         :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
       >
-        <div v-if="!play.on_play[0].cancel_event">
-
+        <div v-if="!play.cancel_event">
           <div
             class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
           >
@@ -310,13 +306,11 @@
           class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
           v-else
         >
-          {{ eventCancel }}
+          {{ eventCancelEn }}
         </div>
         <div v-if="!play.on_play[0].cancel_event">
           <div v-if="!isPast">
-            <div
-              class="d_flex_row j_content_center"
-            >
+            <div class="d_flex_row j_content_center">
               <div
                 v-if="showPaymentForm"
                 id="form_pay"
@@ -367,8 +361,7 @@
                   placeholder="Email... (Required field)"
                   v-model="callBackData.email"
                 />
-                <label for="email" class="open_sans small_font t_left"
-                  >
+                <label for="email" class="open_sans small_font t_left">
                   {{ dataFormBiLing.yourNameEn }}
                 </label>
                 <input
@@ -461,8 +454,9 @@
                   :key="dt.value"
                   :id="dt.idEl"
                   class="f_oswald m_0"
+                  :class="{ c_red: on_pl.cancel_event }"
                 >
-                  {{ dt.text }}
+                    {{ dt.text }}
                 </div>
               </div>
             </div>
@@ -527,8 +521,9 @@
                       :key="dt.value"
                       :id="dt.idEl"
                       class="f_oswald m_0"
+                      :class="{ c_red: on_pl.cancel_event }"
                     >
-                      {{ dt.text }}
+                        {{ dt.text }}
                     </div>
                   </div>
                 </div>
@@ -677,7 +672,7 @@
         class="upper_case w_20_percent d_flex_column plays_sl_component"
         :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
       >
-        <div v-if="!play.on_play[0].cancel_event">
+        <div v-if="!play.cancel_event">
           <div
             v-if="!isPast && $store.state.currentLanguage == 0"
             class="d_flex_row j_content_center open_sans f_size_32 c_pointer mob_font"
@@ -730,7 +725,6 @@
               </span>
             </div>
           </div>
-          
         </div>
         <div
           id="cancelEv"
@@ -795,8 +789,7 @@
                   placeholder="Email... (Обов'язкове поле)"
                   v-model="callBackData.email"
                 />
-                <label for="email" class="open_sans small_font t_left"
-                  >
+                <label for="email" class="open_sans small_font t_left">
                   {{ dataFormBiLing.yourName }}
                 </label>
                 <input
@@ -1179,21 +1172,24 @@ export default {
 
     instanceNewCurrentDatePlay(date, event) {
       // Нова дата вистави для купівлі квитка
-      this.parentListEl.push(event.target.parentElement);
-      this.currentDatePlay = date;
-      for (let x = 0; x < this.parentListEl.length; x++) {
-        if (event.target.parentElement == this.parentListEl[x]) {
-          undefined;
-        } else {
-          this.parentListEl[x].style.color = "";
-          this.parentListEl.splice(
-            this.parentListEl.indexOf(this.parentListEl[x]),
-            1
-          );
+      if (!date.cancel_event) {
+        this.parentListEl.push(event.target.parentElement);
+        this.currentDatePlay = date;
+        for (let x = 0; x < this.parentListEl.length; x++) {
+          if (event.target.parentElement == this.parentListEl[x]) {
+            undefined;
+          } else {
+            this.parentListEl[x].style.color = "";
+            this.parentListEl.splice(
+              this.parentListEl.indexOf(this.parentListEl[x]),
+              1
+            );
+          }
+          if (this.parentListEl.length) {
+            this.parentListEl[0].style.color = "black";
+          }
         }
-        if (this.parentListEl.length) {
-          this.parentListEl[0].style.color = "black";
-        }
+        this.showFormToPay()
       }
     },
 
