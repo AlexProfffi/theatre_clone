@@ -31,6 +31,10 @@ html {
     z-index: 20;
 }
 
+.z_25 {
+    z-index: 25;
+}
+
 .top_100 {
     top: 0%;
 }

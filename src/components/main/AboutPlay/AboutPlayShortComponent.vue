@@ -61,6 +61,7 @@
                   :key="dt.value"
                   :id="dt.idEl"
                   class="f_oswald m_0"
+                  :class="{ c_red: on_pl.cancel_event }"
                 >
                   {{ dt.text }}
                 </div>
@@ -127,6 +128,7 @@
                       :key="dt.value"
                       :id="dt.idEl"
                       class="f_oswald m_0"
+                      :class="{ c_red: on_pl.cancel_event }"
                     >
                       {{ dt.text }}
                     </div>
@@ -428,7 +430,7 @@
 
       <div class="w_20_percent plays_sl_component" v-else>
         <div
-          v-for="on_pl in newArrayDates(play.on_play, idDatePlayOne)"
+          v-for="on_pl in newArrayDates(thePlay.on_play, idDatePlayOne)"
           :key="on_pl.id"
         >
           <div
@@ -456,7 +458,7 @@
                   class="f_oswald m_0"
                   :class="{ c_red: on_pl.cancel_event }"
                 >
-                    {{ dt.text }}
+                  {{ dt.text }}
                 </div>
               </div>
             </div>
@@ -523,7 +525,7 @@
                       class="f_oswald m_0"
                       :class="{ c_red: on_pl.cancel_event }"
                     >
-                        {{ dt.text }}
+                      {{ dt.text }}
                     </div>
                   </div>
                 </div>
@@ -733,7 +735,7 @@
         >
           {{ eventCancel }}
         </div>
-        <div v-if="!play.on_play[0].cancel_event">
+        <div v-if="!Object(thePlay.on_play[0]).cancel_event">
           <div v-if="!isPast">
             <div
               v-if="$store.state.currentLanguage == 0"
@@ -850,8 +852,8 @@ export default {
       eventCancel: "Подію скасовано",
       eventWasEn: "The event has already taken",
       eventCancelEn: "cancelled",
-      toOrder: "оформити замовлення",
-      toOrderEn: "to order",
+      toOrder: "придбати квиток",
+      toOrderEn: "to buy the ticket",
       buyTicket: "купити квиток",
       buyTicketEn: "buy a ticket",
       playPast: {
@@ -924,7 +926,6 @@ export default {
   created() {
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
     this.isUserAuth();
-    console.log(this.thePlay.price_for_play);
   },
   methods: {
     test() {},
@@ -1173,6 +1174,13 @@ export default {
     instanceNewCurrentDatePlay(date, event) {
       // Нова дата вистави для купівлі квитка
       if (!date.cancel_event) {
+        // if (this.thePlay.on_play[0].cancel_event) {
+        //   this.thePlay.on_play = this.thePlay.on_play.slice(
+        //     1,
+        //     this.thePlay.on_play.length + 1
+        //   );
+        // }
+
         this.parentListEl.push(event.target.parentElement);
         this.currentDatePlay = date;
         for (let x = 0; x < this.parentListEl.length; x++) {
@@ -1189,7 +1197,6 @@ export default {
             this.parentListEl[0].style.color = "black";
           }
         }
-        this.showFormToPay()
       }
     },
 
