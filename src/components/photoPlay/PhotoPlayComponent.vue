@@ -19,8 +19,8 @@
           />
         </div>
         <div
-          class="carousel-item"
-          v-if="photo_2 != ''"
+          class="carousel-item active"
+          v-else
           :class="'item_for_r' + String(ident)"
         >
           <img

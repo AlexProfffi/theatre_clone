@@ -153,6 +153,7 @@
               id: play.id_play,
               date_id: play.id,
               name: transcriptWord(play.name),
+              toReviews: false,
             },
           }"
         >
@@ -179,6 +180,7 @@
                 id: play.id_play,
                 date_id: play.id,
                 name: transcriptWord(play.name),
+                toReviews: false,
               },
             }"
             class="f_oswald f_weight_400 current_play nav_link_color"
@@ -289,6 +291,7 @@
                   id: play.id_play,
                   date_id: play.id,
                   name: transcriptWord(play.name),
+                  toReviews: false,
                 },
               }"
               class="go_to_buy"
@@ -548,6 +551,7 @@
               id: play.id_play,
               date_id: play.id,
               name: transcriptWord(play.name),
+              toReviews: false,
             },
           }"
         >
@@ -577,6 +581,7 @@
                 id: play.id_play,
                 date_id: play.id,
                 name: transcriptWord(play.name),
+                toReviews: false,
               },
             }"
             class="f_oswald f_weight_400 current_play nav_link_color"
@@ -689,6 +694,7 @@
                     id: play.id_play,
                     date_id: play.id,
                     name: transcriptWord(play.name),
+                    toReviews: false,
                   },
                 }"
                 class="go_to_buy"
@@ -705,6 +711,7 @@
                     id: play.id_play,
                     date_id: play.id,
                     name: transcriptWord(play.name),
+                    toReviews: false,
                   },
                 }"
                 class="go_to_buy"

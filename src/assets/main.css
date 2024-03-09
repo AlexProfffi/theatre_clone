@@ -870,6 +870,10 @@ html {
     border-bottom: 2px solid gray;
 }
 
+.horizontal_line_1 {
+    border-bottom: 1px solid rgb(100, 100, 100);
+}
+
 .horizontal_line_hover {
     /* position: absolute;
     border-bottom: 2px solid gray;

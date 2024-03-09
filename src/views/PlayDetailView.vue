@@ -10,7 +10,7 @@
       <div class="d_flex_column">
         <div v-for="pl in playList" :key="pl.id_play">
           <PhotoPlayComponent
-            :photo="pl.photo"
+            :photo="''"
             :photo_2="pl.photo_2"
             :photo_3="pl.photo_3"
             :photo_4="pl.photo_4"
@@ -41,7 +41,6 @@
           </div>
         </div>
         <div class="margin_both_2 bg_grey_custom padding_tb_2em">
-          
           <AboutPlayShortComponentVue
             :play="playOneDate"
             :idDatePlayOne="playOneDate.id"
@@ -285,7 +284,7 @@
           </div>
           <div class="d_flex_row"></div>
         </div>
-        <div class="p_40px">
+        <div id="cmnts" class="p_40px">
           <CommentsComponent :oneIdPlay="id" />
         </div>
       </div>
@@ -306,7 +305,7 @@ import PhotoPlayComponent from "@/components/photoPlay/PhotoPlayComponent.vue";
 import SpinerComponent from "@/components/helpers/SpinerComponent.vue";
 import AboutPlayShortComponentVue from "@/components/main/AboutPlay/AboutPlayShortComponent.vue";
 import CommentsComponent from "@/components/comments/CommentsComponent.vue";
-import { transcription, concat } from "../assets/main";
+import { transcription, concat, getBeginCoordElement } from "../assets/main";
 
 export default {
   name: "PlayDetailView",
@@ -321,9 +320,11 @@ export default {
   props: {
     id: String,
     date_id: String,
+    toReviews: Boolean,
   },
   data() {
     return {
+      scrollToReview: this.toReviews,
       publicPath: process.env.BASE_URL,
       showSpiner: true,
       isMobile: false,
@@ -383,9 +384,20 @@ export default {
       .then(() => this.setTitle())
       .then(() => {
         this.showSpiner = false;
+      })
+      .then(() => {
+        this.goToReview();
       });
   },
   methods: {
+    goToReview() {
+      // Прокручує сторінку до відгуків
+      if (this.toReviews == "true") {
+        console.log(this.toReviews);
+        window.scrollTo(getBeginCoordElement("#cmnts"));
+      }
+    },
+
     actorOrDirector(rols) {
       if (rols.indexOf("Режисерка") > -1 || rols.indexOf("Режисер") > -1) {
         return "directors";

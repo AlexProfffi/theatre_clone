@@ -153,6 +153,27 @@
                 class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
                 :class="{ opacity_0_3: play.is_past }"
               >
+                <!-- вдігуки -->
+                <div
+                  class="t_left z_25 p_sticky f_oswald date_color w_max_content p_tb_5"
+                >
+                  <div class="horizontal_line_1">
+                    <router-link
+                      class="nav_link_color"
+                      :to="{
+                        name: 'play',
+                        params: {
+                          id: play.id_play,
+                          date_id: play.id,
+                          name: transcriptWord(play.name),
+                          toReviews: true,
+                        },
+                      }"
+                    >
+                      {{ reviews.reviewEn }}
+                    </router-link>
+                  </div>
+                </div>
                 <div
                   class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold"
                   v-if="play.is_past"
@@ -169,6 +190,7 @@
                       id: play.id_play,
                       date_id: play.id,
                       name: transcriptWord(play.name),
+                      toReviews: false,
                     },
                   }"
                 >
@@ -197,6 +219,7 @@
                         id: play.id_play,
                         date_id: play.id,
                         name: transcriptWord(play.name),
+                        toReviews: false,
                       },
                     }"
                   >
@@ -417,7 +440,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="mar_0_06_em">
           <div id="plays_main_name" class="d_flex_column margin_both_auto">
             <div
@@ -428,19 +451,34 @@
               </div>
             </div>
           </div>
-          
+
           <div id="plays_main_list" class="d_grid_3 ptb_5em">
             <div class="p_relative" v-for="play in mainPlays" :key="play.id">
-              
               <div
                 class="w_22em h_35em margin_both_auto c_pointer overflow_hidden"
                 :class="{ opacity_0_3: play.is_past }"
               >
-              <!-- <div class="t_left z_25 p_sticky f_oswald date_color w_max_content p_tb_5">
-                <div class="horizontal_line">
-                  відгуки
+                <!-- вдігуки -->
+                <div
+                  class="t_left z_25 p_sticky f_oswald date_color w_max_content p_tb_5"
+                >
+                  <div class="horizontal_line_1">
+                    <router-link
+                      class="nav_link_color"
+                      :to="{
+                        name: 'play',
+                        params: {
+                          id: play.id_play,
+                          date_id: play.id,
+                          name: transcriptWord(play.name),
+                          toReviews: true,
+                        },
+                      }"
+                    >
+                      {{ reviews.reviewUa }}
+                    </router-link>
+                  </div>
                 </div>
-              </div> -->
                 <div
                   class="p_absolute z_20 color_white open_sans f_size_32 f_weight_bold"
                   v-if="play.is_past"
@@ -463,6 +501,7 @@
                       id: play.id_play,
                       date_id: play.id,
                       name: transcriptWord(play.name),
+                      toReviews: false,
                     },
                   }"
                 >
@@ -473,7 +512,7 @@
                   />
                 </router-link>
               </div>
-              
+
               <div class="p_relative h_100">
                 <div
                   class="p_relative p_abs_date top_800 w_max_content open_sans f_size_32 f_weight_bold pl_main_date"
@@ -497,6 +536,7 @@
                         id: play.id_play,
                         date_id: play.id,
                         name: transcriptWord(play.name),
+                        toReviews: false,
                       },
                     }"
                   >
@@ -551,7 +591,6 @@
                     </div>
                   </router-link>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -655,6 +694,10 @@ export default {
       playPast: {
         txt_ua: "вистава вже минула",
         txt_en: "the performance has already passed",
+      },
+      reviews: {
+        reviewUa: "відгуки",
+        reviewEn: "reviews",
       },
       showIdeas: false,
       mobile: true,

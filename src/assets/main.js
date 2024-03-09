@@ -154,6 +154,12 @@ let slugGet = function(slug) {
     }
 };
 
+let getBeginCoordElement = function(idElement) {
+    let el = document.querySelector(idElement);
+    let beginElement = el.getBoundingClientRect();
+    return beginElement;
+};
+
 export {
     monthData,
     sliceString,
@@ -162,4 +168,5 @@ export {
     concat,
     setBrakeDate,
     slugGet,
+    getBeginCoordElement,
 };
