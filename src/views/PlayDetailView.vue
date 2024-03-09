@@ -393,7 +393,6 @@ export default {
     goToReview() {
       // Прокручує сторінку до відгуків
       if (this.toReviews == "true") {
-        console.log(this.toReviews);
         window.scrollTo(getBeginCoordElement("#cmnts"));
       }
     },
