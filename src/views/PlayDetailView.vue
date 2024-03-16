@@ -405,8 +405,10 @@ export default {
 
     async setReferalLink() {
       // Отримує реферальне посилання
-      this.referalUrl = document.referrer;
-      localStorage.setItem("referal", this.referalUrl);
+      if (document.referrer) {
+        this.referalUrl = document.referrer;
+        localStorage.setItem("referal", this.referalUrl);
+      }
     },
 
     actorOrDirector(rols) {
