@@ -7,11 +7,6 @@
       <div>
         <HeaderComponent />
       </div>
-      <div>
-        <h3>
-          {{ referalUrl }}
-        </h3>
-      </div>
       <div class="d_flex_column">
         <div v-for="pl in playList" :key="pl.id_play">
           <PhotoPlayComponent
