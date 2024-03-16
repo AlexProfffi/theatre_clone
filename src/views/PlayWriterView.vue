@@ -188,6 +188,7 @@
                           id: plwr.id,
                           date_id: plwr.on_play[0].id,
                           name: transcriptWord(plwr.name),
+                          toReviews: false,
                         },
                       }"
                     >

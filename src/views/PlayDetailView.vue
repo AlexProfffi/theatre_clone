@@ -7,6 +7,11 @@
       <div>
         <HeaderComponent />
       </div>
+      <div>
+        <h3>
+          {{ referalUrl }}
+        </h3>
+      </div>
       <div class="d_flex_column">
         <div v-for="pl in playList" :key="pl.id_play">
           <PhotoPlayComponent
@@ -341,7 +346,7 @@ export default {
       linkOffert: null,
       textRing: false,
       playOneDate: {},
-      referalUrl: null,
+      referalUrl: "Театр",
       inId: this.id,
       transcriptWord: transcription,
       concat: concat,
@@ -388,12 +393,7 @@ export default {
       .then(() => {
         this.goToReview();
       })
-      .then(() => {
-        this.referalUrl = document.referrer;
-      })
-      .then(() => {
-        console.log(this.referalUrl);
-      });
+      .then(() => this.setReferalLink());
   },
   methods: {
     goToReview() {
@@ -401,6 +401,12 @@ export default {
       if (this.toReviews == "true") {
         window.scrollTo(getBeginCoordElement("#cmnts"));
       }
+    },
+
+    async setReferalLink() {
+      // Отримує реферальне посилання
+      this.referalUrl = document.referrer;
+      localStorage.setItem("referal", this.referalUrl);
     },
 
     actorOrDirector(rols) {

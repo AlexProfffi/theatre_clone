@@ -924,7 +924,6 @@ export default {
         this.idDatePlayOne
       )[0],
       parentListEl: [],
-      testPayButton: null,
       sluginToServerDirector: "directors",
       sluginToServerAuthor: "authors",
       concat: concat,
@@ -969,7 +968,6 @@ export default {
 
     async setOrderInToStorage() {
       // Заносить order_id в локальне сховище
-      this.testPayButton = "setOrderInToStorage";
       localStorage.setItem(
         "infoForTicket",
         JSON.stringify({
@@ -980,6 +978,7 @@ export default {
           play_name: this.thePlay.name,
           count_tickets: this.callBackData.countTickets,
           object_date: this.idDatePlayOne,
+          refer_link: localStorage.getItem("referal"),
         })
       );
     },
