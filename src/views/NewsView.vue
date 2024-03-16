@@ -11,59 +11,67 @@
           <div>новини</div>
         </div>
       </div>
-      <div
-        v-for="new_one in news"
-        :key="new_one.id"
-        class="d_flex_row j_content_space_around ptb_5em bg_grey_custom position_low_1000 direction_low_1000 w_low horizontal_line"
-      >
+      <div v-if="news.length">
         <div
-          class="w_30 w_low"
-          @click="showModal(new_one.name, new_one.description, new_one.image)"
+          v-for="new_one in news"
+          :key="new_one.id"
+          class="d_flex_row j_content_space_around ptb_5em bg_grey_custom position_low_1000 direction_low_1000 w_low horizontal_line"
         >
-          <img
-            :src="repalcer(new_one.image, '')"
-            :alt="new_one.name"
-            class="img_on_list_new img_on_list__low_1000 c_pointer w_90vw"
-          />
-        </div>
-        <div v-if="modal">
-          <ModalShowPicture
-            :picture="modalImage"
-            :name="modalName"
-            :description="null"
-            :show="modal"
-            @close="modal = false"
-          />
-        </div>
-        <div class="d_flex_row j_content_start w_50 w_low">
           <div
-            class="d_flex_column j_content_space_between t_left w_75 w_low position_content_low_1000"
+            class="w_30 w_low"
+            @click="showModal(new_one.name, new_one.description, new_one.image)"
           >
-            <div class="d_flex_row j_content_center">
-              <div class="w_max w_low_25 d_flex_for_mob j_content_start">
-                <h2 class="f_oswald">
-                  {{ new_one.name }}
-                </h2>
-              </div>
-            </div>
+            <img
+              :src="repalcer(new_one.image, '')"
+              :alt="new_one.name"
+              class="img_on_list_new img_on_list__low_1000 c_pointer w_90vw"
+            />
+          </div>
+          <div v-if="modal">
+            <ModalShowPicture
+              :picture="modalImage"
+              :name="modalName"
+              :description="null"
+              :show="modal"
+              @close="modal = false"
+            />
+          </div>
+          <div class="d_flex_row j_content_start w_50 w_low">
             <div
-              class="f_source_sans padding_tb_2em w_max"
-              :class="{
-                c_pointer: new_one.description.length > maxCountSymbols,
-              }"
-              @click="showLargeTextNews(new_one.description.length)"
-              v-html="sliceString(new_one.description, maxCountSymbols)"
-            ></div>
-            <div class="d_flex_row justify_low_1000 j_content_end">
-              <div class="d_flex_row j_content_end w_low_25">
-                <div class="f_source_sans">
-                  {{ formatDate(new_one.date_event) }}
+              class="d_flex_column j_content_space_between t_left w_75 w_low position_content_low_1000"
+            >
+              <div class="d_flex_row j_content_center">
+                <div class="w_max w_low_25 d_flex_for_mob j_content_start">
+                  <h2 class="f_oswald">
+                    {{ new_one.name }}
+                  </h2>
+                </div>
+              </div>
+              <div
+                class="f_source_sans padding_tb_2em w_max"
+                :class="{
+                  c_pointer: new_one.description.length > maxCountSymbols,
+                }"
+                @click="showLargeTextNews(new_one.description.length)"
+                v-html="sliceString(new_one.description, maxCountSymbols)"
+              ></div>
+              <div class="d_flex_row justify_low_1000 j_content_end">
+                <div class="d_flex_row j_content_end w_low_25">
+                  <div class="f_source_sans">
+                    {{ formatDate(new_one.date_event) }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <hr class="margin_both_2 mar_top_bot" />
         </div>
-        <hr class="margin_both_2 mar_top_bot" />
+      </div>
+      <div v-else-if="getNewsFb.length">
+        {{ newsFb }}
+      </div>
+      <div v-else>
+        {{ alterText.altUa }}
       </div>
     </div>
 
@@ -95,21 +103,28 @@ export default {
       showSpiner: true,
       modal: false,
       news: [],
+      newsFb: [],
       intrval: null,
       modalName: null,
       modalDescription: null,
       modalImage: null,
       maxCountSymbols: 550,
       isShowLargeContent: false,
+      alterText: {
+        altEn: "",
+        altUa: "Скоро тут обов'язкво щось з'явиться...",
+      },
     };
   },
   created() {
-    this.getNews().then(() => {
-      this.showContent();
-    });
+    this.getNews()
+      .then(() => {
+        this.showContent();
+      });
     this.setTitle();
   },
   methods: {
+    async getFbAnother() {},
     async showContent() {
       // Показує контент методом підвищення opacity
       let cnt = 0;
@@ -126,6 +141,16 @@ export default {
 
     async getNews() {
       this.news = await fetch(`${this.$store.getters.getServerUrl}/all_news/`)
+        .then((response) => response.json())
+
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async getNewsFb() {
+      this.newsFb = await fetch(
+        `${this.$store.getters.getServerUrl}/fb_all_news/`
+      )
         .then((response) => response.json())
 
         .catch((error) => {

@@ -341,7 +341,7 @@ export default {
       linkOffert: null,
       textRing: false,
       playOneDate: {},
-
+      referalUrl: null,
       inId: this.id,
       transcriptWord: transcription,
       concat: concat,
@@ -387,6 +387,12 @@ export default {
       })
       .then(() => {
         this.goToReview();
+      })
+      .then(() => {
+        this.referalUrl = document.referrer;
+      })
+      .then(() => {
+        console.log(this.referalUrl);
       });
   },
   methods: {
