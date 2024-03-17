@@ -4,16 +4,29 @@
     <div class="opacity_05 main_content">
       <div class="d_flex_column ptb_40">
         <div>
-          <p class="upper_case open_sans f_size_42">партнери</p>
-        </div>
-        <div class="d_flex_row j_content_center">
-          <p class="font_1 open_sans w_30 t_justify" id="txt1">
-            Ми глибоко вдячні нашим <b>особливим партнерам</b> за їхню безмежну
-            підтримку театру драматургів. Ваша віра в нашу міссію та фінансова
-            підтримка дозволяють нам реалізовувати найкращі творчі задуми і
-            надавати глядачам незабутні вистави.
+          <p
+            v-if="$store.state.currentLanguage == 0"
+            class="upper_case open_sans f_size_42"
+          >
+            {{ partnersName.ua }}
+          </p>
+          <p
+            v-else-if="$store.state.currentLanguage == 2"
+            class="upper_case open_sans f_size_42"
+          >
+            {{ partnersName.en }}
           </p>
         </div>
+        <div
+          v-if="$store.state.currentLanguage == 0"
+          class="d_flex_row j_content_center"
+          v-html="partnersThanksMain.ua"
+        ></div>
+        <div
+          v-else-if="$store.state.currentLanguage == 2"
+          class="d_flex_row j_content_center"
+          v-html="partnersThanksMain.en"
+        ></div>
       </div>
       <div class="d_flex_column p_40px bg_grey_custom m_bottom_5em">
         <div v-for="prtn in specialPartners" :key="prtn.id" class="pad_top">
@@ -26,13 +39,16 @@
           </a>
         </div>
       </div>
-      <div class="d_flex_row j_content_center">
-        <p class="font_1 open_sans w_30 t_justify" id="txt2">
-          Дякуємо всім нашим партнерам за їхню відданість культурі та мистецтву.
-          Ваша підтримка допомагає нам зберігати та розвивати театр драматургів,
-          роблячи його доступним для широкої аудиторії.
-        </p>
-      </div>
+      <div
+        v-if="$store.state.currentLanguage == 0"
+        class="d_flex_row j_content_center"
+        v-html="partnersThanksSimple.ua"
+      ></div>
+      <div
+        v-else-if="$store.state.currentLanguage == 2"
+        class="d_flex_row j_content_center"
+        v-html="partnersThanksSimple.en"
+      ></div>
       <div
         id="not_special"
         class="d_flex_row j_content_space_around padding_tb_15_em fl_grid"
@@ -69,6 +85,36 @@ export default {
       user: {},
       token: localStorage.getItem("token"),
       parners: [],
+      partnersName: {
+        ua: "партнери",
+        en: "partners",
+      },
+      partnersThanksSimple: {
+        ua: `<p class="font_1 open_sans w_30 t_justify" id="txt2">
+          Дякуємо всім нашим партнерам за їхню відданість культурі та мистецтву.
+          Ваша підтримка допомагає нам зберігати та розвивати театр драматургів,
+          роблячи його доступним для широкої аудиторії.
+        </p>`,
+        en: `<p class="font_1 open_sans w_30 t_justify" id="txt2">
+          Thank you to all our partners for their commitment to culture and the arts.
+          Your support helps us preserve and develop the theater of playwrights,
+          making it accessible to a wide audience.
+        </p>`,
+      },
+      partnersThanksMain: {
+        ua: `<p class="font_1 open_sans w_30 t_justify" id="txt1">
+            Ми глибоко вдячні нашим <b>особливим партнерам</b> за їхню безмежну
+            підтримку театру драматургів. Ваша віра в нашу міссію та фінансова
+            підтримка дозволяють нам реалізовувати найкращі творчі задуми і
+            надавати глядачам незабутні вистави.
+          </p>`,
+        en: `<p class="font_1 open_sans w_30 t_justify" id="txt1">
+            We are deeply grateful to our <b>special partners</b> for their generosity
+            support of dramatists' theater. Your faith in our mission and finances
+            support refused us to implement the best creative ideas and
+            to provide the audience with unforgettable performances
+            </p>`,
+      },
     };
   },
   created() {
