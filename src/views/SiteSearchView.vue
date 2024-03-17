@@ -43,6 +43,7 @@
                       id: srch.id_obj,
                       date_id: srch.id_date,
                       name: transcriptWord(srch.name),
+                      toReviews: false,
                     },
                   }"
                   class="nav_link_color"
