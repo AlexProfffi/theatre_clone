@@ -8,7 +8,7 @@
         v-for="navig in myProfileNavigation()"
         :key="navig.value"
         :id="navig.idEl"
-        class="c_pointer nav_link_color"
+        class="c_pointer nav_link_color font_1_low_1000"
         @click="getPathOnProfile(navig.value)"
       >
         {{ navig.text }}
@@ -58,6 +58,13 @@ export default {
   .w_max_ul {
     width: 100%;
   }
+  
+}
+@media screen and (max-width: 800px) {
+  #navs {
+    font-size: 10px;
+  }
+  
 }
 
 </style>

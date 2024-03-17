@@ -9,10 +9,10 @@
       <div v-if="spiner">
         <SpinerComponent />
       </div>
-      <div v-else class="d_flex_column p_40px">
+      <div v-else class="d_flex_column p_40px p_40px_profile">
         {{ crd }}
         <ProfileNavigatorComponent :bools="boolsC" />
-        <div v-if="boolsC[0]" class="d_flex_column">
+        <div v-if="boolsC[0]" class="d_flex_column w_100">
           <MyPlaysComponent :myTickets="user.buyuser" />
         </div>
         <div v-else-if="boolsC[1]" class="d_flex_column">
@@ -222,6 +222,9 @@ export default {
   }
   .buyed_tct {
     font-size: 0.8em;
+  }
+  .p_40px_profile {
+    padding: 20px;
   }
 }
 .home_play {
