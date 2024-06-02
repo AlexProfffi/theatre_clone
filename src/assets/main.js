@@ -160,6 +160,8 @@ let getBeginCoordElement = function(idElement) {
     return beginElement;
 };
 
+
+
 export {
     monthData,
     sliceString,

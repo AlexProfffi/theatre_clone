@@ -77,6 +77,7 @@ export default {
           JSON.stringify({
             username: this.user.username,
             email: this.user.email,
+            isStaff: this.user.is_staff,
           })
         );
       })

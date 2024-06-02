@@ -1212,3 +1212,14 @@ html {
         font-weight: 600;
     }
 }
+
+
+/* COLORS */
+
+.c_green_light {
+    background-color: rgb(207, 255, 135);
+}
+
+.c_red_light {
+    background-color: rgb(255, 175, 135);
+}
