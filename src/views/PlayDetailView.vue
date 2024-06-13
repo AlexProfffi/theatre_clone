@@ -40,6 +40,16 @@
             </h3>
           </div>
         </div>
+
+        <div class="d_flex_row margin_both_2">
+          <div
+            class="small_font_09"
+            v-for="tg in playOneDate.tags"
+            :key="tg.id"
+          >
+            <a href=""> #{{ tg.name }}&nbsp; </a>
+          </div>
+        </div>
         <div class="margin_both_2 bg_grey_custom padding_tb_2em">
           <AboutPlayShortComponentVue
             :play="playOneDate"
@@ -124,16 +134,8 @@
           class="d_flex_column margin_both_2 horizontal_line"
           v-if="playOneDate.link_video"
         >
-          <div class="d_flex_row j_content_center padding_tb_2em">
-            <iframe
-              id="frame_youtube"
-              class="w_80 h_400px"
-              :src="playOneDate.link_video"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
+          <div class="d_flex_row j_content_center padding_tb_2em" v-html="playOneDate.link_video">
+            
           </div>
         </div>
         <div v-else class="h_7em"></div>
@@ -284,6 +286,7 @@
           </div>
           <div class="d_flex_row"></div>
         </div>
+
         <div id="cmnts" class="p_40px">
           <CommentsComponent :oneIdPlay="id" />
         </div>
