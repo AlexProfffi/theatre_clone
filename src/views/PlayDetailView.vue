@@ -130,13 +130,22 @@
             </div>
           </div>
         </div>
+        <div v-if="playOneDate.source_video">
+          <video width="530" height="440" controls autoplay>
+            <source
+              :src="repalcer(playOneDate.source_video, '')"
+              type="video/mp4"
+            />
+          </video>
+        </div>
         <div
           class="d_flex_column margin_both_2 horizontal_line"
-          v-if="playOneDate.link_video"
+          v-else-if="playOneDate.link_video"
         >
-          <div class="d_flex_row j_content_center padding_tb_2em" v-html="playOneDate.link_video">
-            
-          </div>
+          <div
+            class="d_flex_row j_content_center padding_tb_2em"
+            v-html="playOneDate.link_video"
+          ></div>
         </div>
         <div v-else class="h_7em"></div>
         <div class="d_flex_column j_content_space_between">
@@ -394,6 +403,16 @@ export default {
       .then(() => this.setReferalLink());
   },
   methods: {
+    repalcer(str, changeble) {
+      // Замінює підстроку
+      if (changeble) {
+        return (
+          "https://theatreofplaywrightsapi.space:8443/image_theatre/" +
+          str.replace(changeble, "")
+        );
+      }
+      return "https://theatreofplaywrightsapi.space:8443/image_theatre/" + str;
+    },
     goToReview() {
       // Прокручує сторінку до відгуків
       if (this.toReviews == "true") {
