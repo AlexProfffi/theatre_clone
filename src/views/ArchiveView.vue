@@ -57,6 +57,7 @@
                     id: eventPast.id_obj,
                     date_id: eventPast.id_date,
                     name: transcriptWord(eventPast.name),
+                    toReviews: false,
                   },
                 }"
               >

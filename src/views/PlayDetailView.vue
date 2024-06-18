@@ -61,7 +61,6 @@
             :isPastOnView="playOneDate.is_past"
           />
         </div>
-
         <div
           id="offerContract"
           class="d_flex_row j_content_start margin_both_2"
@@ -388,11 +387,9 @@ export default {
   },
   created() {
     this.getDatePlay()
-      // .then(() => this.getLinkPay())
       .then(() => this.getOffert())
       .then(() => this.playList.push(this.playOneDate))
       .then(() => this.linkPayList.push(this.linkPay))
-      // .then(() => this.getDatePlay())
       .then(() => this.setTitle())
       .then(() => {
         this.showSpiner = false;
@@ -456,6 +453,8 @@ export default {
           console.log(error);
         });
     },
+
+    
 
     async getDatePlay() {
       this.playOneDate = await fetch(

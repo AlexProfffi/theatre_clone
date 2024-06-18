@@ -15,6 +15,7 @@
           class="pad_4_path f_source_sans t_justify"
           v-html="dataText.text"
         ></div>
+        
       </div>
       <div class="">
         <div id="authors_txt" class="d_flex_row pad_4_path">

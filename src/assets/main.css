@@ -248,6 +248,10 @@ html {
     width: 40%;
 }
 
+.w_35 {
+    width: 35%;
+}
+
 .w_30 {
     width: 30%;
 }
@@ -258,6 +262,10 @@ html {
 
 .w_50_px {
     width: 50px;
+}
+
+.w_25_px {
+    width: 30px;
 }
 
 .w_22em {
@@ -408,6 +416,10 @@ html {
 
 .mar_06_em {
     margin: .5em;
+}
+
+.mar_02_em {
+    margin: .1em;
 }
 
 .mb_1rem {
@@ -594,6 +606,10 @@ html {
 }
 
 .pad_03em {
+    padding: .3em;
+}
+
+.pad_05em {
     padding: .3em;
 }
 
@@ -1226,4 +1242,23 @@ html {
 
 .c_red_light {
     background-color: rgb(255, 175, 135);
+}
+
+.one_place:hover {
+    background-color: #e3e3e3;
+}
+
+
+/* status price color */
+
+.st_color_red {
+    background-color: rgb(193, 22, 22);
+}
+
+.st_color_yellow {
+    background-color: rgb(211, 211, 22);
+}
+
+.st_color_green {
+    background: rgb(11, 155, 11);
 }

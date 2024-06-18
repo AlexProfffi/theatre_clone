@@ -676,7 +676,7 @@
         </div>
       </div>
       <div
-        class="upper_case w_20_percent d_flex_column plays_sl_component"
+        class="upper_case d_flex_column plays_sl_component w_max_content"
         :class="{ j_content_start: !withPhoto, j_content_center: withPhoto }"
       >
         <div v-if="!play.cancel_event">
@@ -737,22 +737,42 @@
         </div>
         <div
           id="cancelEv"
-          class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
+          class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em "
           v-else
         >
           {{ eventCancel }}
         </div>
-        <div v-if="!Object(thePlay.on_play[0]).cancel_event">
-          <div v-if="!isPast">
+        <div v-if="!Object(thePlay.on_play[0]).cancel_event" class="w_max_content">
+          <div v-if="!isPast" class="w_max_content">
             <div
               v-if="$store.state.currentLanguage == 0"
-              class="d_flex_row j_content_center"
+              class="d_flex_row j_content_center w_max_content"
             >
               <div
                 v-if="showPaymentForm"
                 id="form_pay"
-                class="d_flex_column w_75"
+                class="d_flex_column w_max_content "
               >
+                <div class="d_flex_column ptb_1em w_max_content">
+                  <div
+                    class="d_flex_row w_max_content"
+                    v-for="place_row in places.data_place"
+                    :key="places.data_place.indexOf(place_row)"
+                  >
+                    <div
+                      v-for="one_place in place_row"
+                      :key="one_place.placeNumber"
+                    >
+                      <div
+                        class="w_25_px mar_02_em b_wrap c_pointer one_place"
+                        :class="setNeededColor(one_place.statusPrice)"
+                        @click="clickOwnedPlace(places.data_place.indexOf(place_row), place_row.indexOf(one_place))"
+                      >
+                        {{ one_place.placeNumber }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="d_flex_column j_content_space_around p_tb_5">
                   <div class="d_flex_row">
                     <span class="open_sans small_font">
@@ -927,14 +947,44 @@ export default {
       sluginToServerDirector: "directors",
       sluginToServerAuthor: "authors",
       concat: concat,
+      places: null,
+      
     };
   },
   created() {
+    this.getPlaces();
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
     this.isUserAuth();
   },
   methods: {
-    test() {},
+    clickOwnedPlace(index_1, index_2){
+      this.places.data_place[index_1][index_2].owned = true;
+      console.log(this.places.data_place);
+    },
+    setNeededColor(statPlace) {
+      // Виставляє потрібний колір для вистави
+      let statuses = [
+        { st: "G", cls: "st_color_green" },
+        { st: "Y", cls: "st_color_yellow" },
+        { st: "R", cls: "st_color_red" },
+        { st: "", cls: "" },
+      ];
+
+      for (let x = 0; x < statuses.length; x++) {
+        if (statuses[x].st == statPlace) {
+          return statuses[x].cls;
+        }
+      }
+    },
+    async getPlaces() {
+      this.places = await fetch(
+        `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
+      )
+        .then((response) => response.json())
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     drawHorizontalLine(classEl, index = 0) {
       // Підкреслення по наведенню на елемент
 
@@ -1289,13 +1339,15 @@ export default {
     padding: 0 !important;
   }
   .plays_sl_component {
-    margin: 2em;
+    margin: auto;
     width: max-content !important;
     padding-bottom: 5px;
     justify-content: center;
     font-size: 1em;
   }
-
+  .w_25_px {
+    width: 23px;
+  }
   .pic_sl_component {
     width: 100%;
   }
