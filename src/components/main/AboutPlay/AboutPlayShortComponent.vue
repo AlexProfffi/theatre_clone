@@ -1103,7 +1103,7 @@ export default {
       //  Перехід на іншу сторінку з фокусом на ній
       this.getLinkPay()
         .then(() => this.setOrderInToStorage())
-        .then(() => this.setPlaceInToStorage())
+        // .then(() => this.setPlaceInToStorage())
         .then(() => this.goToPayPage());
     },
     instancePriceForUser(statusPrcs) {
