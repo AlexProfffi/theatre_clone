@@ -999,11 +999,14 @@ export default {
     };
   },
   created() {
-    this.getPlaces();
+    this.getPlaces().then(() => this.setNewVarPrice());
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
     this.isUserAuth();
   },
   methods: {
+    async setNewVarPrice() {
+      this.newUsersPrcs = this.thePlay.price_for_play;
+    },
     clickOwnedPlace(index_1, index_2, stats) {
       this.places.data_place[index_1][index_2].owned = true;
       this.callBackData.place = { row: index_1 + 1, plc: index_2 + 1 };
@@ -1110,16 +1113,10 @@ export default {
         { st: "Y", cls: this.thePlay.price_for_play_yellow },
         { st: "R", cls: this.thePlay.price_for_play_red },
       ];
-
-      if (!this.thePlay.free_seats) {
-        for (let x = 0; x < statuses.length; x++) {
-          if (statuses[x].st == statusPrcs) {
-            this.newUsersPrcs = statuses[x].cls;
-          }
+      for (let x = 0; x < statuses.length; x++) {
+        if (statuses[x].st == statusPrcs) {
+          this.newUsersPrcs = statuses[x].cls;
         }
-      } else {
-        this.newUsersPrcs = this.thePlay.price_for_play 
-        console.log(this.newUsersPrcs)
       }
     },
     async getLinkPay() {
