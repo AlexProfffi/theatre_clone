@@ -1111,10 +1111,14 @@ export default {
         { st: "R", cls: this.thePlay.price_for_play_red },
       ];
 
-      for (let x = 0; x < statuses.length; x++) {
-        if (statuses[x].st == statusPrcs) {
-          this.newUsersPrcs = statuses[x].cls;
+      if (!this.thePlay.free_seats) {
+        for (let x = 0; x < statuses.length; x++) {
+          if (statuses[x].st == statusPrcs) {
+            this.newUsersPrcs = statuses[x].cls;
+          }
         }
+      } else {
+        this.newUsersPrcs = this.thePlay.price_for_play 
       }
     },
     async getLinkPay() {
@@ -1164,7 +1168,7 @@ export default {
       if (
         check_a &&
         check_dot &&
-        this.callBackData.userName && 
+        this.callBackData.userName &&
         this.checkPlace()
       ) {
         return true;
