@@ -1119,6 +1119,7 @@ export default {
         }
       } else {
         this.newUsersPrcs = this.thePlay.price_for_play 
+        console.log(this.newUsersPrcs)
       }
     },
     async getLinkPay() {
