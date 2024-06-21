@@ -1256,9 +1256,30 @@ html {
 }
 
 .st_color_yellow {
-    background-color: rgb(211, 211, 22);
+    background-color: rgb(255, 255, 42);
 }
 
 .st_color_green {
-    background: rgb(11, 155, 11);
+    background-color: rgb(11, 155, 11);
+}
+
+.box_color_green,
+.box_color_yellow,
+.box_color_red {
+    width: 13px;
+    height: 13px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.box_color_green {
+    background-color: rgb(11, 155, 11);
+}
+
+.box_color_yellow {
+    background-color: rgb(255, 255, 42);
+}
+
+.box_color_red {
+    background-color: rgb(193, 22, 22);
 }

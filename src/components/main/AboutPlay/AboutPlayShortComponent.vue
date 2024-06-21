@@ -656,8 +656,33 @@
             </div>
           </div>
         </div>
+        <!-- Ціни -->
         <div class="d_flex_row j_content_start f_family_sans">
-          {{ play.price_for_play }} грн.
+          <div class="d_flex_column j_content_center">
+            <div class="box_color_green"></div>
+          </div>
+          &nbsp;
+          <div>{{ play.price_for_play }} грн.</div>
+        </div>
+        <div
+          v-if="play.price_for_play_yellow"
+          class="d_flex_row j_content_start f_family_sans"
+        >
+          <div class="d_flex_column j_content_center">
+            <div class="box_color_yellow"></div>
+          </div>
+          &nbsp;
+          <div>{{ play.price_for_play_yellow }} грн.</div>
+        </div>
+        <div
+          v-if="play.price_for_play_red"
+          class="d_flex_row j_content_start f_family_sans"
+        >
+          <div class="d_flex_column j_content_center">
+            <div class="box_color_red"></div>
+          </div>
+          &nbsp;
+          <div>{{ play.price_for_play_red }} грн.</div>
         </div>
         <div class="d_flex_row f_oswald pad_top play_sl_duration">
           <h4
@@ -716,9 +741,9 @@
                 }"
                 class="go_to_buy"
               >
-                <span v-if="$store.state.currentLanguage == 0">{{
-                  playPast.txt_ua
-                }}</span>
+                <span v-if="$store.state.currentLanguage == 0">
+                  {{ playPast.txt_ua }}
+                </span>
 
                 <div class="horizontal_line_hover"></div>
               </router-link>
@@ -737,12 +762,15 @@
         </div>
         <div
           id="cancelEv"
-          class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em "
+          class="f_size_32 c_red b_red b_radius_10 f_damage_rubik rotate_something pad_03em mt_3em"
           v-else
         >
           {{ eventCancel }}
         </div>
-        <div v-if="!Object(thePlay.on_play[0]).cancel_event" class="w_max_content">
+        <div
+          v-if="!Object(thePlay.on_play[0]).cancel_event"
+          class="w_max_content"
+        >
           <div v-if="!isPast" class="w_max_content">
             <div
               v-if="$store.state.currentLanguage == 0"
@@ -751,9 +779,12 @@
               <div
                 v-if="showPaymentForm"
                 id="form_pay"
-                class="d_flex_column w_max_content "
+                class="d_flex_column w_max_content"
               >
-                <div class="d_flex_column ptb_1em w_max_content">
+                <div
+                  v-if="!thePlay.free_seats"
+                  class="d_flex_column ptb_1em w_max_content"
+                >
                   <div
                     class="d_flex_row w_max_content"
                     v-for="place_row in places.data_place"
@@ -766,13 +797,28 @@
                       <div
                         class="w_25_px mar_02_em b_wrap c_pointer one_place"
                         :class="setNeededColor(one_place.statusPrice)"
-                        @click="clickOwnedPlace(places.data_place.indexOf(place_row), place_row.indexOf(one_place))"
+                        @click="
+                          clickOwnedPlace(
+                            places.data_place.indexOf(place_row),
+                            place_row.indexOf(one_place),
+                            one_place.statusPrice
+                          )
+                        "
+                        v-if="one_place.statusPrice && !one_place.owned"
                       >
                         {{ one_place.placeNumber }}
+                      </div>
+                      <div
+                        class="w_25_px mar_02_em b_wrap one_place"
+                        :class="setNeededColor(one_place.statusPrice)"
+                        v-else
+                      >
+                        <div>x</div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div v-else>Вільна розсадка</div>
                 <div class="d_flex_column j_content_space_around p_tb_5">
                   <div class="d_flex_row">
                     <span class="open_sans small_font">
@@ -872,6 +918,7 @@ export default {
   },
   data() {
     return {
+      newUsersPrcs: null,
       transcriptWord: transcription,
       isPremierePlayUa: "прем'єра",
       isPremierePlayEn: "premiere",
@@ -934,6 +981,7 @@ export default {
         email: null,
         userName: null,
         countTickets: 1,
+        place: null,
       },
       thePlay: this.play,
       showPaymentForm: false,
@@ -948,7 +996,6 @@ export default {
       sluginToServerAuthor: "authors",
       concat: concat,
       places: null,
-      
     };
   },
   created() {
@@ -957,9 +1004,10 @@ export default {
     this.isUserAuth();
   },
   methods: {
-    clickOwnedPlace(index_1, index_2){
+    clickOwnedPlace(index_1, index_2, stats) {
       this.places.data_place[index_1][index_2].owned = true;
-      console.log(this.places.data_place);
+      this.callBackData.place = { row: index_1 + 1, plc: index_2 + 1 };
+      this.instancePriceForUser(stats);
     },
     setNeededColor(statPlace) {
       // Виставляє потрібний колір для вистави
@@ -977,13 +1025,15 @@ export default {
       }
     },
     async getPlaces() {
-      this.places = await fetch(
-        `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
-      )
-        .then((response) => response.json())
-        .catch((error) => {
-          console.log(error);
-        });
+      if (!this.withPhoto) {
+        this.places = await fetch(
+          `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
+        )
+          .then((response) => response.json())
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
     drawHorizontalLine(classEl, index = 0) {
       // Підкреслення по наведенню на елемент
@@ -1027,9 +1077,17 @@ export default {
           time_play: this.onlyDate(this.currentDatePlay.date_pl),
           play_name: this.thePlay.name,
           count_tickets: this.callBackData.countTickets,
+          user_place: this.callBackData.place,
           object_date: this.idDatePlayOne,
           refer_link: localStorage.getItem("referal"),
         })
+      );
+    },
+    async setPlaceInToStorage() {
+      // Заносить order_id в локальне сховище
+      localStorage.setItem(
+        "infoForPlace",
+        JSON.stringify({ data: this.places, dateId: this.idDatePlayOne })
       );
     },
     async goToPayPage() {
@@ -1042,14 +1100,28 @@ export default {
       //  Перехід на іншу сторінку з фокусом на ній
       this.getLinkPay()
         .then(() => this.setOrderInToStorage())
+        .then(() => this.setPlaceInToStorage())
         .then(() => this.goToPayPage());
     },
+    instancePriceForUser(statusPrcs) {
+      // Встановлює ціну в зал від вибраного місця
+      let statuses = [
+        { st: "G", cls: this.thePlay.price_for_play },
+        { st: "Y", cls: this.thePlay.price_for_play_yellow },
+        { st: "R", cls: this.thePlay.price_for_play_red },
+      ];
 
+      for (let x = 0; x < statuses.length; x++) {
+        if (statuses[x].st == statusPrcs) {
+          this.newUsersPrcs = statuses[x].cls;
+        }
+      }
+    },
     async getLinkPay() {
       // Посилання на оплату
 
       this.theLinkPay = await fetch(
-        `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/${this.thePlay.price_for_play}/`
+        `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/${this.newUsersPrcs}/`
       )
         .then((response) => response.json())
         .catch((error) => {
@@ -1060,6 +1132,17 @@ export default {
     setCountTickets(value) {
       // к-ть квитків > 0
       this.callBackData.countTickets = Math.abs(value);
+    },
+
+    checkPlace() {
+      if (!this.thePlay.free_seats) {
+        if (this.callBackData.place) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      return true;
     },
 
     checkCorrectEmail(mail) {
@@ -1081,8 +1164,8 @@ export default {
       if (
         check_a &&
         check_dot &&
-        this.callBackData.userName
-        // this.callBackData.countTickets > 0
+        this.callBackData.userName && 
+        this.checkPlace()
       ) {
         return true;
       } else {

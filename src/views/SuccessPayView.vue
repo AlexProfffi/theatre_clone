@@ -56,6 +56,7 @@ export default {
       innerSpiner: true,
       dataAndSign: {},
       currentOrderId: JSON.parse(localStorage.getItem("infoForTicket")),
+      currentPlaces: JSON.parse(localStorage.getItem("infoForPlace")),
       textRing: "Виконується оплата...",
       answerInfoBuy: null,
       answerInfoBuyNumberOrder: null,
@@ -90,6 +91,20 @@ export default {
     }
   },
   methods: {
+    async setNewFormatPlaces() {
+        let url = `https://theatreofplaywrightsapi.space:8443/api/v1/create_places/`;
+        await fetch(url, {
+                method: "POST",
+                headers: {
+                    accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: localStorage.getItem("infoForPlace"),
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
     async getDataAndSign() {
       let url = `${this.$store.getters.getServerUrl}/show_status_pay/${
         JSON.parse(localStorage.getItem("infoForTicket")).order_id
@@ -120,12 +135,15 @@ export default {
             })
             .then(() => {
               this.innerSpiner = false;
-            });
+            })
+            .then(() => this.setNewFormatPlaces())
         })
         .catch((error) => {
           console.log(error);
         });
     },
+
+    
 
     async goToMainPage() {
       window.location = "https://theatreofplaywrights.com/";
