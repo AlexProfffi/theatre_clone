@@ -999,7 +999,9 @@ export default {
     };
   },
   created() {
-    this.getPlaces().then(() => this.setNewVarPrice());
+    this.getPlaces()
+      .then(() => this.setNewVarPrice())
+      .then(() => this.clearLocalStorages());
     this.whoIsIt(this.thePlay.staff, "Режисер", "Режисерка");
     this.isUserAuth();
   },
@@ -1086,12 +1088,18 @@ export default {
         })
       );
     },
+    async clearLocalStorages() {
+      localStorage.removeItem("infoForPlace");
+      localStorage.removeItem("infoForTicket");
+    },
     async setPlaceInToStorage() {
       // Заносить order_id в локальне сховище
-      localStorage.setItem(
-        "infoForPlace",
-        JSON.stringify({ data: this.places, dateId: this.idDatePlayOne })
-      );
+      if (!this.thePlay.free_seats) {
+        localStorage.setItem(
+          "infoForPlace",
+          JSON.stringify({ data: this.places, dateId: this.idDatePlayOne })
+        );
+      }
     },
     async goToPayPage() {
       document.querySelector("#email").disabled = true;
@@ -1103,7 +1111,7 @@ export default {
       //  Перехід на іншу сторінку з фокусом на ній
       this.getLinkPay()
         .then(() => this.setOrderInToStorage())
-        // .then(() => this.setPlaceInToStorage())
+        .then(() => this.setPlaceInToStorage())
         .then(() => this.goToPayPage());
     },
     instancePriceForUser(statusPrcs) {
