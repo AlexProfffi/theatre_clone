@@ -1013,6 +1013,7 @@ export default {
       this.places.data_place[index_1][index_2].owned = true;
       this.callBackData.place.push({ row: index_1 + 1, plc: index_2 + 1 });
       this.instancePriceForUser(stats);
+      this.callBackData.countTickets++;
     },
     setNeededColor(statPlace) {
       // Виставляє потрібний колір для вистави
