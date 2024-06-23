@@ -981,7 +981,7 @@ export default {
         email: null,
         userName: null,
         countTickets: 1,
-        place: null,
+        place: [],
       },
       thePlay: this.play,
       showPaymentForm: false,
@@ -1011,7 +1011,7 @@ export default {
     },
     clickOwnedPlace(index_1, index_2, stats) {
       this.places.data_place[index_1][index_2].owned = true;
-      this.callBackData.place = { row: index_1 + 1, plc: index_2 + 1 };
+      this.callBackData.place.push({ row: index_1 + 1, plc: index_2 + 1 });
       this.instancePriceForUser(stats);
     },
     setNeededColor(statPlace) {
