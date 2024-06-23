@@ -795,7 +795,7 @@
                       :key="one_place.placeNumber"
                     >
                       <div
-                        class="w_25_px mar_02_em b_wrap c_pointer one_place"
+                        class="d_flex_column j_content_center w_25_px mar_02_em b_wrap c_pointer one_place small_font_09 h_35_px"
                         :class="setNeededColor(one_place.statusPrice)"
                         @click="
                           clickOwnedPlace(
@@ -809,7 +809,7 @@
                         {{ one_place.placeNumber }}
                       </div>
                       <div
-                        class="w_25_px mar_02_em b_wrap one_place"
+                        class="d_flex_column j_content_center w_25_px mar_02_em b_wrap one_place small_font_09 h_35_px"
                         :class="setNeededColor(one_place.statusPrice)"
                         v-else
                       >
@@ -845,6 +845,7 @@
                   </label>
                 </div>
                 <input
+                  :disabled="!thePlay.free_seats"
                   class="input_field t_center w_30"
                   type="number"
                   id="number"
