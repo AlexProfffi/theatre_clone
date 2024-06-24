@@ -919,7 +919,7 @@ export default {
   },
   data() {
     return {
-      newUsersPrcs: null,
+      newUsersPrcs: 0,
       transcriptWord: transcription,
       isPremierePlayUa: "прем'єра",
       isPremierePlayEn: "premiere",
@@ -1008,7 +1008,9 @@ export default {
   },
   methods: {
     async setNewVarPrice() {
-      this.newUsersPrcs = this.thePlay.price_for_play;
+      if (this.thePlay.free_seats) {
+        this.newUsersPrcs = this.thePlay.price_for_play;
+      }
     },
     clickOwnedPlace(index_1, index_2, stats) {
       this.places.data_place[index_1][index_2].owned = true;
@@ -1036,12 +1038,12 @@ export default {
         if (!this.thePlay.free_seats) {
           this.callBackData.countTickets = 0;
           this.places = await fetch(
-          `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
-        )
-          .then((response) => response.json())
-          .catch((error) => {
-            console.log(error);
-          });
+            `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
+          )
+            .then((response) => response.json())
+            .catch((error) => {
+              console.log(error);
+            });
         }
       }
     },
@@ -1129,20 +1131,30 @@ export default {
       ];
       for (let x = 0; x < statuses.length; x++) {
         if (statuses[x].st == statusPrcs) {
-          this.newUsersPrcs = statuses[x].cls;
+          this.newUsersPrcs += statuses[x].cls;
         }
       }
     },
     async getLinkPay() {
       // Посилання на оплату
 
-      this.theLinkPay = await fetch(
-        `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/${this.newUsersPrcs}/`
-      )
-        .then((response) => response.json())
-        .catch((error) => {
-          console.log(error);
-        });
+      if (!this.thePlay.free_seats) {
+        this.theLinkPay = await fetch(
+          `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/1/${this.newUsersPrcs}/`
+        )
+          .then((response) => response.json())
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        this.theLinkPay = await fetch(
+          `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/${this.callBackData.countTickets}/${this.newUsersPrcs}/`
+        )
+          .then((response) => response.json())
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
 
     setCountTickets(value) {
