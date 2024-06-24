@@ -919,7 +919,7 @@ export default {
   },
   data() {
     return {
-      newUsersPrcs: 0,
+      newUsersPrcs: null,
       transcriptWord: transcription,
       isPremierePlayUa: "прем'єра",
       isPremierePlayEn: "premiere",
@@ -1037,6 +1037,7 @@ export default {
       if (!this.withPhoto) {
         if (!this.thePlay.free_seats) {
           this.callBackData.countTickets = 0;
+          this.newUsersPrcs = [];
           this.places = await fetch(
             `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
           )
@@ -1131,16 +1132,24 @@ export default {
       ];
       for (let x = 0; x < statuses.length; x++) {
         if (statuses[x].st == statusPrcs) {
-          this.newUsersPrcs += statuses[x].cls;
+          this.newUsersPrcs.push(statuses[x].cls);
         }
       }
     },
+    sum(list) {
+      let cnt = 0;
+      for (let x = 0; x < list.length; x++) {
+        cnt += list[x];
+      }
+      return cnt;
+    },
+
     async getLinkPay() {
       // Посилання на оплату
 
       if (!this.thePlay.free_seats) {
         this.theLinkPay = await fetch(
-          `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/1/${this.newUsersPrcs}/`
+          `${this.$store.getters.getServerUrl}/buy_ticket/${this.idp}/1/${this.sum(this.newUsersPrcs)}/`
         )
           .then((response) => response.json())
           .catch((error) => {
