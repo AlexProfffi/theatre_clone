@@ -41,7 +41,7 @@
                   placeholder="Email ..."
                   class="f_size_15"
                 />
-                <input type="submit" value="Експорт *.xlsx" class="f_size_15">
+                <input type="submit" value="Експорт *.xlsx" class="f_size_15" />
               </form>
             </div>
             <div
@@ -239,6 +239,12 @@
                 >
                   {{ oneTckt.name_usr }}:
                   {{ visibleDate(oneTckt.date_create, true) }}
+                  <div class="f_weight_bold_700" v-if="!oneTckt.price_ticket">
+                    {{ Object(st.price_for_play) }}
+                  </div>
+                  <div class="f_weight_bold_700" v-else>
+                    {{ Object(oneTckt.price_ticket) }}
+                  </div>
                   <hr />
                 </div>
               </div>
@@ -247,7 +253,12 @@
               class="border_td_like_left w_30 pad_03em f_source_sans"
               :class="{ f_weight_bold: Object(st.dateobj).length }"
             >
-              {{ Object(st.dateobj).length * Object(st.price_for_play) }}
+              <div v-if="!oneTckt.price_ticket">
+                {{ Object(st.dateobj).length * Object(st.price_for_play) }}
+              </div>
+              <div v-else>
+                {{ Object(st.dateobj).length * Object(oneTckt.price_ticket) }}
+              </div>
             </div>
           </div>
         </div>
@@ -466,8 +477,14 @@ export default {
       // Сортує окремо сумму коштів квитків
       this.sumAmount = 0;
       for (let x = 0; x < this.statistic.length; x++) {
-        this.sumAmount +=
-          this.statistic[x].dateobj.length * this.statistic[x].price_for_play;
+        if (!this.statistic[x].dateobj.price_ticket) {
+          this.sumAmount +=
+            this.statistic[x].dateobj.length * this.statistic[x].price_for_play;
+        } else {
+          this.sumAmount +=
+            this.statistic[x].dateobj.length *
+            this.statistic[x].dateobj.price_ticket;
+        }
       }
     },
     setTitle() {

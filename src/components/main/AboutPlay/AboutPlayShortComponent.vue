@@ -1087,6 +1087,7 @@ export default {
           user_place: this.callBackData.place,
           object_date: this.idDatePlayOne,
           refer_link: localStorage.getItem("referal"),
+          price: this.newUsersPrcs,
         })
       );
     },
