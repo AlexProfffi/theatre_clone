@@ -1033,13 +1033,16 @@ export default {
     },
     async getPlaces() {
       if (!this.withPhoto) {
-        this.places = await fetch(
+        if (!this.thePlay.free_seats) {
+          this.callBackData.countTickets = 0;
+          this.places = await fetch(
           `${this.$store.getters.getServerUrl}/show_places/${this.idDatePlayOne}/`
         )
           .then((response) => response.json())
           .catch((error) => {
             console.log(error);
           });
+        }
       }
     },
     drawHorizontalLine(classEl, index = 0) {

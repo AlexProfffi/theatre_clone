@@ -239,11 +239,11 @@
                 >
                   {{ oneTckt.name_usr }}:
                   {{ visibleDate(oneTckt.date_create, true) }}
-                  <div class="f_weight_bold_700" v-if="!oneTckt.price_ticket">
+                  <div class="f_weight_bold_700" v-if="!Object(oneTckt.price_ticket)">
                     {{ Object(st.price_for_play) }}
                   </div>
                   <div class="f_weight_bold_700" v-else>
-                    {{ Object(oneTckt.price_ticket) }}
+                    {{ oneTckt.price_ticket }}
                   </div>
                   <hr />
                 </div>
@@ -253,11 +253,11 @@
               class="border_td_like_left w_30 pad_03em f_source_sans"
               :class="{ f_weight_bold: Object(st.dateobj).length }"
             >
-              <div v-if="!oneTckt.price_ticket">
+              <div v-if="Object(oneTckt).price_ticket == null">
                 {{ Object(st.dateobj).length * Object(st.price_for_play) }}
               </div>
               <div v-else>
-                {{ Object(st.dateobj).length * Object(oneTckt.price_ticket) }}
+                {{ Object(st.dateobj).length * Object(oneTckt).price_ticket }}
               </div>
             </div>
           </div>
