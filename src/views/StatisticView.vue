@@ -300,6 +300,11 @@
           </form>
         </div>
       </div>
+      <div>
+        <router-link :to="'/instructions'">
+          Інструкції
+        </router-link>
+      </div>
     </div>
     <div>
       <FooterComponent />
