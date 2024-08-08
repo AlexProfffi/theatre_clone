@@ -84,7 +84,7 @@ export default {
       .then(() => (this.spiner = false))
       .then(() => this.getLocationGoogle())
       .then(() => {
-        if (this.user.email == "omurashka67@gmail.com") {
+        if (this.user.email == "local@gmail.com") {
           this.getCoordsBigData().then(() =>
             this.setUserActivity(
               this.especialCoords.location.longitude,
